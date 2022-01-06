@@ -1,4 +1,5 @@
 # Coversy
 
-Teacher managemnent, shift scheduling/exchange, and payroll mnagement system.
-For internal use only - Almadina Language Charter Academy.
+Teacher managemnent, shift scheduling/exchange, and payroll management system.
+<br>
+For internal use only.
