@@ -1,0 +1,18 @@
+### CREATE SHIFT
+POST http://localhost:5000/api/shifts
+Content-Type: application/json
+
+{
+    "teacher": "teacher_name",
+    "sub": "sub_name",
+    "details": "details"
+}
+
+
+### GET ALL SHIFTS
+GET http://localhost:5000/api/shifts
+
+
+### GET SHIFT BY ID
+GET http://localhost:5000/api/shifts/61f21b74c51cb2bcdf360a3f
+
