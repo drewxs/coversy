@@ -1,0 +1,21 @@
+@use 'breakpoints' as *;
+
+@mixin respond-to($key) {
+	$size: map-get($breakpoints, $key);
+
+	@if ($key == laptop or $key == desktop) {
+		@media only screen and (min-width: $size) {
+			@content;
+		}
+	} @else {
+		@media only screen and (max-width: $size) {
+			@content;
+		}
+	}
+}
+
+@mixin text-overflow {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
