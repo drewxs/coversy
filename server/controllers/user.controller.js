@@ -10,6 +10,13 @@ const User = require('../models/user.model');
  */
 exports.registerUser = async (req, res) => {};
 
+/**
+ *
+ * @desc This function logs in a user.
+ * @route POST /user/
+ * @access Admin
+ */
+exports.loginUser = async (req, res) => {};
 //READ
 
 /**
