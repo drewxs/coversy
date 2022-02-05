@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Router } = require('express');
 const {
 	registerUser,
-	loginUser,
 	getAllUsers,
 	getUserById,
 	getUserByFirstName,
@@ -17,7 +16,6 @@ const {
 
 // CREATE
 router.post('/', registerUser);
-router.post('/', loginUser);
 
 // READ
 router.get('/', getAllUsers);
