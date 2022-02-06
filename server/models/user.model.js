@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	// 1: Admin, 2: Teacher, 3: Sub
 	type: {
 		type: Number,
 		required: true,
@@ -41,6 +42,10 @@ const UserSchema = new mongoose.Schema({
 	bio: {
 		type: String,
 		max: 500,
+	},
+	verified: {
+		type: Boolean,
+		default: false,
 	},
 	site: {
 		type: mongoose.Schema.Types.ObjectId,
