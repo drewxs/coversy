@@ -25,8 +25,7 @@ npm i
 
 ### Configuration
 
-Include the server .env file in the root of the server directory.
-<br>
+Include the server .env file in the root of the server directory. <br>
 Include the client .env file in the client/src directory.
 
 ### Development
@@ -45,5 +44,5 @@ npm start
 
 ### Troubleshooting
 
-Make sure you have the latest version of NodeJS and NPM.
+Make sure you have the latest version of NodeJS and NPM. <br>
 Check if you are in the right folder when running scripts.
