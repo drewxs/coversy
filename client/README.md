@@ -1,4 +1,4 @@
-# Coversy - Server
+# Coversy - Client
 
 ### Tools
 
