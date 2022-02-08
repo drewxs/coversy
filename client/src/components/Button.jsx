@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const Button = () => {
-	return <div></div>;
+export const Button = (str) => {
+	return <button>${str}</button>;
 };
