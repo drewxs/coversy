@@ -20,7 +20,7 @@ $ npm -v && node -v
 ### Installation
 
 ```sh
-npm i
+$ npm i
 ```
 
 ### Configuration
@@ -30,7 +30,7 @@ Include the client .env file in the src directory.
 ### Development
 
 ```sh
-npm start
+$ npm start
 ```
 
 ### Troubleshooting
@@ -40,7 +40,7 @@ Make sure you have the latest version of NodeJS and NPM.
 Run the following for missing modules:
 
 ```sh
-npm i
+$ npm i
 ```
 
 For missing environment variables, reach out for a copy of the .env file.

@@ -2,7 +2,7 @@
 
 ### Introduction
 
-Teacher managemnent, shift scheduling/exchange, and payroll management system. For internal use only.
+Instructor shift scheduling, shift exchange, and payroll management system. For internal use only.
 
 ### Prerequisites
 
@@ -20,7 +20,7 @@ $ npm -v && node -v
 Run this in both the server and client folders:
 
 ```sh
-npm i
+$ npm i
 ```
 
 ### Configuration
@@ -33,13 +33,13 @@ Include the client .env file in the client/src directory.
 Run this in the server folder:
 
 ```sh
-npm run dev
+$ npm run dev
 ```
 
 Run this in the client folder:
 
 ```sh
-npm start
+$ npm start
 ```
 
 ### Troubleshooting
