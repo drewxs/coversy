@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const Login = () => {
+export const Button = () => {
 	return <div></div>;
 };

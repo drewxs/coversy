@@ -1,5 +1,11 @@
-function App() {
-	return <div className="App"></div>;
-}
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { Profile } from 'pages/Profile';
 
-export default App;
+export const App = () => {
+	return (
+		<>
+			<Route exact path='/profile' component={Profile} />
+		</>
+	);
+};

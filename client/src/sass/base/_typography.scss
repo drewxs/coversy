@@ -1,5 +1,5 @@
 body {
-	font-size: var(--fs-400);
+	font-size: 20px;
 	font-family: 'Montserrat', sans-serif;
 	color: var(--clr-neutral-900);
 	letter-spacing: -0.5px;
@@ -20,32 +20,26 @@ h4 {
 h1,
 .h1 {
 	--font-weight: 900;
-	font-size: --fs-800;
+	font-size: 3em;
 }
 
 h2,
 .h2 {
-	font-size: --fs-700;
+	font-size: 2.5em;
 }
 
 h3,
 .h3 {
-	font-size: --fs-600;
+	font-size: 2.2em;
 }
 
 h4,
-.h4 {
-	font-size: --fs-500;
-}
-
+.h4,
 h5,
-.h5 {
-	font-size: --fs-400;
-}
-
+.h5,
 h6,
 .h6 {
-	font-size: --fs-300;
+	font-size: 2em;
 }
 
 a {

@@ -39,3 +39,8 @@ export const userSlice = createSlice({
 		},
 	},
 });
+
+export const { loginUser, loadingUser, setErrors, clearErrors } =
+	userSlice.actions;
+
+export default userSlice.reducer;
