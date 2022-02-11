@@ -6,7 +6,11 @@ const Site = require('../models/site.model');
  * @route POST /site/
  * @access Admin
  */
-exports.createSite = async (req, res) => {};
+exports.createSite = async (req, res) => {
+	Site.create(req.body)
+		.then((site) => res.status(200).json(site))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -14,7 +18,11 @@ exports.createSite = async (req, res) => {};
  * @route GET /site/
  * @access Admin
  */
-exports.getAllSites = async (req, res) => {};
+exports.getAllSites = async (req, res) => {
+	Site.find()
+		.then((site) => res.status(200).json(site))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -22,15 +30,11 @@ exports.getAllSites = async (req, res) => {};
  * @route GET /site/:siteId
  * @access Admin
  */
-exports.getSiteById = async (req, res) => {};
-
-/**
- *
- * @desc This function returns sites by name.
- * @route GET /site/:siteName
- * @access Admin
- */
-exports.getSiteByName = async (req, res) => {};
+exports.getSiteById = async (req, res) => {
+	Site.findById(req.params.siteId)
+		.then((site) => res.status(200).json(site))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -38,12 +42,27 @@ exports.getSiteByName = async (req, res) => {};
  * @route PUT /site/:siteId
  * @access Admin
  */
-exports.updateSiteById = async (req, res) => {};
+exports.updateSiteById = async (req, res) => {
+	const updateQuery = {};
+	if (req.body.name) {
+		updateQuery.name = req.body.name;
+	}
+	if (req.body.address) {
+		updateQuery.address = req.body.address;
+	}
+	Site.findByIdAndUpdate(req.params.siteId, updateQuery)
+		.then((site) => res.status(200).json(site))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
  * @desc This function deletes sites by ID.
  * @route DELETE /site/:siteId
- * @access Admin
+ * @access SysAdmin
  */
-exports.deleteSiteById = async (req, res) => {};
+exports.deleteSiteById = async (req, res) => {
+	Site.findByIdAndDelete(req.params.siteId)
+		.then((site) => res.status(200).json(site))
+		.catch((err) => res.status(400).json(err));
+};
