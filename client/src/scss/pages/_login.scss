@@ -1,0 +1,61 @@
+.main {
+	text-align: center;
+	justify-content: center;
+	display: flex;
+	padding: 250px 2px 250px 2px;
+	background: rgb(255, 254, 254);
+}
+.sub-main {
+	display: flex;
+	justify-content: center;
+	height: 450px;
+	width: 50%;
+	padding-top: 30px;
+	border-radius: 0px;
+	background-color: white;
+}
+.imgs {
+	padding-top: 20px;
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+}
+.usrpass {
+	padding: 10px;
+}
+.container-imgs {
+	background-color: rgb(223, 221, 221);
+	border-radius: 150px;
+	align-items: center;
+	display: flex;
+	height: 115px;
+	width: 115px;
+}
+.profile {
+	height: 100px;
+	width: 100px;
+	border-radius: 130px;
+}
+input {
+	width: 350px;
+	height: 40px;
+	border-radius: 10px;
+	box-shadow: insert 0px 0px 25px 0px #888;
+}
+.loginButton {
+	padding-top: 20px;
+}
+button {
+	background-color: #257A7A;
+	height: 45px;
+	width: 60%;
+	border-radius: 60px;
+	p {
+		color: white;
+		font-size: 20px;
+		font-family: Lexend;
+		font-style: normal;
+		font-weight: normal;
+		letter-spacing: 0.1px;
+	}
+}
