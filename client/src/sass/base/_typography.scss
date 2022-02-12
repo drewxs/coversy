@@ -1,54 +1,45 @@
+@use '../abstract' as *;
+
 body {
-	font-size: 20px;
-	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	font-family: 'Inter', sans-serif;
 	color: var(--clr-neutral-900);
-	letter-spacing: -0.5px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-	--font-weight: 700;
-	--font-width: 80;
-	font-weight: normal;
-	font-stretch: 100%;
-	line-height: 1.1;
-	color: var(--clr-neutral-800);
+@include headings {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	color: $text;
 }
 
 h1,
 .h1 {
-	--font-weight: 900;
 	font-size: 3em;
 }
 
 h2,
 .h2 {
-	font-size: 2.5em;
+	font-size: 2em;
 }
 
 h3,
-.h3 {
-	font-size: 2.2em;
-}
-
+.h3,
 h4,
 .h4,
 h5,
 .h5,
 h6,
 .h6 {
-	font-size: 2em;
+	font-size: 1.5em;
 }
 
 a {
-	color: var(--clr-primary-400);
+	color: $primary;
+	text-decoration: none;
 
 	&:hover,
 	&:focus {
-		color: var(--clr-primary-500);
-		text-decoration: none;
+		color: rgba($color: $primary, $alpha: 0.5);
 	}
 }
 
