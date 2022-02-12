@@ -1,11 +1,27 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Profile } from 'pages/Profile';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+	Login,
+	Profile,
+	Registration,
+	SiteRegistration,
+	Stylesheet,
+} from 'pages';
 
 export const App = () => {
 	return (
-		<>
-			<Route exact path='/profile' component={Profile} />
-		</>
+		<Router>
+			<Routes>
+				<Route exact path='/login' element={<Login />} />
+				<Route exact path='/profile' element={<Profile />} />
+				<Route exact path='/registration' element={<Registration />} />
+				<Route
+					exact
+					path='/registration/site'
+					element={<SiteRegistration />}
+				/>
+				<Route exact path='/stylesheet' element={<Stylesheet />} />
+			</Routes>
+		</Router>
 	);
 };
