@@ -1,4 +1,5 @@
 const Site = require('../models/site.model');
+const escape = require('escape-html');
 
 /**
  *
@@ -7,7 +8,16 @@ const Site = require('../models/site.model');
  * @access Admin
  */
 exports.createSite = async (req, res) => {
-	Site.create(req.body)
+	const location = {
+		name: escape(req.body.name),
+		address: {
+			street: escape(req.body.address.street),
+			zip: escape(req.body.address.zip),
+			city: escape(req.body.address.city),
+			province: escape(req.body.address.province),
+		},
+	};
+	Site.create(location)
 		.then((site) => res.status(200).json(site))
 		.catch((err) => res.status(400).json(err));
 };
@@ -31,7 +41,9 @@ exports.getAllSites = async (req, res) => {
  * @access Admin
  */
 exports.getSiteById = async (req, res) => {
-	Site.findById(req.params.siteId)
+	const siteId = escape(req.params.siteId);
+
+	Site.findById(siteId)
 		.then((site) => res.status(200).json(site))
 		.catch((err) => res.status(400).json(err));
 };
@@ -45,12 +57,19 @@ exports.getSiteById = async (req, res) => {
 exports.updateSiteById = async (req, res) => {
 	const updateQuery = {};
 	if (req.body.name) {
-		updateQuery.name = req.body.name;
+		updateQuery.name = escape(req.body.name);
 	}
 	if (req.body.address) {
-		updateQuery.address = req.body.address;
+		updateQuery.address = {
+			street: escape(req.body.address.street),
+			zip: escape(req.body.address.zip),
+			city: escape(req.body.address.city),
+			province: escape(req.body.address.province),
+		};
 	}
-	Site.findByIdAndUpdate(req.params.siteId, updateQuery)
+	const siteId = escape(req.params.siteId);
+
+	Site.findByIdAndUpdate(siteId, updateQuery)
 		.then((site) => res.status(200).json(site))
 		.catch((err) => res.status(400).json(err));
 };
@@ -62,7 +81,9 @@ exports.updateSiteById = async (req, res) => {
  * @access SysAdmin
  */
 exports.deleteSiteById = async (req, res) => {
-	Site.findByIdAndDelete(req.params.siteId)
+	const siteId = escape(req.params.siteId);
+
+	Site.findByIdAndDelete(siteId)
 		.then((site) => res.status(200).json(site))
 		.catch((err) => res.status(400).json(err));
 };
