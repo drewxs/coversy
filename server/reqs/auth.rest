@@ -1,0 +1,15 @@
+### REGISTER SITE
+POST http://localhost:5000/api/auth/register/site
+Content-Type: application/json
+
+{
+    "name": "Test Site",
+    "address": {
+        "street": "123 Main St",
+        "city": "Anytown",
+        "zip": "A1A1A1",
+        "province": "AB"
+    },
+    "email": "test@test.com",
+    "password": "testpass"
+}
