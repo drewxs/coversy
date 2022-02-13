@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
 	},
 	middleInitial: {
 		type: String,
-		required: true,
+		min: 1,
+		max: 1,
 	},
 	// 1: Admin, 2: Teacher, 3: Sub
 	type: {
