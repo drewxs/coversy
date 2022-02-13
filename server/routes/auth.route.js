@@ -1,6 +1,12 @@
 const router = require('express').Router();
-const { login, register } = require('../controllers/auth.controller');
-const verify = require('../middleware/verify');
+const {
+	registerUser,
+	login,
+	registerSite,
+} = require('../controllers/auth.controller');
 
+router.post('/register/user', registerUser);
 router.post('/login', login);
-router.post('/register', register);
+router.post('/register/site', registerSite);
+
+module.exports = router;
