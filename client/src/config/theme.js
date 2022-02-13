@@ -6,7 +6,9 @@ export const theme = createTheme({
 		fontFamily: `${(variables.fontBody, variables.fontBodyFallback)}`,
 	},
 	palette: {
-		primary: variables.primary,
-		secondary: variables.secondary,
+		primary: {
+			main: variables.primary,
+		},
+		secondary: { main: variables.secondary },
 	},
 });
