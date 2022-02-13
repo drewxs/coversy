@@ -1,0 +1,16 @@
+### CREATE SITE
+POST http://localhost:5000/api/site
+Content-Type: application/json
+
+{
+    "name": "site_name",
+    "address": {
+        "street": "street_name",
+        "zip": "123456",
+        "city": "city_name",
+        "province": "AB",
+    },
+}
+
+### GET ALL SITES
+GET http://localhost:5000/api/shifts
