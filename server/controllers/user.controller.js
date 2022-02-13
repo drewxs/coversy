@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const escape = require('escape-html');
 
 //CREATE
 
@@ -8,7 +9,25 @@ const User = require('../models/user.model');
  * @route POST /user/
  * @access Admin
  */
-exports.registerUser = async (req, res) => {};
+exports.registerUser = async (req, res) => {
+	const userInfo = {
+		firstName: escape(req.body.firstName),
+		lastName: escape(req.body.lastName),
+		middleInitial: escape(req.body.middleInitial),
+		type: escape(req.body.type),
+		phone: escape(req.body.phone),
+		email: escape(req.body.email),
+		password: escape(req.body.password),
+		avatar: escape(req.body.avatar),
+		bio: escape(req.body.bio),
+		verified: escape(req.body.verified),
+		site: escape(req.body.site),
+		payroll: escape(req.body.payroll),
+	};
+	User.create(userInfo)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 //READ
 
@@ -18,7 +37,11 @@ exports.registerUser = async (req, res) => {};
  * @route GET /user/
  * @access Admin
  */
-exports.getAllUsers = async (req, res) => {};
+exports.getAllUsers = async (req, res) => {
+	User.find()
+		.then((users) => res.status(200).json(users))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -26,7 +49,13 @@ exports.getAllUsers = async (req, res) => {};
  * @route GET /user/:userId
  * @access Admin
  */
-exports.getUserById = async (req, res) => {};
+exports.getUserById = async (req, res) => {
+	const userId = escape(req.params.userId);
+
+	User.findById(userId)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -34,7 +63,13 @@ exports.getUserById = async (req, res) => {};
  * @route GET /user/:firstName/:siteId
  * @access Admin
  */
-exports.getUserByFirstName = async (req, res) => {};
+exports.getUserByFirstName = async (req, res) => {
+	const firstName = escape(req.params.firstName);
+
+	User.find(firstName)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -42,7 +77,13 @@ exports.getUserByFirstName = async (req, res) => {};
  * @route GET /user/:lastName/:siteId
  * @access Admin
  */
-exports.getUserByLastName = async (req, res) => {};
+exports.getUserByLastName = async (req, res) => {
+	const lastName = escape(req.params.lastName);
+
+	User.find(lastName)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -50,7 +91,13 @@ exports.getUserByLastName = async (req, res) => {};
  * @route GET /user/:email/:siteId
  * @access Admin
  */
-exports.getUserByEmail = async (req, res) => {};
+exports.getUserByEmail = async (req, res) => {
+	const email = escape(req.params.email);
+
+	User.find(email)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  *
@@ -58,7 +105,13 @@ exports.getUserByEmail = async (req, res) => {};
  * @route GET /user/:siteid
  * @access Admin
  */
-exports.getUserBySite = async (req, res) => {};
+exports.getUserBySite = async (req, res) => {
+	const site = escape(req.params.site);
+
+	User.find(site)
+		.then((users) => res.status(200).json(users))
+		.catch((err) => res.status(400).json(err));
+};
 
 //UPDATE
 
@@ -68,7 +121,41 @@ exports.getUserBySite = async (req, res) => {};
  * @route PUT /user/:userId
  * @access Admin
  */
-exports.updateUserById = async (req, res) => {};
+exports.updateUserById = async (req, res) => {
+	const updateQuery = {};
+	if (req.body.firstName) {
+		updateQuery = escape(req.body.firstName);
+	}
+	if (req.body.lastName) {
+		updateQuery = escape(req.body.lastName);
+	}
+	if (req.body.middInitial) {
+		updateQuery = escape(req.body.middleInitial);
+	}
+	if (req.body.phone) {
+		updateQuery.phone = escape(req.body.phone);
+	}
+	if (req.body.email) {
+		updateQuery.email = escape(req.body.email);
+	}
+	if (req.body.avatar) {
+		updateQuery.avatar = escape(req.body.avatar);
+	}
+	if (req.body.bio) {
+		updateQuery.bio = escape(req.body.bio);
+	}
+	if (req.body.verified) {
+		updateQuery.verified = escape(req.body.verified);
+	}
+	if (req.body.site) {
+		updateQuery.site = escape(req.body.site);
+	}
+	const userId = escape(req.params.userId);
+
+	User.findByIdAndUpdate(userId, updateQuery)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
 
 //DELETE
 
@@ -78,20 +165,10 @@ exports.updateUserById = async (req, res) => {};
  * @route DELETE /user/:userId
  * @access Admin
  */
-exports.deleteUserById = async (req, res) => {};
+exports.deleteUserById = async (req, res) => {
+	const userId = escape(req.params.userId);
 
-/**
- *
- * @desc This function deletes users by email.
- * @route DELETE /user/:email
- * @access Admin
- */
-exports.deleteUserByEmail = async (req, res) => {};
-
-/**
- *
- * @desc This function deletes users by Site.
- * @route DELETE /user/:siteId
- * @access Admin
- */
-exports.deleteUserBySite = async (req, res) => {};
+	User.findByIdAndDelete(userId)
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
