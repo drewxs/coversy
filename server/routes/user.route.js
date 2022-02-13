@@ -8,7 +8,7 @@ const {
 	updateUserById,
 	deleteUserById,
 } = require('../controllers/user.controller');
-const verify = require('../middleware/verify');
+const verifyToken = require('../middleware/verify.token');
 
 // READ
 router.get('/', getAllUsers);
@@ -16,9 +16,9 @@ router.get('/:userId', getUserById);
 router.get('/:siteId', getUsersBySite);
 
 // UPDATE
-router.put('/:userId', verify, updateUserById);
+router.put('/:userId', verifyToken, updateUserById);
 
 // DELETE
-router.delete('/:userId', verify, deleteUserById);
+router.delete('/:userId', verifyToken, deleteUserById);
 
 module.exports = router;
