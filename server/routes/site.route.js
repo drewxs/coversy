@@ -3,7 +3,6 @@ const {
 	createSite,
 	getAllSites,
 	getSiteById,
-	getSiteByName,
 	updateSiteById,
 	deleteSiteById,
 } = require('../controllers/site.controller');
@@ -14,7 +13,6 @@ router.post('/', createSite);
 // READ
 router.get('/', getAllSites);
 router.get('/:siteID', getSiteById);
-router.get('/:siteName', getSiteByName);
 
 // UPDATE
 router.post('/:siteID', updateSiteById);
