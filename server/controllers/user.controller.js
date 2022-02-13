@@ -1,34 +1,6 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
 
-//CREATE
-
-/**
- *
- * @desc This function registers a user.
- * @route POST /user/
- * @access Admin
- */
-exports.registerUser = async (req, res) => {
-	const userInfo = {
-		firstName: escape(req.body.firstName),
-		lastName: escape(req.body.lastName),
-		middleInitial: escape(req.body.middleInitial),
-		type: escape(req.body.type),
-		phone: escape(req.body.phone),
-		email: escape(req.body.email),
-		password: escape(req.body.password),
-		avatar: escape(req.body.avatar),
-		bio: escape(req.body.bio),
-		verified: escape(req.body.verified),
-		site: escape(req.body.site),
-		payroll: escape(req.body.payroll),
-	};
-	User.create(userInfo)
-		.then((user) => res.status(200).json(user))
-		.catch((err) => res.status(400).json(err));
-};
-
 //READ
 
 /**
