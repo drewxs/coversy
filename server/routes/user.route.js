@@ -3,29 +3,22 @@ const {
 	registerUser,
 	getAllUsers,
 	getUserById,
-	getUserByFirstName,
-	getUserByLastName,
 	getUserByEmail,
-	getUserBySite,
+	getUsersBySite,
 	updateUserById,
 	deleteUserById,
 } = require('../controllers/user.controller');
-
-// CREATE
-router.post('/', registerUser);
+const verify = require('../middleware/verify');
 
 // READ
 router.get('/', getAllUsers);
 router.get('/:userId', getUserById);
-router.get('/:siteId', getUserBySite);
-router.get('/:firstName/:siteId', getUserByFirstName);
-router.get('/:lastName/:siteId', getUserByLastName);
-router.get('/:email/:siteId', getUserByEmail);
+router.get('/:siteId', getUsersBySite);
 
 // UPDATE
-router.put('/:userId', updateUserById);
+router.put('/:userId', verify, updateUserById);
 
 // DELETE
-router.delete('/:userId', deleteUserById);
+router.delete('/:userId', verify, deleteUserById);
 
 module.exports = router;

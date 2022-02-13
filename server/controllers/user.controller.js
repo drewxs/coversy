@@ -31,53 +31,11 @@ exports.getUserById = async (req, res) => {
 
 /**
  *
- * @desc This function returns users by first name.
- * @route GET /user/:firstName/:siteId
- * @access Admin
- */
-exports.getUserByFirstName = async (req, res) => {
-	const firstName = escape(req.params.firstName);
-
-	User.find(firstName)
-		.then((user) => res.status(200).json(user))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- *
- * @desc This function returns users by last name.
- * @route GET /user/:lastName/:siteId
- * @access Admin
- */
-exports.getUserByLastName = async (req, res) => {
-	const lastName = escape(req.params.lastName);
-
-	User.find(lastName)
-		.then((user) => res.status(200).json(user))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- *
- * @desc This function returns users by email.
- * @route GET /user/:email/:siteId
- * @access Admin
- */
-exports.getUserByEmail = async (req, res) => {
-	const email = escape(req.params.email);
-
-	User.find(email)
-		.then((user) => res.status(200).json(user))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- *
  * @desc This function returns users by site.
  * @route GET /user/:siteid
  * @access Admin
  */
-exports.getUserBySite = async (req, res) => {
+exports.getUsersBySite = async (req, res) => {
 	const site = escape(req.params.site);
 
 	User.find(site)
@@ -95,37 +53,23 @@ exports.getUserBySite = async (req, res) => {
  */
 exports.updateUserById = async (req, res) => {
 	const updateQuery = {};
-	if (req.body.firstName) {
-		updateQuery = escape(req.body.firstName);
-	}
-	if (req.body.lastName) {
-		updateQuery = escape(req.body.lastName);
-	}
-	if (req.body.middInitial) {
-		updateQuery = escape(req.body.middleInitial);
-	}
-	if (req.body.phone) {
-		updateQuery.phone = escape(req.body.phone);
-	}
-	if (req.body.email) {
-		updateQuery.email = escape(req.body.email);
-	}
-	if (req.body.avatar) {
-		updateQuery.avatar = escape(req.body.avatar);
-	}
-	if (req.body.bio) {
-		updateQuery.bio = escape(req.body.bio);
-	}
-	if (req.body.verified) {
-		updateQuery.verified = escape(req.body.verified);
-	}
-	if (req.body.site) {
-		updateQuery.site = escape(req.body.site);
-	}
+	if (req.body.firstName) updateQuery.firstName = escape(req.body.firstName);
+	if (req.body.lastName) updateQuery.lastName = escape(req.body.lastName);
+	if (req.body.middleInitial)
+		updateQuery.middleInitial = escape(req.body.middleInitial);
+	if (req.body.phone) updateQuery.phone = escape(req.body.phone);
+	if (req.body.email) updateQuery.email = escape(req.body.email);
+	if (req.body.avatar) updateQuery.avatar = escape(req.body.avatar);
+	if (req.body.bio) updateQuery.bio = escape(req.body.bio);
+	if (req.body.verified) updateQuery.verified = escape(req.body.verified);
+	if (req.body.site) updateQuery.site = escape(req.body.site);
 	const userId = escape(req.params.userId);
 
-	User.findByIdAndUpdate(userId, updateQuery)
-		.then((user) => res.status(200).json(user))
+	User.findByIdAndUpdate(userId, updateQuery, { new: true })
+		.then((user) => {
+			if (!user) res.status(404).json('Error: User ID does not exist.');
+			res.status(200).json(user);
+		})
 		.catch((err) => res.status(400).json(err));
 };
 
