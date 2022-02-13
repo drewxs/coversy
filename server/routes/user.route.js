@@ -9,8 +9,6 @@ const {
 	getUserBySite,
 	updateUserById,
 	deleteUserById,
-	deleteUserByEmail,
-	deleteUserBySite,
 } = require('../controllers/user.controller');
 
 // CREATE
@@ -29,7 +27,5 @@ router.put('/:userId', updateUserById);
 
 // DELETE
 router.delete('/:userId', deleteUserById);
-router.delete('/:email', deleteUserByEmail);
-router.delete('/:siteId', deleteUserBySite);
 
 module.exports = router;
