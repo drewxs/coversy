@@ -1,0 +1,23 @@
+// Colors
+$primary: #257a7a;
+$secondary: #61cc90;
+$error: #e57373;
+$text: #080808;
+
+// Fonts
+$fontBody: 'Inter';
+$fontBodyFallback: 'sans-serif';
+$fontHeading: 'Raleway';
+$fontFaceUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Raleway:wght@500&display=swap';
+
+// Exporting for use in JS
+:export {
+	primary: $primary;
+	secondary: $secondary;
+	error: $error;
+	black: $text;
+	fontBody: $fontBody;
+	fontBodyFallback: $fontBodyFallback;
+	fontHeading: $fontHeading;
+	fontFaceUrl: $fontFaceUrl;
+}

@@ -1,11 +1,12 @@
 import { createTheme } from '@mui/material/styles';
+import variables from 'scss/abstract/_variables.scss';
 
 export const theme = createTheme({
 	typography: {
-		fontFamily: 'Inter, sans-serif',
+		fontFamily: `${(variables.fontBody, variables.fontBodyFallback)}`,
 	},
 	palette: {
-		primary: '#e57373',
-		secondary: '#61cc90',
+		primary: variables.primary,
+		secondary: variables.secondary,
 	},
 });

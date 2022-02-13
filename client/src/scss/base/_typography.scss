@@ -2,12 +2,12 @@
 
 html {
 	font-size: 14px;
-	font-family: 'Inter', sans-serif;
+	font-family: $fontBody, $fontBodyFallback;
 	color: $text;
 }
 
 @include headings {
-	font-family: 'Raleway', sans-serif;
+	font-family: $fontHeading, $fontBodyFallback;
 	font-weight: 500;
 }
 
