@@ -5,7 +5,7 @@ exports.registerValidation = (data) => {
 		firstName: Joi.string().max(64).required(),
 		lastName: Joi.string().max(64).required(),
 		middleInitial: Joi.string().min(1).max(1),
-		type: Joi.number().min(1).max(3).required(),
+		type: Joi.number().min(1).max(2).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string().min(8).max(128).required(),
 	});

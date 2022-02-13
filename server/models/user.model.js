@@ -18,12 +18,12 @@ const UserSchema = new mongoose.Schema({
 		min: 1,
 		max: 1,
 	},
-	// 1: Admin, 2: Teacher, 3: Sub
+	// 1: Admin, 2: Teacher/Sub
 	type: {
 		type: Number,
 		required: true,
 		min: 1,
-		max: 3,
+		max: 2,
 	},
 	phone: {
 		type: String,
