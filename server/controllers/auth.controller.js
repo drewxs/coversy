@@ -39,7 +39,10 @@ exports.registerUser = async (req, res) => {
 		user.password = hashedPass;
 
 		const userRes = User.create(user);
-		const token = jwt.sign({ _id: userRes._id }, process.env.TOKEN_SECRET);
+		const token = jwt.sign(
+			{ _id: userRes._id, type: userRes.type },
+			process.env.TOKEN_SECRET
+		);
 
 		return res.status(201).json({ userRes, token });
 	} catch (err) {
@@ -66,7 +69,10 @@ exports.login = async (req, res) => {
 		const validPass = await bcrypt.compare(password, user.password);
 		if (!validPass) return res.status(400).json('Invalid password');
 
-		const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+		const token = jwt.sign(
+			{ _id: user._id, type: user.type },
+			process.env.TOKEN_SECRET
+		);
 
 		return res.status(201).json({ user, token });
 	} catch (err) {
@@ -120,7 +126,10 @@ exports.registerSite = async (req, res) => {
 		user.password = hashedPass;
 
 		const userRes = await User.create(user);
-		const token = jwt.sign({ _id: userRes._id }, process.env.TOKEN_SECRET);
+		const token = jwt.sign(
+			{ _id: userRes._id, type: userRes.type },
+			process.env.TOKEN_SECRET
+		);
 
 		return res.status(201).json({ userRes, siteRes, token });
 	} catch (err) {
