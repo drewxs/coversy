@@ -1,23 +1,60 @@
-import { loginUser, loadingUser, setErrors, clearErrors } from './userSlice';
+import {
+	loginUser,
+	registerUser,
+	registerSite,
+	loadingUser,
+	setErrors,
+	clearErrors,
+	// setUpdateErrors,
+	// clearUpdateErrors,
+} from './userSlice';
 import axios from 'axios';
+import store from './store';
 
-// const api = 'http://localhost:5000/api';
+const api = 'http://localhost:5000/api';
 
-// export const loginUser = async (dispatch, user) => {
-// 	dispatch(loadingUser());
-// 	axios
-// 		.post(`${api}/users/login`, user)
-// 		.then((res) => {
-// 			setAuthHeader(res.data.token, res.data.user._id);
-// 			dispatch(loginUser(res.data));
-// 			dispatch(clearErrors());
-// 		})
-// 		.catch((err) => {
-// 			dispatch(setErrors(err.response.data));
-// 		});
-// };
+export const LoginUser = async (user) => {
+	store.dispatch(loadingUser());
 
-const setAuthHeader = (token, id) => {
+	await axios
+		.post(`${api}/auth/login`, user)
+		.then((res) => {
+			setAuthorizationHeader(res.data.token, res.data.user._id);
+			store.dispatch(loginUser(res.data));
+			store.dispatch(clearErrors());
+		})
+		.catch((err) => {
+			store.dispatch(setErrors(err.response.data));
+		});
+};
+
+export const RegisterUser = async (data) => {
+	store.dispatch(loadingUser());
+
+	await axios
+		.post(`${api}/auth/register/site`, data)
+		.then((res) => {
+			setAuthorizationHeader(res.data.token, res.data.user._id);
+			store.dispatch(registerUser(res.data));
+			store.dispatch(clearErrors());
+		})
+		.catch((err) => store.dispatch(setErrors(err.response.data)));
+};
+
+export const RegisterSite = async (data) => {
+	store.dispatch(loadingUser());
+
+	await axios
+		.post(`${api}/auth/register/site`, data)
+		.then((res) => {
+			setAuthorizationHeader(res.data.token, res.data.user._id);
+			store.dispatch(registerSite(res.data));
+			store.dispatch(clearErrors());
+		})
+		.catch((err) => store.dispatch(setErrors(err.response.data)));
+};
+
+const setAuthorizationHeader = (token, id) => {
 	localStorage.setItem('auth-token', token);
 	localStorage.setItem('id', id);
 	axios.defaults.headers.common['Authorization'] = token;

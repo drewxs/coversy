@@ -4,10 +4,12 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
 		user: {},
+		site: {},
 		token: localStorage.getItem('auth-token'),
 		authenticated: localStorage.getItem('auth-token') ? true : false,
-		loadingUser: true,
+		loading: true,
 		errors: null,
+		updateErrors: null,
 	},
 	reducers: {
 		loginUser: (state, action) => {
@@ -16,13 +18,32 @@ export const userSlice = createSlice({
 				user: action.payload.user,
 				token: action.payload.token,
 				authenticated: true,
-				loadingUser: false,
+				loading: false,
+			};
+		},
+		registerUser: (state, action) => {
+			return {
+				...state,
+				user: action.payload.user,
+				token: action.payload.token,
+				authenticated: true,
+				loading: false,
+			};
+		},
+		registerSite: (state, action) => {
+			return {
+				...state,
+				user: action.payload.user,
+				site: action.payload.site,
+				token: action.payload.token,
+				authenticated: true,
+				loading: false,
 			};
 		},
 		loadingUser: (state) => {
 			return {
 				...state,
-				loadingUser: true,
+				loading: true,
 			};
 		},
 		setErrors: (state, action) => {
@@ -37,10 +58,30 @@ export const userSlice = createSlice({
 				errors: null,
 			};
 		},
+		setUpdateErrors: (state, action) => {
+			return {
+				...state,
+				updateErrors: action.payload,
+			};
+		},
+		clearUpdateErrors: (state) => {
+			return {
+				...state,
+				updateErrors: null,
+			};
+		},
 	},
 });
 
-export const { loginUser, loadingUser, setErrors, clearErrors } =
-	userSlice.actions;
+export const {
+	loginUser,
+	registerUser,
+	registerSite,
+	loadingUser,
+	setErrors,
+	clearErrors,
+	setUpdateErrors,
+	clearUpdateErrors,
+} = userSlice.actions;
 
 export default userSlice.reducer;
