@@ -38,7 +38,7 @@ exports.registerUser = async (req, res) => {
 
 		user.password = hashedPass;
 
-		const userRes = User.create(user);
+		const userRes = await User.create(user);
 		const token = jwt.sign(
 			{ _id: userRes._id, type: userRes.type },
 			process.env.TOKEN_SECRET
@@ -74,7 +74,7 @@ exports.login = async (req, res) => {
 			process.env.TOKEN_SECRET
 		);
 
-		return res.status(201).json({ user, token });
+		return res.status(200).json({ user, token });
 	} catch (err) {
 		res.status(400).json({ error: err.message });
 	}
@@ -101,6 +101,7 @@ exports.registerSite = async (req, res) => {
 			firstName: 'SITE',
 			lastName: 'ADMIN',
 			type: 1,
+			verified: true,
 			email: escape(req.body.email),
 			password: req.body.password,
 		};
