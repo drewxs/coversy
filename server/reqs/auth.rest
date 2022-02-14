@@ -13,3 +13,25 @@ Content-Type: application/json
     "email": "test@test.com",
     "password": "testpass"
 }
+
+### REGISTER USER
+POST http://localhost:5000/api/auth/register/user
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Tester",
+    "middleInitial": "T",
+    "email": "tester@test.com",
+    "password": "password",
+    "site": "6208b81edc1a21e127631d4c"
+}
+
+### LOGIN
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "tester@test.com",
+    "password": "password"
+}
