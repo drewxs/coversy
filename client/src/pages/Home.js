@@ -6,7 +6,7 @@ export const Home = () => {
 		<div className='home'>
 			<section className='nav'>
 				<div className='container'>
-					<h6>Coversy</h6>
+					<h2>Coversy</h2>
 					<div className='button-cont'>
 						<Button
 							variant='contained'
