@@ -6,7 +6,6 @@ import { LoginUser } from 'redux/user';
 export const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const loading = useSelector((state) => state.userSlice.loading);
 	const errors = useSelector((state) => state.userSlice.errors);
 	let navigate = useNavigate();
 
