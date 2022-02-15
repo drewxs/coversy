@@ -7,6 +7,7 @@ import {
 	clearErrors,
 	// setUpdateErrors,
 	// clearUpdateErrors,
+	setSites,
 } from './userSlice';
 import axios from 'axios';
 import store from './store';
@@ -32,7 +33,7 @@ export const RegisterUser = async (data) => {
 	store.dispatch(loadingUser());
 
 	await axios
-		.post(`${api}/auth/register/site`, data)
+		.post(`${api}/auth/register/user`, data)
 		.then((res) => {
 			setAuthorizationHeader(res.data.token, res.data.user._id);
 			store.dispatch(registerUser(res.data));
@@ -52,6 +53,13 @@ export const RegisterSite = async (data) => {
 			store.dispatch(clearErrors());
 		})
 		.catch((err) => store.dispatch(setErrors(err.response.data)));
+};
+
+export const FetchSites = async () => {
+	await axios
+		.get(`${api}/site`)
+		.then((res) => store.dispatch(setSites(res.data)))
+		.catch((err) => console.log(err));
 };
 
 const setAuthorizationHeader = (token, id) => {

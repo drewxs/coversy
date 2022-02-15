@@ -3,7 +3,7 @@ import variables from 'scss/abstract/_variables.scss';
 
 export const theme = createTheme({
 	typography: {
-		fontFamily: `${(variables.fontBody, variables.fontBodyFallback)}`,
+		fontFamily: variables.fontBody,
 	},
 	palette: {
 		primary: {

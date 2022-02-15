@@ -1,0 +1,34 @@
+@use '../abstract' as *;
+
+.register {
+	.card {
+		width: 60%;
+		max-width: 1440px;
+		padding: 4em 6em;
+		box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px,
+			rgba(0, 0, 0, 0.1) 0px 2px 6px;
+
+		.h-cont {
+			border-bottom: 4px solid $primary;
+			padding-bottom: 0.5em;
+			margin-bottom: 1.5em;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			.input {
+				margin-bottom: 1.5em;
+			}
+
+			.submit-btn {
+				width: 70%;
+				border-radius: 25px;
+				margin-bottom: 2em;
+			}
+		}
+	}
+}

@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const SiteRegistration = () => {
+export const RegisterSite = () => {
 	return <div></div>;
 };

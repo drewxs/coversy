@@ -5,6 +5,7 @@ export const userSlice = createSlice({
 	initialState: {
 		user: {},
 		site: {},
+		sites: [],
 		token: localStorage.getItem('auth-token'),
 		authenticated: localStorage.getItem('auth-token') ? true : false,
 		loading: true,
@@ -70,6 +71,12 @@ export const userSlice = createSlice({
 				updateErrors: null,
 			};
 		},
+		setSites: (state, action) => {
+			return {
+				...state,
+				sites: action.payload,
+			};
+		},
 	},
 });
 
@@ -82,6 +89,7 @@ export const {
 	clearErrors,
 	setUpdateErrors,
 	clearUpdateErrors,
+	setSites,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -2,7 +2,7 @@
 $primary: #257a7a;
 $secondary: #61cc90;
 $error: #e57373;
-$text: #080808;
+$black: #080808;
 
 // Fonts
 $fontBody: 'Inter';
@@ -15,7 +15,7 @@ $fontFaceUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Ra
 	primary: $primary;
 	secondary: $secondary;
 	error: $error;
-	black: $text;
+	black: $black;
 	fontBody: $fontBody;
 	fontBodyFallback: $fontBodyFallback;
 	fontHeading: $fontHeading;
