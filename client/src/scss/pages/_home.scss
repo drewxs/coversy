@@ -1,0 +1,23 @@
+@use '../abstract' as *;
+
+.home {
+	min-height: 100vh;
+
+	.nav {
+		background-color: $black;
+		color: #fff;
+		max-height: 4em;
+
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.button-cont {
+				.button {
+					margin-left: 1em;
+				}
+			}
+		}
+	}
+}
