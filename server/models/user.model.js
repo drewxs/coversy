@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		min: 1,
 		max: 2,
+		default: 2,
 	},
 	phone: {
 		type: String,
@@ -53,9 +54,17 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		max: 500,
 	},
+	activated: {
+		type: Boolean,
+		default: false,
+	},
 	verified: {
 		type: Boolean,
 		default: false,
+	},
+	confirmationCode: {
+		type: String,
+		unique: true,
 	},
 	site: {
 		type: mongoose.Schema.Types.ObjectId,

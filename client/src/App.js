@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Login, Profile, Registration, SiteRegistration } from 'pages';
+import { Login, Profile, Registration, SiteRegistration, Welcome } from 'pages';
 
 export const App = () => {
 	return (
@@ -13,6 +13,10 @@ export const App = () => {
 					exact
 					path='/registration/site'
 					element={<SiteRegistration />}
+				/>
+				<Route
+					path='/confirm/:confirmationCode'
+					element={<Welcome />}
 				/>
 			</Routes>
 		</Router>
