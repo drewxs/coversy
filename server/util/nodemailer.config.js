@@ -4,15 +4,15 @@ const dotenv = require('dotenv').config();
 const transport = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
-		user: process.env.CONFIRM_USER,
-		pass: process.env.CONFIRM_PASS,
+		user: process.env.CONFIRMATION_USER,
+		pass: process.env.CONFIRMATION_PASS,
 	},
 });
 
 exports.sendConfirmationEmail = (name, email, confirmationCode) => {
 	transport
 		.sendMail({
-			from: user,
+			from: name,
 			to: email,
 			subject: 'Please confirm your account',
 			html: `<h1>Email Confirmation</h1>
