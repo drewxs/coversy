@@ -47,12 +47,12 @@ export const Login = () => {
 							<a href='#'>Forgot password?</a>
 						</div>
 						<div className='loginButton'>
-							<button onClick={() => handleSubmit()}>
+							<button className='login-button' onClick={() => handleSubmit()}>
 								<p>Login</p>
 							</button>
 							<div className='newUser'>
 								<p>
-									<a href='#'>New User?</a> Register Here
+									<a href='/registration'>New User?</a> Register Here
 								</p>
 							</div>
 						</div>
