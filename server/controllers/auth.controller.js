@@ -12,6 +12,42 @@ const {
 } = require('../util/validation');
 
 /**
+ * @desc This endpoint logins a user
+ * @route POST /auth/login
+ * @access PUBLIC
+ */
+exports.login = async (req, res) => {
+	const email = escape(req.body.email);
+	const password = req.body.password;
+
+	const { error } = loginValidation(req.body);
+	if (error) return res.status(400).json(error.details[0].message);
+
+	try {
+		const user = await User.findOne({ email: email });
+		if (!user) return res.status(404).json({ error: 'Email not found' });
+
+		const validPass = await bcrypt.compare(password, user.password);
+		if (!validPass)
+			return res.status(400).json({ error: 'Invalid password' });
+
+		if (!user.verified)
+			return res.status(401).json({
+				error: 'Pending Account. Please Verify Your Email.',
+			});
+
+		const token = jwt.sign(
+			{ _id: user._id, type: user.type },
+			process.env.TOKEN_SECRET
+		);
+
+		return res.status(200).json({ user, token });
+	} catch (err) {
+		res.status(400).json(err);
+	}
+};
+
+/**
  * @desc This endpoint registers a user
  * @route POST /auth/register/user
  * @access PUBLIC
@@ -50,57 +86,21 @@ exports.registerUser = async (req, res) => {
 			process.env.TOKEN_SECRET
 		);
 
-		nodemailer.sendConfirmationEmail(
-			`${user.firstName} ${user.lastName}`,
-			user.email,
-			user.confirmationCode
+		sendConfirmationEmail(
+			`${userRes.firstName} ${userRes.lastName}`,
+			userRes.email,
+			userRes.confirmationCode
 		);
 
 		return res.status(201).json({ userRes, token });
 	} catch (err) {
-		res.status(400).json({ error: err.message });
-	}
-};
-
-/**
- * @desc This endpoint logins a user
- * @route POST /auth/login
- * @access PUBLIC
- */
-exports.login = async (req, res) => {
-	const email = escape(req.body.email);
-	const password = req.body.password;
-
-	const { error } = loginValidation(req.body);
-	if (error) return res.status(400).json(error.details[0].message);
-
-	try {
-		const user = await User.findOne({ email: email });
-		if (!user) return res.status(404).json({ error: 'Email not found' });
-
-		const validPass = await bcrypt.compare(password, user.password);
-		if (!validPass)
-			return res.status(400).json({ error: 'Invalid password' });
-
-		if (!user.verified)
-			return res.status(401).json({
-				error: 'Pending Account. Please Verify Your Email.',
-			});
-
-		const token = jwt.sign(
-			{ _id: user._id, type: user.type },
-			process.env.TOKEN_SECRET
-		);
-
-		return res.status(200).json({ user, token });
-	} catch (err) {
-		res.status(400).json({ error: err.message });
+		res.status(400).json(err);
 	}
 };
 
 /**
  * @desc This endpoint registers a user
- * @route POST /auth/register/user
+ * @route POST /auth/register/site
  * @access PUBLIC
  */
 exports.registerSite = async (req, res) => {
@@ -153,7 +153,7 @@ exports.registerSite = async (req, res) => {
 
 		return res.status(201).json({ userRes, siteRes, token });
 	} catch (err) {
-		res.status(400).json({ error: err.message });
+		res.status(400).json(err);
 	}
 };
 
@@ -162,7 +162,7 @@ exports.registerSite = async (req, res) => {
  * @route POST /auth/confirm
  * @access PUBLIC
  */
-exports.verifyUser = (req, res, next) => {
+exports.verifyUser = (req, res) => {
 	User.findOne({
 		confirmationCode: req.params.confirmationCode,
 	})
@@ -174,6 +174,8 @@ exports.verifyUser = (req, res, next) => {
 			user.save((err) => {
 				if (err) return res.status(500).send({ message: err });
 			});
+
+			return res.status(200).json('Email Successfully Verified');
 		})
-		.catch((err) => res.status(400).json({ error: err.message }));
+		.catch((err) => res.status(400).json(err));
 };
