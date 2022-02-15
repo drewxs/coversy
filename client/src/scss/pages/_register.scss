@@ -1,6 +1,8 @@
 @use '../abstract' as *;
 
 .register {
+	min-height: 100vh;
+
 	.card {
 		width: 60%;
 		max-width: 1440px;

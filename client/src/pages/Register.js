@@ -29,7 +29,6 @@ export const Register = () => {
 			password: password,
 			site: site,
 		});
-
 		if (!errors) setSuccess(true);
 	};
 
