@@ -70,10 +70,6 @@ export const Profile = () => {
                 </div>
                 <div className="col right">
                     {user.type === 1 ? <AdminProfile /> : <UserProfile />}
-                    <h2>Password</h2>
-                    <p>Current Password</p>
-                    <input type="password" />
-                    <Button className="change_password">Change Password</Button>
                 </div>
             </div>
         </section>
