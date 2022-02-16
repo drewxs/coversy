@@ -1,10 +1,10 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Avatar, IconButton, Button } from '@mui/material';
 import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
-
-import { useSelector } from 'react-redux';
 import { LogoutUser } from 'redux/user';
-import { Navigate } from 'react-router-dom';
+import { AdminProfile, UserProfile } from 'components';
 
 export const Profile = () => {
 	const user = useSelector((state) => state.userSlice.user);
@@ -60,7 +60,9 @@ export const Profile = () => {
 						Logout
 					</Button>
 				</div>
-				<div className='col right'></div>
+				<div className='col right'>
+					{user.type === 1 ? <AdminProfile /> : <UserProfile />}
+				</div>
 			</div>
 		</section>
 	);
