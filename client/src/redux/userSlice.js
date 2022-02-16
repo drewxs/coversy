@@ -41,6 +41,12 @@ export const userSlice = createSlice({
 				loading: false,
 			};
 		},
+		setUser: (state, action) => {
+			return {
+				...state,
+				user: action.payload,
+			};
+		},
 		loadingUser: (state) => {
 			return {
 				...state,
@@ -84,6 +90,7 @@ export const {
 	loginUser,
 	registerUser,
 	registerSite,
+	setUser,
 	loadingUser,
 	setErrors,
 	clearErrors,

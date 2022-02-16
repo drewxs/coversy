@@ -2,6 +2,7 @@ import {
 	loginUser,
 	registerUser,
 	registerSite,
+	setUser,
 	loadingUser,
 	setErrors,
 	clearErrors,
@@ -59,6 +60,14 @@ export const FetchSites = async () => {
 	await axios
 		.get(`${api}/site`)
 		.then((res) => store.dispatch(setSites(res.data)))
+		.catch((err) => console.log(err));
+};
+
+export const LoadUser = async () => {
+	store.dispatch(loadingUser());
+	await axios
+		.get(`${api}/user/${localStorage.getItem('id')}`)
+		.then((res) => store.dispatch(setUser(res.data)))
 		.catch((err) => console.log(err));
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -7,9 +7,15 @@ import {
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Home, Login, Profile, Register, SiteRegister, Welcome } from 'pages';
+import { LoadUser } from 'redux/user';
 
 export const App = () => {
 	const authenticated = useSelector((state) => state.userSlice.authenticated);
+	const user = useSelector((state) => state.userSlice.user);
+
+	useEffect(() => {
+		if (authenticated) LoadUser();
+	}, [user, authenticated]);
 
 	return (
 		<Router>
