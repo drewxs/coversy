@@ -23,10 +23,7 @@ mongoose
 	.catch((err) => console.log(err.message));
 
 var corsOptions = {
-	origin:
-		process.env.NODE_ENV === 'development'
-			? 'http://localhost:3000'
-			: 'https://google.com',
+	origin: process.env.CLIENT_URL,
 	optionsSuccessStatus: 200,
 };
 
