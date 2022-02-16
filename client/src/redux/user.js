@@ -4,6 +4,7 @@ import {
 	registerSite,
 	setUser,
 	loadingUser,
+	logoutUser,
 	setErrors,
 	clearErrors,
 	// setUpdateErrors,
@@ -69,6 +70,13 @@ export const LoadUser = async () => {
 		.get(`${api}/user/${localStorage.getItem('id')}`)
 		.then((res) => store.dispatch(setUser(res.data)))
 		.catch((err) => console.log(err));
+};
+
+export const LogoutUser = async () => {
+	localStorage.removeItem('auth-token');
+	localStorage.removeItem('id');
+	delete axios.defaults.headers.common['Authorization'];
+	store.dispatch(logoutUser());
 };
 
 const setAuthorizationHeader = (token, id) => {

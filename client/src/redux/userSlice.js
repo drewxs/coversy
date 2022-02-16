@@ -53,6 +53,14 @@ export const userSlice = createSlice({
 				loading: true,
 			};
 		},
+		logoutUser: (state) => {
+			return {
+				...state,
+				user: {},
+				token: '',
+				authenticated: false,
+			};
+		},
 		setErrors: (state, action) => {
 			return {
 				...state,
@@ -92,6 +100,7 @@ export const {
 	registerSite,
 	setUser,
 	loadingUser,
+	logoutUser,
 	setErrors,
 	clearErrors,
 	setUpdateErrors,
