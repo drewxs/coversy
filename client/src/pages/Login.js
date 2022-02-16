@@ -8,7 +8,7 @@ export const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const errors = useSelector((state) => state.userSlice.errors);
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleSubmit = async () => {
 		LoginUser({ email, password });
@@ -22,7 +22,7 @@ export const Login = () => {
 				<div className='h-cont'>
 					<h1>Login</h1>
 				</div>
-				<form action=''>
+				<form>
 					<TextField
 						className='input'
 						variant='outlined'
@@ -49,9 +49,9 @@ export const Login = () => {
 					>
 						Login
 					</Button>
-					<p>{errors}</p>
+					{errors && <p className='error'>{errors}</p>}
 					<p>
-						<a href='/registration'>New User?</a> Register Here
+						New User? <a href='/register'>Register Here</a>
 					</p>
 				</form>
 			</div>
