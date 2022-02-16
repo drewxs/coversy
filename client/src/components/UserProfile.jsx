@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 export const UserProfile = () => {
     return (
         <div>
-            UserProfile
+            <h4>User Activation</h4>
             <h2>Password</h2>
             <p>Current Password</p>
             <input type="password" />
