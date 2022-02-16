@@ -14,7 +14,7 @@ import {
 import axios from 'axios';
 import store from './store';
 
-const api = 'http://localhost:5000/api';
+const api = process.env.REACT_APP_API_URL;
 
 export const LoginUser = async (user) => {
 	store.dispatch(loadingUser());
