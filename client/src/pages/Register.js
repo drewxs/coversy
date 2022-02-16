@@ -43,14 +43,8 @@ export const Register = () => {
 				<div className='h-cont'>
 					<h1>Registration</h1>
 				</div>
-				{success ? (
-					<p>
-						Thank you for signing up. Please check your email for a
-						verification link. If you do not see a confirmation
-						email, please check your junk mail folder.
-					</p>
-				) : (
-					<form action=''>
+				{!success ? (
+					<form>
 						<FormControl fullWidth>
 							<InputLabel>Site</InputLabel>
 							<Select
@@ -114,6 +108,19 @@ export const Register = () => {
 							<a href='/login'> Sign in here</a>
 						</p>
 					</form>
+				) : (
+					<>
+						<p>
+							Thank you for signing up. Please check your email
+							for a verification link. If you do not see a
+							confirmation email, please check your junk mail
+							folder.
+						</p>
+						<br />
+						<p>
+							Verified? <a href='/login'> Sign in here</a>
+						</p>
+					</>
 				)}
 			</div>
 		</section>
