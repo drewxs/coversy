@@ -19,6 +19,14 @@ export const Home = () => {
 						<Button
 							variant='contained'
 							color='primary'
+							href='/register/site'
+							className='button'
+						>
+							Register Site
+						</Button>
+						<Button
+							variant='contained'
+							color='primary'
 							href='/login'
 							className='button'
 						>
