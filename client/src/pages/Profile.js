@@ -1,39 +1,67 @@
-import React from "react";
-import logo from "assets/logo.jpg";
-import avatar from "assets/logo2.png";
-import {
-    Grid,
-    Paper,
-    ButtonBase,
-    Avatar,
-    Divider,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
-    ToggleButton,
-    ToggleButtonGroup,
-} from "@mui/material";
+import React from 'react';
+import { Avatar, IconButton, Button } from '@mui/material';
+import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
+import { LogoutUser } from 'redux/user';
+import { Navigate } from 'react-router-dom';
 
 export const Profile = () => {
-    const user = useSelector((state) => state.userSlice.user);
+	const user = useSelector((state) => state.userSlice.user);
 
-    return (
-        <section className="profile">
-            <div className="card container">
-                <div className="row">
-                    <div className="col-profile">
-                        <Avatar src={avatar} alt="avatar" />
-                        <h1>
-                            {user.firstName} {user.lastName}
-                        </h1>
-                        <h3>{user.phone}</h3>
-                        <h3>{user.email}</h3>
-                    </div>
-                    <div className="col"></div>
-                </div>
-            </div>
-        </section>
-    );
+	return (
+		<section className='profile'>
+			<div className='card container'>
+				<div className='col left'>
+					<Avatar
+						alt={`${user.firstName} ${user.lastName}`}
+						sx={{
+							fontSize: '4em',
+							width: '2.5em',
+							height: '2.5em',
+						}}
+					>
+						{user.firstName?.charAt(0)} {user.lastName?.charAt(0)}
+					</Avatar>
+					<div className='block name'>
+						<h3>
+							{user.firstName} {user.lastName}
+						</h3>
+						<IconButton
+							sx={{
+								marginRight: '-1.5em',
+							}}
+						>
+							<Edit color='primary' />
+						</IconButton>
+					</div>
+					<div className='divider'></div>
+					<div className='block detail'>
+						<LocationOn color='primary' />
+						<p>{user.site}</p>
+					</div>
+					{user.phone && (
+						<div className='block detail'>
+							<Phone color='primary' />
+							<p>{user.phone}</p>
+						</div>
+					)}
+					<div className='block detail'>
+						<Email color='primary' />
+						<p>{user.email}</p>
+					</div>
+					<Button
+						className='logout-btn'
+						onClick={() => {
+							<Navigate to='/login' />;
+							LogoutUser();
+						}}
+					>
+						Logout
+					</Button>
+				</div>
+				<div className='col right'></div>
+			</div>
+		</section>
+	);
 };
