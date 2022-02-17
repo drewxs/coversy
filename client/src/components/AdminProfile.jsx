@@ -1,193 +1,63 @@
-import React from "react";
-
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Switch,
-} from "@mui/material";
-import { Box, Tab, TabContext, TabList, TabPanel } from "@mui/material";
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	Switch,
+} from '@mui/material';
+// import { Box, Tab, TabContext, TabList, TabPanel } from '@mui/material';
+import { FetchUsers, ToggleUserActivatedById } from 'redux/admin';
 
 export const AdminProfile = () => {
-    const users = [
-        {
-            firstName: "John",
-            lastName: "Doe",
-            email: "johndoe@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bob",
-            lastName: "Doe",
-            email: "bobdoe@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Robert",
-            lastName: "Doe",
-            email: "robdoe@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Foo",
-            lastName: "Bar",
-            email: "foobar@gmail.com",
-            activated: true,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Foo",
-            email: "barfoo@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Foo",
-            lastName: "Foo",
-            email: "foofoo@gmail.com",
-            activated: true,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-        {
-            firstName: "Bar",
-            lastName: "Bar",
-            email: "bar@gmail.com",
-            activated: false,
-        },
-    ];
-    const [checked, setChecked] = React.useState(true);
+	const users = useSelector((state) => state.adminSlice.users);
+	const admin = useSelector((state) => state.userSlice.user);
 
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
+	useEffect(() => {
+		console.log(admin);
+		if (admin.site) FetchUsers(admin.site);
+	}, [admin]);
 
-    return (
-        <div className="admin-profile">
-            User Activation
-            <h2>Users</h2>
-            <div className="table-cont">
-                <Table className="table" stickyHeader>
-                    <TableHead className="tablehead">
-                        <TableRow>
-                            <TableCell> </TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Activation</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {users.map((user, k) => (
-                            <TableRow key={k}>
-                                <TableCell>{k + 1}</TableCell>
-                                <TableCell>
-                                    {user.firstName} {user.lastName}
-                                </TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>
-                                    <Switch checked={user.activated} />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
-        </div>
-    );
+	return (
+		<div className='admin-profile'>
+			<h2>User Activation</h2>
+			<br />
+			<div className='table'>
+				<Table stickyHeader>
+					<TableHead className='tablehead'>
+						<TableRow>
+							<TableCell> </TableCell>
+							<TableCell>Name</TableCell>
+							<TableCell>Email</TableCell>
+							<TableCell>Activation</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{users?.map((user, k) => (
+							<TableRow key={k}>
+								<TableCell>{k + 1}</TableCell>
+								<TableCell>
+									{user.firstName} {user.lastName}
+								</TableCell>
+								<TableCell>{user.email}</TableCell>
+								<TableCell>
+									<Switch
+										checked={user.activated}
+										onClick={() =>
+											ToggleUserActivatedById(
+												user._id,
+												user.site
+											)
+										}
+									/>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
+		</div>
+	);
 };

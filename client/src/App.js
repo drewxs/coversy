@@ -11,11 +11,10 @@ import { LoadUser } from 'redux/user';
 
 export const App = () => {
 	const authenticated = useSelector((state) => state.userSlice.authenticated);
-	const user = useSelector((state) => state.userSlice.user);
 
 	useEffect(() => {
 		if (authenticated) LoadUser();
-	}, [user, authenticated]);
+	}, [authenticated]);
 
 	return (
 		<Router>

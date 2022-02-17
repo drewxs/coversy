@@ -37,8 +37,7 @@ exports.verifyUser = async (req, res, next) => {
 };
 
 /**
- * Verifies whether the user requesting the route is an admin
- * and they are from the same site
+ * Verifies whether the user requesting the route is the admin of that site
  */
 exports.verifyAdmin = async (req, res, next) => {
 	const token = req.header('auth-token');
@@ -48,7 +47,6 @@ exports.verifyAdmin = async (req, res, next) => {
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 		req.user = decoded;
-		console.log(req.user.site, siteId);
 
 		if (req.user && req.user.type === 1 && req.user.site === siteId) next();
 	} catch (err) {

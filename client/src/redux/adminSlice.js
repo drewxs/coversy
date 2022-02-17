@@ -4,6 +4,7 @@ export const adminSlice = createSlice({
 	name: 'admin',
 	initialState: {
 		users: [],
+		loadingUsers: true,
 	},
 	reducers: {
 		setUsers: (state, action) => {
@@ -14,10 +15,17 @@ export const adminSlice = createSlice({
 		},
 		activateUser: (state, action) => {
 			return {
-				...state,
-				users: state.users.map((data, i) =>
-					i === 1 ? { ...data, activated: action.payload } : data
+				users: state.users.map((user, i) =>
+					user._id === action.payload._id
+						? { ...user, ...action.payload }
+						: user
 				),
+			};
+		},
+		loadingUsers: (state) => {
+			return {
+				...state,
+				loading: true,
 			};
 		},
 	},
