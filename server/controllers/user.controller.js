@@ -16,13 +16,13 @@ exports.getUserById = async (req, res) => {
 
 /**
  * @desc This function returns users by site.
- * @route GET /user/:siteid
+ * @route GET /user/site/:siteid
  * @access Admin
  */
 exports.getUsersBySite = async (req, res) => {
-	const site = escape(req.params.site);
+	const site = escape(req.params.siteId);
 
-	User.find(site)
+	User.find({ site: site, type: 2 })
 		.then((users) => res.status(200).json(users))
 		.catch((err) => res.status(400).json(err));
 };
@@ -61,9 +61,12 @@ exports.updateUserById = async (req, res) => {
  */
 exports.toggleUserActivatedById = async (req, res) => {
 	const userId = escape(req.params.userId);
+	const siteId = escape(req.params.siteId);
 	const user = await User.findById(userId);
 
 	if (!user) return res.status(404).json('Error: User ID does not exist.');
+	if (user.site != siteId)
+		return res.status(404).json('User is not part of this site.');
 
 	const updateQuery = { activated: !user.activated };
 

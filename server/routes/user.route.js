@@ -8,9 +8,9 @@ const {
 const { verifyUser, verifyAdmin } = require('../middleware/verify');
 
 router.get('/:userId', getUserById);
-router.get('/:siteId', verifyAdmin, getUsersBySite);
+router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 
 router.put('/:userId', verifyUser, updateUserById);
-router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
+router.put('/:userId/:siteId/activate', verifyAdmin, toggleUserActivatedById);
 
 module.exports = router;

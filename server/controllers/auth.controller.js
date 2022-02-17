@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
 				.json('Pending Account. Please Verify Your Email.');
 
 		const token = jwt.sign(
-			{ _id: user._id, type: user.type },
+			{ _id: user._id, type: user.type, site: user.site },
 			process.env.TOKEN_SECRET
 		);
 
@@ -81,7 +81,7 @@ exports.registerUser = async (req, res) => {
 
 		const userRes = await User.create(user);
 		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type },
+			{ _id: userRes._id, type: userRes.type, site: userRes.site },
 			process.env.TOKEN_SECRET
 		);
 
@@ -151,7 +151,7 @@ exports.registerSite = async (req, res) => {
 
 		const userRes = await User.create(user);
 		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type },
+			{ _id: userRes._id, type: userRes.type, site: userRes.site },
 			process.env.TOKEN_SECRET
 		);
 
