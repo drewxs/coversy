@@ -1,7 +1,7 @@
 @use '../abstract' as *;
 
 .profile {
-	min-height: 100vh;
+	height: 100vh;
 	background: linear-gradient(180deg, #ffffff 50%, #333333 50%);
 	align-items: end;
 	padding-bottom: 0;
@@ -44,9 +44,6 @@
 						margin-left: 1em;
 					}
 				}
-				.logout-btn {
-					margin-top: auto;
-				}
 			}
 			&.right {
 				width: 60%;
@@ -54,5 +51,8 @@
 				background-color: rgba($black, 0.1);
 			}
 		}
+	}
+	.logout-btn {
+		margin-top: auto;
 	}
 }

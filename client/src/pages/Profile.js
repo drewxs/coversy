@@ -11,6 +11,23 @@ export const Profile = () => {
 
 	return (
 		<section className='profile'>
+			<section className='nav'>
+				<div className='container'>
+					<h2>Coversy</h2>
+					<div className='button-cont'>
+						<Button
+							variant='outlined'
+							className='button logout-btn'
+							onClick={() => {
+								<Navigate to='/login' />;
+								LogoutUser();
+							}}
+						>
+							Logout
+						</Button>
+					</div>
+				</div>
+			</section>
 			<div className='card container'>
 				<div className='col left'>
 					<Avatar
@@ -50,15 +67,6 @@ export const Profile = () => {
 						<Email color='primary' />
 						<p>{user?.email}</p>
 					</div>
-					<Button
-						className='logout-btn'
-						onClick={() => {
-							<Navigate to='/login' />;
-							LogoutUser();
-						}}
-					>
-						Logout
-					</Button>
 				</div>
 				<div className='col right'>
 					{user.type === 1 ? <AdminProfile /> : <></>}

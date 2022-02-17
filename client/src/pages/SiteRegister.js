@@ -60,8 +60,8 @@ export const SiteRegister = () => {
 				<div className='h-cont'>
 					<h1>Registration</h1>
 				</div>
-				{!success ? (
-					<form>
+				{!success || errors ? (
+					<form onSubmit={handleSubmit}>
 						<TextField
 							className='input'
 							variant='outlined'
@@ -136,7 +136,7 @@ export const SiteRegister = () => {
 						>
 							Register
 						</Button>
-						<p>{errors}</p>
+						{errors && <p className='error'>{errors}</p>}
 						<p>
 							Already registered?{' '}
 							<a href='/login'> Sign in here</a>
