@@ -1,19 +1,6 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
 
-//READ
-
-/**
- * @desc This function returns all users.
- * @route GET /user/
- * @access Admin
- */
-exports.getAllUsers = async (req, res) => {
-	User.find()
-		.then((users) => res.status(200).json(users))
-		.catch((err) => res.status(400).json(err));
-};
-
 /**
  * @desc This function returns users by user id.
  * @route GET /user/:userId
@@ -39,8 +26,6 @@ exports.getUsersBySite = async (req, res) => {
 		.then((users) => res.status(200).json(users))
 		.catch((err) => res.status(400).json(err));
 };
-
-//UPDATE
 
 /**
  * @desc This function updates users by id.
@@ -68,8 +53,6 @@ exports.updateUserById = async (req, res) => {
 		})
 		.catch((err) => res.status(400).json(err));
 };
-
-//DELETE
 
 /**
  * @desc This function deletes users by id.
