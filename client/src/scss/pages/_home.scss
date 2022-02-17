@@ -1,21 +1,39 @@
 @use '../abstract' as *;
 
 .home {
-	min-height: 100vh;
+	height: 100vh;
+	max-height: 100vh;
 
-	.nav {
-		background-color: $black;
-		color: #fff;
-		max-height: 4em;
+	.hero {
+		height: 100%;
+		background-color: $white;
+		padding-top: 20vh;
 
 		.container {
 			display: flex;
-			align-items: center;
-			justify-content: space-between;
+			height: 100%;
 
-			.button-cont {
-				.button {
-					margin-left: 1em;
+			.col {
+				width: 50%;
+
+				&.left {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					justify-content: center;
+					padding-right: 4em;
+
+					h3 {
+						margin-bottom: 1.5em;
+						max-width: 40ch;
+					}
+				}
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					object-position: 0 0;
 				}
 			}
 		}

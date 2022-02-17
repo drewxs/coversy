@@ -37,7 +37,7 @@ export const RegisterUser = async (data) => {
 	await axios
 		.post(`${api}/auth/register/user`, data)
 		.then((res) => {
-			setAuthorizationHeader(res.data.token, res.data.user._id);
+			// setAuthorizationHeader(res.data.token, res.data.user._id);
 			store.dispatch(registerUser(res.data));
 			store.dispatch(clearErrors());
 		})
@@ -50,7 +50,7 @@ export const RegisterSite = async (data) => {
 	await axios
 		.post(`${api}/auth/register/site`, data)
 		.then((res) => {
-			setAuthorizationHeader(res.data.token, res.data.user._id);
+			// setAuthorizationHeader(res.data.token, res.data.user._id);
 			store.dispatch(registerSite(res.data));
 			store.dispatch(clearErrors());
 		})

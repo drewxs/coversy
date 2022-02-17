@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
+const escape = require('escape-html');
 
 /**
  * Verifies that the user requesting the route is authenticated.
@@ -13,8 +14,9 @@ exports.verifyToken = async (req, res, next) => {
 		req.user = decoded;
 
 		if (req.user) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		res.status(400).send('Invalid Token');
+		return res.status(401).send('Access Denied');
 	}
 };
 
@@ -30,24 +32,27 @@ exports.verifyUser = async (req, res, next) => {
 		req.user = decoded;
 
 		if (req.user && req.user._id === req.params.userId) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		res.status(400).send('Invalid Token');
+		return res.status(401).send('Access Denied');
 	}
 };
 
 /**
- * Verifies whether the user requesting the route is an admin.
+ * Verifies whether the user requesting the route is the admin of that site
  */
 exports.verifyAdmin = async (req, res, next) => {
 	const token = req.header('auth-token');
 	if (!token) return res.status(401).send('Access Denied');
+	const siteId = req.params.siteId;
 
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 		req.user = decoded;
 
-		if (req.user && req.user.type === 1) next();
+		if (req.user && req.user.type === 1 && req.user.site === siteId) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		res.status(400).send('Invalid Token');
+		return res.status(401).send('Access Denied');
 	}
 };

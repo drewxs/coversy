@@ -11,18 +11,21 @@ import { LoadUser } from 'redux/user';
 
 export const App = () => {
 	const authenticated = useSelector((state) => state.userSlice.authenticated);
-	const user = useSelector((state) => state.userSlice.user);
 
 	useEffect(() => {
 		if (authenticated) LoadUser();
-	}, [user, authenticated]);
+	}, [authenticated]);
 
 	return (
 		<Router>
 			<Routes>
-				<Route exact path='/' element={<Home />} />
 				{authenticated && (
 					<>
+						<Route
+							exact
+							path='/'
+							element={<Navigate to='/profile' />}
+						/>
 						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
@@ -41,6 +44,7 @@ export const App = () => {
 						/>
 					</>
 				)}
+				<Route exact path='/' element={<Home />} />
 				<Route exact path='/login' element={<Login />} />
 				<Route exact path='/register' element={<Register />} />
 				<Route exact path='/register/site' element={<SiteRegister />} />

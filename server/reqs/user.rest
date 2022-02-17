@@ -1,0 +1,9 @@
+### FETCH USERS BY SITE
+GET http://localhost:5000/api/user/site/6208b81edc1a21e127631d4c
+Content-Type: application/json
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ1MDY4NjA0fQ.zzovHAF1jMV4heveoKkKbZKR5FzcEgTDEabyXwy9k5o
+
+### ACTIVATE/DEACTIVATE
+PUT http://localhost:5000/api/user/620cab00e05ecc64bcdf98f6/6208b81edc1a21e127631d4c/activate
+Content-Type: application/json
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ1MDY4NjA0fQ.zzovHAF1jMV4heveoKkKbZKR5FzcEgTDEabyXwy9k5o

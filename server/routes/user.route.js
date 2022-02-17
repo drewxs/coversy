@@ -1,22 +1,16 @@
 const router = require('express').Router();
 const {
-	getAllUsers,
 	getUserById,
 	getUsersBySite,
 	updateUserById,
-	deleteUserById,
+	toggleUserActivatedById,
 } = require('../controllers/user.controller');
 const { verifyUser, verifyAdmin } = require('../middleware/verify');
 
-// READ
-router.get('/', getAllUsers);
 router.get('/:userId', getUserById);
-router.get('/:siteId', getUsersBySite);
+router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 
-// UPDATE
 router.put('/:userId', verifyUser, updateUserById);
-
-// DELETE
-router.delete('/:userId', verifyAdmin, deleteUserById);
+router.put('/:userId/:siteId/activate', verifyAdmin, toggleUserActivatedById);
 
 module.exports = router;

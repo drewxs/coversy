@@ -1,51 +1,37 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
 
-//READ
-
-/**
- * @desc This function returns all users.
- * @route GET /user/
- * @access Admin
- */
-exports.getAllUsers = async (req, res) => {
-	User.find()
-		.then((users) => res.status(200).json(users))
-		.catch((err) => res.status(400).json(err));
-};
-
 /**
  * @desc This function returns users by user id.
  * @route GET /user/:userId
- * @access Admin
+ * @access User
  */
 exports.getUserById = async (req, res) => {
 	const userId = escape(req.params.userId);
 
 	User.findById(userId)
+		.populate('site')
 		.then((user) => res.status(200).json(user))
 		.catch((err) => res.status(400).json(err));
 };
 
 /**
  * @desc This function returns users by site.
- * @route GET /user/:siteid
+ * @route GET /user/site/:siteid
  * @access Admin
  */
 exports.getUsersBySite = async (req, res) => {
-	const site = escape(req.params.site);
+	const siteId = escape(req.params.siteId);
 
-	User.find(site)
+	User.find({ site: siteId, type: 2 })
 		.then((users) => res.status(200).json(users))
 		.catch((err) => res.status(400).json(err));
 };
 
-//UPDATE
-
 /**
  * @desc This function updates users by id.
  * @route PUT /user/:userId
- * @access Admin
+ * @access User
  */
 exports.updateUserById = async (req, res) => {
 	const updateQuery = {};
@@ -69,17 +55,23 @@ exports.updateUserById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
-//DELETE
-
 /**
- * @desc This function deletes users by id.
- * @route DELETE /user/:userId
+ * @desc This function activates/deactivates users by id.
+ * @route PUT /user/:userId/:siteId/activate
  * @access Admin
  */
-exports.deleteUserById = async (req, res) => {
+exports.toggleUserActivatedById = async (req, res) => {
 	const userId = escape(req.params.userId);
+	const siteId = escape(req.params.siteId);
+	const user = await User.findById(userId);
 
-	User.findByIdAndDelete(userId)
+	if (!user) return res.status(404).json('Error: User ID does not exist.');
+	if (user.site != siteId)
+		return res.status(404).json('User is not part of this site.');
+
+	const updateQuery = { activated: !user.activated };
+
+	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => res.status(200).json(user))
 		.catch((err) => res.status(400).json(err));
 };

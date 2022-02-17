@@ -1,0 +1,23 @@
+@use '../abstract' as *;
+
+.nav {
+	background-color: $black;
+	color: #fff;
+	height: 15vh;
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
+
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.button-cont {
+			.button {
+				margin-left: 1em;
+			}
+		}
+	}
+}

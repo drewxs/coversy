@@ -21,8 +21,8 @@ export const Register = () => {
 	const sites = useSelector((state) => state.userSlice.sites);
 	const errors = useSelector((state) => state.userSlice.errors);
 
-	const handleSubmit = (e) => {
-		RegisterUser({
+	const handleSubmit = async (e) => {
+		await RegisterUser({
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
@@ -43,7 +43,7 @@ export const Register = () => {
 				<div className='h-cont'>
 					<h1>Registration</h1>
 				</div>
-				{!success ? (
+				{!success || errors ? (
 					<form>
 						<FormControl fullWidth>
 							<InputLabel>Site</InputLabel>
@@ -98,11 +98,12 @@ export const Register = () => {
 							className='submit-btn'
 							variant='contained'
 							color='primary'
+							size='large'
 							onClick={handleSubmit}
 						>
 							Register
 						</Button>
-						<p>{errors}</p>
+						{errors && <p className='error'>{errors}</p>}
 						<p>
 							Already registered?{' '}
 							<a href='/login'> Sign in here</a>

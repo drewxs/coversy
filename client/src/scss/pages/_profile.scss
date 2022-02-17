@@ -1,16 +1,14 @@
 @use '../abstract' as *;
 
 .profile {
-	min-height: 100vh;
-	background: linear-gradient(180deg, #ffffff 50%, #333333 50%);
+	height: 100vh;
+	background: linear-gradient(180deg, #ffffff 60%, #333333 40%);
 	align-items: end;
 	padding-bottom: 0;
 
 	.card {
-		box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px,
-			rgba(0, 0, 0, 0.1) 0px 2px 6px;
 		background-color: #fff;
-		min-height: 82vh;
+		height: 82vh;
 
 		display: flex;
 
@@ -46,14 +44,15 @@
 						margin-left: 1em;
 					}
 				}
-				.logout-btn {
-					margin-top: auto;
-				}
 			}
 			&.right {
 				width: 60%;
+				max-height: 100%;
 				background-color: rgba($black, 0.1);
 			}
 		}
+	}
+	.logout-btn {
+		margin-top: auto;
 	}
 }
