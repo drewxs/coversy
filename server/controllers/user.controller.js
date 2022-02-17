@@ -55,14 +55,19 @@ exports.updateUserById = async (req, res) => {
 };
 
 /**
- * @desc This function deletes users by id.
- * @route DELETE /user/:userId
+ * @desc This function activates/deactivates users by id.
+ * @route PUT /user/:userId
  * @access Admin
  */
-exports.deleteUserById = async (req, res) => {
+exports.toggleActivateUserById = async (req, res) => {
 	const userId = escape(req.params.userId);
+	const user = await User.findById(userId);
 
-	User.findByIdAndDelete(userId)
+	if (!user) return res.status(404).json('Error: User ID does not exist.');
+
+	const updateQuery = { activated: !user.activated };
+
+	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => res.status(200).json(user))
 		.catch((err) => res.status(400).json(err));
 };

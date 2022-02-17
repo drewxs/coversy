@@ -1,3 +1,4 @@
-### LOGIN
-GET http://localhost:5000/api/user
+### ACTIVATE/DEACTIVATE
+PUT http://localhost:5000/api/user/620d74e79b7de75762ea432c/activate
 Content-Type: application/json
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBjOTEwZTk3ZjMzM2VmNDVlNGUxNzciLCJ0eXBlIjoxLCJpYXQiOjE2NDUwNjQ1MTJ9.jmNN00k6pFB_EG3KpyTENQijQECfPlBbQ0yGJ0oPvY0
