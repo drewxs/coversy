@@ -22,7 +22,7 @@ export const Login = () => {
 				<div className='h-cont'>
 					<h1>Login</h1>
 				</div>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<TextField
 						className='input'
 						variant='outlined'

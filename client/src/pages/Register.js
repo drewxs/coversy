@@ -44,7 +44,7 @@ export const Register = () => {
 					<h1>Registration</h1>
 				</div>
 				{!success || errors ? (
-					<form onSubmit={handleSubmit}>
+					<form>
 						<FormControl fullWidth>
 							<InputLabel>Site</InputLabel>
 							<Select

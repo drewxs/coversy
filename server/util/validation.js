@@ -7,7 +7,9 @@ exports.registerValidation = (data) => {
 		lastName: Joi.string().max(64).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string().min(8).max(128).required(),
-		site: Joi.objectId().required(),
+		site: Joi.objectId(),
+		type: Joi.number(),
+		activated: Joi.boolean(),
 	});
 	return schema.validate(data);
 };
@@ -30,7 +32,7 @@ exports.updateValidation = (data) => {
 };
 
 exports.siteValidation = (data) => {
-	const zipPattern = /^[A-Za-z]d[A-Za-z]d[A-Za-z]d$/;
+	const zipPattern = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 	const provincePattern = /^(AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)$/;
 
 	const schema = Joi.object({

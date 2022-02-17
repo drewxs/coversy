@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
 	if (error) return res.status(400).json(error.details[0].message);
 
 	try {
-		const user = await User.findOne({ email: email }).populate('site');
+		const user = await User.findOne({ email: email });
 		if (!user) return res.status(404).json('Email not found');
 
 		const validPass = await bcrypt.compare(password, user.password);
@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
 				.json('Pending Account. Please Verify Your Email.');
 
 		const token = jwt.sign(
-			{ _id: user._id, type: user.type, site: user.site._id },
+			{ _id: user._id, type: user.type, site: user.site },
 			process.env.TOKEN_SECRET
 		);
 
@@ -79,9 +79,9 @@ exports.registerUser = async (req, res) => {
 		);
 		user.confirmationCode = confirmationCode;
 
-		const userRes = await User.create(user).populate('site');
+		const userRes = await User.create(user);
 		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type, site: userRes.site._id },
+			{ _id: userRes._id, type: userRes.type, site: userRes.site },
 			process.env.TOKEN_SECRET
 		);
 
@@ -149,9 +149,9 @@ exports.registerSite = async (req, res) => {
 		);
 		user.confirmationCode = confirmationCode;
 
-		const userRes = await User.create(user).populate('site');
+		const userRes = await User.create(user);
 		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type, site: userRes.site._id },
+			{ _id: userRes._id, type: userRes.type, site: userRes.site },
 			process.env.TOKEN_SECRET
 		);
 

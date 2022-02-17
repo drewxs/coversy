@@ -17,6 +17,7 @@ export const userSlice = createSlice({
 				...state,
 				user: action.payload.user,
 				token: action.payload.token,
+				errors: null,
 				authenticated: true,
 				loading: false,
 			};
@@ -26,7 +27,7 @@ export const userSlice = createSlice({
 				...state,
 				user: action.payload.user,
 				token: action.payload.token,
-				authenticated: true,
+				errors: null,
 				loading: false,
 			};
 		},
@@ -34,9 +35,8 @@ export const userSlice = createSlice({
 			return {
 				...state,
 				user: action.payload.user,
-				site: action.payload.site,
 				token: action.payload.token,
-				authenticated: true,
+				errors: null,
 				loading: false,
 			};
 		},

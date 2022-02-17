@@ -61,7 +61,7 @@ export const SiteRegister = () => {
 					<h1>Registration</h1>
 				</div>
 				{!success || errors ? (
-					<form onSubmit={handleSubmit}>
+					<form>
 						<TextField
 							className='input'
 							variant='outlined'
