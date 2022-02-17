@@ -25,7 +25,7 @@ export const AdminProfile = () => {
 			<br />
 			<div className='table'>
 				<Table stickyHeader>
-					<TableHead className='tablehead'>
+					<TableHead className='head'>
 						<TableRow>
 							<TableCell> </TableCell>
 							<TableCell>Name</TableCell>
@@ -33,7 +33,7 @@ export const AdminProfile = () => {
 							<TableCell>Activation</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody>
+					<TableBody className='body'>
 						{users?.map((user, k) => (
 							<TableRow key={k}>
 								<TableCell>{k + 1}</TableCell>
