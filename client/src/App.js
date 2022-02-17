@@ -19,9 +19,13 @@ export const App = () => {
 	return (
 		<Router>
 			<Routes>
-				<Route exact path='/' element={<Home />} />
 				{authenticated && (
 					<>
+						<Route
+							exact
+							path='/'
+							element={<Navigate to='/profile' />}
+						/>
 						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
@@ -40,6 +44,7 @@ export const App = () => {
 						/>
 					</>
 				)}
+				<Route exact path='/' element={<Home />} />
 				<Route exact path='/login' element={<Login />} />
 				<Route exact path='/register' element={<Register />} />
 				<Route exact path='/register/site' element={<SiteRegister />} />
