@@ -98,6 +98,7 @@ export const Register = () => {
 							className='submit-btn'
 							variant='contained'
 							color='primary'
+							size='large'
 							onClick={handleSubmit}
 						>
 							Register

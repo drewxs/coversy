@@ -45,6 +45,7 @@ export const Login = () => {
 						className='submit-btn'
 						variant='contained'
 						color='primary'
+						size='large'
 						onClick={handleSubmit}
 					>
 						Login
