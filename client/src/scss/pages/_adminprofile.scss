@@ -1,0 +1,13 @@
+@use "../abstract" as *;
+
+.admin-profile {
+    max-height: 100%;
+    padding: 3em;
+    .table-cont {
+        max-height: 70vh;
+        overflow-y: scroll;
+    }
+
+    .table {
+    }
+}
