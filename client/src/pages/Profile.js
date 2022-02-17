@@ -38,7 +38,7 @@ export const Profile = () => {
 					<div className='divider'></div>
 					<div className='block detail'>
 						<LocationOn color='primary' />
-						<p>{user.site}</p>
+						<p>{user.site.name}</p>
 					</div>
 					{user.phone && (
 						<div className='block detail'>

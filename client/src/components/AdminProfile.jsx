@@ -16,7 +16,6 @@ export const AdminProfile = () => {
 	const admin = useSelector((state) => state.userSlice.user);
 
 	useEffect(() => {
-		console.log(admin);
 		if (admin.site) FetchUsers(admin.site);
 	}, [admin]);
 

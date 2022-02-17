@@ -10,6 +10,7 @@ exports.getUserById = async (req, res) => {
 	const userId = escape(req.params.userId);
 
 	User.findById(userId)
+		.populate('site')
 		.then((user) => res.status(200).json(user))
 		.catch((err) => res.status(400).json(err));
 };

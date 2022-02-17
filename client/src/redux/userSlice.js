@@ -4,8 +4,6 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
 		user: {},
-		site: {},
-		users: [],
 		sites: [],
 		token: localStorage.getItem('auth-token'),
 		authenticated: localStorage.getItem('auth-token') ? true : false,
