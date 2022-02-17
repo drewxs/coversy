@@ -122,14 +122,14 @@ exports.registerSite = async (req, res) => {
 			email: escape(req.body.email),
 			password: req.body.password,
 		};
-
-		const { siteValidationError } = siteValidation(site);
-		if (siteValidationError)
-			return res.status(400).json(error.details[0].message);
-
-		const { registerValidationError } = registerValidation(user);
-		if (registerValidationError)
-			return res.status(400).json(error.details[0].message);
+		try {
+			const { error } = siteValidation(site);
+			if (error) return res.status(400).json(error.details[0].message);
+		} catch (err) {}
+		try {
+			const { error } = registerValidation(user);
+			if (error) return res.status(400).json(error.details[0].message);
+		} catch (err) {}
 
 		const userExists = await User.findOne({
 			email: escape(req.body.email),
