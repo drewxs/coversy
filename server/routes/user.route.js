@@ -3,14 +3,14 @@ const {
 	getUserById,
 	getUsersBySite,
 	updateUserById,
-	toggleActivateUserById,
+	toggleUserActivatedById,
 } = require('../controllers/user.controller');
 const { verifyUser, verifyAdmin } = require('../middleware/verify');
 
 router.get('/:userId', getUserById);
-router.get('/:siteId', getUsersBySite);
+router.get('/:siteId', verifyAdmin, getUsersBySite);
 
 router.put('/:userId', verifyUser, updateUserById);
-router.put('/:userId/activate', verifyAdmin, toggleActivateUserById);
+router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
 
 module.exports = router;

@@ -59,7 +59,7 @@ exports.updateUserById = async (req, res) => {
  * @route PUT /user/:userId
  * @access Admin
  */
-exports.toggleActivateUserById = async (req, res) => {
+exports.toggleUserActivatedById = async (req, res) => {
 	const userId = escape(req.params.userId);
 	const user = await User.findById(userId);
 
