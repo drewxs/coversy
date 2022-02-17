@@ -6,9 +6,10 @@ export const theme = createTheme({
 		fontFamily: variables.fontBody,
 	},
 	palette: {
-		primary: {
-			main: variables.primary,
-		},
-		secondary: { main: variables.secondary },
+		primary: { main: variables.primary, contrastText: '#fff' },
+		secondary: { main: variables.secondary, contrastText: '#fff' },
+		contrastThreshold: 3,
+		tonalOffset: 0.2,
+		spacing: 2,
 	},
 });
