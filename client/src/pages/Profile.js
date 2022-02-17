@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Avatar, IconButton, Button } from '@mui/material';
 import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
 import { LogoutUser } from 'redux/user';
-import { AdminProfile, UserProfile } from 'components';
+import { AdminProfile } from 'components';
 
 export const Profile = () => {
 	const user = useSelector((state) => state.userSlice.user);
@@ -25,7 +25,7 @@ export const Profile = () => {
 					</Avatar>
 					<div className='block name'>
 						<h3>
-							{user.firstName} {user.lastName}
+							{user?.firstName} {user?.lastName}
 						</h3>
 						<IconButton
 							sx={{
@@ -38,9 +38,9 @@ export const Profile = () => {
 					<div className='divider'></div>
 					<div className='block detail'>
 						<LocationOn color='primary' />
-						<p>{user.site.name}</p>
+						<p>{user?.site?.name}</p>
 					</div>
-					{user.phone && (
+					{user?.phone && (
 						<div className='block detail'>
 							<Phone color='primary' />
 							<p>{user.phone}</p>
@@ -48,7 +48,7 @@ export const Profile = () => {
 					)}
 					<div className='block detail'>
 						<Email color='primary' />
-						<p>{user.email}</p>
+						<p>{user?.email}</p>
 					</div>
 					<Button
 						className='logout-btn'
@@ -61,7 +61,7 @@ export const Profile = () => {
 					</Button>
 				</div>
 				<div className='col right'>
-					{user.type === 1 ? <AdminProfile /> : <UserProfile />}
+					{user.type === 1 ? <AdminProfile /> : <></>}
 				</div>
 			</div>
 		</section>

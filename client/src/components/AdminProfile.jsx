@@ -16,7 +16,7 @@ export const AdminProfile = () => {
 	const admin = useSelector((state) => state.userSlice.user);
 
 	useEffect(() => {
-		if (admin.site) FetchUsers(admin.site);
+		if (admin.site._id) FetchUsers(admin.site._id);
 	}, [admin]);
 
 	return (
@@ -47,7 +47,7 @@ export const AdminProfile = () => {
 										onClick={() =>
 											ToggleUserActivatedById(
 												user._id,
-												user.site
+												admin.site._id
 											)
 										}
 									/>

@@ -14,6 +14,7 @@ exports.verifyToken = async (req, res, next) => {
 		req.user = decoded;
 
 		if (req.user) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
 		return res.status(401).send('Access Denied');
 	}
@@ -31,6 +32,7 @@ exports.verifyUser = async (req, res, next) => {
 		req.user = decoded;
 
 		if (req.user && req.user._id === req.params.userId) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
 		return res.status(401).send('Access Denied');
 	}
@@ -49,6 +51,7 @@ exports.verifyAdmin = async (req, res, next) => {
 		req.user = decoded;
 
 		if (req.user && req.user.type === 1 && req.user.site === siteId) next();
+		else return res.status(401).send('Access Denied');
 	} catch (err) {
 		return res.status(401).send('Access Denied');
 	}

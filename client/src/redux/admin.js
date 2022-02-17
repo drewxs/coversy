@@ -1,11 +1,12 @@
-import { setUsers, activateUser } from './adminSlice';
+import { setUsers, activateUser, loadingUsers } from './adminSlice';
 import axios from 'axios';
 import store from './store';
 
 const api = process.env.REACT_APP_API_URL;
 
 export const FetchUsers = async (siteId) => {
-	await axios
+	store.dispatch(loadingUsers());
+	axios
 		.get(`${api}/user/site/${siteId}`, {
 			headers: { 'auth-token': localStorage.getItem('auth-token') },
 		})

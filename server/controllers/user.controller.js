@@ -4,7 +4,7 @@ const escape = require('escape-html');
 /**
  * @desc This function returns users by user id.
  * @route GET /user/:userId
- * @access Admin
+ * @access User
  */
 exports.getUserById = async (req, res) => {
 	const userId = escape(req.params.userId);
@@ -21,9 +21,9 @@ exports.getUserById = async (req, res) => {
  * @access Admin
  */
 exports.getUsersBySite = async (req, res) => {
-	const site = escape(req.params.siteId);
+	const siteId = escape(req.params.siteId);
 
-	User.find({ site: site, type: 2 })
+	User.find({ site: siteId, type: 2 })
 		.then((users) => res.status(200).json(users))
 		.catch((err) => res.status(400).json(err));
 };
@@ -31,7 +31,7 @@ exports.getUsersBySite = async (req, res) => {
 /**
  * @desc This function updates users by id.
  * @route PUT /user/:userId
- * @access Admin
+ * @access User
  */
 exports.updateUserById = async (req, res) => {
 	const updateQuery = {};
@@ -57,7 +57,7 @@ exports.updateUserById = async (req, res) => {
 
 /**
  * @desc This function activates/deactivates users by id.
- * @route PUT /user/:userId
+ * @route PUT /user/:userId/:siteId/activate
  * @access Admin
  */
 exports.toggleUserActivatedById = async (req, res) => {

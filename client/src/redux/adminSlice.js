@@ -11,11 +11,12 @@ export const adminSlice = createSlice({
 			return {
 				...state,
 				users: action.payload,
+				loadingUsers: false,
 			};
 		},
 		activateUser: (state, action) => {
 			return {
-				users: state.users.map((user, i) =>
+				users: state.users.map((user) =>
 					user._id === action.payload._id
 						? { ...user, ...action.payload }
 						: user
@@ -31,6 +32,6 @@ export const adminSlice = createSlice({
 	},
 });
 
-export const { setUsers, activateUser } = adminSlice.actions;
+export const { setUsers, activateUser, loadingUsers } = adminSlice.actions;
 
 export default adminSlice.reducer;
