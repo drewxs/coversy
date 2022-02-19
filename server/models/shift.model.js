@@ -28,6 +28,11 @@ const ShiftSchema = new mongoose.Schema(
 				type: String,
 			},
 		],
+		site: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Site',
+			required: true,
+		},
 	},
 	{ timestamps: true }
 );
