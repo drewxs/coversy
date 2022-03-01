@@ -1,6 +1,13 @@
 const Shift = require('../models/shift.model');
 
 /**
+ * NEED TO DO
+ * ----------
+ * Add document uploads/removals
+ * Add input sanitization where applicable
+ */
+
+/**
  * @desc This function creates a shift.
  * @route POST /shift/
  * @access Admin

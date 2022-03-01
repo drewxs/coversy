@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const {
-	getNotificationById,
+	getNotificationsByUserId,
 	readNotification,
 } = require('../controllers/notification.controller');
+const { verifyUser, verifyAdmin } = require('../middleware/verify');
 
 // READ
-router.get('/:notificationId', getNotificationById);
+router.get('/:userId', verifyUser, getNotificationsByUserId);
 
 // UPDATE
-router.post('/:notificationId', readNotification);
+router.put('/:notificationId/:userId', verifyUser, readNotification);
 
 module.exports = router;
