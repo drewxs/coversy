@@ -7,6 +7,11 @@ const IssueSchema = new mongoose.Schema(
 			required: true,
 			max: 500,
 		},
+		issueType: {
+			type: String,
+			required: true,
+			enum: ['payroll', 'time-off'],
+		},
 		resolved: {
 			type: Boolean,
 			default: false,
