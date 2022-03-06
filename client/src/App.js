@@ -54,12 +54,12 @@ export const App = () => {
                         <Route
                             exact
                             path="/PayrollAdmin"
-                            element={<Navigate to="/PayrollAdmin" />}
+                            element={<PayrollAdmin />}
                         />
                         <Route
                             exact
                             path="/DashboardAdmin"
-                            element={<Navigate to="/DashboardAdmin" />}
+                            element={<DashboardAdmin />}
                         />
                         
                     </>
