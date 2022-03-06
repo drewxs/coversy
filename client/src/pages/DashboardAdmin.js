@@ -62,6 +62,7 @@ export const DashboardAdmin = () => {
                 </div>
             </section>
             <div className="card container">
+               
                 <div className="col left">
                     <Calendar onChange={onChange} value={value} />
                     <div className="upload_btn">
@@ -72,8 +73,10 @@ export const DashboardAdmin = () => {
                    
                 </div>
                 <div className="col right">
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <div className="shift_table">
+                    <h2>Shift</h2>
+                </div>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
@@ -98,7 +101,6 @@ export const DashboardAdmin = () => {
                         ))}
                         </TableBody>
                     </Table>
-                </TableContainer>
                 </div>
             </div>
         </section>
