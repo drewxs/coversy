@@ -7,7 +7,7 @@ import { Button, TextField } from '@mui/material';
 export const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const errors = useSelector((state) => state.userSlice.errors);
+	const errors = useSelector((state) => state.user.errors);
 	const navigate = useNavigate();
 
 	const handleSubmit = async () => {

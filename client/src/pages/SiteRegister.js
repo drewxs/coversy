@@ -20,7 +20,7 @@ export const SiteRegister = () => {
 	const [password, setPassword] = useState('');
 	const [success, setSuccess] = useState(false);
 
-	const errors = useSelector((state) => state.userSlice.errors);
+	const errors = useSelector((state) => state.user.errors);
 
 	const handleSubmit = (e) => {
 		RegisterSite({

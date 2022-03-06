@@ -4,7 +4,7 @@ import adminSlice from './adminSlice';
 
 export default configureStore({
 	reducer: {
-		userSlice: userSlice,
-		adminSlice: adminSlice,
+		user: userSlice,
+		admin: adminSlice,
 	},
 });

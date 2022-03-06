@@ -18,8 +18,8 @@ export const Register = () => {
 	const [site, setSite] = useState('');
 	const [success, setSuccess] = useState(false);
 
-	const sites = useSelector((state) => state.userSlice.sites);
-	const errors = useSelector((state) => state.userSlice.errors);
+	const sites = useSelector((state) => state.user.sites);
+	const errors = useSelector((state) => state.user.errors);
 
 	const handleSubmit = async (e) => {
 		await RegisterUser({
