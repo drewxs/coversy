@@ -25,7 +25,8 @@ $ npm i
 
 ### Configuration
 
-Include the client .env file in the src directory.
+Include client .env in root ('/client).
+Do not modify .env.test file.
 
 ### Development
 
@@ -42,5 +43,3 @@ Run the following for missing modules:
 ```sh
 $ npm i
 ```
-
-For missing environment variables, reach out for a copy of the .env file.

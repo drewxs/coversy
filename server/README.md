@@ -25,7 +25,8 @@ $ npm i
 
 ### Configuration
 
-Include the server .env file in the root of this directory.
+Include client .env in root ('/server).
+Do not modify .env.test file.
 
 ### Development
 
@@ -43,10 +44,8 @@ Run the following for missing modules:
 $ npm i
 ```
 
-If the dev script is still throwing errors, run the following before trying again:
+If receiving an error related to nodemon, run the following before trying again:
 
 ```sh
-$ npm i -D nodemon
+$ npm i -g nodemon
 ```
-
-For missing environment variables, reach out for a copy of the .env file.
