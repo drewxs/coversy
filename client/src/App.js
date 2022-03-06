@@ -20,6 +20,7 @@ import { LoadUser } from 'redux/user';
 
 export const App = () => {
 	const authenticated = useSelector((state) => state.user.authenticated);
+	const user = useSelector((state) => state.user.user);
 
 	useEffect(() => {
 		if (authenticated) LoadUser();
@@ -28,14 +29,33 @@ export const App = () => {
 	return (
 		<Router>
 			<Routes>
+				{/* Admin routes */}
+				{authenticated && user.type === 1 && (
+					<>
+						<Route
+							exact
+							path='/payroll'
+							element={<PayrollAdmin />}
+						/>
+						<Route
+							exact
+							path='/home'
+							element={<DashboardAdmin />}
+						/>
+					</>
+				)}
+
+				{/* User routes */}
 				{authenticated && (
 					<>
+						<Route exact path='/profile' element={<Profile />} />
+
+						{/* Redirects */}
 						<Route
 							exact
 							path='/'
 							element={<Navigate to='/profile' />}
 						/>
-						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
 							path='/login'
@@ -51,18 +71,10 @@ export const App = () => {
 							path='/register/site'
 							element={<Navigate to='/profile' />}
 						/>
-						<Route
-							exact
-							path='/PayrollAdmin'
-							element={<PayrollAdmin />}
-						/>
-						<Route
-							exact
-							path='/DashboardAdmin'
-							element={<DashboardAdmin />}
-						/>
 					</>
 				)}
+
+				{/* Global routes */}
 				<Route exact path='/' element={<Home />} />
 				<Route exact path='/login' element={<Login />} />
 				<Route exact path='/register' element={<Register />} />
@@ -71,6 +83,8 @@ export const App = () => {
 					path='/confirm/:confirmationCode'
 					element={<Welcome />}
 				/>
+
+				{/* Unspecified routes */}
 				<Route path='*' element={<Navigate to='/login' />} />
 			</Routes>
 		</Router>
