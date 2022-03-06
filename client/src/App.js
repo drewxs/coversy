@@ -14,6 +14,7 @@ import {
     SiteRegister,
     Welcome,
     PayrollAdmin,
+    DashboardAdmin,
 } from "pages";
 import { LoadUser } from "redux/user";
 
@@ -55,6 +56,12 @@ export const App = () => {
                             path="/PayrollAdmin"
                             element={<Navigate to="/PayrollAdmin" />}
                         />
+                        <Route
+                            exact
+                            path="/DashboardAdmin"
+                            element={<Navigate to="/DashboardAdmin" />}
+                        />
+                        
                     </>
                 )}
                 <Route exact path="/" element={<Home />} />

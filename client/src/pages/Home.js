@@ -28,6 +28,14 @@ export const Home = () => {
                         <Button
                             variant="outlined"
                             color="secondary"
+                            href="/DashboardAdmin"
+                            className="button"
+                        >
+                            Dashboard
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="secondary"
                             href="/login"
                             className="button"
                         >

@@ -5,3 +5,4 @@ export { SiteRegister } from "./SiteRegister";
 export { Welcome } from "./Welcome";
 export { Home } from "./Home";
 export { PayrollAdmin } from "./PayrollAdmin";
+export { DashboardAdmin } from "./DashboardAdmin";

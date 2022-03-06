@@ -27,6 +27,14 @@ export const Profile = () => {
                         </Button>
                         <Button
                             variant="outlined"
+                            color="secondary"
+                            href="/DashboardAdmin"
+                            className="button"
+                        >
+                            Dashboard
+                        </Button>
+                        <Button
+                            variant="outlined"
                             className="button logout-btn"
                             onClick={() => {
                                 <Navigate to="/PayrollAdmin" />;
