@@ -17,6 +17,19 @@
 	.container {
 		display: flex;
 	}
+
+	.col {
+		&.left {
+			padding-right: 4em;
+		}
+		&.right {
+			flex-grow: 1;
+		}
+	}
+
+	.table {
+		width: 100%;
+	}
 }
 
 @include respond-to('tablet') {

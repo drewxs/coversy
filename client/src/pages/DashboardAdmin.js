@@ -25,7 +25,7 @@ const rows = [
 ];
 
 export const DashboardAdmin = () => {
-	const [value, onChange] = useState(new Date());
+	const [value, setValue] = useState(new Date());
 
 	return (
 		<section className='dashboard'>
@@ -65,14 +65,9 @@ export const DashboardAdmin = () => {
 			</section>
 			<div className='container'>
 				<div className='col left'>
-					<Calendar onChange={onChange} value={value} />
+					<Calendar onChange={setValue} value={value} />
 					<div className='upload_btn'>
-						<Button
-							variant='contained'
-							className='button btn-Upload'
-						>
-							Upload Schedule
-						</Button>
+						<Button variant='contained'>Upload Schedule</Button>
 					</div>
 				</div>
 				<div className='col right'>
@@ -90,14 +85,7 @@ export const DashboardAdmin = () => {
 						</TableHead>
 						<TableBody className='table__body'>
 							{rows.map((row) => (
-								<TableRow
-									key={row.name}
-									sx={{
-										'&:last-child td, &:last-child th': {
-											border: 0,
-										},
-									}}
-								>
+								<TableRow key={row.name}>
 									<TableCell scope='row'>
 										{row.name}
 									</TableCell>
