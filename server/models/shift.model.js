@@ -2,25 +2,24 @@ const mongoose = require('mongoose');
 
 const ShiftSchema = new mongoose.Schema(
 	{
-		intendedTeacher: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
-			required: true,
-		},
 		teacher: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
-		},
-		date: {
-			type: Date,
 			required: true,
+		},
+		sub: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
 		},
 		details: {
 			type: String,
+		},
+		startTime: {
+			type: Date,
 			required: true,
 		},
-		hours: {
-			type: Number,
+		endTime: {
+			type: Date,
 			required: true,
 		},
 		materials: [
@@ -28,6 +27,10 @@ const ShiftSchema = new mongoose.Schema(
 				type: String,
 			},
 		],
+		posted: {
+			type: Boolean,
+			default: false,
+		},
 		site: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Site',

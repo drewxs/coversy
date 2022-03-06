@@ -7,10 +7,10 @@ const escape = require('escape-html');
  * @route GET /notification/:notificationId
  * @access PUBLIC
  */
-exports.getNotificationById = async (req, res) => {
-	const notificationId = escape(req.params.notificationId);
+exports.getNotificationsByUserId = async (req, res) => {
+	const userId = escape(req.params.userId);
 
-	Notification.findById(notificationId)
+	Notification.find({ reciver: userId })
 		.then((notification) => res.status(200).json(notification))
 		.catch((err) => res.status(400).json(err));
 };
