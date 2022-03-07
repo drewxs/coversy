@@ -1,7 +1,7 @@
 const Issue = require('../models/issue.model');
 const escape = require('escape-html');
 
-exports.createSite = async (req, res) => {
+exports.createIssue = async (req, res) => {
 	const issue = {
 		issueType: escape(req.body.issueType),
 		message: escape(req.body.message),
@@ -9,7 +9,7 @@ exports.createSite = async (req, res) => {
 		site: escape(req.body.site),
 		payroll: escape(req.body.payroll),
 	};
-	Site.create(issue)
+	Issue.create(issue)
 		.then((issue) => res.status(200).json(issue))
 		.catch((err) => res.status(400).json(err));
 };
