@@ -9,6 +9,6 @@ const verifyUser = require('../middleware/verify');
 router.get('/:userId', verifyUser, getNotificationsByUserId);
 
 // UPDATE
-router.put('/:userId/:notificationId', verifyUser, readNotification);
+router.put('/:notificationId/:userId', verifyUser, readNotification);
 
 module.exports = router;
