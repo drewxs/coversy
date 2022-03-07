@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import { LogoutUser } from 'redux/user';
 import { Calendar } from 'react-calendar';
 import Time from 'react-pure-time';
+import { FileUploader } from "react-drag-drop-files";
 import {
     Box,
     Typography,
@@ -38,14 +39,19 @@ const rows = [
     createData('John doe', new Date(), new Date(),'Gym'),
     createData('Jane Doe', new Date(), new Date(),'Math'),
 ];
+const fileTypes = [".CSV"];
 
 export const DashboardAdmin = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [value, setValue] = useState(new Date());
-    const [file, setFile] = useState();
 
+    const [value, setValue] = useState(new Date());
+    const [file, setFile] = useState(null);
+    const handleChange = (file) => {
+        setFile(file);
+    };
+    
     useEffect(() => {
         if (file) {
             Papa.parse(file, {
@@ -111,11 +117,25 @@ export const DashboardAdmin = () => {
                             Upload Schedule
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                <input
-                                type='file'
-                                accept='.csv'
-                                onChange={(e) => setFile(e.target.files[0])}
-                            />
+                             <FileUploader handleChange={handleChange} name="file"  label="Drop files to upload or"  accept='.csv' types={fileTypes} />
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={handleClose}
+                                className='button margin10'
+                            >
+                                Upload
+                            </Button>
+                            <Button
+                                variant='contained'
+                                color='secondary'
+                                onClick={handleClose}
+                                className='button margin10'
+                            >
+                                Cancel
+                            </Button>
                             </Typography>
                         </Box>
                     </Modal>
