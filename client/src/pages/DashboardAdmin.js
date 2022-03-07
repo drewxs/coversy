@@ -4,7 +4,11 @@ import { Navigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import { LogoutUser } from 'redux/user';
 import { Calendar } from 'react-calendar';
+import Time from 'react-pure-time';
 import {
+    Box,
+    Typography,
+    Modal,
     Button,
     Table,
     TableBody,
@@ -15,17 +19,30 @@ import {
 import Papa from 'papaparse';
 
 // Update to use date objects
-const createData = (name, startTime, endTime) => {
-    return { name, startTime, endTime };
+const createData = (name, startTime, endTime,classname) => {
+    return { name, startTime, endTime,classname };
 };
-
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 // Update to use date objects
 const rows = [
-    createData('John doe', new Date(), new Date()),
-    createData('Jane Doe', new Date(), new Date()),
+    createData('John doe', new Date(), new Date(),'Gym'),
+    createData('Jane Doe', new Date(), new Date(),'Math'),
 ];
 
 export const DashboardAdmin = () => {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const [value, setValue] = useState(new Date());
     const [file, setFile] = useState();
 
@@ -80,15 +97,28 @@ export const DashboardAdmin = () => {
                 <div className='col left'>
                     <Calendar onChange={setValue} value={value} />
                     <div className='upload_btn'>
-                        <Button variant='contained'>Upload Schedule</Button>
+                        <Button variant='contained' className='btnFullWidth' onClick={handleOpen} >Upload Schedule</Button>
                     </div>
-                    <>
-                        <input
-                            type='file'
-                            accept='.csv'
-                            onChange={(e) => setFile(e.target.files[0])}
-                        />
-                    </>
+                   
+                    <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Upload Schedule
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                <input
+                                type='file'
+                                accept='.csv'
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </div>
                 <div className='col right'>
                     <div className='shift_table'>
@@ -110,10 +140,10 @@ export const DashboardAdmin = () => {
                                         {row.name}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {row.shiftdate}
+                                        <Time value={row.startTime} format="M d, Y" />
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {row.shifttime}
+                                        <Time value={row.endTime} format="M d, Y" />
                                     </TableCell>
                                     <TableCell align='right'>
                                         {row.classname}
