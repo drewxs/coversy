@@ -8,14 +8,14 @@ const {
 const { verifyUser, verifyAdmin } = require('../middleware/verify');
 
 // CREATE
-router.post('/site', verifyUser, createIssue);
+router.post('/site', createIssue);
 
 // READ
-router.get('/site/:issueId', verifyAdmin, getIssueById);
-router.get('/site', verifyAdmin, getAllIssues);
-router.get('/site', verifyAdmin, getActiveIssues);
+router.get('/site/:issueId', getIssueById);
+router.get('/site', getAllIssues);
+router.get('/site', getActiveIssues);
 
 // UPDATE
-router.post('/site/:issueID', verifyAdmin, setResolved);
+router.post('/site/:issueID', setResolved);
 
 module.exports = router;
