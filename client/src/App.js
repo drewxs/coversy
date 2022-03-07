@@ -51,26 +51,7 @@ export const App = () => {
 						<Route exact path='/profile' element={<Profile />} />
 
 						{/* Redirects */}
-						<Route
-							exact
-							path='/'
-							element={<Navigate to='/profile' />}
-						/>
-						<Route
-							exact
-							path='/login'
-							element={<Navigate to='/profile' />}
-						/>
-						<Route
-							exact
-							path='/register'
-							element={<Navigate to='/profile' />}
-						/>
-						<Route
-							exact
-							path='/register/site'
-							element={<Navigate to='/profile' />}
-						/>
+						<Route path='*' element={<Navigate to='/profile' />} />
 					</>
 				)}
 
