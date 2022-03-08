@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
-import 'react-calendar/dist/Calendar.css';
-import { LogoutUser } from 'redux/user';
 import { Calendar } from 'react-calendar';
 import Time from 'react-pure-time';
 import {
@@ -59,40 +56,6 @@ export const DashboardAdmin = () => {
 
     return (
         <section className='dashboard'>
-            <section className='nav'>
-                <div className='container'>
-                    <h2>Coversy</h2>
-                    <div className='button-cont'>
-                        <Button
-                            variant='outlined'
-                            className='button logout-btn'
-                            onClick={() => {
-                                <Navigate to='/login' />;
-                                LogoutUser();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                        <Button
-                            variant='outlined'
-                            color='secondary'
-                            href='/DashboardAdmin'
-                            className='button'
-                        >
-                            Dashboard
-                        </Button>
-                        <Button
-                            variant='outlined'
-                            className='button logout-btn'
-                            onClick={() => {
-                                <Navigate to='/PayrollAdmin' />;
-                            }}
-                        >
-                            Payroll
-                        </Button>
-                    </div>
-                </div>
-            </section>
             <div className='container'>
                 <div className='col left'>
                     <Calendar onChange={setValue} value={value} />

@@ -13,17 +13,8 @@ exports.createShift = async (req, res) => {
 		endTime: escape(req.body.endTime),
 		site: escape(req.body.site),
 	};
-	if (req.body.sub) shift.sub = escape(req.body.sub);
 	if (req.body.details) shift.details = escape(req.body.details);
-	if (req.body.materials) {
-		const materials = req.body.materials;
-		const sanitizedMaterials = [];
 
-		for (const i of materials)
-			sanitizedMaterials = escape(req.body.materials[i]);
-
-		shift.materials = sanitizedMaterials;
-	}
 	Shift.create(shift)
 		.then((shift) => res.status(200).json(shift))
 		.catch((err) => res.status(400).json(err));
@@ -80,15 +71,7 @@ exports.updateShiftById = async (req, res) => {
 	if (req.body.endTime) updateQuery.endTime = escape(req.body.endTime);
 	if (req.body.posted) updateQuery.posted = escape(req.body.posted);
 	if (req.body.site) updateQuery.site = escape(req.body.site);
-	if (req.body.materials) {
-		const materials = req.body.materials;
-		const sanitizedMaterials = [];
 
-		for (const i of materials)
-			sanitizedMaterials = escape(req.body.materials[i]);
-
-		updateQuery.materials = sanitizedMaterials;
-	}
 	const shiftId = escape(req.params.shiftId);
 
 	Shift.findByIdAndUpdate(shiftId, updateQuery)
