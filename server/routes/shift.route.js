@@ -10,7 +10,7 @@ const { verifyShift } = require('../middleware/verify.shift');
 const { verifyAdmin } = require('../middleware/verify');
 
 // CREATE
-router.post('/:siteId', createShift);
+router.post('/:siteId', verifyAdmin, createShift);
 // router.post('/:siteId', verifyAdmin, createShift);
 
 // READ
