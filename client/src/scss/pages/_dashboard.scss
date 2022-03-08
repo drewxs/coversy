@@ -1,0 +1,43 @@
+@use '../abstract' as *;
+
+.upload_btn {
+	padding-top: 1em;
+}
+.shift_table {
+	padding-top: 1em;
+}
+.dashboard .card .col.right {
+	background-color: #fff;
+	padding: 4em 0em;
+}
+.btnFullWidth{
+	width: 100%;
+}
+.dashboard {
+	height: 100vh;
+
+	.container {
+		display: flex;
+	}
+
+	.col {
+		&.left {
+			padding-right: 4em;
+		}
+		&.right {
+			flex-grow: 1;
+		}
+	}
+
+	.table {
+		width: 100%;
+	}
+}
+
+@include respond-to('tablet') {
+	.dashboard {
+		.container {
+			flex-direction: column;
+		}
+	}
+}
