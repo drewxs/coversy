@@ -1,11 +1,5 @@
 const Shift = require('../models/shift.model');
-
-/**
- * NEED TO DO
- * ----------
- * Add document uploads/removals
- * Add input sanitization where applicable
- */
+const escape = require('escape-html');
 
 /**
  * @desc This function creates a shift.
@@ -13,7 +7,15 @@ const Shift = require('../models/shift.model');
  * @access Admin
  */
 exports.createShift = async (req, res) => {
-	Shift.create(req.body)
+	const shift = {
+		teacher: escape(req.body.teacher),
+		startTime: escape(req.body.startTime),
+		endTime: escape(req.body.endTime),
+		site: escape(req.body.site),
+	};
+	if (req.body.details) shift.details = escape(req.body.details);
+
+	Shift.create(shift)
 		.then((shift) => res.status(200).json(shift))
 		.catch((err) => res.status(400).json(err));
 };
@@ -35,7 +37,9 @@ exports.getAllShifts = async (req, res) => {
  * @access Admin
  */
 exports.getShiftById = async (req, res) => {
-	Shift.findById(req.params.id)
+	const shiftId = escape(req.params.shiftId);
+
+	Shift.findById(shiftId)
 		.then((shift) => res.status(200).json(shift))
 		.catch((err) => res.status(400).json(err));
 };
@@ -45,18 +49,32 @@ exports.getShiftById = async (req, res) => {
  * @route GET /shift/:siteId
  * @access Admin
  */
-exports.getShiftsBySite = async (req, res) => {};
+exports.getShiftsBySite = async (req, res) => {
+	const site = escape(req.params.siteId);
+
+	Shift.find({ site: site })
+		.then((shifts) => res.status(200).json(shifts))
+		.catch((err) => res.status(400).json(err));
+};
 
 /**
  * @desc This function updates shifts by the shift Id.
  * @route PUT /shift/:shiftId
  * @access Admin
  */
-exports.updateShiftById = async (req, res) => {};
+exports.updateShiftById = async (req, res) => {
+	const updateQuery = {};
+	if (req.body.teacher) updateQuery.teacher = escape(req.body.teacher);
+	if (req.body.sub) updateQuery.sub = escape(req.body.sub);
+	if (req.body.details) updateQuery.details = escape(req.body.details);
+	if (req.body.startTime) updateQuery.startTime = escape(req.body.startTime);
+	if (req.body.endTime) updateQuery.endTime = escape(req.body.endTime);
+	if (req.body.posted) updateQuery.posted = escape(req.body.posted);
+	if (req.body.site) updateQuery.site = escape(req.body.site);
 
-/**
- * @desc This function deletes shifts by the shift Id.
- * @route DELETE /shift/:shiftId
- * @access Admin
- */
-exports.deleteShiftById = async (req, res) => {};
+	const shiftId = escape(req.params.shiftId);
+
+	Shift.findByIdAndUpdate(shiftId, updateQuery)
+		.then((shift) => res.status(200).json(shift))
+		.catch((err) => res.status(400).json(err));
+};

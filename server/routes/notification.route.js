@@ -3,7 +3,7 @@ const {
 	getNotificationsByUserId,
 	readNotification,
 } = require('../controllers/notification.controller');
-const { verifyUser, verifyAdmin } = require('../middleware/verify');
+const verifyUser = require('../middleware/verify');
 
 // READ
 router.get('/:userId', verifyUser, getNotificationsByUserId);

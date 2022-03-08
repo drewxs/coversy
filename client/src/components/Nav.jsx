@@ -1,57 +1,72 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { LogoutUser } from 'redux/user';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
 
     return (
-        <div>
-            <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-                <a className='navbar-brand' href='/'>
-                    <img
-                        src='/images/logo.png'
-                        width='30'
-                        height='30'
-                        className='d-inline-block align-top'
-                        alt=''
-                    />
-                    <span className='ml-2'>Coversy</span>
-                </a>
-                <button
-                    className='navbar-toggler'
-                    type='button'
-                    data-toggle='collapse'
-                    data-target='#navbarSupportedContent'
-                    aria-controls='navbarSupportedContent'
-                    aria-expanded='false'
-                    aria-label='Toggle navigation'
-                >
-                    <span className='navbar-toggler-icon'></span>
-                </button>
-                <div
-                    className='collapse navbar-collapse'
-                    id='navbarSupportedContent'
-                >
-                    <ul className='navbar-nav mr-auto'>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='/'>
-                                Home
-                            </a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='/login'>
-                                Login
-                            </a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='/register'>
+        <section className='nav'>
+            <div className='container'>
+                <h2>Coversy</h2>
+                <div className='button-cont'>
+                    {!authenticated && (
+                        <>
+                            <Button
+                                variant='outlined'
+                                color='secondary'
+                                href='/register'
+                                className='button'
+                            >
                                 Register
-                            </a>
-                        </li>
-                    </ul>
+                            </Button>
+
+                            <Button
+                                variant='outlined'
+                                color='secondary'
+                                href='/login'
+                                className='button'
+                            >
+                                Login
+                            </Button>
+                        </>
+                    )}
+
+                    {authenticated && user.type === 1 && (
+                        <>
+                            <Button
+                                variant='outlined'
+                                color='secondary'
+                                href='/home'
+                                className='button'
+                            >
+                                Dashboard
+                            </Button>
+                            <Button
+                                variant='outlined'
+                                className='button logout-btn'
+                                href='/payroll'
+                            >
+                                Payroll
+                            </Button>
+                        </>
+                    )}
+
+                    <Button
+                        variant='outlined'
+                        className='button logout-btn'
+                        onClick={() => {
+                            <Navigate to='/login' />;
+                            LogoutUser();
+                        }}
+                    >
+                        Logout
+                    </Button>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </section>
     );
 };
