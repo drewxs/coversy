@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { GetShifts, AddShift } from 'redux/shift';
 // import { Calendar } from 'react-calendar';
 import Time from 'react-pure-time';
 import {
@@ -15,10 +16,6 @@ import {
 } from '@mui/material';
 import Papa from 'papaparse';
 
-// Update to use date objects
-const createData = (name, startTime, endTime, classname) => {
-    return { name, startTime, endTime, classname };
-};
 const style = {
     position: 'absolute',
     top: '50%',
@@ -30,29 +27,34 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-// Update to use date objects
-const rows = [
-    createData('John doe', new Date(), new Date(), 'Gym'),
-    createData('Jane Doe', new Date(), new Date(), 'Math'),
-];
 
 export const DashboardAdmin = () => {
+    const shifts = useSelector((state) => state.shift.shifts);
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     // const [value, setValue] = useState(new Date());
     const [file, setFile] = useState();
 
-    useEffect(() => {
+    const handleUpload = () => {
         if (file) {
             Papa.parse(file, {
                 header: true,
                 complete: (res) => {
-                    console.log(res.data);
+                    for (let i = 0; i < res.data.length; i++) {
+                        AddShift(res.data[i], res.data[i].siteId);
+                    }
+
+                    handleClose();
                 },
             });
         }
-    }, [file]);
+    };
+
+    useEffect(() => {
+        GetShifts();
+    }, []);
 
     return (
         <section className='dashboard'>
@@ -60,11 +62,7 @@ export const DashboardAdmin = () => {
                 <div className='col left'>
                     {/* <Calendar onChange={setValue} value={value} /> */}
                     <div className='upload_btn'>
-                        <Button
-                            variant='contained'
-                            className='btnFullWidth'
-                            onClick={handleOpen}
-                        >
+                        <Button variant='contained' onClick={handleOpen}>
                             Upload Schedule
                         </Button>
                     </div>
@@ -80,6 +78,14 @@ export const DashboardAdmin = () => {
                                     onChange={(e) => setFile(e.target.files[0])}
                                 />
                             </Typography>
+                            <br />
+                            <Button
+                                variant='outlined'
+                                color='primary'
+                                onClick={() => handleUpload()}
+                            >
+                                Upload
+                            </Button>
                         </Box>
                     </Modal>
                 </div>
@@ -90,32 +96,32 @@ export const DashboardAdmin = () => {
                     <Table className='table'>
                         <TableHead className='table__head'>
                             <TableRow>
-                                <TableCell>Name</TableCell>
+                                <TableCell>Teacher</TableCell>
                                 <TableCell align='right'>Shift Date</TableCell>
                                 <TableCell align='right'>Shift Time</TableCell>
-                                <TableCell align='right'>Class</TableCell>
+                                <TableCell align='right'>Site</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className='table__body'>
-                            {rows.map((row) => (
-                                <TableRow key={row.name}>
+                            {shifts.map((shift) => (
+                                <TableRow key={shift._id}>
                                     <TableCell scope='row'>
-                                        {row.name}
+                                        {shift.teacher}
                                     </TableCell>
                                     <TableCell align='right'>
                                         <Time
-                                            value={row.startTime}
+                                            value={shift.startTime}
                                             format='M d, Y'
                                         />
                                     </TableCell>
                                     <TableCell align='right'>
                                         <Time
-                                            value={row.endTime}
+                                            value={shift.endTime}
                                             format='M d, Y'
                                         />
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {row.classname}
+                                        {shift.site}
                                     </TableCell>
                                 </TableRow>
                             ))}

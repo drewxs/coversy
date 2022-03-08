@@ -1,11 +1,10 @@
 import { setShifts, addShift, editShift, loadingShifts } from './shiftSlice';
 import axios from 'axios';
 import store from './store';
-import { loadingUser } from './userSlice';
 
 const api = process.env.REACT_APP_API_URL;
 
-export const getShifts = async () => {
+export const GetShifts = async () => {
     store.dispatch(loadingShifts);
     await axios
         .get(`${api}/shifts`)
@@ -13,9 +12,9 @@ export const getShifts = async () => {
         .catch((err) => console.error(err));
 };
 
-export const addShift = async (shift) => {
+export const AddShift = async (shift, siteId) => {
     await axios
-        .post(`${api}/shifts`, shift, {
+        .post(`${api}/shifts/${siteId}`, shift, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
                 'content-type': 'application/json',
@@ -25,11 +24,11 @@ export const addShift = async (shift) => {
         .catch((err) => console.error(err));
 };
 
-export const editShift = async (shift) => {
+export const EditShift = async (shift) => {
     await axios
         .put(`${api}/shifts/${shift._id}`)
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
 
-export const getShiftsBySite = async (siteId) => {};
+export const GetShiftsBySite = async (siteId) => {};
