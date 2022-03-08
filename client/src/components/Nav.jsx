@@ -78,18 +78,29 @@ export const Nav = () => {
                             </Button> */}
                         </>
                     )}
+                    {authenticated && user.type === 2 && (
+                        <>
+                            {/* <Button
+                                variant='outlined'
+                                className='button logout'
+                                href='/payroll'
+                            >
+                                Payroll
+                            </Button> */}
 
-                    <Button
-                        variant='outlined'
-                        color='primary'
-                        className='button logout-btn'
-                        onClick={() => {
-                            <Navigate to='/login' />;
-                            LogoutUser();
-                        }}
-                    >
-                        Logout
-                    </Button>
+                            <Button
+                                variant='outlined'
+                                color='primary'
+                                className='button logout-btn'
+                                onClick={() => {
+                                    <Navigate to='/login' />;
+                                    LogoutUser();
+                                }}
+                            >
+                                Logout
+                            </Button>
+                        </>
+                    )}
                 </div>
             </div>
         </section>
