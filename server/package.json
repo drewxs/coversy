@@ -12,6 +12,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"aws-sdk": "^2.1088.0",
 		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",
 		"dotenv": "^14.3.2",
@@ -21,6 +22,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.8",
 		"multer": "^1.4.4",
+		"multer-s3": "^2.10.0",
 		"nodemailer": "^6.7.2"
 	},
 	"devDependencies": {
