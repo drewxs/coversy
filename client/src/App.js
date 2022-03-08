@@ -13,8 +13,8 @@ import {
     Register,
     SiteRegister,
     Welcome,
-    // PayrollAdmin,
     DashboardAdmin,
+    DashboardTeacher,
 } from 'pages';
 import { Nav } from 'components';
 import { LoadUser } from 'redux/user';
@@ -35,11 +35,6 @@ export const App = () => {
                     {/* Admin routes */}
                     {authenticated && user.type === 1 && (
                         <>
-                            {/* <Route
-                                exact
-                                path='/dashboard/payroll'
-                                element={<PayrollAdmin />}
-                            /> */}
                             <Route
                                 exact
                                 path='/dashboard/shifts'
@@ -57,6 +52,11 @@ export const App = () => {
                     {/* User routes */}
                     {authenticated && user.type === 2 && (
                         <>
+                            <Route
+                                exact
+                                path='/dashboard/shifts'
+                                element={<DashboardTeacher />}
+                            />
                             <Route
                                 exact
                                 path='/profile'

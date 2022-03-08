@@ -13,6 +13,7 @@ export const Nav = () => {
             <div className='container'>
                 <h2>Coversy</h2>
                 <div className='button-cont'>
+                    {/* Unauthenticated links */}
                     {!authenticated && (
                         <>
                             <Button
@@ -42,6 +43,7 @@ export const Nav = () => {
                         </>
                     )}
 
+                    {/* Admin links */}
                     {authenticated && user.type === 1 && (
                         <>
                             <Button
@@ -79,6 +81,45 @@ export const Nav = () => {
                         </>
                     )}
 
+                    {/* User links */}
+                    {authenticated && user.type === 2 && (
+                        <>
+                            <Button
+                                variant='outlined'
+                                color={
+                                    window.location.pathname !==
+                                    '/dashboard/shifts'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/dashboard/shifts'
+                                className='button'
+                            >
+                                Shifts
+                            </Button>
+                            <Button
+                                variant='outlined'
+                                color={
+                                    window.location.pathname !== '/profile'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/profile'
+                                className='button'
+                            >
+                                Profile
+                            </Button>
+                            {/* <Button
+                                variant='outlined'
+                                className='button logout'
+                                href='/payroll'
+                            >
+                                Payroll
+                            </Button> */}
+                        </>
+                    )}
+
+                    {/* Authenticated links */}
                     <Button
                         variant='outlined'
                         color='primary'

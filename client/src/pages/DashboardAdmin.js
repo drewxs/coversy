@@ -16,27 +16,14 @@ import {
 } from '@mui/material';
 import Papa from 'papaparse';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
 export const DashboardAdmin = () => {
     const shifts = useSelector((state) => state.shift.shifts);
-
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    // const [value, setValue] = useState(new Date());
     const [file, setFile] = useState();
 
+    /**
+     * @description Handles CSV file upload, parses CSV file, and adds all parsed shifts
+     */
     const handleUpload = () => {
         if (file) {
             Papa.parse(file, {
@@ -46,7 +33,7 @@ export const DashboardAdmin = () => {
                         AddShift(res.data[i], res.data[i].siteId);
                     }
 
-                    handleClose();
+                    setOpen(false);
                 },
             });
         }
@@ -62,12 +49,27 @@ export const DashboardAdmin = () => {
                 <div className='col left'>
                     {/* <Calendar onChange={setValue} value={value} /> */}
                     <div className='upload_btn'>
-                        <Button variant='contained' onClick={handleOpen}>
+                        <Button
+                            variant='contained'
+                            onClick={() => setOpen(true)}
+                        >
                             Upload Schedule
                         </Button>
                     </div>
-                    <Modal open={open} onClose={handleClose}>
-                        <Box sx={style}>
+                    <Modal open={open} onClose={() => setOpen(false)}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 400,
+                                bgcolor: 'background.paper',
+                                border: '2px solid #000',
+                                boxShadow: 24,
+                                p: 4,
+                            }}
+                        >
                             <Typography variant='h6' component='h2'>
                                 Upload Schedule
                             </Typography>
