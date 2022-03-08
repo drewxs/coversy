@@ -108,6 +108,9 @@
     background-color: $primary;
 }
 
+@include respond-to('tablet') {
+}
+
 .mainDash-container {
     width: 100%;
     display: flex;
