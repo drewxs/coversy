@@ -5,12 +5,13 @@ const {
 	getShiftById,
 	getShiftsBySite,
 	updateShiftById,
+	deleteShiftsBySite,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
 const { verifyAdmin } = require('../middleware/verify');
 
 // CREATE
-router.post('/:siteId', createShift);
+router.post('/site/:siteId', verifyAdmin, createShift);
 // router.post('/:siteId', verifyAdmin, createShift);
 
 // READ
@@ -20,5 +21,8 @@ router.get('/site/:siteId', getShiftsBySite);
 
 // UPDATE
 router.put('/:shiftId', verifyShift, updateShiftById);
+
+// DELETE
+router.delete('/site/:siteId', verifyAdmin, deleteShiftsBySite);
 
 module.exports = router;
