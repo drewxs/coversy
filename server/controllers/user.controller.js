@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
+const profileUpload = require('../util/profilepicture');
 
 /**
  * @desc This function returns users by user id.
@@ -70,6 +71,28 @@ exports.toggleUserActivatedById = async (req, res) => {
 		return res.status(404).json('User is not part of this site.');
 
 	const updateQuery = { activated: !user.activated };
+
+	User.findByIdAndUpdate(userId, updateQuery, { new: true })
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
+
+/**
+ * @desc This function updates the users Profile Picture
+ * @route PUT /user/:userId/
+ * @access User
+ */
+exports.updateProfilePicture = async (req, res) => {
+	const userId = escape(req.params.userId);
+	const upload = profileUploader.single('avatar');
+
+	upload(req, res, (err) => {
+		if (err) {
+			res.status(400).json(err);
+		}
+	});
+
+	const updateQuery = { avatar: req.file.key };
 
 	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => res.status(200).json(user))
