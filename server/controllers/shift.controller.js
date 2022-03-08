@@ -16,7 +16,7 @@ exports.createShift = async (req, res) => {
 	if (req.body.details) shift.details = escape(req.body.details);
 
 	Shift.create(shift)
-		.then((shift) => res.status(200).json(shift))
+		.then((shift) => res.status(201).json(shift))
 		.catch((err) => res.status(400).json(err));
 };
 
@@ -77,4 +77,17 @@ exports.updateShiftById = async (req, res) => {
 	Shift.findByIdAndUpdate(shiftId, updateQuery)
 		.then((shift) => res.status(200).json(shift))
 		.catch((err) => res.status(400).json(err));
+};
+
+/**
+ * @desc This function deletes all shifts
+ * @route PUT /shift/:shiftId
+ * @access Admin
+ */
+exports.deleteShiftsBySite = async (req, res) => {
+	const siteId = escape(req.params.siteId);
+
+	Shift.deleteMany({ site: siteId })
+		.then(() => res.status(200).json('Test shifts successfully deleted'))
+		.catch((err) => res.status(400).send(err));
 };
