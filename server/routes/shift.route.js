@@ -7,9 +7,11 @@ const {
 	updateShiftById,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
+const { verifyAdmin } = require('../middleware/verify');
 
 // CREATE
-router.post('/', createShift);
+router.post('/:siteId', createShift);
+// router.post('/:siteId', verifyAdmin, createShift);
 
 // READ
 router.get('/', getAllShifts);

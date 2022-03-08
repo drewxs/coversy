@@ -84,13 +84,14 @@ exports.toggleUserActivatedById = async (req, res) => {
  */
 exports.updateProfilePicture = async (req, res) => {
 	const userId = escape(req.params.userId);
-	const upload = profileUploader.single('avatar');
+	profileUploader.single('avatar').catch((err) => res.status(400).json(err));
 
-	upload(req, res, (err) => {
-		if (err) {
-			res.status(400).json(err);
-		}
-	});
+	// const upload = profileUploader.single('avatar');
+	// upload(req, res, (err) => {
+	// 	if (err) {
+	// 		res.status(400).json(err);
+	// 	}
+	// });
 
 	const updateQuery = { avatar: req.file.key };
 
