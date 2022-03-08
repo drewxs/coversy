@@ -5,7 +5,6 @@ const {
 	getShiftById,
 	getShiftsBySite,
 	updateShiftById,
-	deleteShiftById,
 } = require('../controllers/shift.controller');
 
 // CREATE
@@ -17,7 +16,5 @@ router.get('/:shiftId', getShiftById);
 router.get('/:siteId', getShiftsBySite);
 // UPDATE
 router.put('/:shiftId', updateShiftById);
-// DELETE
-router.delete('/:shiftId', deleteShiftById);
 
 module.exports = router;
