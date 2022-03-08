@@ -5,7 +5,7 @@ import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
 import { AdminProfile } from 'components';
 
 export const Profile = () => {
-    const user = useSelector((state) => state.userSlice.user);
+    const user = useSelector((state) => state.user.user);
 
     return (
         <section className='profile'>

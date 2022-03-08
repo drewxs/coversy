@@ -1,51 +1,51 @@
 @use '../abstract' as *;
 
 .upload_btn {
-	padding-top: 1em;
+    padding-top: 1em;
 }
 .shift_table {
-	padding-top: 1em;
+    padding-top: 1em;
 }
 .dashboard .card .col.right {
-	background-color: #fff;
-	padding: 4em 0em;
+    background-color: #fff;
+    padding: 4em 0em;
 }
-.btnFullWidth{
-	width: 100%;
+.btnFullWidth {
+    width: 100%;
 }
 .dashboard {
-	height: 100vh;
+    height: 100vh;
+    padding-top: 20vh;
 
-	.container {
-		display: flex;
-	}
+    .container {
+        display: flex;
+    }
 
-	.col {
-		&.left {
-			padding-right: 4em;
-		}
-		&.right {
-			flex-grow: 1;
-		}
-	}
+    .col {
+        &.left {
+            padding-right: 4em;
+        }
+        &.right {
+            flex-grow: 1;
+        }
+    }
 
-	.table {
-		width: 100%;
-	}
+    .table {
+        width: 100%;
+    }
 }
 
-
 .right-container {
-	border: 2px solid black;
-	height: 50vh;
+    border: 2px solid black;
+    height: 50vh;
 }
 
 @include respond-to('tablet') {
-	.dashboard {
-		.container {
-			flex-direction: column;
-		}
-	}
+    .dashboard {
+        .container {
+            flex-direction: column;
+        }
+    }
 }
 
 /* teacher dashboard*/
@@ -60,7 +60,6 @@
 .nav-box {
     width: 100%;
     height: 6.5em;
-
 }
 
 .container-box {
@@ -99,7 +98,6 @@
             color: $black;
         }
     }
-
 }
 
 .line-spacing {
@@ -141,16 +139,14 @@
                     border-radius: 5px;
                     color: $white;
                 }
-                
             }
         }
-
     }
 
     .myShiftBox {
         width: 100%;
         height: 15%;
-        display:flex;
+        display: flex;
 
         .shiftBox-container {
             width: 50%;
@@ -206,12 +202,8 @@
         justify-content: center;
         align-items: center;
         border-radius: 5px;
-
     }
-
-    
 }
 
 @include respond-to('tablet') {
 }
-

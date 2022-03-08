@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
-import { Calendar } from 'react-calendar';
+// import { Calendar } from 'react-calendar';
 import Time from 'react-pure-time';
 import {
     Box,
@@ -40,7 +40,7 @@ export const DashboardAdmin = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [value, setValue] = useState(new Date());
+    // const [value, setValue] = useState(new Date());
     const [file, setFile] = useState();
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export const DashboardAdmin = () => {
         <section className='dashboard'>
             <div className='container'>
                 <div className='col left'>
-                    <Calendar onChange={setValue} value={value} />
+                    {/* <Calendar onChange={setValue} value={value} /> */}
                     <div className='upload_btn'>
                         <Button
                             variant='contained'

@@ -17,16 +17,23 @@ export const Nav = () => {
                         <>
                             <Button
                                 variant='outlined'
-                                color='secondary'
+                                color={
+                                    window.location.pathname !== '/register'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
                                 href='/register'
                                 className='button'
                             >
                                 Register
                             </Button>
-
                             <Button
                                 variant='outlined'
-                                color='secondary'
+                                color={
+                                    window.location.pathname !== '/login'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
                                 href='/login'
                                 className='button'
                             >
@@ -39,24 +46,42 @@ export const Nav = () => {
                         <>
                             <Button
                                 variant='outlined'
-                                color='secondary'
-                                href='/home'
+                                color={
+                                    window.location.pathname !==
+                                    '/dashboard/shifts'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/dashboard/shifts'
                                 className='button'
                             >
-                                Dashboard
+                                Shifts
                             </Button>
                             <Button
                                 variant='outlined'
-                                className='button logout-btn'
+                                color={
+                                    window.location.pathname !== '/profile'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/profile'
+                                className='button'
+                            >
+                                Profile
+                            </Button>
+                            {/* <Button
+                                variant='outlined'
+                                className='button logout'
                                 href='/payroll'
                             >
                                 Payroll
-                            </Button>
+                            </Button> */}
                         </>
                     )}
 
                     <Button
                         variant='outlined'
+                        color='primary'
                         className='button logout-btn'
                         onClick={() => {
                             <Navigate to='/login' />;

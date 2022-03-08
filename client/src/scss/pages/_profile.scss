@@ -1,58 +1,58 @@
 @use '../abstract' as *;
 
 .profile {
-	height: 100vh;
-	background: linear-gradient(180deg, #ffffff 60%, #333333 40%);
-	align-items: end;
-	padding-bottom: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffffff 60%, #333333 40%);
+    align-items: end;
+    padding-bottom: 0;
 
-	.card {
-		background-color: #fff;
-		height: 82vh;
+    .card {
+        background-color: #fff;
+        height: 82vh;
 
-		display: flex;
+        display: flex;
 
-		.col {
-			&.left {
-				width: 40%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				padding: 4em 6em;
+        .col {
+            &.left {
+                width: 40%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 4em 6em;
 
-				.divider {
-					background-color: rgba($color: $black, $alpha: 0.2);
-					width: 100%;
-					height: 1px;
-					margin: 1em 0 2em;
-				}
-				.block {
-					width: 100%;
-					display: flex;
+                .divider {
+                    background-color: rgba($color: $black, $alpha: 0.2);
+                    width: 100%;
+                    height: 1px;
+                    margin: 1em 0 2em;
+                }
+                .block {
+                    width: 100%;
+                    display: flex;
 
-					&.name {
-						margin-top: 1em;
-						align-items: center;
-						justify-content: center;
-					}
-					&.detail {
-						width: 70%;
-						margin-bottom: 1em;
-						align-items: start;
-					}
-					p {
-						margin-left: 1em;
-					}
-				}
-			}
-			&.right {
-				width: 60%;
-				max-height: 100%;
-				background-color: rgba($black, 0.1);
-			}
-		}
-	}
-	.logout-btn {
-		margin-top: auto;
-	}
+                    &.name {
+                        margin-top: 1em;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    &.detail {
+                        width: 70%;
+                        margin-bottom: 1em;
+                        align-items: start;
+                    }
+                    p {
+                        margin-left: 1em;
+                    }
+                }
+            }
+            &.right {
+                width: 60%;
+                max-height: 100%;
+                background-color: rgba($black, 0.1);
+            }
+        }
+    }
+    .logout-btn {
+        margin-top: auto;
+    }
 }

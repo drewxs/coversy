@@ -47,7 +47,10 @@ export const App = () => {
                             />
 
                             {/* Redirects */}
-                            <Route path='*' element={<Navigate to='/home' />} />
+                            <Route
+                                path='*'
+                                element={<Navigate to='/dashboard/shifts' />}
+                            />
                         </>
                     )}
 
@@ -68,7 +71,18 @@ export const App = () => {
                         </>
                     )}
 
-                    {/* Global routes */}
+                    {/* Authenticated Global routes */}
+                    {authenticated && (
+                        <>
+                            <Route
+                                exact
+                                path='/profile'
+                                element={<Profile />}
+                            />
+                        </>
+                    )}
+
+                    {/* Unauthenticated routes */}
                     {!authenticated && (
                         <>
                             <Route exact path='/' element={<Home />} />
