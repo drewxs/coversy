@@ -28,23 +28,29 @@ const UserPayroll = () => {
                     <div className='report-body'>
                         <div className='issue-text-container'>
                             <h3>Issues</h3>
-                            <TextareaAutosize
-                                aria-label='empty textarea'
-                                placeholder='Description...'
-                                style={{ width: 270, height: 200 }}
-                            />
-                        </div>
-                        <div className='issue-btn'>
-                            <Button id='submit-issue-btn' variant='contained'>
-                                Submit
-                            </Button>
-                            <Button
-                                onClick={() => handleButton(show)}
-                                id='cancel-issue-btn'
-                                variant='outlined'
-                            >
-                                Cancel
-                            </Button>
+                            <form className='report-form'>
+                                <TextareaAutosize
+                                    aria-label='empty textarea'
+                                    placeholder='Description...'
+                                    style={{ width: 270, height: 200 }}
+                                />
+
+                                <div className='issue-btn'>
+                                    <Button
+                                        id='submit-issue-btn'
+                                        variant='contained'
+                                    >
+                                        Submit
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleButton(show)}
+                                        id='cancel-issue-btn'
+                                        variant='outlined'
+                                    >
+                                        Cancel
+                                    </Button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
