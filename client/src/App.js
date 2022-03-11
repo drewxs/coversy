@@ -13,6 +13,7 @@ import {
     Register,
     SiteRegister,
     Welcome,
+    UserPayroll,
     DashboardAdmin,
     DashboardTeacher,
 } from 'pages';
