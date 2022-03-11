@@ -40,6 +40,8 @@ export const Nav = () => {
                             >
                                 Login
                             </Button>
+
+                            
                         </>
                     )}
 
@@ -109,13 +111,13 @@ export const Nav = () => {
                             >
                                 Profile
                             </Button>
-                            {/* <Button
+                            <Button
                                 variant='outlined'
                                 className='button logout'
                                 href='/payroll'
                             >
                                 Payroll
-                            </Button> */}
+                            </Button>
                         </>
                     )}
 
