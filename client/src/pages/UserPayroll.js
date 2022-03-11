@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/Logo.png';
-import { Button } from '@mui/material';
+import { Button, TextareaAutosize } from '@mui/material';
 import '../scss/pages/_userpayroll.scss';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -12,6 +12,46 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const UserPayroll = () => {
+    const [show, setShow] = useState(false);
+    const handleButton = () => {
+        setShow(!show);
+    };
+
+    const ReportBox = () => {
+        return (
+            <div className='issue-container'>
+                <div className='report-container'>
+                    <div className='report-nav'>
+                        <h3>Report Issues</h3>
+                    </div>
+                    <div className='line-spacing'></div>
+                    <div className='report-body'>
+                        <div className='issue-text-container'>
+                            <h3>Issues</h3>
+                            <TextareaAutosize
+                                aria-label='empty textarea'
+                                placeholder='Description...'
+                                style={{ width: 270, height: 200 }}
+                            />
+                        </div>
+                        <div className='issue-btn'>
+                            <Button id='submit-issue-btn' variant='contained'>
+                                Submit
+                            </Button>
+                            <Button
+                                onClick={() => handleButton(show)}
+                                id='cancel-issue-btn'
+                                variant='outlined'
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     const user = {
         name: 'John',
         annualTotal: '$38,400',
@@ -161,6 +201,7 @@ const UserPayroll = () => {
 
     return (
         <div className='main-container'>
+            <div>{show && <ReportBox />}</div>
             <div className='nav-container'>
                 <div className='logo'>
                     <img src={logo} alt='Coversy Logo' />
@@ -188,7 +229,11 @@ const UserPayroll = () => {
                         <h3 id='userWorkedHours'>
                             Hours Worked: {user.hoursWorked}
                         </h3>
-                        <Button id='reportIssue' variant='contained'>
+                        <Button
+                            onClick={() => handleButton(!show)}
+                            id='reportIssue'
+                            variant='contained'
+                        >
                             Report an issue
                         </Button>
                     </div>
