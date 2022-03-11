@@ -1,0 +1,78 @@
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+
+    .nav-container {
+        width: 100%;
+        height: 13%;
+        background-color: #505050;
+        display: flex;
+
+        .logo {
+            height: 100%;
+            width: 15%;
+            display: flex;
+            align-items: center;
+            margin-left: 5em;
+        }
+
+        .nav-link {
+            height: 100%;
+            width: 85%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            Button {
+                width: 8em;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .payroll {
+        width: 100%;
+        height: 87%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .payroll-container {
+            width: 90%;
+            height: 80%;
+            display: flex;
+
+            .payroll-info {
+                width: 30%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-left: 3em;
+
+                Button {
+                    margin-top: 3em;
+                    background-color: #257a7a;
+                    border-radius: 2em;
+                    padding: 0.5em 1.2em 0.5em 1.2em;
+                }
+            }
+
+            .payroll-table {
+                width: 70%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                TableCell label {
+                    font-weight: 1000;
+                }
+            }
+        }
+    }
+}
