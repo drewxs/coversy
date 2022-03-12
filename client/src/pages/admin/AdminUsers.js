@@ -11,7 +11,7 @@ import {
 // import { Box, Tab, TabContext, TabList, TabPanel } from '@mui/material';
 import { FetchUsers, ToggleUserActivatedById } from 'redux/admin';
 
-export const AdminProfile = () => {
+export const AdminUsers = () => {
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
 
@@ -20,7 +20,7 @@ export const AdminProfile = () => {
     }, [admin]);
 
     return (
-        <div className='admin-profile'>
+        <div className=''>
             <h2>User Activation</h2>
             <br />
             <div className='table'>

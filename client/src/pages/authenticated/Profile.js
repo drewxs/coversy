@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Avatar, IconButton } from '@mui/material';
 import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
-import { AdminProfile } from 'components';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
@@ -50,7 +49,7 @@ export const Profile = () => {
                     </div>
                 </div>
                 <div className='col right'>
-                    {user.type === 1 ? <AdminProfile /> : <></>}
+                    {user.type === 1 ? <></> : <></>}
                 </div>
             </div>
         </section>

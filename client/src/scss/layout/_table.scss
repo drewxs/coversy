@@ -1,0 +1,16 @@
+@use '../abstract' as *;
+
+table {
+    max-height: 65vh;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px, rgba(0, 0, 0, 0.1) 0px 2px 6px;
+    background-color: $white;
+
+    th {
+        background-color: rgba($color: $black, $alpha: 0.9);
+        color: $white !important;
+    }
+
+    tbody {
+        overflow-y: scroll;
+    }
+}

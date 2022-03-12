@@ -16,13 +16,13 @@ import {
 } from '@mui/material';
 import Papa from 'papaparse';
 
-export const DashboardAdmin = () => {
+export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [open, setOpen] = React.useState(false);
     const [file, setFile] = useState();
 
     /**
-     * @description Handles CSV file upload, parses CSV file, and adds all parsed shifts
+     * @desc Handles CSV file upload, parses CSV file, and adds all parsed shifts
      */
     const handleUpload = () => {
         if (file) {
@@ -96,7 +96,7 @@ export const DashboardAdmin = () => {
                         <h2>Shift</h2>
                     </div>
                     <Table className='table'>
-                        <TableHead className='table__head'>
+                        <TableHead className='head'>
                             <TableRow>
                                 <TableCell>Teacher</TableCell>
                                 <TableCell align='right'>Shift Date</TableCell>
@@ -104,7 +104,7 @@ export const DashboardAdmin = () => {
                                 <TableCell align='right'>Site</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody className='table__body'>
+                        <TableBody className='body'>
                             {shifts.map((shift) => (
                                 <TableRow key={shift._id}>
                                     <TableCell scope='row'>

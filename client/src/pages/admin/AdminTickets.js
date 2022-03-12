@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import logo from '../assets/Logo.png';
+import React from 'react';
 import {
-    Box,
-    Typography,
-    Modal,
     Button,
     Table,
     TableBody,
@@ -13,9 +8,9 @@ import {
     TableRow,
 } from '@mui/material';
 
-const myticket = [{}];
+export const AdminTickets = () => {
+    const tickets = [];
 
-export const DashboardTicket = () => {
     return (
         <section className='dashboard'>
             <div className='container'>
@@ -23,7 +18,7 @@ export const DashboardTicket = () => {
                     <h2>Ticket Management</h2>
                 </div>
                 <Table className='table'>
-                    <TableHead className='table_head'>
+                    <TableHead className='head'>
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
@@ -34,19 +29,19 @@ export const DashboardTicket = () => {
                             <TableCell>Status</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody className='table_body'>
-                        {users?.map((user, k) => (
-                            <TableRow key={user.id}>
+                    <TableBody className='body'>
+                        {tickets?.map((ticket, k) => (
+                            <TableRow key={ticket.id}>
                                 <TableCell>
-                                    {user.firstName} {user.lastName}
+                                    {ticket.firstName} {ticket.lastName}
                                 </TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.Phone}</TableCell>
-                                <TableCell>{user.description}</TableCell>
+                                <TableCell>{ticket.email}</TableCell>
+                                <TableCell>{ticket.Phone}</TableCell>
+                                <TableCell>{ticket.description}</TableCell>
                                 <TableCell>
                                     <Button>View</Button>
                                 </TableCell>
-                                <TableCell>{user.status}</TableCell>
+                                <TableCell>{ticket.status}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
