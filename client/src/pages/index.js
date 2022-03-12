@@ -1,8 +1,18 @@
+// Unauthenticated pages
+export { Home } from 'pages/Home';
 export { Login } from 'pages/Login';
-export { Profile } from './Profile';
-export { Register } from './Register';
-export { SiteRegister } from './SiteRegister';
-export { Welcome } from './Welcome';
-export { Home } from './Home';
-export { DashboardAdmin } from './DashboardAdmin';
-export { DashboardTeacher } from './DashboardTeacher';
+export { Register } from 'pages/Register';
+export { SiteRegister } from 'pages/SiteRegister';
+export { Welcome } from 'pages/Welcome';
+
+// Authenticated pages
+export { Profile } from 'pages/authenticated/Profile';
+
+// Admin pages
+export { AdminShifts } from 'pages/admin/AdminShifts';
+export { AdminTickets } from 'pages/admin/AdminTickets';
+export { AdminUsers } from 'pages/admin/AdminUsers';
+
+// User pages
+export { Payroll } from 'pages/user/Payroll';
+export { Shifts } from 'pages/user/Shifts';

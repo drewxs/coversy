@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Button from '@mui/material/Button';
-import logo from '../assets/Logo.png';
 
 const localizer = momentLocalizer(moment);
 
@@ -11,11 +10,7 @@ const myEventsList = [
     { start: new Date(), end: new Date(), title: 'special event' },
 ];
 
-const changeBackground = (e) => {
-    e.target.style.backgroundColor = 'white';
-};
-
-export const DashboardTeacher = () => {
+export const Shifts = () => {
     return (
         <div className='main-container'>
             <div className='dashboard-teachSub'>

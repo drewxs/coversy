@@ -9,12 +9,15 @@ import { useSelector } from 'react-redux';
 import {
     Home,
     Login,
-    Profile,
     Register,
     SiteRegister,
     Welcome,
-    DashboardAdmin,
-    DashboardTeacher,
+    Profile,
+    AdminShifts,
+    AdminTickets,
+    AdminUsers,
+    Payroll,
+    Shifts,
 } from 'pages';
 import { Nav } from 'components';
 import { LoadUser } from 'redux/user';
@@ -38,7 +41,17 @@ export const App = () => {
                             <Route
                                 exact
                                 path='/dashboard/shifts'
-                                element={<DashboardAdmin />}
+                                element={<AdminShifts />}
+                            />
+                            <Route
+                                exact
+                                path='/dashboard/tickets'
+                                element={<AdminTickets />}
+                            />
+                            <Route
+                                exact
+                                path='/dashboard/users'
+                                element={<AdminUsers />}
                             />
 
                             {/* Redirects */}
@@ -52,21 +65,17 @@ export const App = () => {
                     {/* User routes */}
                     {authenticated && user.type === 2 && (
                         <>
+                            <Route exact path='/shifts' element={<Shifts />} />
                             <Route
                                 exact
-                                path='/dashboard/shifts'
-                                element={<DashboardTeacher />}
-                            />
-                            <Route
-                                exact
-                                path='/profile'
-                                element={<Profile />}
+                                path='/payroll'
+                                element={<Payroll />}
                             />
 
                             {/* Redirects */}
                             <Route
                                 path='*'
-                                element={<Navigate to='/profile' />}
+                                element={<Navigate to='/shifts' />}
                             />
                         </>
                     )}

@@ -1,21 +1,12 @@
 @use '../abstract' as *;
 
-.upload_btn {
-    padding-top: 1em;
-}
-.shift_table {
-    padding-top: 1em;
-}
-.dashboard .card .col.right {
-    background-color: #fff;
-    padding: 4em 0em;
-}
 .dashboard {
     height: 100vh;
     padding-top: 20vh;
 
     .container {
         display: flex;
+        flex-direction: column;
         height: 100%;
     }
 
@@ -27,182 +18,20 @@
             flex-grow: 1;
         }
     }
+}
 
-    .table {
-        width: 100%;
-    }
+.upload_btn {
+    padding-top: 1em;
+}
+.shift_table {
+    padding-top: 1em;
+}
+.dashboard .card .col.right {
+    background-color: #fff;
+    padding: 4em 0em;
 }
 
 .right-container {
     border: 2px solid black;
     height: 50vh;
 }
-
-@include respond-to('tablet') {
-    .dashboard {
-        .container {
-            flex-direction: column;
-        }
-    }
-}
-
-/* teacher dashboard*/
-
-.main-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.nav-box {
-    width: 100%;
-    height: 6.5em;
-}
-
-.container-box {
-    display: flex;
-    width: 100%;
-    height: 100%;
-
-    .img-box {
-        margin-left: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .button-box {
-        height: 100%;
-        width: 25em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        #shift-nav-btn {
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 35px;
-            color: $black;
-        }
-
-        #post-nav-btn {
-            margin-left: 20px;
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 35px;
-            color: $black;
-        }
-    }
-}
-
-.line-spacing {
-    width: 100%;
-    height: 5px;
-    background-color: $primary;
-}
-
-.mainDash-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: 80%;
-    padding-top: 50px;
-
-    .left-container {
-        width: 25%;
-        height: 110%;
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-right: 5%;
-        position: relative;
-
-        .displayText {
-            width: 100%;
-            height: 20em;
-
-            .btn-container {
-                display: flex;
-                width: 100%;
-                height: 10%;
-                margin-left: 9%;
-                padding: 0.1em;
-
-                .btn {
-                    width: 9em;
-                    height: 3em;
-                    background-color: $primary;
-                    border-radius: 5px;
-                    color: $white;
-                }
-            }
-        }
-    }
-
-    .myShiftBox {
-        width: 100%;
-        height: 15%;
-        display: flex;
-
-        .shiftBox-container {
-            width: 50%;
-            height: 50px;
-        }
-
-        .postBox-container {
-            width: 50%;
-            height: 50px;
-        }
-        #shift-box {
-            height: 100%;
-            width: 100%;
-            background-color: $primary;
-            border: 0.5px solid $black;
-            box-sizing: border-box;
-            border-radius: 10px 0px 0px 0px;
-        }
-
-        #shift-box {
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 35px;
-            color: $white;
-        }
-
-        #post-box {
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 35px;
-            color: $black;
-        }
-
-        #post-box {
-            height: 100%;
-            width: 100%;
-            background: $white;
-            border: 0.5px solid $black;
-            box-sizing: border-box;
-            border-radius: 0px 10px 0px 0px;
-        }
-    }
-
-    .right-calendar {
-        width: 65%;
-        height: 110%;
-        border: 1px solid $black;
-        display: flex;
-        padding: 8px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-    }
-}
-
-@include respond-to('tablet') {
-}
-
