@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts, AddShift } from 'redux/shift';
-// import { Calendar } from 'react-calendar';
+import Calendar from 'react-calendar';
 import Time from 'react-pure-time';
 import {
     Box,
@@ -20,6 +20,7 @@ export const DashboardAdmin = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [open, setOpen] = React.useState(false);
     const [file, setFile] = useState();
+    const [date, setDate] = useState(new Date());
 
     /**
      * @description Handles CSV file upload, parses CSV file, and adds all parsed shifts
@@ -48,6 +49,9 @@ export const DashboardAdmin = () => {
             <div className='container'>
                 <div className='col left'>
                     {/* <Calendar onChange={setValue} value={value} /> */}
+                    <div className='calendar-container'>
+                        <Calendar onChange={setDate} value={date} />
+                    </div>
                     <div className='upload_btn'>
                         <Button
                             variant='contained'
