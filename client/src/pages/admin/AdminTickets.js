@@ -1,7 +1,9 @@
 import React from 'react';
 import {
+    Box,
     Button,
     Table,
+    Modal,
     TableBody,
     TableCell,
     TableHead,
@@ -10,6 +12,14 @@ import {
 
 export const AdminTickets = () => {
     const tickets = [];
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const handleResovle = () => {
+        //set ticket.status to resovled
+        setOpen(false);
+    };
 
     return (
         <section className='dashboard'>
@@ -37,15 +47,46 @@ export const AdminTickets = () => {
                                 </TableCell>
                                 <TableCell>{ticket.email}</TableCell>
                                 <TableCell>{ticket.Phone}</TableCell>
+                                <TableCell>{ticket.Type}</TableCell>
                                 <TableCell>{ticket.description}</TableCell>
                                 <TableCell>
-                                    <Button>View</Button>
+                                    <Button onClick={handleOpen}>View</Button>
                                 </TableCell>
                                 <TableCell>{ticket.status}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
+                <Modal open={open} onClose={() => setOpen(false)}>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            bgcolor: 'background.paper',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4,
+                        }}
+                    >
+                        <h2>View</h2>
+                        //this.ticket.xxx
+                        <p>Name:</p>
+                        <p>Type:</p>
+                        <p>Description</p>
+                        <br />
+                        <Button
+                            variant='outlined'
+                            color='primary'
+                            onClick={() => handleResovle()}
+                        >
+                            Resovle
+                        </Button>
+                        <Button onClick={() => handleClose()}>Cancel</Button>
+                    </Box>
+                </Modal>
             </div>
         </section>
     );
