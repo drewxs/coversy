@@ -6,7 +6,7 @@ table {
     background-color: $white;
 
     th {
-        background-color: rgba($color: $black, $alpha: 0.9);
+        background-color: rgba($color: $black, $alpha: 0.9) !important;
         color: $white !important;
     }
 
