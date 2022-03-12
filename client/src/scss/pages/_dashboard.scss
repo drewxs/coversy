@@ -6,7 +6,6 @@
 
     .container {
         display: flex;
-        flex-direction: column;
         height: 100%;
     }
 
@@ -18,8 +17,11 @@
             flex-grow: 1;
         }
     }
-}
 
+    .table {
+        width: 100%;
+    }
+}
 .upload_btn {
     padding-top: 1em;
 }
@@ -34,4 +36,12 @@
 .right-container {
     border: 2px solid black;
     height: 50vh;
+}
+
+@include respond-to('tablet') {
+    .dashboard {
+        .container {
+            flex-direction: column;
+        }
+    }
 }
