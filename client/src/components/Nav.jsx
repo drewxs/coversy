@@ -40,8 +40,6 @@ export const Nav = () => {
                             >
                                 Login
                             </Button>
-
-                            
                         </>
                     )}
 
@@ -122,17 +120,19 @@ export const Nav = () => {
                     )}
 
                     {/* Authenticated links */}
-                    <Button
-                        variant='outlined'
-                        color='primary'
-                        className='button logout-btn'
-                        onClick={() => {
-                            <Navigate to='/login' />;
-                            LogoutUser();
-                        }}
-                    >
-                        Logout
-                    </Button>
+                    {authenticated && (
+                        <Button
+                            variant='outlined'
+                            color='primary'
+                            className='button logout-btn'
+                            onClick={() => {
+                                <Navigate to='/login' />;
+                                LogoutUser();
+                            }}
+                        >
+                            Logout
+                        </Button>
+                    )}
                 </div>
             </div>
         </section>
