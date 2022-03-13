@@ -35,21 +35,25 @@ export const App = () => {
             <Nav />
             <Router>
                 <Routes>
+                    {/* Authenticated routes */}
+                    {authenticated && (
+                        <>
+                            <Route path='/profile' element={<Profile />} />
+                        </>
+                    )}
+
                     {/* Admin routes */}
                     {authenticated && user.type === 1 && (
                         <>
                             <Route
-                                exact
                                 path='/dashboard/shifts'
                                 element={<AdminShifts />}
                             />
                             <Route
-                                exact
                                 path='/dashboard/tickets'
                                 element={<AdminTickets />}
                             />
                             <Route
-                                exact
                                 path='/dashboard/users'
                                 element={<AdminUsers />}
                             />
@@ -65,12 +69,8 @@ export const App = () => {
                     {/* User routes */}
                     {authenticated && user.type === 2 && (
                         <>
-                            <Route exact path='/shifts' element={<Shifts />} />
-                            <Route
-                                exact
-                                path='/payroll'
-                                element={<Payroll />}
-                            />
+                            <Route path='/shifts' element={<Shifts />} />
+                            <Route path='/payroll' element={<Payroll />} />
 
                             {/* Redirects */}
                             <Route
@@ -80,29 +80,13 @@ export const App = () => {
                         </>
                     )}
 
-                    {/* Authenticated Global routes */}
-                    {authenticated && (
-                        <>
-                            <Route
-                                exact
-                                path='/profile'
-                                element={<Profile />}
-                            />
-                        </>
-                    )}
-
                     {/* Unauthenticated routes */}
                     {!authenticated && (
                         <>
-                            <Route exact path='/' element={<Home />} />
-                            <Route exact path='/login' element={<Login />} />
+                            <Route path='/' element={<Home />} />
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/register' element={<Register />} />
                             <Route
-                                exact
-                                path='/register'
-                                element={<Register />}
-                            />
-                            <Route
-                                exact
                                 path='/register/site'
                                 element={<SiteRegister />}
                             />

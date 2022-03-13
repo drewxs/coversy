@@ -19,7 +19,7 @@ export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [open, setOpen] = React.useState(false);
     const [file, setFile] = useState();
-    const [date, setDate] = useState(new Date());
+    // const [date, setDate] = useState(new Date());
 
     /**
      * @desc Handles CSV file upload, parses CSV file, and adds all parsed shifts
