@@ -3,19 +3,20 @@ const escape = require('escape-html');
 
 exports.createTicket = async (req, res) => {
 	const ticket = {
-		ticketType: escape(req.body.ticketType),
+		type: escape(req.body.ticketType),
 		message: escape(req.body.message),
 		resolved: false,
+		user: escape(user.body.user),
 		site: escape(req.body.site),
 		payroll: escape(req.body.payroll),
 	};
-	Tickets.create(ticket)
+	Ticket.create(ticket)
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
 
 exports.getTicketById = async (req, res) => {
-	const ticketId = escape(req.params.issueId);
+	const ticketId = escape(req.params.ticketId);
 
 	Ticket.findById(ticketId)
 		.then((ticket) => res.status(200).json(ticket))
@@ -30,7 +31,7 @@ exports.getAllTickets = async (req, res) => {
 
 exports.getAllActiveTickets = async (req, res) => {
 	Ticket.find({resolved: false})
-		.then((issue) => res.status(200).json(issue))
+		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
 
@@ -38,8 +39,8 @@ exports.setResolved = async (req, res) => {
     const updateQuery = {
         resolved = true,
     }
-    const ticketId = escape(req.params.ticketId)
+    const ticketId = escape(req.params.ticketId, { new: true })
 	Ticket.findByIdAndUpdate(ticketId, updateQuery)
-		.then((issue) => res.status(200).json(issue))
+		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 }

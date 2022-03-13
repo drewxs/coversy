@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const TicketSchema = new mongoose.Schema(
 	{
 		// 1 : Payroll Issue 2 : Time-Off Request
-		ticketType: {
+		type: {
 			type: Number,
 			required: true,
 			min: 1,

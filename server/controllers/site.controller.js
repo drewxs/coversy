@@ -69,21 +69,7 @@ exports.updateSiteById = async (req, res) => {
 	}
 	const siteId = escape(req.params.siteId);
 
-	Site.findByIdAndUpdate(siteId, updateQuery)
-		.then((site) => res.status(200).json(site))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- *
- * @desc This function deletes sites by ID.
- * @route DELETE /site/:siteId
- * @access SysAdmin
- */
-exports.deleteSiteById = async (req, res) => {
-	const siteId = escape(req.params.siteId);
-
-	Site.findByIdAndDelete(siteId)
+	Site.findByIdAndUpdate(siteId, updateQuery, { new: true })
 		.then((site) => res.status(200).json(site))
 		.catch((err) => res.status(400).json(err));
 };

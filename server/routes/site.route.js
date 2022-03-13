@@ -17,7 +17,4 @@ router.get('/:siteID', getSiteById);
 // UPDATE
 router.post('/:siteID', updateSiteById);
 
-// DELETE
-router.post('/:siteID', deleteSiteById);
-
 module.exports = router;
