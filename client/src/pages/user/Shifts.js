@@ -12,8 +12,8 @@ const myEventsList = [
 
 export const Shifts = () => {
     return (
-        <div className='main-container'>
-            <div className='dashboard-teachSub'>
+        <section className='dashboard'>
+            <div className='container'>
                 {/* Main Dashboard */}
                 <div className='line-spacing'></div>
 
@@ -55,12 +55,16 @@ export const Shifts = () => {
                                 events={myEventsList}
                                 startAccessor='start'
                                 endAccessor='end'
+                                onSelectEvent={(event) =>
+                                    alert(event.title, event.description)
+                                }
                                 style={{ height: 550, width: 850 }}
                             />
+                            {}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
