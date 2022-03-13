@@ -1,28 +1,27 @@
 ### CREATE SHIFT
-POST http://localhost:5000/api/shifts/site/6208b81edc1a21e127631d4c
+POST http://localhost:5000/api/shift/site/6208b81edc1a21e127631d4c
 Content-Type: application/json
 auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y
 
 {
     "teacher": "6208b81fdc1a21e127631d4e",
     "startTime": "2022-10-20T20:00:00.000Z",
-    "endTime": "2022-10-20T21:00:00.000Z",
-    "site": "6208b81edc1a21e127631d4c"
+    "endTime": "2022-10-20T21:00:00.000Z"
 }
 
 
 ### GET ALL SHIFTS
-GET http://localhost:5000/api/shifts
+GET http://localhost:5000/api/shift
 
 
 ### GET SHIFT BY SITE ID
-GET http://localhost:5000/api/shifts/site/6208b81edc1a21e127631d4c
+GET http://localhost:5000/api/shift/site/6208b81edc1a21e127631d4c
 
 ### GET SHIFT BY SHIFT ID
-GET http://localhost:5000/api/shifts/622791b55751ead8b5e24710
+GET http://localhost:5000/api/shift/622791b55751ead8b5e24710
 
 ### UPDATE SHIFT BY ID
-PUT http://localhost:5000/api/shifts/622d6af15726bf0b881dc91b
+PUT http://localhost:5000/api/shift/622d6af15726bf0b881dc91b
 Content-Type: application/json
 auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y
 
@@ -32,5 +31,5 @@ auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWU
 }
 
 ### DELETE SHIFTS BY SITE ID
-DELETE http://localhost:5000/api/shifts/site/6208b81edc1a21e127631d4c
+DELETE http://localhost:5000/api/shift/site/6208b81edc1a21e127631d4c
 auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y

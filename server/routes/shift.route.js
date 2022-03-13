@@ -1,25 +1,25 @@
 const router = require('express').Router();
 const {
 	createShift,
-	getAllShifts,
 	getShiftById,
 	getShiftsBySite,
+	getPostedShiftsBySite,
 	updateShiftById,
 	deleteShiftsBySite,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
-const { verifyAdmin } = require('../middleware/verify');
+const { verifyToken, verifyAdmin } = require('../middleware/verify');
 
 // CREATE
 router.post('/site/:siteId', verifyAdmin, createShift);
 
 // READ
-router.get('/', getAllShifts);
-router.get('/:shiftId', getShiftById);
-router.get('/site/:siteId', getShiftsBySite);
+router.get('/:shiftId', verifyToken, getShiftById);
+router.get('/site/:siteId', verifyToken, getShiftsBySite);
+router.get('/site/:siteId/posted', verifyToken, getPostedShiftsBySite);
 
 // UPDATE
-router.put('/:shiftId', verifyShift, updateShiftById);
+router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 
 // DELETE
 router.delete('/site/:siteId', verifyAdmin, deleteShiftsBySite);

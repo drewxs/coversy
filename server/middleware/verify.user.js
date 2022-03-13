@@ -17,6 +17,6 @@ exports.verifyUser = async (req, res, next) => {
 		if (req.user && req.user._id === req.params.userId) next();
 		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		return res.status(401).send('Access Denied');
+		return res.status(401).send(err);
 	}
 };

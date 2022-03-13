@@ -16,7 +16,7 @@ exports.verifyToken = async (req, res, next) => {
 		if (req.user) next();
 		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		return res.status(401).send('Access Denied');
+		return res.status(401).send(err);
 	}
 };
 
@@ -35,6 +35,6 @@ exports.verifyAdmin = async (req, res, next) => {
 		if (req.user && req.user.type === 1) next();
 		else return res.status(401).send('Access Denied');
 	} catch (err) {
-		return res.status(401).send('Access Denied');
+		return res.status(401).send(err);
 	}
 };

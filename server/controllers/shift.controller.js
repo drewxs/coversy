@@ -3,7 +3,7 @@ const escape = require('escape-html');
 
 /**
  * @desc This function creates a shift.
- * @route POST /shift/
+ * @route POST /shift/site/:siteId
  * @access Admin
  */
 exports.createShift = async (req, res) => {
@@ -11,7 +11,7 @@ exports.createShift = async (req, res) => {
 		teacher: escape(req.body.teacher),
 		startTime: escape(req.body.startTime),
 		endTime: escape(req.body.endTime),
-		site: escape(req.body.site),
+		site: escape(req.user.site),
 	};
 	if (req.body.details) shift.details = escape(req.body.details);
 
@@ -21,18 +21,7 @@ exports.createShift = async (req, res) => {
 };
 
 /**
- * @desc This function returns all the shifts.
- * @route GET /shift/
- * @access Admin
- */
-exports.getAllShifts = async (req, res) => {
-	Shift.find()
-		.then((shifts) => res.status(200).json(shifts))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- * @desc This function returns shifts by the shift Id.
+ * @desc This function returns shift by shift Id.
  * @route GET /shift/:shiftId
  * @access Admin
  */
@@ -45,20 +34,29 @@ exports.getShiftById = async (req, res) => {
 };
 
 /**
- * @desc This function returns shifts by the site.
- * @route GET /shift/:siteId
+ * @desc This function returns shifts by site.
+ * @route GET /shift/site/:siteId
  * @access Admin
  */
 exports.getShiftsBySite = async (req, res) => {
-	const site = escape(req.params.siteId);
-
-	Shift.find({ site: site })
+	Shift.find({ site: req.user.site })
 		.then((shifts) => res.status(200).json(shifts))
 		.catch((err) => res.status(400).json(err));
 };
 
 /**
- * @desc This function updates shifts by the shift Id.
+ * @desc This function returns posted shifts by site.
+ * @route GET /shift/site/:siteId
+ * @access Admin
+ */
+exports.getPostedShiftsBySite = async (req, res) => {
+	Shift.find({ site: req.user.site, posted: true })
+		.then((shifts) => res.status(200).json(shifts))
+		.catch((err) => res.status(400).json(err));
+};
+
+/**
+ * @desc This function updates shifts by shift id.
  * @route PUT /shift/:shiftId
  * @access Admin
  */
@@ -80,8 +78,8 @@ exports.updateShiftById = async (req, res) => {
 };
 
 /**
- * @desc This function deletes all shifts
- * @route PUT /shift/:shiftId
+ * @desc This function deletes all shifts from a site
+ * @route DELETE /site/:siteId
  * @access Admin
  */
 exports.deleteShiftsBySite = async (req, res) => {
