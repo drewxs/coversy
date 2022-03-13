@@ -1,6 +1,8 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
-const profileUpload = require('../util/profilepicture');
+const multer = require('multer');
+const profileUploader = require('../util/profileUploader');
+const fetchProfile = require('../util/profileManager');
 
 /**
  * @desc This function returns users by user id.
@@ -77,25 +79,34 @@ exports.toggleUserActivatedById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
+exports.getProfilePicture = async (req, res) => {
+	const userId = escape(req.params.userId);
+	User.findById(userId)
+		.then((user) => {
+			const data = fetchProfile(user);
+			res.status(200).json(data);
+		})
+		.catch((err) => res.status(400).json(err));
+};
+
 /**
  * @desc This function updates the users Profile Picture
- * @route PUT /user/:userId/
+ * @route PUT /user/:userId/updatepicture
  * @access User
  */
 exports.updateProfilePicture = async (req, res) => {
 	const userId = escape(req.params.userId);
-	profileUploader.single('avatar').catch((err) => res.status(400).json(err));
+	const upload = profileUploader.single('avatar');
 
-	// const upload = profileUploader.single('avatar');
-	// upload(req, res, (err) => {
-	// 	if (err) {
-	// 		res.status(400).json(err);
-	// 	}
-	// });
+	// Whatever arcane garbage this is works, leave it be
+	upload(req, res, (err) => {
+		if (err) {
+			res.status(400).json(err);
+		}
+		const updateQuery = { avatar: req.file.key };
 
-	const updateQuery = { avatar: req.file.key };
-
-	User.findByIdAndUpdate(userId, updateQuery, { new: true })
-		.then((user) => res.status(200).json(user))
-		.catch((err) => res.status(400).json(err));
+		User.findByIdAndUpdate(userId, updateQuery, { new: true })
+			.then((user) => res.status(200).json(user))
+			.catch((err) => res.status(400).json(err));
+	});
 };

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const IssueSchema = new mongoose.Schema(
+const TicketSchema = new mongoose.Schema(
 	{
 		// 1 : Payroll Issue 2 : Time-Off Request
-		issueType: {
+		type: {
 			type: Number,
 			required: true,
 			min: 1,
@@ -19,6 +19,11 @@ const IssueSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
+		},
 		site: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Site',
@@ -27,10 +32,9 @@ const IssueSchema = new mongoose.Schema(
 		payroll: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Payroll',
-			required: true,
 		},
 	},
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model('Issue', IssueSchema);
+module.exports = mongoose.model('Ticket', TicketSchema);

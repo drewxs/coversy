@@ -27,7 +27,7 @@ exports.readNotification = async (req, res) => {
 	};
 	const notificationId = escape(req.params.notificationId);
 
-	Notification.findByIdAndUpdate(notificationId, updateQuery)
+	Notification.findByIdAndUpdate(notificationId, updateQuery, { new: true })
 		.then((notification) => res.status(200).json(notification))
 		.catch((err) => res.status(400).json(err));
 };
