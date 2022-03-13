@@ -17,6 +17,7 @@ import Papa from 'papaparse';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
+    const user = useSelector((state) => state.user.user);
     const [open, setOpen] = React.useState(false);
     const [file, setFile] = useState();
     // const [date, setDate] = useState(new Date());
@@ -30,7 +31,7 @@ export const AdminShifts = () => {
                 header: true,
                 complete: (res) => {
                     for (let i = 0; i < res.data.length; i++) {
-                        AddShift(res.data[i], res.data[i].siteId);
+                        AddShift(res.data[i], user.site);
                     }
 
                     setOpen(false);
@@ -98,32 +99,31 @@ export const AdminShifts = () => {
                         <TableHead className='head'>
                             <TableRow>
                                 <TableCell>Teacher</TableCell>
-                                <TableCell align='right'>Shift Date</TableCell>
-                                <TableCell align='right'>Shift Time</TableCell>
-                                <TableCell align='right'>Site</TableCell>
+                                <TableCell>Shift Date</TableCell>
+                                <TableCell>Shift Time</TableCell>
+                                <TableCell>Site</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className='body'>
                             {shifts.map((shift) => (
                                 <TableRow key={shift._id}>
-                                    <TableCell scope='row'>
-                                        {shift.teacher}
+                                    <TableCell>
+                                        {shift.teacher.firstName}{' '}
+                                        {shift.teacher.lastName}
                                     </TableCell>
-                                    <TableCell align='right'>
+                                    <TableCell>
                                         <Time
                                             value={shift.startTime}
                                             format='M d, Y'
                                         />
                                     </TableCell>
-                                    <TableCell align='right'>
+                                    <TableCell>
                                         <Time
                                             value={shift.endTime}
                                             format='M d, Y'
                                         />
                                     </TableCell>
-                                    <TableCell align='right'>
-                                        {shift.site}
-                                    </TableCell>
+                                    <TableCell>{shift.site.name}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

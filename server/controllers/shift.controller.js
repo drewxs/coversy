@@ -40,6 +40,8 @@ exports.getShiftById = async (req, res) => {
  */
 exports.getShiftsBySite = async (req, res) => {
 	Shift.find({ site: req.user.site })
+		.populate('teacher')
+		.populate('site')
 		.then((shifts) => res.status(200).json(shifts))
 		.catch((err) => res.status(400).json(err));
 };

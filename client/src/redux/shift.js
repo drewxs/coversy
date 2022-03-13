@@ -26,7 +26,7 @@ export const GetShifts = async () => {
  */
 export const AddShift = async (shift, siteId) => {
     await axios
-        .post(`${api}/shift/${siteId}`, shift, {
+        .post(`${api}/shift/site/${siteId}`, shift, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
                 'content-type': 'application/json',
