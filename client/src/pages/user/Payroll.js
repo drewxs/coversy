@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import logo from 'assets/Logo.png';
 import { Button, TextareaAutosize } from '@mui/material';
 import {
-    Paper,
     Table,
     TableBody,
     TableCell,
@@ -125,130 +123,107 @@ export const Payroll = () => {
         createData(),
     ];
 
-    const StickyHeadTable = () => {
-        const [page, setPage] = useState(0);
-        const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
-        const handleChangePage = (event, newPage) => {
-            setPage(newPage);
-        };
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
 
-        const handleChangeRowsPerPage = (event) => {
-            setRowsPerPage(+event.target.value);
-            setPage(0);
-        };
-
-        return (
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                <TableContainer id='table-container' sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label='sticky table'>
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows
-                                .slice(
-                                    page * rowsPerPage,
-                                    page * rowsPerPage + rowsPerPage
-                                )
-                                .map((row) => {
-                                    return (
-                                        <TableRow
-                                            hover
-                                            role='checkbox'
-                                            tabIndex={-1}
-                                            key={row.code}
-                                        >
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <TableCell
-                                                        key={column.id}
-                                                        align={column.align}
-                                                    >
-                                                        {column.format &&
-                                                        typeof value ===
-                                                            'number'
-                                                            ? column.format(
-                                                                  value
-                                                              )
-                                                            : value}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25]}
-                    component='div'
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
-        );
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     };
 
     return (
-        <div className='main-container'>
+        <section className='dashboard payroll'>
             <div>{show && <ReportBox />}</div>
-            <div className='nav-container'>
-                <div className='logo'>
-                    <img src={logo} alt='Coversy Logo' />
+            <div className='container'>
+                <div className='payroll-info'>
+                    <h1>My Payroll</h1>
+                    <h3 id='userName'>Name: {user.name}</h3>
+                    <h3 id='userAnnualTotal'>
+                        Annual Total: {user.annualTotal}
+                    </h3>
+                    <h3 id='userWage'>Wage: {user.wage}</h3>
+                    <h3 id='userWorkedHours'>
+                        Hours Worked: {user.hoursWorked}
+                    </h3>
+                    <Button
+                        onClick={() => handleButton(!show)}
+                        id='reportIssue'
+                        variant='contained'
+                    >
+                        Report an issue
+                    </Button>
                 </div>
-
-                <div className='nav-link'>
-                    <Button id='shift-Nav' variant='text'>
-                        Shifts
-                    </Button>
-                    <Button id='payroll-Nav' variant='text'>
-                        Payroll
-                    </Button>
+                <div className='card'>
+                    <TableContainer>
+                        <Table stickyHeader>
+                            <TableHead>
+                                <TableRow>
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            key={column.id}
+                                            align={column.align}
+                                            style={{
+                                                minWidth: column.minWidth,
+                                            }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows
+                                    .slice(
+                                        page * rowsPerPage,
+                                        page * rowsPerPage + rowsPerPage
+                                    )
+                                    .map((row) => {
+                                        return (
+                                            <TableRow
+                                                hover
+                                                role='checkbox'
+                                                tabIndex={-1}
+                                                key={row.code}
+                                            >
+                                                {columns.map((column) => {
+                                                    const value =
+                                                        row[column.id];
+                                                    return (
+                                                        <TableCell
+                                                            key={column.id}
+                                                            align={column.align}
+                                                        >
+                                                            {column.format &&
+                                                            typeof value ===
+                                                                'number'
+                                                                ? column.format(
+                                                                      value
+                                                                  )
+                                                                : value}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        );
+                                    })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[10, 25]}
+                        component='div'
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
                 </div>
             </div>
-
-            <div className='payroll'>
-                <div className='payroll-container'>
-                    <div className='payroll-info'>
-                        <h1>My Payroll</h1>
-                        <h3 id='userName'>Name: {user.name}</h3>
-                        <h3 id='userAnnualTotal'>
-                            Annual Total: {user.annualTotal}
-                        </h3>
-                        <h3 id='userWage'>Wage: {user.wage}</h3>
-                        <h3 id='userWorkedHours'>
-                            Hours Worked: {user.hoursWorked}
-                        </h3>
-                        <Button
-                            onClick={() => handleButton(!show)}
-                            id='reportIssue'
-                            variant='contained'
-                        >
-                            Report an issue
-                        </Button>
-                    </div>
-
-                    <div className='payroll-table'>
-                        <StickyHeadTable />
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
     );
 };

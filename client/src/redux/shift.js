@@ -10,7 +10,12 @@ const api = process.env.REACT_APP_API_URL;
 export const GetShifts = async () => {
     store.dispatch(loadingShifts);
     await axios
-        .get(`${api}/shifts`)
+        .get(`${api}/shift`, {
+            headers: {
+                'auth-token': localStorage.getItem('auth-token'),
+                'content-type': 'application/json',
+            },
+        })
         .then((res) => store.dispatch(setShifts(res.data)))
         .catch((err) => console.error(err));
 };
@@ -21,7 +26,7 @@ export const GetShifts = async () => {
  */
 export const AddShift = async (shift, siteId) => {
     await axios
-        .post(`${api}/shifts/${siteId}`, shift, {
+        .post(`${api}/shift/${siteId}`, shift, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
                 'content-type': 'application/json',
@@ -37,7 +42,7 @@ export const AddShift = async (shift, siteId) => {
  */
 export const EditShift = async (shift) => {
     await axios
-        .put(`${api}/shifts/${shift._id}`)
+        .put(`${api}/shift/${shift._id}`)
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };

@@ -1,0 +1,12 @@
+@use '../abstract' as *;
+
+.payroll {
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card {
+        width: 60%;
+    }
+}
