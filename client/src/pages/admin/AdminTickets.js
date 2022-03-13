@@ -11,10 +11,34 @@ import {
 } from '@mui/material';
 
 export const AdminTickets = () => {
-    const tickets = [];
+    const tickets = [
+        {
+            firstName: 'test',
+            lastName: 'test',
+            email: 'test@test.com',
+            Phone: '000000000',
+            type: 1,
+            message: 'this is a test',
+            resolved: false,
+        },
+        {
+            firstName: 'test',
+            lastName: 'test',
+            email: 'test@test.com',
+            Phone: '000000000',
+            type: 2,
+            message: 'this is a test',
+            resolved: true,
+        },
+    ];
+
     const [open, setOpen] = React.useState(false);
+    const [current, setCurrent] = React.useState(null);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setCurrent(null);
+        setOpen(false);
+    };
 
     const handleResovle = () => {
         //set ticket.status to resovled
@@ -41,18 +65,31 @@ export const AdminTickets = () => {
                     </TableHead>
                     <TableBody className='body'>
                         {tickets?.map((ticket, k) => (
-                            <TableRow key={ticket.id}>
+                            <TableRow key={k}>
                                 <TableCell>
                                     {ticket.firstName} {ticket.lastName}
                                 </TableCell>
                                 <TableCell>{ticket.email}</TableCell>
                                 <TableCell>{ticket.Phone}</TableCell>
-                                <TableCell>{ticket.Type}</TableCell>
-                                <TableCell>{ticket.description}</TableCell>
                                 <TableCell>
-                                    <Button onClick={handleOpen}>View</Button>
+                                    {ticket.type === 1 && 'Payroll Issue'}
+                                    {ticket.type === 2 && 'Time-off Issue'}
                                 </TableCell>
-                                <TableCell>{ticket.status}</TableCell>
+                                <TableCell>{ticket.message}</TableCell>
+                                <TableCell>
+                                    <Button
+                                        onClick={() => {
+                                            handleOpen();
+                                            setCurrent(k);
+                                        }}
+                                    >
+                                        View
+                                    </Button>
+                                </TableCell>
+                                <TableCell>
+                                    {ticket.resolved === true && 'Resolved'}
+                                    {ticket.resolved === false && 'Unsolved'}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -63,7 +100,6 @@ export const AdminTickets = () => {
                             position: 'absolute',
                             top: '50%',
                             left: '50%',
-                            transform: 'translate(-50%, -50%)',
                             width: 400,
                             bgcolor: 'background.paper',
                             border: '2px solid #000',
@@ -72,9 +108,12 @@ export const AdminTickets = () => {
                         }}
                     >
                         <h2>View</h2>
-                        //this.ticket.xxx
-                        <p>Name:</p>
-                        <p>Type:</p>
+                        <p>Name: </p>
+                        <p>
+                            Type:{' '}
+                            {tickets[current]?.type === 1 && 'Payroll Issue'}
+                            {tickets[current]?.type === 2 && 'Time-off Issue'}
+                        </p>
                         <p>Description</p>
                         <br />
                         <Button
