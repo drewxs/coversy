@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
-const Shift = require('../models/shift.model');
+const User = require('../models/user.model');
+const escape = require('escape-html');
 
 /**
- * Verifys that the user requesting a shift owns that shift.
- * Parameters required: teacher
+ * Verifies that the user requesting update of a resource is the same as the user that owns the resource.
+ * Parameters required: userId
  */
-exports.verifyShift = async (req, res, next) => {
+exports.verifyUser = async (req, res, next) => {
 	const token = req.header('auth-token');
 	if (!token) return res.status(401).send('Access Denied');
 
@@ -13,9 +14,7 @@ exports.verifyShift = async (req, res, next) => {
 		const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 		req.user = decoded;
 
-		const shift = await Shift.findById(req.params.shiftId);
-
-		if (req.user && req.user._id == shift.teacher) next();
+		if (req.user && req.user._id === req.params.userId) next();
 		else return res.status(401).send('Access Denied');
 	} catch (err) {
 		return res.status(401).send('Access Denied');

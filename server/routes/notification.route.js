@@ -3,12 +3,13 @@ const {
 	getNotificationsByUserId,
 	readNotification,
 } = require('../controllers/notification.controller');
-const verifyUser = require('../middleware/verify');
+const { verifyToken } = require('../middleware/verify');
+const { verifyUser } = require('../middleware/verify.user');
 
 // READ
-router.get('/:userId', verifyUser, getNotificationsByUserId);
+router.get('/user/:userId', verifyUser, getNotificationsByUserId);
 
 // UPDATE
-router.put('/:notificationId/:userId', verifyUser, readNotification);
+router.put('/:notificationId', verifyToken, readNotification);
 
 module.exports = router;

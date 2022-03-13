@@ -6,9 +6,16 @@ const {
 	deletePayrollById,
 } = require('../controllers/payroll.controller');
 
+// CREATE
 router.post('/', createPayroll);
+
+// READ
 router.get('/:payrollId', getPayrollById);
+
+// UPDATE
 router.put('/:payrollId', updatePayrollById);
+
+// DELETE
 router.delete('/:payrollId', deletePayrollById);
 
 module.exports = router;

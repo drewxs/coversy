@@ -7,9 +7,10 @@ const {
 	getProfilePicture,
 	updateProfilePicture,
 } = require('../controllers/user.controller');
-const { verifyUser, verifyAdmin } = require('../middleware/verify');
+const { verifyAdmin } = require('../middleware/verify');
+const { verifyUser } = require('../middleware/verify.user');
 
-router.get('/:userId', getUserById);
+router.get('/:userId', verifyUser, getUserById);
 router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 router.get('/:userId/picture', getProfilePicture);
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts, AddShift } from 'redux/shift';
-import Calendar from 'react-calendar';
 import Time from 'react-pure-time';
 import {
     Box,
@@ -48,10 +47,6 @@ export const AdminShifts = () => {
         <section className='dashboard'>
             <div className='container'>
                 <div className='col left'>
-                    {/* <Calendar onChange={setValue} value={value} /> */}
-                    <div className='calendar-container'>
-                        <Calendar onChange={setDate} value={date} />
-                    </div>
                     <div className='upload_btn'>
                         <Button
                             variant='contained'

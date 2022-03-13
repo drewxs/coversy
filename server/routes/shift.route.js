@@ -12,7 +12,6 @@ const { verifyAdmin } = require('../middleware/verify');
 
 // CREATE
 router.post('/site/:siteId', verifyAdmin, createShift);
-// router.post('/:siteId', verifyAdmin, createShift);
 
 // READ
 router.get('/', getAllShifts);

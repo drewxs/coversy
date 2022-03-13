@@ -6,8 +6,8 @@ exports.createTicket = async (req, res) => {
 		type: escape(req.body.ticketType),
 		message: escape(req.body.message),
 		resolved: false,
-		user: escape(user.body.user),
-		site: escape(req.body.site),
+		user: req.user,
+		site: req.user.site,
 		payroll: escape(req.body.payroll),
 	};
 	Ticket.create(ticket)
@@ -15,32 +15,28 @@ exports.createTicket = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
-exports.getTicketById = async (req, res) => {
-	const ticketId = escape(req.params.ticketId);
+exports.getUnresolvedTickets = async (req, res) => {
+	const site = escape(req.params.siteId);
 
-	Ticket.findById(ticketId)
+	Ticket.find({ site, resolved: false })
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
 
-exports.getAllTickets = async (req, res) => {
-	Ticket.find()
+exports.getResolvedTickets = async (req, res) => {
+	const site = escape(req.params.siteId);
+
+	Ticket.find({ site, resolved: true })
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
 
-exports.getAllActiveTickets = async (req, res) => {
-	Ticket.find({resolved: false})
-		.then((ticket) => res.status(200).json(ticket))
-		.catch((err) => res.status(400).json(err));
-};
-
-exports.setResolved = async (req, res) => {
-    const updateQuery = {
-        resolved = true,
-    }
-    const ticketId = escape(req.params.ticketId, { new: true })
+exports.resolveTicket = async (req, res) => {
+	const updateQuery = {
+		resolved: true,
+	};
+	const ticketId = escape(req.params.ticketId, { new: true });
 	Ticket.findByIdAndUpdate(ticketId, updateQuery)
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
-}
+};

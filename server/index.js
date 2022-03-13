@@ -3,11 +3,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 
-const shiftRoute = require('./routes/shift.route');
-const authRoute = require('./routes/auth.route');
-const userRoute = require('./routes/user.route');
-const siteRoute = require('./routes/site.route');
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -22,17 +17,20 @@ mongoose
 	)
 	.catch((err) => console.log(err.message));
 
-var corsOptions = {
-	origin: process.env.CLIENT_URL,
-	optionsSuccessStatus: 200,
-};
-
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(
+	cors({
+		origin: process.env.CLIENT_URL,
+		optionsSuccessStatus: 200,
+	})
+);
 
-app.use('/api/shifts', shiftRoute);
-app.use('/api/auth', authRoute);
-app.use('/api/user', userRoute);
-app.use('/api/site', siteRoute);
+app.use('/api/auth', require('./routes/auth.route'));
+app.use('/api/notification', require('./routes/notification.route'));
+app.use('/api/payroll', require('./routes/payroll.route'));
+app.use('/api/shift', require('./routes/shift.route'));
+app.use('/api/site', require('./routes/site.route'));
+app.use('/api/ticket', require('./routes/ticket.route'));
+app.use('/api/user', require('./routes/user.route'));
 
 module.exports = app;
