@@ -12,11 +12,8 @@ const myEventsList = [
 
 export const Shifts = () => {
     return (
-        <section className='dashboard'>
+        <section className='dashboard shifts'>
             <div className='container'>
-                {/* Main Dashboard */}
-                <div className='line-spacing'></div>
-
                 <div className='mainDash-container'>
                     {/* My Shift / Post Shift */}
 
@@ -48,20 +45,17 @@ export const Shifts = () => {
                     </div>
 
                     {/* Calendar View */}
-                    <div className='right-calendar'>
-                        <div className='calendar'>
-                            <Calendar
-                                localizer={localizer}
-                                events={myEventsList}
-                                startAccessor='start'
-                                endAccessor='end'
-                                onSelectEvent={(event) =>
-                                    alert(event.title, event.description)
-                                }
-                                style={{ height: 550, width: 850 }}
-                            />
-                            {}
-                        </div>
+                    <div className='calendar'>
+                        <Calendar
+                            localizer={localizer}
+                            events={myEventsList}
+                            startAccessor='start'
+                            endAccessor='end'
+                            onSelectEvent={(event) =>
+                                alert(event.title, event.description)
+                            }
+                            style={{ height: 550, width: 850 }}
+                        />
                     </div>
                 </div>
             </div>

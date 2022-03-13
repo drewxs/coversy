@@ -1,12 +1,5 @@
 @use '../abstract' as *;
 
-.main-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 .nav-box {
     width: 100%;
     height: 6.5em;
@@ -30,23 +23,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-        #shift-nav-btn {
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 35px;
-            color: $black;
-        }
-
-        #post-nav-btn {
-            margin-left: 20px;
-            font-family: Raleway, sans-serif;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 35px;
-            color: $black;
-        }
     }
 }
 
@@ -134,9 +110,8 @@
         }
     }
 
-    .right-calendar {
+    .calendar {
         width: 65%;
-        height: 110%;
         border: 1px solid $black;
         display: flex;
         padding: 8px;
