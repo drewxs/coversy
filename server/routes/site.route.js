@@ -16,6 +16,6 @@ router.get('/', getAllSites);
 router.get('/:siteID', getSiteById);
 
 // UPDATE
-router.post('/:siteID', verifyAdmin, updateSiteById);
+router.put('/:siteID', verifyAdmin, updateSiteById);
 
 module.exports = router;
