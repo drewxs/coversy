@@ -15,8 +15,8 @@ router.post('/site/:siteId', verifyAdmin, createShift);
 
 // READ
 router.get('/:shiftId', verifyToken, getShiftById);
-router.get('/site/:siteId', verifyToken, getShiftsBySite);
-router.get('/site/:siteId/posted', verifyToken, getPostedShiftsBySite);
+router.get('/', verifyToken, getShiftsBySite);
+router.get('/posted', verifyToken, getPostedShiftsBySite);
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);

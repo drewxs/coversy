@@ -35,7 +35,7 @@ exports.getShiftById = async (req, res) => {
 
 /**
  * @desc This function returns shifts by site.
- * @route GET /shift/site/:siteId
+ * @route GET /shift/
  * @access Admin
  */
 exports.getShiftsBySite = async (req, res) => {
@@ -46,7 +46,7 @@ exports.getShiftsBySite = async (req, res) => {
 
 /**
  * @desc This function returns posted shifts by site.
- * @route GET /shift/site/:siteId
+ * @route GET /shift/posted
  * @access Admin
  */
 exports.getPostedShiftsBySite = async (req, res) => {
