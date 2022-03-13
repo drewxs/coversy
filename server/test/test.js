@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 describe('Performing pre-test cleaning', () => {
 	it('Delete all test shifts', (done) => {
 		chai.request(server)
-			.delete(`/api/shifts/site/${process.env.TEST_SITE}`)
+			.delete(`/api/shift/site/${process.env.TEST_SITE}`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
@@ -24,29 +24,61 @@ describe('Performing pre-test cleaning', () => {
 describe('Endpoint testing [shifts]', () => {
 	let shiftId;
 
-	it('Get all shifts', (done) => {
+	it('Create shift', (done) => {
 		chai.request(server)
-			.get('/api/shifts')
+			.post(`/api/shift/site/${process.env.TEST_SITE}`)
+			.set('content-type', 'application/json')
+			.set('auth-token', process.env.TEST_TOKEN)
+			.send({
+				teacher: process.env.TEST_TEACHER,
+				startTime: '2020-01-01T00:00:00.000Z',
+				endTime: '2020-01-01T00:00:00.000Z',
+			})
+			.end((err, res) => {
+				if (err) done();
+				shiftId = JSON.parse(res.text)._id;
+				res.should.have.status(201);
+				done();
+			});
+	});
+	it('Get shifts by site', (done) => {
+		chai.request(server)
+			.get(`/api/shift/site/${process.env.TEST_SITE}`)
+			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
 				done();
 			});
 	});
-	it('Create shift', (done) => {
+	it('Get posted shifts by site', (done) => {
 		chai.request(server)
-			.post(`/api/shifts/site/${process.env.TEST_SITE}`)
+			.get(`/api/shift/site/${process.env.TEST_SITE}/posted`)
+			.set('auth-token', process.env.TEST_TOKEN)
+			.end((err, res) => {
+				res.should.have.status(200);
+				done();
+			});
+	});
+	it('Update shift by id', (done) => {
+		chai.request(server)
+			.put(`/api/shift/${shiftId}`)
 			.set('content-type', 'application/json')
 			.set('auth-token', process.env.TEST_TOKEN)
 			.send({
-				teacher: process.env.TEST_USER,
-				startTime: '2020-01-01T00:00:00.000Z',
-				endTime: '2020-01-01T00:00:00.000Z',
-				site: process.env.TEST_SITE,
+				startTime: '2022-10-20T21:00:00.000Z',
+				endTime: '2022-10-20T22:00:00.000Z',
 			})
 			.end((err, res) => {
-				if (err) done(err);
-				shiftId = JSON.parse(res.text)._id;
-				res.should.have.status(201);
+				res.should.have.status(200);
+				done();
+			});
+	});
+	it('Delete all test shifts', (done) => {
+		chai.request(server)
+			.delete(`/api/shift/site/${process.env.TEST_SITE}`)
+			.set('auth-token', process.env.TEST_TOKEN)
+			.end((err, res) => {
+				res.should.have.status(200);
 				done();
 			});
 	});
