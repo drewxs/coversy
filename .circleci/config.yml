@@ -9,7 +9,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - checkout
+      - checkout:
+          path: ~/coversy
+      - run: ls
       - node/install-packages
 
 workflows:
@@ -18,6 +20,5 @@ workflows:
       - server-build
   
   endpoint-tests:
-    jobs:
-      - node/test:
-          app-dir: ~/coversy/server/
+    jobs:      
+      - node/test
