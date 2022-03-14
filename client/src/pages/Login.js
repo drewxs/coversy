@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { LoginUser } from 'redux/user';
@@ -8,12 +8,16 @@ export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const errors = useSelector((state) => state.user.errors);
+    const success = useSelector((state) => state.user.success);
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        LoginUser({ email, password });
-        if (!errors) navigate('/profile');
+        await LoginUser({ email, password });
     };
+
+    useEffect(() => {
+        if (success) navigate('/profile');
+    }, [success]);
 
     return (
         <section className='register'>

@@ -3,7 +3,6 @@ const Site = require('../models/site.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const escape = require('escape-html');
-const nodemailer = require('nodemailer');
 const { sendConfirmationEmail } = require('../util/nodemailer.config');
 const {
 	registerValidation,
@@ -33,7 +32,7 @@ exports.login = async (req, res) => {
 		if (!user.verified)
 			return res
 				.status(401)
-				.json('Pending Account. Please Verify Your Email.');
+				.json('Pending account, please verify your email');
 
 		const token = jwt.sign(
 			{ _id: user._id, type: user.type, site: user.site },
@@ -80,10 +79,6 @@ exports.registerUser = async (req, res) => {
 		user.confirmationCode = confirmationCode;
 
 		const userRes = await User.create(user);
-		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type, site: userRes.site },
-			process.env.TOKEN_SECRET
-		);
 
 		sendConfirmationEmail(
 			`${userRes.firstName} ${userRes.lastName}`,
@@ -91,7 +86,7 @@ exports.registerUser = async (req, res) => {
 			userRes.confirmationCode
 		);
 
-		return res.status(201).json({ userRes, token });
+		return res.status(201).json('Account successfully created');
 	} catch (err) {
 		res.status(400).json(err);
 	}
@@ -150,10 +145,6 @@ exports.registerSite = async (req, res) => {
 		user.confirmationCode = confirmationCode;
 
 		const userRes = await User.create(user);
-		const token = jwt.sign(
-			{ _id: userRes._id, type: userRes.type, site: userRes.site },
-			process.env.TOKEN_SECRET
-		);
 
 		sendConfirmationEmail(
 			`${userRes.firstName} ${userRes.lastName}`,
@@ -161,7 +152,7 @@ exports.registerSite = async (req, res) => {
 			userRes.confirmationCode
 		);
 
-		return res.status(201).json({ userRes, siteRes, token });
+		return res.status(201).json('Site successfully created');
 	} catch (err) {
 		res.status(400).json(err);
 	}
@@ -169,22 +160,24 @@ exports.registerSite = async (req, res) => {
 
 /**
  * @desc This endpoint verifies a user acocunt
- * @route POST /auth/confirm
+ * @route GET /auth/confirm/:confirmationCode
  * @access PUBLIC
  */
-exports.verifyUser = (req, res) => {
-	User.findOne({
-		confirmationCode: req.params.confirmationCode,
-	})
-		.then((user) => {
-			if (!user) return res.status(404).json('User Not found.');
+exports.verifyUser = async (req, res) => {
+	try {
+		const user = await User.findOne({
+			confirmationCode: req.params.confirmationCode,
+		});
+		if (!user) return res.status(404).json('User Not found.');
+		if (user.verified) return res.status(400).json('User already verified');
 
-			user.verified = true;
-			user.save((err) => {
-				if (err) return res.status(500).send({ message: err });
-			});
+		user.verified = true;
+		user.confirmationCode = undefined;
+		await user.save();
 
-			return res.status(200).send('Email Successfully Verified');
-		})
-		.catch((err) => res.status(400).json(err));
+		res.redirect(`${process.env.CLIENT_URL}`);
+		// return res.status(200).json('Email Successfully Verified');
+	} catch (err) {
+		return res.status(400).json(err.message);
+	}
 };

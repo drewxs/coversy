@@ -16,20 +16,19 @@ export const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [site, setSite] = useState('');
-    const [success, setSuccess] = useState(false);
 
     const sites = useSelector((state) => state.user.sites);
     const errors = useSelector((state) => state.user.errors);
+    const success = useSelector((state) => state.user.success);
 
-    const handleSubmit = async (e) => {
-        await RegisterUser({
+    const handleSubmit = (e) => {
+        RegisterUser({
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: password,
             site: site,
         });
-        if (!errors) setSuccess(true);
     };
 
     useEffect(() => {

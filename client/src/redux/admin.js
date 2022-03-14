@@ -14,7 +14,7 @@ export const FetchUsers = async (siteId) => {
         .catch((err) => console.log(err));
 };
 
-export const ToggleUserActivatedById = async (userId, siteId) => {
+export const ToggleUserActivatedById = async (userId) => {
     await axios
         .put(`${api}/user/${userId}/activate`, null, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
