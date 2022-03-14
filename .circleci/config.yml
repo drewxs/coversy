@@ -3,21 +3,26 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
 
+working_directory: ~/coversy/server/
+
 jobs:
-  server-build:
-    working_directory: ~/coversy/server/
+  server-build-tests:
     docker:
-      - image: cimg/node:16.4
+      - image: cimg/node:17.2
     steps:
       - checkout:
           path: ~/coversy
       - node/install-packages
+  server-endpoint-tests:
+    docker:
+      - image: cimg/node:17.2
+    steps:
+      - checkout:
+          path: ~/coversy
+      - run: npm run test
 
 workflows:
-  build-tests: 
+  server-tests: 
     jobs:
-      - server-build
-  
-  endpoint-tests:
-    jobs:      
-      - node/test
+      - server-build-tests
+      - server-endpoint-tests
