@@ -7,11 +7,10 @@ jobs:
   server-build:
     working_directory: ~/coversy/server/
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:16.4
     steps:
       - checkout:
           path: ~/coversy
-      - run: ls
       - node/install-packages
 
 workflows:
