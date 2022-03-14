@@ -18,7 +18,8 @@ import Papa from 'papaparse';
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const user = useSelector((state) => state.user.user);
-    const [open, setOpen] = React.useState(false);
+
+    const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     // const [date, setDate] = useState(new Date());
 
@@ -30,8 +31,8 @@ export const AdminShifts = () => {
             Papa.parse(file, {
                 header: true,
                 complete: (res) => {
-                    for (let i = 0; i < res.data.length; i++) {
-                        AddShift(res.data[i], user.site);
+                    for (let i = 0; i < res.data.length - 1; i++) {
+                        AddShift(res.data[i]);
                     }
 
                     setOpen(false);
@@ -48,7 +49,7 @@ export const AdminShifts = () => {
         <section className='dashboard'>
             <div className='container'>
                 <div className='col left'>
-                    <div className='upload_btn'>
+                    <div className=''>
                         <Button
                             variant='contained'
                             onClick={() => setOpen(true)}
@@ -65,12 +66,11 @@ export const AdminShifts = () => {
                                 transform: 'translate(-50%, -50%)',
                                 width: 400,
                                 bgcolor: 'background.paper',
-                                border: '2px solid #000',
                                 boxShadow: 24,
                                 p: 4,
                             }}
                         >
-                            <Typography variant='h6' component='h2'>
+                            <Typography variant='h6'>
                                 Upload Schedule
                             </Typography>
                             <Typography sx={{ mt: 2 }}>
@@ -92,9 +92,7 @@ export const AdminShifts = () => {
                     </Modal>
                 </div>
                 <div className='col right'>
-                    <div className='shift_table'>
-                        <h2>Shift</h2>
-                    </div>
+                    <h2>Shifts</h2>
                     <Table className='table'>
                         <TableHead className='head'>
                             <TableRow>

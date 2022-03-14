@@ -12,8 +12,8 @@ export const GetShifts = async () => {
     await axios
         .get(`${api}/shift`, {
             headers: {
-                'auth-token': localStorage.getItem('auth-token'),
                 'content-type': 'application/json',
+                'auth-token': localStorage.getItem('auth-token'),
             },
         })
         .then((res) => store.dispatch(setShifts(res.data)))
@@ -24,12 +24,12 @@ export const GetShifts = async () => {
  * @description Adds a shift
  * @params shift, siteId
  */
-export const AddShift = async (shift, siteId) => {
+export const AddShift = async (shift) => {
     await axios
-        .post(`${api}/shift/site/${siteId}`, shift, {
+        .post(`${api}/shift`, shift, {
             headers: {
-                'auth-token': localStorage.getItem('auth-token'),
                 'content-type': 'application/json',
+                'auth-token': localStorage.getItem('auth-token'),
             },
         })
         .then((res) => store.dispatch(addShift(res.data)))

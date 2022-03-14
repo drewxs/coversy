@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 describe('Performing pre-test cleaning', () => {
 	it('Delete all test shifts', (done) => {
 		chai.request(server)
-			.delete(`/api/shift/site/${process.env.TEST_SITE}`)
+			.delete(`/api/shift`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
@@ -75,7 +75,7 @@ describe('Endpoint testing [shifts]', () => {
 	});
 	it('Delete all test shifts', (done) => {
 		chai.request(server)
-			.delete(`/api/shift/site/${process.env.TEST_SITE}`)
+			.delete(`/api/shift`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
