@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -11,6 +12,12 @@ const myEventsList = [
 ];
 
 export const Shifts = () => {
+    const shifts = useSelector((state) => state.shift.shifts);
+
+    useEffect(() => {
+        GetShifts();
+    }, []);
+
     return (
         <section className='dashboard shifts'>
             <div className='container'>
