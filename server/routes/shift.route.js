@@ -24,8 +24,7 @@ router.get('/posted/', verifyToken, getPostedShiftsBySite);
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put(
 	'/:shiftID/uploadfiles',
-	verifyShift,
-	uploadMaterials.array('materials', 10),
+	uploadMaterials.array('material', 10),
 	updateShiftMaterials
 );
 

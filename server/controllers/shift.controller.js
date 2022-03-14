@@ -106,13 +106,20 @@ exports.updateShiftById = async (req, res) => {
 };
 
 exports.updateShiftMaterials = async (req, res) => {
-	if (!req.file) return res.status(400).send('No files uploaded');
+	if (!req.files) return res.status(400).send('No files uploaded');
 	const shiftId = escape(req.params.shiftId);
 
-	const updateQuery = { materials: req.files };
+	const updateQuery = { materials: [] };
+
+	req.files.forEach((element) => {
+		updateQuery.materials.push({
+			fileName: element.originalname,
+			fileKey: element.key,
+		});
+	});
 
 	User.findByIdAndUpdate(shiftId, updateQuery, { new: true })
-		.then((user) => res.status(200).json(user))
+		.then((shift) => res.status(200).json(shift))
 		.catch((err) => res.status(400).json(err));
 };
 
