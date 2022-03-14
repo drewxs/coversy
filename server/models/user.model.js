@@ -54,6 +54,11 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		max: 500,
 	},
+	taxRate: {
+		type: Number,
+		default: 0,
+		max: 50,
+	},
 	activated: {
 		type: Boolean,
 		default: false,
