@@ -56,7 +56,7 @@ export const AdminShifts = () => {
                     >
                         Upload Schedule
                     </Button>
-                    <Table>
+                    <Table stickyHeader>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Teacher</TableCell>

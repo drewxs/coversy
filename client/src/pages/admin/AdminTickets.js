@@ -49,7 +49,7 @@ export const AdminTickets = () => {
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Table>
+                    <Table stickyHeader>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
