@@ -30,4 +30,20 @@ exports.uploadProfile = multer({
 			cb(null, Date.now().toString());
 		},
 	}),
+	limits: { filesize: 30000000 }, // 30000000 bytes = ~30 MB
+});
+
+exports.uploadMaterials = multer({
+	storage: multerS3({
+		s3: s3,
+		bucket: process.env.S3_SHIFT_BUCKET,
+		contentType: multerS3.AUTO_CONTENT_TYPE,
+		metadata: (req, file, cb) => {
+			cb(null, { fieldName: file.fieldname });
+		},
+		key: (req, file, cb) => {
+			cb(null, file.filename);
+		},
+	}),
+	limits: { filesize: 30000000 }, // 60000000 bytes = ~60 MB
 });

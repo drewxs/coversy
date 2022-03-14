@@ -105,6 +105,7 @@ exports.getProfilePicture = (req, res) => {
  * @access USER
  */
 exports.updateProfilePicture = async (req, res) => {
+	if (!req.file) return res.status(400).send('No image uploaded');
 	const userId = escape(req.params.userId);
 
 	const updateQuery = { avatar: 'user/images/' + req.file.key };
