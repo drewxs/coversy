@@ -17,7 +17,6 @@ import Papa from 'papaparse';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
-    const user = useSelector((state) => state.user.user);
 
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();

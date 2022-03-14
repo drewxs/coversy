@@ -17,7 +17,7 @@ export const Login = () => {
 
     useEffect(() => {
         if (success) navigate('/profile');
-    }, [success]);
+    }, [success, navigate]);
 
     return (
         <section className='register'>
