@@ -30,15 +30,10 @@ export const UserPayrollReportForm = () => {
 
     return (
         <div style={{ marginTop: '2em' }}>
-            <Button id='report-btn' onClick={handleOpen}>
+            <Button variant='outlined' onClick={handleOpen}>
                 Report Issues
             </Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
-            >
+            <Modal open={open} onClose={handleClose}>
                 <div className='modal'>
                     <Box sx={style}>
                         <Typography id='modal-modal-description'>
@@ -50,9 +45,9 @@ export const UserPayrollReportForm = () => {
                                     <div className='report-body'>
                                         <div className='report-content'>
                                             <TextareaAutosize
-                                                aria-label='empty textarea'
                                                 placeholder='Description...'
                                                 style={{
+                                                    padding: '1em',
                                                     width: 300,
                                                     height: 200,
                                                 }}
