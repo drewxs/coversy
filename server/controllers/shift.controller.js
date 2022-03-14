@@ -77,6 +77,8 @@ exports.getShiftsBySite = async (req, res) => {
  */
 exports.getPostedShiftsBySite = async (req, res) => {
 	Shift.find({ site: req.user.site, posted: true })
+		.populate('teacher', 'firstName lastName email')
+		.populate('site', 'name')
 		.then((shifts) => res.status(200).json(shifts))
 		.catch((err) => res.status(400).json(err));
 };
@@ -120,9 +122,7 @@ exports.updateShiftMaterials = async (req, res) => {
  * @access Admin
  */
 exports.deleteShiftsBySite = async (req, res) => {
-	const siteId = escape(req.params.siteId);
-
-	Shift.deleteMany({ site: siteId })
+	Shift.deleteMany({ site: req.user.site })
 		.then(() => res.status(200).json('Test shifts successfully deleted'))
 		.catch((err) => res.status(400).send(err));
 };

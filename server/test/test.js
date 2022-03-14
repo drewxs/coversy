@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config();
 
 process.env.NODE_ENV = 'test';
+process.env.PORT = 5001;
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
@@ -26,11 +27,11 @@ describe('Endpoint testing [shifts]', () => {
 
 	it('Create shift', (done) => {
 		chai.request(server)
-			.post(`/api/shift/site/${process.env.TEST_SITE}`)
+			.post(`/api/shift`)
 			.set('content-type', 'application/json')
 			.set('auth-token', process.env.TEST_TOKEN)
 			.send({
-				teacher: process.env.TEST_TEACHER,
+				teacher: process.env.TEST_TEACHER_EMAIL,
 				startTime: '2020-01-01T00:00:00.000Z',
 				endTime: '2020-01-01T00:00:00.000Z',
 			})
@@ -43,7 +44,7 @@ describe('Endpoint testing [shifts]', () => {
 	});
 	it('Get shifts by site', (done) => {
 		chai.request(server)
-			.get(`/api/shift/site/${process.env.TEST_SITE}`)
+			.get(`/api/shift`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
@@ -52,7 +53,7 @@ describe('Endpoint testing [shifts]', () => {
 	});
 	it('Get posted shifts by site', (done) => {
 		chai.request(server)
-			.get(`/api/shift/site/${process.env.TEST_SITE}/posted`)
+			.get(`/api/shift/posted`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
 				res.should.have.status(200);
