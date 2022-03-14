@@ -24,8 +24,12 @@ const ShiftSchema = new mongoose.Schema(
 		},
 		materials: [
 			{
-				type: String,
-				max: 10,
+				fileName: {
+					type: String,
+				},
+				fileKey: {
+					type: String,
+				},
 			},
 		],
 		posted: {

@@ -42,8 +42,8 @@ exports.uploadMaterials = multer({
 			cb(null, { fieldName: file.fieldname });
 		},
 		key: (req, file, cb) => {
-			cb(null, file.filename);
+			cb(null, Date.now().toString());
 		},
 	}),
-	limits: { filesize: 30000000 }, // 60000000 bytes = ~60 MB
+	limits: { filesize: 60000000 }, // 60000000 bytes = ~60 MB
 });

@@ -172,7 +172,6 @@ exports.verifyUser = async (req, res) => {
 		if (user.verified) return res.status(400).json('User already verified');
 
 		user.verified = true;
-		user.confirmationCode = undefined;
 		await user.save();
 
 		res.redirect(`${process.env.CLIENT_URL}`);
