@@ -2,9 +2,6 @@ const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 
-// Friendly suggestion, don't touch this, it doesn't look nice, but it works.
-// It's a gentle breeze away from not working entirely, so it's best to just leave it alone
-
 aws.config.update({
 	secretAccessKey: process.env.S3_ACCESS_SECRET,
 	accessKeyId: process.env.S3_ACCESS_KEY,
@@ -20,7 +17,7 @@ const fileFilter = (req, file, cb) => {
 	}
 };
 
-const profileUploader = multer({
+exports.uploadProfile = multer({
 	fileFilter,
 	storage: multerS3({
 		s3: s3,
@@ -34,5 +31,3 @@ const profileUploader = multer({
 		},
 	}),
 });
-
-module.exports = profileUploader;

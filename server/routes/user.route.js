@@ -6,21 +6,23 @@ const {
 	toggleUserActivatedById,
 	getProfilePicture,
 	updateProfilePicture,
+	deleteProfilePicture,
 } = require('../controllers/user.controller');
+const { uploadProfile } = require('../middleware/profile.uploader');
 const { verifyAdmin } = require('../middleware/verify');
 const { verifyUser } = require('../middleware/verify.user');
-const profileUploader = require('../middleware/profileUploader');
 
 router.get('/:userId', verifyUser, getUserById);
 router.get('/site/:siteId', verifyAdmin, getUsersBySite);
-router.get('/:userId/picture', getProfilePicture);
+router.get('/images/:key', getProfilePicture);
 
 router.put('/:userId', verifyUser, updateUserById);
 router.put('/:userId/:siteId/activate', verifyAdmin, toggleUserActivatedById);
 router.put(
 	'/:userId/updatepicture',
-	profileUploader.single('avatar'),
+	uploadProfile.single('avatar'),
 	updateProfilePicture
 );
+router.delete('/:userId/:key/deletepicture', deleteProfilePicture);
 
 module.exports = router;

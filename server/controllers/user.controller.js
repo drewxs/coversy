@@ -1,6 +1,13 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
-const fetchProfile = require('../util/profileManager');
+const aws = require('aws-sdk');
+
+aws.config.update({
+	secretAccessKey: process.env.S3_ACCESS_SECRET,
+	accessKeyId: process.env.S3_ACCESS_KEY,
+	region: process.env.S3_DEFAULT_REGION,
+});
+const s3 = new aws.S3();
 
 /**
  * @desc This function returns users by user id.
@@ -77,13 +84,15 @@ exports.toggleUserActivatedById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
-exports.getProfilePicture = async (req, res) => {
-	const userId = escape(req.params.userId);
-	User.findById(userId)
-		.then((user) => {
-			res.status(200).json(fetchProfile(user.avatar));
-		})
-		.catch((err) => res.status(400).json(err));
+exports.getProfilePicture = (req, res) => {
+	const fileKey = req.params.key;
+	const downloadParams = {
+		Key: fileKey,
+		Bucket: process.env.S3_PROFILE_BUCKET,
+	};
+
+	const readStream = s3.getObject(downloadParams).createReadStream();
+	readStream.pipe(res);
 };
 
 /**
@@ -93,10 +102,43 @@ exports.getProfilePicture = async (req, res) => {
  */
 exports.updateProfilePicture = async (req, res) => {
 	const userId = escape(req.params.userId);
+	// User.findById(userId)
+	// 	.then((user) => {
+	// 		if (user.avatar) {
+	// 			const fileKey = req.params.key.split('/')[2];
+	// 			const deleteParams = {
+	// 				Key: fileKey,
+	// 				Bucket: process.env.S3_PROFILE_BUCKET,
+	// 				VersionId: '?',
+	// 			};
+	// 			s3.deleteObject(deleteParams);
+	// 		}
+	// 	})
+	// 	.catch((err) => res.status(400).json(err));
 
-	const updateQuery = { avatar: req.file.key };
+	const updateQuery = { avatar: 'user/image/' + req.file.key };
 
 	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
+
+exports.deleteProfilePicture = async (req, res) => {
+	const userId = escape(req.params.userId);
+	const updateQuery = { avatar: undefined };
+
+	User.findByIdAndUpdate(userId, updateQuery)
+		.then((user) => {
+			if (user.avatar) {
+				const fileKey = req.params.key;
+				const deleteParams = {
+					Key: fileKey,
+					Bucket: process.env.S3_PROFILE_BUCKET,
+					VersionId: '?',
+				};
+				s3.deleteObject(deleteParams);
+				res.status(200).json(user);
+			}
+		})
 		.catch((err) => res.status(400).json(err));
 };
