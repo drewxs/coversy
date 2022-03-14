@@ -46,87 +46,87 @@ export const AdminTickets = () => {
     };
 
     return (
-        <section className='dashboard'>
-            <div className='container'>
-                <div className='shift_table'>
-                    <h2>Ticket Management</h2>
-                </div>
-                <Table className='table'>
-                    <TableHead className='head'>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Phone</TableCell>
-                            <TableCell>Type</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>View</TableCell>
-                            <TableCell>Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody className='body'>
-                        {tickets?.map((ticket, k) => (
-                            <TableRow key={k}>
-                                <TableCell>
-                                    {ticket.firstName} {ticket.lastName}
-                                </TableCell>
-                                <TableCell>{ticket.email}</TableCell>
-                                <TableCell>{ticket.Phone}</TableCell>
-                                <TableCell>
-                                    {ticket.type === 1 && 'Payroll Issue'}
-                                    {ticket.type === 2 && 'Time-off Issue'}
-                                </TableCell>
-                                <TableCell>{ticket.message}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        onClick={() => {
-                                            handleOpen();
-                                            setCurrent(k);
-                                        }}
-                                    >
-                                        View
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    {ticket.resolved === true && 'Resolved'}
-                                    {ticket.resolved === false && 'Unsolved'}
-                                </TableCell>
+        <>
+            <section className='dashboard'>
+                <div className='container'>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Phone</TableCell>
+                                <TableCell>Type</TableCell>
+                                <TableCell>Description</TableCell>
+                                <TableCell>View</TableCell>
+                                <TableCell>Status</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Modal open={open} onClose={() => setOpen(false)}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            border: '2px solid #000',
-                            boxShadow: 24,
-                            p: 4,
-                        }}
+                        </TableHead>
+                        <TableBody>
+                            {tickets?.map((ticket, k) => (
+                                <TableRow key={k}>
+                                    <TableCell>
+                                        {ticket.firstName} {ticket.lastName}
+                                    </TableCell>
+                                    <TableCell>{ticket.email}</TableCell>
+                                    <TableCell>{ticket.Phone}</TableCell>
+                                    <TableCell>
+                                        {ticket.type === 1 && 'Payroll Issue'}
+                                        {ticket.type === 2 && 'Time-off Issue'}
+                                    </TableCell>
+                                    <TableCell>{ticket.message}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            onClick={() => {
+                                                handleOpen();
+                                                setCurrent(k);
+                                            }}
+                                        >
+                                            View
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell>
+                                        {ticket.resolved
+                                            ? 'Resolved'
+                                            : 'Unresolved'}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </section>
+
+            {/* Ticket Modal */}
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: 400,
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <h2>View</h2>
+                    <p>Name: </p>
+                    <p>
+                        Type: {tickets[current]?.type === 1 && 'Payroll Issue'}
+                        {tickets[current]?.type === 2 && 'Time-off Issue'}
+                    </p>
+                    <p>Description</p>
+                    <br />
+                    <Button
+                        variant='outlined'
+                        color='primary'
+                        onClick={() => handleResovle()}
                     >
-                        <h2>View</h2>
-                        <p>Name: </p>
-                        <p>
-                            Type:{' '}
-                            {tickets[current]?.type === 1 && 'Payroll Issue'}
-                            {tickets[current]?.type === 2 && 'Time-off Issue'}
-                        </p>
-                        <p>Description</p>
-                        <br />
-                        <Button
-                            variant='outlined'
-                            color='primary'
-                            onClick={() => handleResovle()}
-                        >
-                            Resovle
-                        </Button>
-                        <Button onClick={() => handleClose()}>Cancel</Button>
-                    </Box>
-                </Modal>
-            </div>
-        </section>
+                        Resovle
+                    </Button>
+                    <Button onClick={() => handleClose()}>Cancel</Button>
+                </Box>
+            </Modal>
+        </>
     );
 };

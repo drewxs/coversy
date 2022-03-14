@@ -6,42 +6,8 @@
 
     .container {
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         height: 100%;
-    }
-
-    .col {
-        &.left {
-            padding-right: 4em;
-        }
-        &.right {
-            flex-grow: 1;
-        }
-    }
-
-    .table {
-        width: 100%;
-    }
-}
-.upload_btn {
-    padding-top: 1em;
-}
-.shift_table {
-    padding-top: 1em;
-}
-.dashboard .card .col.right {
-    background-color: #fff;
-    padding: 4em 0em;
-}
-
-.right-container {
-    border: 2px solid black;
-    height: 50vh;
-}
-
-@include respond-to('tablet') {
-    .dashboard {
-        .container {
-            flex-direction: column;
-        }
     }
 }

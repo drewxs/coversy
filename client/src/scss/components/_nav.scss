@@ -14,9 +14,11 @@
         align-items: center;
         justify-content: space-between;
 
-        .button-cont {
-            .button {
-                margin-left: 1em;
+        .button {
+            margin-left: 1em;
+
+            &:hover {
+                background-color: rgba($color: $primary, $alpha: 0.3);
             }
         }
     }
