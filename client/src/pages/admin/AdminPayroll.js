@@ -130,5 +130,3 @@ export const AdminPayroll = () => {
         </section>
     );
 };
-
-export default AdminPayroll;
