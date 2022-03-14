@@ -11,6 +11,15 @@ const PayrollSchema = new mongoose.Schema(
 			type: Number,
 			required: true,
 		},
+		hours: {
+			type: Number,
+			required: true,
+		},
+		site: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Site',
+			required: true,
+		},
 	},
 	{ timestamps: true }
 );
