@@ -83,6 +83,11 @@ exports.toggleUserActivatedById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
+/**
+ * @desc This function updates the users Profile Picture
+ * @route GET /user/images/:key
+ * @access PUBLIC
+ */
 exports.getProfilePicture = (req, res) => {
 	const fileKey = req.params.key;
 	const downloadParams = {
@@ -97,25 +102,12 @@ exports.getProfilePicture = (req, res) => {
 /**
  * @desc This function updates the users Profile Picture
  * @route PUT /user/:userId/updatepicture
- * @access User
+ * @access USER
  */
 exports.updateProfilePicture = async (req, res) => {
 	const userId = escape(req.params.userId);
-	// User.findById(userId)
-	// 	.then((user) => {
-	// 		if (user.avatar) {
-	// 			const fileKey = req.params.key.split('/')[2];
-	// 			const deleteParams = {
-	// 				Key: fileKey,
-	// 				Bucket: process.env.S3_PROFILE_BUCKET,
-	// 				VersionId: '?',
-	// 			};
-	// 			s3.deleteObject(deleteParams);
-	// 		}
-	// 	})
-	// 	.catch((err) => res.status(400).json(err));
 
-	const updateQuery = { avatar: 'user/image/' + req.file.key };
+	const updateQuery = { avatar: 'user/images/' + req.file.key };
 
 	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => res.status(200).json(user))
