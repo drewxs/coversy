@@ -12,12 +12,11 @@ export const Nav = () => {
         <section className='nav'>
             <div className='container'>
                 <h2>Coversy</h2>
-                <div className='button-cont'>
+                <div>
                     {/* Unauthenticated links */}
                     {!authenticated && (
                         <>
                             <Button
-                                variant='outlined'
                                 color={
                                     window.location.pathname !== '/register'
                                         ? 'primary'
@@ -29,7 +28,6 @@ export const Nav = () => {
                                 Register
                             </Button>
                             <Button
-                                variant='outlined'
                                 color={
                                     window.location.pathname !== '/login'
                                         ? 'primary'
@@ -47,7 +45,6 @@ export const Nav = () => {
                     {authenticated && user.type === 1 && (
                         <>
                             <Button
-                                variant='outlined'
                                 color={
                                     window.location.pathname !==
                                     '/dashboard/shifts'
@@ -60,7 +57,30 @@ export const Nav = () => {
                                 Shifts
                             </Button>
                             <Button
-                                variant='outlined'
+                                color={
+                                    window.location.pathname !==
+                                    '/dashboard/tickets'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/dashboard/tickets'
+                                className='button'
+                            >
+                                Tickets
+                            </Button>
+                            <Button
+                                color={
+                                    window.location.pathname !==
+                                    '/dashboard/users'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/dashboard/users'
+                                className='button'
+                            >
+                                Users
+                            </Button>
+                            <Button
                                 color={
                                     window.location.pathname !== '/profile'
                                         ? 'primary'
@@ -72,7 +92,7 @@ export const Nav = () => {
                                 Profile
                             </Button>
                             {/* <Button
-                                variant='outlined'
+                                
                                 className='button logout'
                                 href='/payroll'
                             >
@@ -85,7 +105,6 @@ export const Nav = () => {
                     {authenticated && user.type === 2 && (
                         <>
                             <Button
-                                variant='outlined'
                                 color={
                                     window.location.pathname !==
                                     '/dashboard/shifts'
@@ -98,7 +117,6 @@ export const Nav = () => {
                                 Shifts
                             </Button>
                             <Button
-                                variant='outlined'
                                 color={
                                     window.location.pathname !== '/profile'
                                         ? 'primary'
@@ -109,11 +127,7 @@ export const Nav = () => {
                             >
                                 Profile
                             </Button>
-                            <Button
-                                variant='outlined'
-                                className='button logout'
-                                href='/payroll'
-                            >
+                            <Button className='button logout' href='/payroll'>
                                 Payroll
                             </Button>
                         </>
@@ -122,7 +136,6 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <Button
-                            variant='outlined'
                             color='primary'
                             className='button logout-btn'
                             onClick={() => {

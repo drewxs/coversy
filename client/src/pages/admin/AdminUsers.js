@@ -20,43 +20,43 @@ export const AdminUsers = () => {
     }, [admin]);
 
     return (
-        <div className=''>
-            <h2>User Activation</h2>
-            <br />
-            <div className='table'>
-                <Table stickyHeader>
-                    <TableHead className='head'>
-                        <TableRow>
-                            <TableCell> </TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Activation</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody className='body'>
-                        {users?.map((user, k) => (
-                            <TableRow key={k}>
-                                <TableCell>{k + 1}</TableCell>
-                                <TableCell>
-                                    {user.firstName} {user.lastName}
-                                </TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>
-                                    <Switch
-                                        checked={user.activated}
-                                        onClick={() =>
-                                            ToggleUserActivatedById(
-                                                user._id,
-                                                admin.site._id
-                                            )
-                                        }
-                                    />
-                                </TableCell>
+        <>
+            <section className='dashboard'>
+                <div className='container'>
+                    <Table stickyHeader>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell> </TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Activation</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
-        </div>
+                        </TableHead>
+                        <TableBody>
+                            {users?.map((user, k) => (
+                                <TableRow key={k}>
+                                    <TableCell>{k + 1}</TableCell>
+                                    <TableCell>
+                                        {user.firstName} {user.lastName}
+                                    </TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>
+                                        <Switch
+                                            checked={user.activated}
+                                            onClick={() =>
+                                                ToggleUserActivatedById(
+                                                    user._id,
+                                                    admin.site._id
+                                                )
+                                            }
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </section>
+        </>
     );
 };

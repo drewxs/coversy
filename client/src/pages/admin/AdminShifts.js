@@ -18,20 +18,21 @@ import Papa from 'papaparse';
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const user = useSelector((state) => state.user.user);
-    const [open, setOpen] = React.useState(false);
+
+    const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     // const [date, setDate] = useState(new Date());
 
     /**
-     * @desc Handles CSV file upload, parses CSV file, and adds all parsed shifts
+     * Handles CSV file upload, parses CSV file, and adds all parsed shifts
      */
     const handleUpload = () => {
         if (file) {
             Papa.parse(file, {
                 header: true,
                 complete: (res) => {
-                    for (let i = 0; i < res.data.length; i++) {
-                        AddShift(res.data[i], user.site);
+                    for (let i = 0; i < res.data.length - 1; i++) {
+                        AddShift(res.data[i]);
                     }
 
                     setOpen(false);
@@ -45,66 +46,25 @@ export const AdminShifts = () => {
     }, []);
 
     return (
-        <section className='dashboard'>
-            <div className='container'>
-                <div className='col left'>
-                    <div className='upload_btn'>
-                        <Button
-                            variant='contained'
-                            onClick={() => setOpen(true)}
-                        >
-                            Upload Schedule
-                        </Button>
-                    </div>
-                    <Modal open={open} onClose={() => setOpen(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                border: '2px solid #000',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
-                            <Typography variant='h6' component='h2'>
-                                Upload Schedule
-                            </Typography>
-                            <Typography sx={{ mt: 2 }}>
-                                <input
-                                    type='file'
-                                    accept='.csv'
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                />
-                            </Typography>
-                            <br />
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                onClick={() => handleUpload()}
-                            >
-                                Upload
-                            </Button>
-                        </Box>
-                    </Modal>
-                </div>
-                <div className='col right'>
-                    <div className='shift_table'>
-                        <h2>Shift</h2>
-                    </div>
-                    <Table className='table'>
-                        <TableHead className='head'>
+        <>
+            <section className='dashboard'>
+                <div className='container'>
+                    <Button
+                        sx={{ mb: 2 }}
+                        variant='contained'
+                        onClick={() => setOpen(true)}
+                    >
+                        Upload Schedule
+                    </Button>
+                    <Table stickyHeader>
+                        <TableHead>
                             <TableRow>
                                 <TableCell>Teacher</TableCell>
                                 <TableCell>Shift Date</TableCell>
                                 <TableCell>Shift Time</TableCell>
-                                <TableCell>Site</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody className='body'>
+                        <TableBody>
                             {shifts.map((shift) => (
                                 <TableRow key={shift._id}>
                                     <TableCell>
@@ -123,13 +83,45 @@ export const AdminShifts = () => {
                                             format='M d, Y'
                                         />
                                     </TableCell>
-                                    <TableCell>{shift.site.name}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            {/* Upload Schedule Modal */}
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 400,
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <Typography variant='h6'>Upload Schedule</Typography>
+                    <Typography sx={{ mt: 2 }}>
+                        <input
+                            type='file'
+                            accept='.csv'
+                            onChange={(e) => setFile(e.target.files[0])}
+                        />
+                    </Typography>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        sx={{ mt: 3 }}
+                        onClick={() => handleUpload()}
+                    >
+                        Upload
+                    </Button>
+                </Box>
+            </Modal>
+        </>
     );
 };

@@ -1,3 +1,4 @@
+const User = require('../models/user.model');
 const Shift = require('../models/shift.model');
 const escape = require('escape-html');
 
@@ -7,17 +8,40 @@ const escape = require('escape-html');
  * @access Admin
  */
 exports.createShift = async (req, res) => {
-	const shift = {
-		teacher: escape(req.body.teacher),
-		startTime: escape(req.body.startTime),
-		endTime: escape(req.body.endTime),
-		site: escape(req.user.site),
-	};
-	if (req.body.details) shift.details = escape(req.body.details);
+	const email = escape(req.body.teacher);
+	const startTime = escape(req.body.startTime);
+	const endTime = escape(req.body.endTime);
 
-	Shift.create(shift)
-		.then((shift) => res.status(201).json(shift))
-		.catch((err) => res.status(400).json(err));
+	let teacher, existingShift;
+
+	try {
+		// Check if teacher exists
+		teacher = await User.findOne({ email });
+		if (!teacher) return res.status(404).json('Teacher not found');
+
+		// Check if shift already exists
+		existingShift = await Shift.findOne({
+			teacher: teacher._id,
+			startTime,
+			endTime,
+		});
+		if (existingShift) return res.status(400).json('Shift already exists');
+
+		const shiftObj = {
+			teacher: escape(teacher._id),
+			startTime,
+			endTime,
+			site: escape(req.user.site),
+		};
+		if (req.body.details) shiftObj.details = escape(req.body.details);
+
+		const shift = await Shift.create(shiftObj);
+		await shift.populate('teacher', 'firstName lastName email');
+		await shift.populate('site', 'name');
+		return res.status(201).json(shift);
+	} catch (err) {
+		return res.status(400).json(err.message);
+	}
 };
 
 /**
@@ -40,8 +64,8 @@ exports.getShiftById = async (req, res) => {
  */
 exports.getShiftsBySite = async (req, res) => {
 	Shift.find({ site: req.user.site })
-		.populate('teacher')
-		.populate('site')
+		.populate('teacher', 'firstName lastName email')
+		.populate('site', 'name')
 		.then((shifts) => res.status(200).json(shifts))
 		.catch((err) => res.status(400).json(err));
 };

@@ -11,7 +11,7 @@ const { verifyShift } = require('../middleware/verify.shift');
 const { verifyToken, verifyAdmin } = require('../middleware/verify');
 
 // CREATE
-router.post('/site/:siteId', verifyAdmin, createShift);
+router.post('/', verifyAdmin, createShift);
 
 // READ
 router.get('/:shiftId', verifyToken, getShiftById);
@@ -22,6 +22,6 @@ router.get('/posted', verifyToken, getPostedShiftsBySite);
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 
 // DELETE
-router.delete('/site/:siteId', verifyAdmin, deleteShiftsBySite);
+router.delete('/', verifyAdmin, deleteShiftsBySite);
 
 module.exports = router;
