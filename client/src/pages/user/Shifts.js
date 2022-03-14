@@ -35,12 +35,12 @@ export const Shifts = () => {
                                 </Button>
                             </div>
                         </div>
-
                         <div className='displayText'>
                             <div className='btn-container'>
                                 {/* <div className='text'>Hi there</div> */}
                                 <button className='btn'>Book Time-Off</button>
                             </div>
+                            <div className='btn-container'></div>
                         </div>
                     </div>
 
