@@ -8,7 +8,8 @@ export const userSlice = createSlice({
         token: localStorage.getItem('auth-token'),
         authenticated: localStorage.getItem('auth-token') ? true : false,
         loading: true,
-        errors: ' ',
+        success: false,
+        errors: null,
         updateErrors: null,
     },
     reducers: {
@@ -22,20 +23,16 @@ export const userSlice = createSlice({
                 loading: false,
             };
         },
-        registerUser: (state, action) => {
+        registerUser: (state) => {
             return {
                 ...state,
-                user: action.payload.user,
-                token: action.payload.token,
                 errors: null,
                 loading: false,
             };
         },
-        registerSite: (state, action) => {
+        registerSite: (state) => {
             return {
                 ...state,
-                user: action.payload.user,
-                token: action.payload.token,
                 errors: null,
                 loading: false,
             };
@@ -58,6 +55,7 @@ export const userSlice = createSlice({
                 user: {},
                 token: '',
                 authenticated: false,
+                success: false,
             };
         },
         setErrors: (state, action) => {
@@ -84,6 +82,12 @@ export const userSlice = createSlice({
                 updateErrors: null,
             };
         },
+        success: (state) => {
+            return {
+                ...state,
+                success: true,
+            };
+        },
         setSites: (state, action) => {
             return {
                 ...state,
@@ -104,6 +108,7 @@ export const {
     clearErrors,
     setUpdateErrors,
     clearUpdateErrors,
+    success,
     setSites,
 } = userSlice.actions;
 

@@ -7,6 +7,7 @@ import {
     logoutUser,
     setErrors,
     clearErrors,
+    success,
     // setUpdateErrors,
     // clearUpdateErrors,
     setSites,
@@ -18,58 +19,64 @@ const api = process.env.REACT_APP_API_URL;
 
 export const LoginUser = async (user) => {
     store.dispatch(loadingUser());
-
-    await axios
-        .post(`${api}/auth/login`, user)
-        .then((res) => {
-            setAuthorizationHeader(res.data.token, res.data.user._id);
-            store.dispatch(loginUser(res.data));
-            store.dispatch(clearErrors());
-        })
-        .catch((err) => {
-            store.dispatch(setErrors(err.response.data));
-        });
+    try {
+        const res = await axios.post(`${api}/auth/login`, user);
+        setAuthorizationHeader(res.data.token, res.data.user._id);
+        store.dispatch(clearErrors());
+        store.dispatch(success());
+        store.dispatch(loginUser(res.data));
+    } catch (err) {
+        store.dispatch(setErrors(err.response.data));
+    }
 };
 
 export const RegisterUser = async (data) => {
     store.dispatch(loadingUser());
-
-    await axios
-        .post(`${api}/auth/register/user`, data)
-        .then((res) => {
-            store.dispatch(registerUser(res.data));
-            store.dispatch(clearErrors());
-        })
-        .catch((err) => store.dispatch(setErrors(err.response.data)));
+    try {
+        await axios.post(`${api}/auth/register/user`, data);
+        store.dispatch(clearErrors());
+        store.dispatch(success());
+        store.dispatch(registerUser());
+    } catch (err) {
+        store.dispatch(setErrors(err.response.data));
+    }
 };
 
 export const RegisterSite = async (data) => {
     store.dispatch(loadingUser());
 
-    await axios
-        .post(`${api}/auth/register/site`, data)
-        .then((res) => {
-            store.dispatch(registerSite(res.data));
-            store.dispatch(clearErrors());
-        })
-        .catch((err) => store.dispatch(setErrors(err.response.data)));
+    try {
+        await axios.post(`${api}/auth/register/site`, data);
+        store.dispatch(clearErrors());
+        store.dispatch(success());
+        store.dispatch(registerSite());
+    } catch (err) {
+        store.dispatch(setErrors(err.response.data));
+    }
 };
 
 export const FetchSites = async () => {
-    await axios
-        .get(`${api}/site`)
-        .then((res) => store.dispatch(setSites(res.data)))
-        .catch((err) => console.log(err));
+    try {
+        const res = await axios.get(`${api}/site`);
+        store.dispatch(setSites(res.data));
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const LoadUser = async () => {
     store.dispatch(loadingUser());
-    await axios
-        .get(`${api}/user/${localStorage.getItem('id')}`, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => store.dispatch(setUser(res.data)))
-        .catch((err) => console.log(err));
+    try {
+        const res = await axios.get(
+            `${api}/user/${localStorage.getItem('id')}`,
+            {
+                headers: { 'auth-token': localStorage.getItem('auth-token') },
+            }
+        );
+        store.dispatch(setUser(res.data));
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const LogoutUser = async () => {

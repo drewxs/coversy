@@ -45,8 +45,7 @@ export const AdminUsers = () => {
                                             checked={user.activated}
                                             onClick={() =>
                                                 ToggleUserActivatedById(
-                                                    user._id,
-                                                    admin.site._id
+                                                    user._id
                                                 )
                                             }
                                         />

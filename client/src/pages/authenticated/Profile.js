@@ -5,12 +5,18 @@ import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
+    const loading = useSelector((state) => state.user.loading);
 
     return (
         <section className='profile'>
             <div className='card container'>
                 <div className='col left'>
                     <Avatar
+                        src={
+                            loading
+                                ? 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                                : `${process.env.REACT_APP_API_URL}/${user.avatar}`
+                        }
                         alt={`${user.firstName} ${user.lastName}`}
                         sx={{
                             fontSize: '4em',

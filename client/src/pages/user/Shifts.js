@@ -54,7 +54,7 @@ export const Shifts = () => {
                             onSelectEvent={(event) =>
                                 alert(event.title, event.description)
                             }
-                            style={{ height: 550, width: 850 }}
+                            style={{ height: 500, width: 850 }}
                         />
                     </div>
                 </div>
