@@ -2,16 +2,20 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.0
-  heroku: circleci/heroku@1.2.6
+
+jobs:
+  build-and-test:  
+    docker:
+      - image: cimg/node:16.3
+    steps:
+      - checkout
+      - node/install-packages
 
 workflows:
-  build-tests:
+  build-tests: 
+    jobs:
+      - build-and-test
+  
+  endpoint-tests:
     jobs:
       - node/test
-      - heroku/deploy-via-git:
-          force: true
-          requires:
-            - node/test
-          filters:
-            branches:
-              only: master
