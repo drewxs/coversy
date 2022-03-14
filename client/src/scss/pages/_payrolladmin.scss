@@ -1,0 +1,39 @@
+@use '../abstract' as *;
+.payroll {
+    padding-top: 10vh;
+    height: 100vh;
+    max-height: 100vh;
+    .container {
+        .mainDash-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            .title-container {
+                display: flex;
+                height: 20%;
+                align-items: center;
+                button {
+                    margin-left: 20px;
+                    background-color: $primary;
+                    color: $white;
+                    padding: 10px;
+                    width: 10%;
+                    border-radius: 8px;
+                }
+            }
+            .body-container {
+                height: 80%;
+                border: 1px solid $black;
+                .title-body {
+                    padding: 20px;
+                }
+                .column-report {
+                    button {
+                        padding: 5px;
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
