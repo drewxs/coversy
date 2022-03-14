@@ -25,6 +25,7 @@ const ShiftSchema = new mongoose.Schema(
 		materials: [
 			{
 				type: String,
+				max: 10,
 			},
 		],
 		posted: {

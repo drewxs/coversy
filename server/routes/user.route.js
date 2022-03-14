@@ -8,7 +8,7 @@ const {
 	updateProfilePicture,
 	deleteProfilePicture,
 } = require('../controllers/user.controller');
-const { uploadProfile } = require('../middleware/profile.uploader');
+const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
 const { verifyUser } = require('../middleware/verify.user');
 

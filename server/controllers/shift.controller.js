@@ -103,6 +103,17 @@ exports.updateShiftById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
+exports.updateShiftMaterials = async (req, res) => {
+	if (!req.file) return res.status(400).send('No files uploaded');
+	const shiftId = escape(req.params.shiftId);
+
+	const updateQuery = { materials: req.files };
+
+	User.findByIdAndUpdate(shiftId, updateQuery, { new: true })
+		.then((user) => res.status(200).json(user))
+		.catch((err) => res.status(400).json(err));
+};
+
 /**
  * @desc This function deletes all shifts from a site
  * @route DELETE /site/:siteId
