@@ -25,7 +25,7 @@ $ npm i
 
 ### Configuration
 
-Include the client .env file in the src directory.
+Include the client .env file in /client.
 
 ### Development
 

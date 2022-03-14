@@ -25,7 +25,7 @@ $ npm i
 
 ### Configuration
 
-Include the server .env file in the root of this directory.
+Include the server .env file in /server.
 
 ### Development
 
