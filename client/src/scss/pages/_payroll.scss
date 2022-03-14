@@ -1,12 +1,36 @@
 @use '../abstract' as *;
 
-.payroll {
-    .container {
-        display: flex;
-        justify-content: space-between;
-    }
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .card {
-        width: 60%;
+    .payroll {
+        padding-left: 5%;
+        padding-top: 11%;
+        height: 100%;
+
+        .payroll-info {
+            width: 25%;
+            height: 100%;
+            padding-left: 3em;
+
+            Button {
+                z-index: 10;
+                border: 1px solid $primary;
+                border-radius: 2em;
+                padding: 0.5em 1.2em 0.5em 1.2em;
+            }
+        }
+
+        .payroll-table {
+            width: 70%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
     }
 }
