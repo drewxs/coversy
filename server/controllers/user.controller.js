@@ -63,11 +63,10 @@ exports.updateUserById = async (req, res) => {
  */
 exports.toggleUserActivatedById = async (req, res) => {
 	const userId = escape(req.params.userId);
-	const siteId = escape(req.params.siteId);
 	const user = await User.findById(userId);
 
 	if (!user) return res.status(404).json('Error: User ID does not exist.');
-	if (user.site != siteId)
+	if (user.site != req.user.site)
 		return res.status(404).json('User is not part of this site.');
 
 	const updateQuery = { activated: !user.activated };
