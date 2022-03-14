@@ -3,10 +3,9 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
 
-working_directory: ~/coversy/server/
-
 jobs:
   server-build-tests:
+    working_directory: ~/coversy/server/
     docker:
       - image: cimg/node:17.2
     steps:
@@ -14,6 +13,7 @@ jobs:
           path: ~/coversy
       - node/install-packages
   server-endpoint-tests:
+    working_directory: ~/coversy/server/
     docker:
       - image: cimg/node:17.2
     steps:
