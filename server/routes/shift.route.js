@@ -14,9 +14,9 @@ const { verifyToken, verifyAdmin } = require('../middleware/verify');
 router.post('/', verifyAdmin, createShift);
 
 // READ
-router.get('/:shiftId', verifyToken, getShiftById);
+router.get('/id/:shiftId', verifyToken, getShiftById);
 router.get('/', verifyToken, getShiftsBySite);
-router.get('/posted', verifyToken, getPostedShiftsBySite);
+router.get('/posted/', verifyToken, getPostedShiftsBySite);
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
