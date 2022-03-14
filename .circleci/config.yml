@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   build-and-test:
-    working_directory: ~/server
+    working_directory: "~/server"
     docker:
       - image: cimg/base:stable
     steps:
