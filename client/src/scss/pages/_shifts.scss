@@ -36,12 +36,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    height: 80%;
-    padding-top: 50px;
+    height: 100vh;
+    padding-top: 10px;
 
     .left-container {
         width: 25%;
-        height: 110%;
+        height: 100%;
         border: 1px solid black;
         border-radius: 10px;
         margin-right: 5%;
@@ -111,7 +111,7 @@
     }
 
     .calendar {
-        width: 65%;
+        width: 70%;
         border: 1px solid $black;
         display: flex;
         padding: 8px;
