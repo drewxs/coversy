@@ -4,8 +4,8 @@ orbs:
   node: circleci/node@5.0.1
 
 jobs:
-  build-and-test:
-    working_directory: ~/project/server
+  server-build:
+    working_directory: ~/project/server/
     docker:
       - image: cimg/base:stable
     steps:
@@ -15,9 +15,9 @@ jobs:
 workflows:
   build-tests: 
     jobs:
-      - build-and-test
+      - server-build
   
   endpoint-tests:
     jobs:
       - node/test:
-          app-dir: ~/project/server
+          app-dir: ~/project/server/
