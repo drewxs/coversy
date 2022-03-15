@@ -14,14 +14,18 @@ export const Profile = () => {
     useEffect(() => {
         if (image && user) {
             const formData = new FormData();
-            formData.append('image', image);
+            formData.append('avatar', image);
             axios
-                .put(`/api/user/${user._id}/updatepicture`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'auth-token': localStorage.getItem('auth-token'),
-                    },
-                })
+                .put(
+                    `http://localhost:5000/api/user/${user._id}/updatepicture`,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'auth-token': localStorage.getItem('auth-token'),
+                        },
+                    }
+                )
                 .then((res) => {
                     console.log(res.data);
                 });
