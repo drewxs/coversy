@@ -1,6 +1,14 @@
 const User = require('../models/user.model');
 const Shift = require('../models/shift.model');
 const escape = require('escape-html');
+const aws = require('aws-sdk');
+
+aws.config.update({
+	secretAccessKey: process.env.S3_ACCESS_SECRET,
+	accessKeyId: process.env.S3_ACCESS_KEY,
+	region: process.env.S3_DEFAULT_REGION,
+});
+const s3 = new aws.S3();
 
 /**
  * @desc This function creates a shift.
@@ -105,8 +113,32 @@ exports.updateShiftById = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
+exports.getShiftMaterials = async (req, res) => {
+	const shiftId = escape(req.params.shiftId);
+	const fileName = escape(req.params.fileName);
+
+	Shift.findById(shiftId)
+		.then((shift) => {
+			shift.materials.forEach((material) => {
+				if (material.fileName === fileName) {
+					const downloadParams = {
+						Key: material.fileKey,
+						Bucket: process.env.S3_SHIFT_BUCKET,
+					};
+					const readStream = s3
+						.getObject(downloadParams)
+						.createReadStream();
+					readStream.pipe(res.attachment(material.fileName));
+				}
+			});
+		})
+		.catch((err) => {
+			res.status(400).json(err);
+		});
+};
+
 /**
- * @desc This function updates shifts by shift id.
+ * @desc This function updates shift materials by ID.
  * @route PUT /shift/:shiftId/uploadfiles
  * @access User
  */

@@ -6,6 +6,7 @@ const {
 	getPostedShiftsBySite,
 	updateShiftById,
 	deleteShiftsBySite,
+	getShiftMaterials,
 	updateShiftMaterials,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
@@ -19,13 +20,14 @@ router.post('/', verifyAdmin, createShift);
 router.get('/id/:shiftId', verifyToken, getShiftById);
 router.get('/', verifyToken, getShiftsBySite);
 router.get('/posted/', verifyToken, getPostedShiftsBySite);
+router.get('/:shiftId/files/:fileName', getShiftMaterials);
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put(
 	'/:shiftId/uploadfiles',
-	verifyToken,
-	verifyShift,
+	// verifyToken,
+	// verifyShift,
 	uploadMaterials.array('materials', 10),
 	updateShiftMaterials
 );
