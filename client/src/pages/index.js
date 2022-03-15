@@ -17,3 +17,4 @@ export { AdminUsers } from 'pages/admin/AdminUsers';
 export { Payroll } from 'pages/user/Payroll';
 export { Shifts } from 'pages/user/Shifts';
 export { PayrollReport } from 'pages/user/PayrollReport';
+export { CombinedPayrollReport } from 'pages/admin/CombinedPayrollReport';
