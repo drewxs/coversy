@@ -20,6 +20,26 @@
                 align-items: center;
                 padding: 4em 6em;
 
+                .avatar-upload {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                    }
+                }
+
+                .avatar-upload:hover {
+                    input {
+                        overflow: hidden;
+                        width: 65%;
+                        opacity: 100;
+                    }
+                }
+
                 .divider {
                     background-color: rgba($color: $black, $alpha: 0.2);
                     width: 100%;
