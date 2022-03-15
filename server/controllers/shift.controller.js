@@ -18,6 +18,8 @@ exports.createShift = async (req, res) => {
 		// Check if teacher exists
 		teacher = await User.findOne({ email });
 		if (!teacher) return res.status(404).json('Teacher not found');
+		if (teacher.site !== req.user.site)
+			return res.status(400).json('Teacher does not belong to this site');
 
 		// Check if shift already exists
 		existingShift = await Shift.findOne({
