@@ -4,7 +4,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Button from '@mui/material/Button';
-
+import { GetShifts } from 'redux/shift';
 const localizer = momentLocalizer(moment);
 
 const myEventsList = [
@@ -47,7 +47,14 @@ export const Shifts = () => {
                                 {/* <div className='text'>Hi there</div> */}
                                 <button className='btn'>Book Time-Off</button>
                             </div>
-                            <div className='btn-container'></div>
+                            <div className='cards'>
+                                {shifts.map((shift, k) => (
+                                    <div className='user'>
+                                        {shift.teacher.firstName}
+                                        {shift.teacher.lastName}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 

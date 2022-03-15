@@ -20,27 +20,25 @@ export const userSlice = createSlice({
                 token: action.payload.token,
                 errors: null,
                 authenticated: true,
-                loading: false,
             };
         },
         registerUser: (state) => {
             return {
                 ...state,
                 errors: null,
-                loading: false,
             };
         },
         registerSite: (state) => {
             return {
                 ...state,
                 errors: null,
-                loading: false,
             };
         },
         setUser: (state, action) => {
             return {
                 ...state,
                 user: action.payload,
+                loading: false,
             };
         },
         loadingUser: (state) => {
