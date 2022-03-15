@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
 import EditUserDetailModal from 'components/EditUserDetail';
+import axios from 'axios';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
     const loading = useSelector((state) => state.user.loading);
+
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        if (image && user) {
+            const formData = new FormData();
+            formData.append('image', image);
+            axios
+                .put(`/api/user/${user._id}/updatepicture`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'auth-token': localStorage.getItem('auth-token'),
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data);
+                });
+        }
+    }, [image, user]);
 
     return (
         <section className='profile'>
@@ -29,7 +49,11 @@ export const Profile = () => {
                             {user.firstName?.charAt(0)}{' '}
                             {user.lastName?.charAt(0)}
                         </Avatar>
-                        <input type='file' className='upload-avatar' />
+                        <input
+                            type='file'
+                            className='upload-avatar'
+                            onChange={(e) => setImage(e.target.files[0])}
+                        />
                     </div>
 
                     <div className='block name'>
