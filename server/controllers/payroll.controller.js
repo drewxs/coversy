@@ -1,103 +1,134 @@
-const Payroll = require('../models/payroll.model');
+const Shift = require('../models/shift.model');
 const escape = require('escape-html');
 
 /**
- * @desc This function creates a payroll.
- * @route POST /payroll/
+ * @desc This function gets all payrolls from a site.
+ * @route GET /payroll/site
  * @access Admin
  */
-exports.createPayroll = async (req, res) => {
-	const payroll = {
-		user: escape(req.body.user),
-		rate: escape(req.body.rate),
-		hours: escape(req.body.deduction),
-		site: escape(req.body.site),
+exports.getSitePayrolls = async (req, res) => {
+	const query = { site: req.user.site };
+	generateReport(req, res, query, true);
+};
+
+/**
+ * @desc This function gets all payrolls for a user.
+ * @route GET /payroll/user
+ * @access User
+ */
+exports.getUserPayrolls = async (req, res) => {
+	const query = {
+		$or: [
+			{
+				teacher: req.user._id,
+				sub: null,
+			},
+			{
+				sub: req.user._id,
+			},
+		],
+	};
+	generateReport(req, res, query, false);
+};
+
+/**
+ * @desc This function gets a payroll for a given month (site-wide).
+ * @route GET /payroll/site/:date
+ * @access Admin
+ */
+exports.getSitePayroll = async (req, res) => {
+	const date = new Date(escape(req.params.date));
+	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+	const query = {
+		site: req.user.site,
+		startTime: { $gte: firstDay, $lt: lastDay },
+	};
+	generateReport(req, res, query, true);
+};
+
+/**
+ * @desc This function gets a payroll for a given month
+ * @route GET /payroll/user/:date
+ * @access User
+ */
+exports.getUserPayroll = async (req, res) => {
+	const date = new Date(escape(req.params.date));
+	const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+	const query = {
+		$or: [
+			{
+				teacher: req.user._id,
+				sub: null,
+			},
+			{
+				sub: req.user._id,
+			},
+		],
+		startTime: { $gte: firstDay, $lt: lastDay },
 	};
 
-	Payroll.create(payroll)
-		.then((payroll) => res.status(200).json(payroll))
-		.catch((err) => res.status(400).json(err));
+	generateReport(req, res, query, false);
 };
 
-/**
- * @desc This function returns a payroll by the payroll id.
- * @route GET /payroll/:payrollId
- * @access Admin
- */
-exports.getPayrollById = async (req, res) => {
-	const payrollId = escape(req.params.payrollId);
+// Generate a payroll report.
+const generateReport = async (req, res, query, site) => {
+	try {
+		let payrolls = [];
 
-	Payroll.findById(payrollId)
-		.then((payroll) => res.status(200).json(payroll))
-		.catch((err) => res.status(400).json(err));
+		const shifts = site
+			? await generateSiteShifts(req, res, query)
+			: await generateUserShifts(req, res, query);
+
+		shifts.forEach((shift) => {
+			let timeframe = `${new Date(
+				shift.startTime
+			).getFullYear()}-${new Date(shift.startTime).getMonth()}`;
+			let payroll = payrolls.filter((s) => s.timeframe === timeframe)[0];
+
+			if (payroll) {
+				payroll.shifts.push(shift);
+			} else {
+				payrolls.push({
+					timeframe,
+					shifts: [shift],
+				});
+			}
+		});
+
+		payrolls.forEach((payroll) => {
+			let hours = payroll.shifts.reduce((acc, shift) => {
+				return (
+					acc +
+					(new Date(shift.endTime).getHours() -
+						new Date(shift.startTime).getHours())
+				);
+			}, 0);
+			payroll.hours = hours;
+		});
+
+		return res.status(200).json(payrolls);
+	} catch (err) {
+		return res.status(400).json(err.message);
+	}
 };
 
-/**
- * @desc This function returns a payroll by the user id.
- * @route GET /payroll/user/:userId
- * @access Admin
- */
-exports.getPayrollsByUser = async (req, res) => {
-	const user = escape(req.params.userId);
-
-	Payroll.find({ user: user })
-		.then((payrolls) => res.status(200).json(payrolls))
-		.catch((err) => res.status(400).json(err));
+// Generate shifts for a site.
+const generateSiteShifts = async (req, res, query) => {
+	return await Shift.find(query)
+		.lean()
+		.populate('teacher', 'firstName lastName email')
+		.select('teacher startTime endTime')
+		.sort({ startTime: 1 });
 };
 
-/**
- * @desc This function updates a payroll by the site id.
- * @route GET /payroll/site/siteId
- * @access Admin
- */
-exports.getPayrollsBySite = async (req, res) => {
-	const site = escape(req.params.siteId);
-
-	Payroll.find({ site: site })
-		.then((payrolls) => res.status(200).json(payrolls))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- * @desc This function generates a user payroll report.
- * @route GET /payroll/:payrollId/report
- * @access Admin
- */
-exports.generateUserPayrollReport = async (req, res) => {};
-
-/**
- * @desc This function generates a site payroll report.
- * @route GET /payroll/:siteId/report
- * @access Admin
- */
-exports.generateSitePayrollReport = async (req, res) => {};
-
-/**
- * @desc This function updates a payroll by the payroll id.
- * @route PUT /payroll/:payrollId
- * @access Admin
- */
-exports.updatePayrollById = async (req, res) => {
-	const updateQuery = {};
-	if (req.body.rate) updateQuery.rate = escape(req.body.rate);
-	if (req.body.hours) updateQuery.deduction = escape(req.body.hours);
-
-	const payrollId = escape(req.params.payrollId);
-
-	Site.findByIdAndUpdate(payrollId, updateQuery)
-		.then((payroll) => res.status(200).json(payroll))
-		.catch((err) => res.status(400).json(err));
-};
-
-/**
- * @desc This function deletes a payroll by the payroll id.
- * @route DELETE /payroll/:payrollId
- * @access Admin
- */
-exports.deletePayrollById = async (req, res) => {
-	const payrollId = escape(req.params.payrollId);
-
-	Site.findByIdAndDelete(payrollId)
-		.then((payroll) => res.status(200).json(payroll))
-		.catch((err) => res.status(400).json(err));
+// Generate shifts for a user.
+const generateUserShifts = async (req, res, query) => {
+	return await Shift.find(query)
+		.lean()
+		.select('startTime endTime')
+		.sort({ startTime: 1 });
 };

@@ -17,6 +17,7 @@ import {
     AdminTickets,
     AdminUsers,
     Payroll,
+    PayrollReport,
     Shifts,
 } from 'pages';
 import { Nav } from 'components';
@@ -71,6 +72,10 @@ export const App = () => {
                         <>
                             <Route path='/shifts' element={<Shifts />} />
                             <Route path='/payroll' element={<Payroll />} />
+                            <Route
+                                path='/payroll/report'
+                                element={<PayrollReport />}
+                            />
 
                             {/* Redirects */}
                             <Route
