@@ -59,14 +59,14 @@ export const Nav = () => {
                             <Button
                                 color={
                                     window.location.pathname !==
-                                    '/dashboard/tickets'
+                                    '/dashboard/payroll'
                                         ? 'primary'
                                         : 'secondary'
                                 }
-                                href='/dashboard/tickets'
+                                href='/dashboard/payroll'
                                 className='button'
                             >
-                                Tickets
+                                Payroll
                             </Button>
                             <Button
                                 color={
@@ -79,6 +79,18 @@ export const Nav = () => {
                                 className='button'
                             >
                                 Users
+                            </Button>
+                            <Button
+                                color={
+                                    window.location.pathname !==
+                                    '/dashboard/tickets'
+                                        ? 'primary'
+                                        : 'secondary'
+                                }
+                                href='/dashboard/tickets'
+                                className='button'
+                            >
+                                Tickets
                             </Button>
                             <Button
                                 color={

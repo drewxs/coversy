@@ -10,22 +10,22 @@ export const CombinedPayrollReport = () => {
             <section class='slipInfo'>
                 <div className='payDate'>
                     <p>Pay Date</p>
-                    <p>//date</p>
+                    <p>date</p>
                 </div>
                 <div className='payPeriod'>
                     <p>Pay Period</p>
-                    <p>//payPeriod</p>
+                    <p>payPeriod</p>
                 </div>
                 <div className='siteInfo'>
                     <p>Site</p>
-                    <p>//siteAddress</p>
+                    <p>siteAddress</p>
                 </div>
             </section>
 
             <section class='employeeTotal'>
                 <div className='employeeEarningsInfo'>
                     <p>Employee Total</p> <p>Amount: CAD</p>
-                    <p>//user Salary - Monthly()</p>
+                    <p>user Salary - Monthly()</p>
                     <p>Total Earnings</p> <p>amount</p>
                 </div>
             </section>
@@ -33,7 +33,7 @@ export const CombinedPayrollReport = () => {
             <section class='deductions'>
                 <div className='employeeDeductionsInfo'>
                     <p>Deductions</p> <p>Amount: CAD</p>
-                    <p>//user</p> <p>amount</p>
+                    <p>user</p> <p>amount</p>
                     <p>Total Deductions</p> <p>amount</p>
                 </div>
             </section>

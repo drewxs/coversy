@@ -49,7 +49,7 @@ exports.getSitePayroll = async (req, res) => {
 };
 
 /**
- * @desc This function gets a payroll for a given month
+ * @desc This function gets a payroll for a given month.
  * @route GET /payroll/user/:date
  * @access User
  */
@@ -79,35 +79,57 @@ const generateReport = async (req, res, query, site) => {
 	try {
 		let payrolls = [];
 
+		// Generate shifts for either a site or a user.
 		const shifts = site
-			? await generateSiteShifts(req, res, query)
-			: await generateUserShifts(req, res, query);
+			? await generateSiteShifts(query)
+			: await generateUserShifts(query);
 
+		// Cleaning for individual shift objects to to be pushed into respective timeframes.
 		shifts.forEach((shift) => {
-			let timeframe = `${new Date(
+			let period = `${new Date(shift.startTime).getFullYear()}-${new Date(
 				shift.startTime
-			).getFullYear()}-${new Date(shift.startTime).getMonth()}`;
-			let payroll = payrolls.filter((s) => s.timeframe === timeframe)[0];
+			).getMonth()}`;
 
-			if (payroll) {
-				payroll.shifts.push(shift);
+			// Check if timeframe exists in payrolls.
+			let timeframe = payrolls.filter((s) => s.period === period)[0];
+
+			let hours =
+				new Date(shift.endTime).getHours() -
+				new Date(shift.startTime).getHours();
+
+			// Add additional data for site reports.
+			if (site) {
+				shift.hours = hours;
+				shift.pay = hours * shift.teacher.hourlyRate;
+				shift.deductions = shift.pay * (shift.teacher.taxRate / 100);
+				shift.netPay = shift.pay - shift.deductions;
+			}
+
+			// If timeframe exists, push shift into timeframe, otherwise create timeframe and push shift.
+			if (timeframe) {
+				timeframe.shifts.push(shift);
 			} else {
 				payrolls.push({
-					timeframe,
+					period,
 					shifts: [shift],
 				});
 			}
 		});
 
+		// Add up totals for each timeframe.
 		payrolls.forEach((payroll) => {
-			let hours = payroll.shifts.reduce((acc, shift) => {
-				return (
-					acc +
-					(new Date(shift.endTime).getHours() -
-						new Date(shift.startTime).getHours())
-				);
+			payroll.hours = payroll.shifts.reduce((acc, shift) => {
+				return acc + shift.hours;
 			}, 0);
-			payroll.hours = hours;
+			payroll.pay = payroll.shifts.reduce((acc, shift) => {
+				return acc + shift.pay;
+			}, 0);
+			payroll.deductions = payroll.shifts.reduce((acc, shift) => {
+				return acc + shift.deductions;
+			}, 0);
+			payroll.netPay = payroll.shifts.reduce((acc, shift) => {
+				return acc + shift.netPay;
+			}, 0);
 		});
 
 		return res.status(200).json(payrolls);
@@ -117,16 +139,16 @@ const generateReport = async (req, res, query, site) => {
 };
 
 // Generate shifts for a site.
-const generateSiteShifts = async (req, res, query) => {
+const generateSiteShifts = async (query) => {
 	return await Shift.find(query)
 		.lean()
-		.populate('teacher', 'firstName lastName email')
+		.populate('teacher', 'firstName lastName email hourlyRate taxRate')
 		.select('teacher startTime endTime')
 		.sort({ startTime: 1 });
 };
 
 // Generate shifts for a user.
-const generateUserShifts = async (req, res, query) => {
+const generateUserShifts = async (query) => {
 	return await Shift.find(query)
 		.lean()
 		.select('startTime endTime')

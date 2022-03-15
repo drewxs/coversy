@@ -9,6 +9,7 @@ export { Welcome } from 'pages/Welcome';
 export { Profile } from 'pages/authenticated/Profile';
 
 // Admin pages
+export { AdminPayroll } from 'pages/admin/AdminPayroll';
 export { AdminShifts } from 'pages/admin/AdminShifts';
 export { AdminTickets } from 'pages/admin/AdminTickets';
 export { AdminUsers } from 'pages/admin/AdminUsers';

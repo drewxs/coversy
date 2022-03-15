@@ -1,6 +1,6 @@
 import { setShifts, addShift, editShift, loadingShifts } from './shiftSlice';
 import axios from 'axios';
-import store from './store';
+import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 

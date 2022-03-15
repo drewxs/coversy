@@ -13,12 +13,13 @@ import {
     SiteRegister,
     Welcome,
     Profile,
+    AdminPayroll,
     AdminShifts,
     AdminTickets,
     AdminUsers,
     Payroll,
-    PayrollReport,
     Shifts,
+    PayrollReport,
 } from 'pages';
 import { Nav } from 'components';
 import { LoadUser } from 'redux/user';
@@ -46,6 +47,10 @@ export const App = () => {
                     {/* Admin routes */}
                     {authenticated && user.type === 1 && (
                         <>
+                            <Route
+                                path='/dashboard/payroll'
+                                element={<AdminPayroll />}
+                            />
                             <Route
                                 path='/dashboard/shifts'
                                 element={<AdminShifts />}

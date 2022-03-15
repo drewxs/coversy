@@ -11,9 +11,9 @@ import {
     // setUpdateErrors,
     // clearUpdateErrors,
     setSites,
-} from './userSlice';
+} from 'redux/userSlice';
 import axios from 'axios';
-import store from './store';
+import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 

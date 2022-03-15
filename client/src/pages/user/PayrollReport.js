@@ -7,44 +7,38 @@ export const PayrollReport = () => {
                 <section class='title'>
                     <div className='slipTitles'>
                         <h1>PAYSLIP</h1>
-                        <p>//username</p>
+                        <p>username</p>
                     </div>
                 </section>
-
                 <br />
-
                 <section class='slipInfo'>
                     <div className='payDate'>
                         <p id='bold'>Pay Date</p>
-                        <p>//date</p>
+                        <p>date</p>
                     </div>
                     <div className='payPeriod'>
                         <p id='bold'>Pay Period</p>
-                        <p>//payPeriod</p>
+                        <p>payPeriod</p>
                     </div>
                     <div className='siteInfo'>
                         <p id='bold'>Site</p>
-                        <p>//siteAddress</p>
+                        <p>siteAddress</p>
                     </div>
                 </section>
-
                 <br />
-
                 <section class='earnings'>
                     <div className='earningsInfo'>
                         <p id='bold'>Earnings</p>
                         <p id='bold'>Amount: CAD</p>
                         <hr />
-                        <p>//username's Salary - Monthly (amount)</p>
+                        <p>username's Salary - Monthly (amount)</p>
                         <p>amount</p>
                         <hr />
                         <p id='bold'>Total Earnings</p>
                         <p>amount</p>
                     </div>
                 </section>
-
                 <br />
-
                 <section class='deductions'>
                     <div className='deductionsInfo'>
                         <p id='bold'>Deductions</p>
@@ -57,9 +51,7 @@ export const PayrollReport = () => {
                         <p>amount</p>
                     </div>
                 </section>
-
                 <br />
-
                 <section class='payout'>
                     <div className='takeHomePay'>
                         <hr />

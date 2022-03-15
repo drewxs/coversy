@@ -1,6 +1,6 @@
-import { setUsers, activateUser, loadingUsers } from './adminSlice';
+import { setUsers, activateUser, loadingUsers } from 'redux/adminSlice';
 import axios from 'axios';
-import store from './store';
+import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 

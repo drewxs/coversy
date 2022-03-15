@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {
     Paper,
     Table,
@@ -9,51 +10,14 @@ import {
     TablePagination,
     TableRow,
 } from '@mui/material';
+import { GetUserPayrolls } from 'redux/payroll';
 
-export const USerPayrollTable = () => {
-    const columns = [
-        {
-            id: 'payPeriod',
-            label: 'Pay Period',
-            minWidth: 90,
-        },
-        {
-            id: 'payDate',
-            label: 'Pay Date',
-            minWidth: 70,
-        },
-        {
-            id: 'amount',
-            type: 'number',
-            label: 'Amounts',
-            minWidth: 70,
-            align: 'center',
-        },
-        {
-            id: 'reportStatus',
-            label: 'Report Status',
-            minWidth: 70,
-            align: 'center',
-        },
-    ];
+export const UserPayrollTable = () => {
+    const payrolls = useSelector((state) => state.payroll.payrolls);
 
-    function createData(payPeriod, payDate, hours, amount, reportStatus) {
-        return { payPeriod, payDate, hours, amount, reportStatus };
-    }
-
-    const rows = [
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-        createData(),
-    ];
+    useEffect(() => {
+        GetUserPayrolls();
+    }, []);
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -70,22 +34,18 @@ export const USerPayrollTable = () => {
     return (
         <Paper sx={{ width: '80%', overflow: 'hidden' }}>
             <TableContainer id='table-container' sx={{ maxHeight: 700 }}>
-                <Table stickyHeader aria-label='sticky table'>
+                <Table stickyHeader>
                     <TableHead>
                         <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
+                            <TableCell>Period</TableCell>
+                            <TableCell>Hours</TableCell>
+                            <TableCell>Pay</TableCell>
+                            <TableCell>Deductions</TableCell>
+                            <TableCell>View</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {payrolls
                             .slice(
                                 page * rowsPerPage,
                                 page * rowsPerPage + rowsPerPage
@@ -98,16 +58,16 @@ export const USerPayrollTable = () => {
                                         tabIndex={-1}
                                         key={row.code}
                                     >
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
+                                        {payrolls.map((payroll) => {
+                                            const value = row[payroll.id];
                                             return (
                                                 <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
+                                                    key={payroll.id}
+                                                    align={payroll.align}
                                                 >
-                                                    {column.format &&
+                                                    {payroll.format &&
                                                     typeof value === 'number'
-                                                        ? column.format(value)
+                                                        ? payroll.format(value)
                                                         : value}
                                                 </TableCell>
                                             );
@@ -121,7 +81,7 @@ export const USerPayrollTable = () => {
             <TablePagination
                 rowsPerPageOptions={[10, 25]}
                 component='div'
-                count={rows.length}
+                count={payrolls.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

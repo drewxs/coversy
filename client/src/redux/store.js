@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from './userSlice';
 import adminSlice from './adminSlice';
+import payrollSlice from './payrollSlice';
 import shiftSlice from './shiftSlice';
+import userSlice from './userSlice';
 
 export default configureStore({
     reducer: {
-        user: userSlice,
         admin: adminSlice,
+        payroll: payrollSlice,
         shift: shiftSlice,
+        user: userSlice,
     },
 });
