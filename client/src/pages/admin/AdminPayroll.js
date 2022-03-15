@@ -35,9 +35,9 @@ export const AdminPayroll = () => {
                             {payrolls?.map((payroll, k) => (
                                 <TableRow key={k}>
                                     <TableCell>{payroll.period}</TableCell>
-                                    <TableCell>{payroll.pay}</TableCell>
-                                    <TableCell>{payroll.deductions}</TableCell>
-                                    <TableCell>{payroll.netPay}</TableCell>
+                                    <TableCell>${payroll.pay}</TableCell>
+                                    <TableCell>${payroll.deductions}</TableCell>
+                                    <TableCell>${payroll.netPay}</TableCell>
                                     <TableCell>
                                         <Button>View</Button>
                                     </TableCell>
