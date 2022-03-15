@@ -9,8 +9,8 @@ const escape = require('escape-html');
  */
 exports.createShift = async (req, res) => {
 	const email = escape(req.body.teacher);
-	const startTime = escape(req.body.startTime);
-	const endTime = escape(req.body.endTime);
+	const startTime = new Date(escape(req.body.startTime));
+	const endTime = new Date(escape(req.body.endTime));
 
 	let teacher, existingShift;
 
