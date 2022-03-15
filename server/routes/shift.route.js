@@ -23,8 +23,10 @@ router.get('/posted/', verifyToken, getPostedShiftsBySite);
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put(
-	'/:shiftID/uploadfiles',
-	uploadMaterials.array('material', 10),
+	'/:shiftId/uploadfiles',
+	verifyToken,
+	verifyShift,
+	uploadMaterials.array('materials', 10),
 	updateShiftMaterials
 );
 

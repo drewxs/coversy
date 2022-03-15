@@ -1,0 +1,17 @@
+@use '../abstract' as *;
+
+#bold {
+    font-weight: bold;
+}
+
+p {
+    display: inline-block;
+}
+
+.slipInfo {
+    float: right;
+}
+
+.earnings {
+    margin-top: 30%;
+}
