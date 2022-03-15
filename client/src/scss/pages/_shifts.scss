@@ -49,7 +49,10 @@
 
         .displayText {
             width: 100%;
-            height: 20em;
+            height: 45em;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            align-items: center;
 
             .btn-container {
                 display: flex;
@@ -119,9 +122,16 @@
         align-items: center;
         border-radius: 5px;
     }
-    .card {
+    .user {
+        border: 1px solid green;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        Button {
+            align-items: right;
+        }
     }
-    .input-form{
+    .input-form {
         margin-top: 2em;
     }
 }

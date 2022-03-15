@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -14,7 +14,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
-    TextField
+    TextField,
 } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
@@ -59,13 +59,7 @@ export const Shifts = () => {
                                 >
                                     Post Shift
                                 </Button>
-                                <Button
-                                    sx={{ mb: 2 }}
-                                    variant='contained'
-                                    onClick={() => setOpenView(true)}
-                                >
-                                    View Shift
-                                </Button>
+
                                 <Button
                                     sx={{ mb: 2 }}
                                     variant='contained'
@@ -74,18 +68,23 @@ export const Shifts = () => {
                                     Book time off
                                 </Button>
                             </div>
-
                         </div>
                         <div className='displayText'>
                             <div className='btn-container'>
                                 {/* <div className='text'>Hi there</div> */}
-                                <button className='btn'>Book Time-Off</button>
                             </div>
                             <div className='cards'>
                                 {shifts.map((shift, k) => (
                                     <div className='user'>
                                         {shift.teacher.firstName}
                                         {shift.teacher.lastName}
+                                        <Button
+                                            sx={{ mb: 2 }}
+                                            variant='contained'
+                                            onClick={() => setOpenView(true)}
+                                        >
+                                            View Shift
+                                        </Button>
                                     </div>
                                 ))}
                             </div>
@@ -105,150 +104,145 @@ export const Shifts = () => {
                             style={{ height: 500, width: 850 }}
                         />
                     </div>
-                    
 
-                <Modal open={openpost} onClose={() => setOpenPost(false)}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            boxShadow: 24,
-                            p: 4,
-                        }}
-                    >
-                        <Typography variant='h6'>Post Shift</Typography>
-                        <FormControl fullWidth>
-                            <InputLabel>Preferred Sub</InputLabel>
-                            <Select
+                    <Modal open={openpost} onClose={() => setOpenPost(false)}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 400,
+                                bgcolor: 'background.paper',
+                                boxShadow: 24,
+                                p: 4,
+                            }}
+                        >
+                            <Typography variant='h6'>Post Shift</Typography>
+                            <FormControl fullWidth>
+                                <InputLabel>Preferred Sub</InputLabel>
+                                <Select
+                                    className='input-form'
+                                    value={site}
+                                    label='Age'
+                                    onChange={(e) => setSite(e.target.value)}
+                                >
+                                    {sites?.map((site, k) => (
+                                        <MenuItem value={site._id} key={k}>
+                                            {site.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <TextField
                                 className='input-form'
-                                value={site}
-                                label='Age'
-                                onChange={(e) => setSite(e.target.value)}
-                            >
-                                {sites?.map((site, k) => (
-                                    <MenuItem value={site._id} key={k}>
-                                        {site.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <TextField
-                            className='input-form'
-                            variant="outlined" 
-                            label='Description'
-                            fullWidth
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                       
-                        <input
+                                variant='outlined'
+                                label='Description'
+                                fullWidth
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+
+                            <input
                                 type='file'
                                 className='input-form'
                                 accept='.csv'
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            sx={{ mt: 3 }}
-                            onClick={(e)=>setOpenPost(false)}
-                        >
-                            Post
-                        </Button>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            sx={{ mt: 3 }}
-                            onClick={(e)=>setOpenPost(false)}
-                        >
-                            Cancel
-                        </Button>
-                    </Box>
-                </Modal>
-
-                <Modal open={openview} onClose={() => setOpenView(false)}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            boxShadow: 24,
-                            p: 4,
-                        }}
-                    >
-                        <Typography variant='h6'>View Shift</Typography>
-                        Name: John
-                        Class: Gym
-                        Date:  Date
-                        Time: 11 AM - 11:45 AM
-                        Description: Description
-                        Attached files:
-                        <a href='#'>File name</a>
-                           
-                    </Box>
-                </Modal>
-                <Modal open={openbook} onClose={() => setOpenBook(false)}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            boxShadow: 24,
-                            p: 4,
-                        }}
-                    >
-                        <Typography variant='h6'>Book Time Off</Typography>
-                        <FormControl fullWidth>
-                            <InputLabel>Preferred Sub</InputLabel>
-                            <Select
-                                className='input-form'
-                                value={site}
-                                label='Age'
-                                onChange={(e) => setOpenView(e.target.value)}
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                sx={{ mt: 3 }}
+                                onClick={(e) => setOpenPost(false)}
                             >
-                                {sites?.map((site, k) => (
-                                    <MenuItem value={site._id} key={k}>
-                                        {site.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <TextField
-                            className='input-form'
-                            variant="outlined" 
-                            label='Description'
-                            fullWidth
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            sx={{ mt: 3 }}
-                            onClick={(e)=>setOpenBook(false)}
+                                Post
+                            </Button>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                sx={{ mt: 3 }}
+                                onClick={(e) => setOpenPost(false)}
+                            >
+                                Cancel
+                            </Button>
+                        </Box>
+                    </Modal>
+
+                    <Modal open={openview} onClose={() => setOpenView(false)}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 400,
+                                bgcolor: 'background.paper',
+                                boxShadow: 24,
+                                p: 4,
+                            }}
                         >
-                            Book
-                        </Button>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            sx={{ mt: 3 }}
-                            onClick={(e)=>setOpenBook(false)}
+                            <Typography variant='h6'>View Shift</Typography>
+
+                            <a href='#'>File name</a>
+                        </Box>
+                    </Modal>
+                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 400,
+                                bgcolor: 'background.paper',
+                                boxShadow: 24,
+                                p: 4,
+                            }}
                         >
-                            Cancel
-                        </Button>
-                    </Box>
-                </Modal>
+                            <Typography variant='h6'>Book Time Off</Typography>
+                            <FormControl fullWidth>
+                                <InputLabel>Preferred Sub</InputLabel>
+                                <Select
+                                    className='input-form'
+                                    value={site}
+                                    label='Age'
+                                    onChange={(e) =>
+                                        setOpenView(e.target.value)
+                                    }
+                                >
+                                    {sites?.map((site, k) => (
+                                        <MenuItem value={site._id} key={k}>
+                                            {site.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <TextField
+                                className='input-form'
+                                variant='outlined'
+                                label='Description'
+                                fullWidth
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                sx={{ mt: 3 }}
+                                onClick={(e) => setOpenBook(false)}
+                            >
+                                Book
+                            </Button>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                sx={{ mt: 3 }}
+                                onClick={(e) => setOpenBook(false)}
+                            >
+                                Cancel
+                            </Button>
+                        </Box>
+                    </Modal>
                 </div>
             </div>
         </section>
