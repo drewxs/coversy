@@ -12,9 +12,9 @@ export { Profile } from 'pages/authenticated/Profile';
 export { AdminShifts } from 'pages/admin/AdminShifts';
 export { AdminTickets } from 'pages/admin/AdminTickets';
 export { AdminUsers } from 'pages/admin/AdminUsers';
+export { CombinedPayrollReport } from 'pages/admin/CombinedPayrollReport';
 
 // User pages
 export { Payroll } from 'pages/user/Payroll';
 export { Shifts } from 'pages/user/Shifts';
 export { PayrollReport } from 'pages/user/PayrollReport';
-export { CombinedPayrollReport } from 'pages/admin/CombinedPayrollReport';
