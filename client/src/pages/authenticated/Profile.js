@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Avatar, IconButton } from '@mui/material';
-import { Edit, LocationOn, Phone, Email } from '@mui/icons-material';
-import EditUserDetailModal from '../../components/EditUserDetail';
+import { Avatar } from '@mui/material';
+import { LocationOn, Phone, Email } from '@mui/icons-material';
+import EditUserDetailModal from 'components/EditUserDetail';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
