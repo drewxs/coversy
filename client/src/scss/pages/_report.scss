@@ -16,7 +16,7 @@
 
 .top-info {
     margin-top: 100px;
-    margin-bottom: 250px;
+    margin-bottom: 260px;
 
     .titles {
         /*border: 1px solid rgb(0, 0, 0);*/
@@ -47,13 +47,21 @@
 }
 
 .earnings,
-.deductions,
-.payout {
+.deductions {
     /*border: 1px solid rgb(0, 0, 0);*/
     p {
         display: inline;
     }
     width: 50%;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+}
+
+.payout {
+    p {
+        display: inline;
+    }
+    width: 50%;
+    padding: 5px;
+    margin-top: 60px;
 }

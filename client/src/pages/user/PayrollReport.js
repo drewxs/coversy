@@ -27,8 +27,6 @@ export const PayrollReport = () => {
                     </div>
                 </div>
 
-                <br />
-
                 <div className='earnings'>
                     <p id='bold'>Earnings</p>
                     <p id='amount-header'>Amount: CAD</p>
@@ -44,8 +42,6 @@ export const PayrollReport = () => {
                     <p id='amount'>20000</p>
                 </div>
 
-                <br />
-
                 <div className='deductions'>
                     <p id='bold'>Deductions</p>
                     <p id='amount-header'>Amount: CAD</p>
@@ -60,8 +56,6 @@ export const PayrollReport = () => {
                     <p id='bold'>Total Deductions</p>
                     <p id='amount'>2000</p>
                 </div>
-
-                <br />
 
                 <div className='payout'>
                     <hr />
