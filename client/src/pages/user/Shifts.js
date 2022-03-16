@@ -60,7 +60,10 @@ export const Shifts = () => {
                                 >
                                     Post Shift
                                 </Button>
-
+                            </div>
+                        </div>
+                        <div className='displayText'>
+                            <div className='btn-book-time'>
                                 <Button
                                     sx={{ mb: 2 }}
                                     variant='contained'
@@ -68,11 +71,6 @@ export const Shifts = () => {
                                 >
                                     Book time off
                                 </Button>
-                            </div>
-                        </div>
-                        <div className='displayText'>
-                            <div className='btn-container'>
-                                {/* <div className='text'>Hi there</div> */}
                             </div>
                             <div className='cards'>
                                 {shifts.map((shift, k) => (
