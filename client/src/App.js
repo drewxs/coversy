@@ -20,6 +20,7 @@ import {
     Payroll,
     Shifts,
     PayrollReport,
+    CombinedPayrollReport,
 } from 'pages';
 import { Nav } from 'components';
 import { LoadUser } from 'redux/user';
@@ -62,6 +63,10 @@ export const App = () => {
                             <Route
                                 path='/dashboard/users'
                                 element={<AdminUsers />}
+                            />
+                            <Route
+                                path='/dashboard/payroll/report'
+                                element={<CombinedPayrollReport />}
                             />
 
                             {/* Redirects */}
