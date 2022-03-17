@@ -30,8 +30,7 @@ export const Shifts = () => {
     const [openbook, setOpenBook] = useState(false);
     const sites = useSelector((state) => state.user.sites);
     const [site, setSite] = useState('');
-    const [file, setFile] = useState();
-    const [state, setState] = useState();
+    const [current, setCurrent] = useState(0);
     useEffect(() => {
         GetShifts();
         FetchSites();
@@ -75,10 +74,15 @@ export const Shifts = () => {
                             <div className='cards'>
                                 {shifts.map((shift, k) => (
                                     <div className='user'>
+                                        {shift.teacher.firstName}{' '}
+                                        {shift.teacher.lastName}
                                         <Button
                                             sx={{ mb: 2 }}
                                             variant='contained'
-                                            onClick={() => setOpenView(true)}
+                                            onClick={() => {
+                                                setCurrent(k);
+                                                setOpenView(true);
+                                            }}
                                         >
                                             View Shift
                                         </Button>
@@ -139,13 +143,6 @@ export const Shifts = () => {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
-
-                            <input
-                                type='file'
-                                className='input-form'
-                                accept='.csv'
-                                onChange={(e) => setFile(e.target.files[0])}
-                            />
                             <Button
                                 variant='contained'
                                 color='primary'
@@ -179,8 +176,12 @@ export const Shifts = () => {
                             }}
                         >
                             <Typography variant='h6'>View Shift</Typography>
-                            {shifts.map((shift, k) => shift.teacher.firstName)}
-                            <a href='#'>File name</a>
+                            {shifts[current]?.teacher.firstName}{' '}
+                            {shifts[current]?.teacher.lastName} {' \n '}
+                            <br></br>
+                            {'  Start time: '} <br></br>
+                            {shifts[current]?.teacher.startTime}
+                            {' End time: '} {shifts[current]?.teacher.endTime}
                         </Box>
                     </Modal>
                     <Modal open={openbook} onClose={() => setOpenBook(false)}>
