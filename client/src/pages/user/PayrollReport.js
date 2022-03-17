@@ -2,65 +2,70 @@ import React from 'react';
 
 export const PayrollReport = () => {
     return (
-        <div className='payrollReport'>
+        <section className='report'>
             <div className='container'>
-                <section class='title'>
-                    <div className='slipTitles'>
+                <div className='top-info'>
+                    <div className='titles'>
                         <h1>PAYSLIP</h1>
-                        <p>username</p>
+                        <h3>John Doe</h3>
                     </div>
-                </section>
-                <br />
-                <section class='slipInfo'>
-                    <div className='payDate'>
-                        <p id='bold'>Pay Date</p>
-                        <p>date</p>
+
+                    <div className='site'>
+                        <p id='bold'>Site: Name</p>
+                        <p>123 Street SE</p>
+                        <p>Calgary, AB T2E S79</p>
+                        <p>Canada</p>
                     </div>
-                    <div className='payPeriod'>
-                        <p id='bold'>Pay Period</p>
-                        <p>payPeriod</p>
+
+                    <div className='pay-info'>
+                        <p id='bold'>Pay Date:</p>
+                        <p>Feb 12, 2022</p>
+                        <div className='period'>
+                            <p id='bold'>Pay Period:</p>
+                            <p>Feb 12, 2022 - Mar 12, 2022</p>
+                        </div>
                     </div>
-                    <div className='siteInfo'>
-                        <p id='bold'>Site</p>
-                        <p>siteAddress</p>
-                    </div>
-                </section>
-                <br />
-                <section class='earnings'>
-                    <div className='earningsInfo'>
-                        <p id='bold'>Earnings</p>
-                        <p id='bold'>Amount: CAD</p>
-                        <hr />
-                        <p>username's Salary - Monthly (amount)</p>
-                        <p>amount</p>
-                        <hr />
-                        <p id='bold'>Total Earnings</p>
-                        <p>amount</p>
-                    </div>
-                </section>
-                <br />
-                <section class='deductions'>
-                    <div className='deductionsInfo'>
-                        <p id='bold'>Deductions</p>
-                        <p id='bold'>Amount: CAD</p>
-                        <hr />
-                        <p>Employee Taxes</p>
-                        <p>amount</p>
-                        <hr />
-                        <p id='bold'>Total Deductions</p>
-                        <p>amount</p>
-                    </div>
-                </section>
-                <br />
-                <section class='payout'>
-                    <div className='takeHomePay'>
-                        <hr />
-                        <p>Take Home Pay</p>
-                        <p>amount</p>
-                        <hr />
-                    </div>
-                </section>
+                </div>
+
+                <div className='earnings'>
+                    <p id='bold'>Earnings</p>
+                    <p id='amount-header'>Amount: CAD</p>
+
+                    <hr />
+
+                    <p>John Doe's Salary - Monthly (20000)</p>
+                    <p id='amount'>20000</p>
+
+                    <hr />
+
+                    <p id='bold'>Total Earnings</p>
+                    <p id='amount'>20000</p>
+                </div>
+
+                <div className='deductions'>
+                    <p id='bold'>Deductions</p>
+                    <p id='amount-header'>Amount: CAD</p>
+
+                    <hr />
+
+                    <p>Employee Taxes</p>
+                    <p id='amount'>2000</p>
+
+                    <hr />
+
+                    <p id='bold'>Total Deductions</p>
+                    <p id='amount'>2000</p>
+                </div>
+
+                <div className='payout'>
+                    <hr />
+
+                    <p>Take Home Pay</p>
+                    <p id='amount'>18000</p>
+
+                    <hr />
+                </div>
             </div>
-        </div>
+        </section>
     );
 };

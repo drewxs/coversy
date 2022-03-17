@@ -31,6 +31,7 @@ export const Shifts = () => {
     const sites = useSelector((state) => state.user.sites);
     const [site, setSite] = useState('');
     const [file, setFile] = useState();
+    const [state, setState] = useState();
     useEffect(() => {
         GetShifts();
         FetchSites();
@@ -59,7 +60,10 @@ export const Shifts = () => {
                                 >
                                     Post Shift
                                 </Button>
-
+                            </div>
+                        </div>
+                        <div className='displayText'>
+                            <div className='btn-book-time'>
                                 <Button
                                     sx={{ mb: 2 }}
                                     variant='contained'
@@ -68,16 +72,9 @@ export const Shifts = () => {
                                     Book time off
                                 </Button>
                             </div>
-                        </div>
-                        <div className='displayText'>
-                            <div className='btn-container'>
-                                {/* <div className='text'>Hi there</div> */}
-                            </div>
                             <div className='cards'>
                                 {shifts.map((shift, k) => (
                                     <div className='user'>
-                                        {shift.teacher.firstName}
-                                        {shift.teacher.lastName}
                                         <Button
                                             sx={{ mb: 2 }}
                                             variant='contained'
@@ -182,7 +179,7 @@ export const Shifts = () => {
                             }}
                         >
                             <Typography variant='h6'>View Shift</Typography>
-
+                            {shifts.map((shift, k) => shift.teacher.firstName)}
                             <a href='#'>File name</a>
                         </Box>
                     </Modal>

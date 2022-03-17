@@ -49,32 +49,26 @@
 
         .displayText {
             width: 100%;
-            height: 45em;
+            height: 90%;
             overflow-y: scroll;
             overflow-x: hidden;
             align-items: center;
 
-            .btn-container {
+            .btn-book-time {
                 display: flex;
+                align-items: center;
+                justify-content: flex-start;
                 width: 100%;
                 height: 10%;
+                margin-top: 1em;
                 margin-left: 9%;
-                padding: 0.1em;
-
-                .btn {
-                    width: 9em;
-                    height: 3em;
-                    background-color: $primary;
-                    border-radius: 5px;
-                    color: $white;
-                }
             }
         }
     }
 
     .myShiftBox {
         width: 100%;
-        height: 15%;
+        height: 10%;
         display: flex;
 
         .shiftBox-container {
