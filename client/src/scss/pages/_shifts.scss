@@ -4,30 +4,31 @@
     width: 100%;
     height: 6.5em;
 }
+.shifts {
+    .container {
+        height: 80%;
+        justify-content: flex-end;
 
-.container {
-    height: 80%;
-    justify-content: flex-end;
+        .img-box {
+            margin-left: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .img-box {
-        margin-left: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .button-box {
-        height: 100%;
-        width: 25em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .button-box {
+            height: 100%;
+            width: 25em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 
 .dash-container {
     width: 100%;
-    margin-top: 10%;
+
     display: flex;
     justify-content: center;
     height: 70vh;
@@ -129,6 +130,35 @@
         }
 
         .shift-info {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .posted-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+
+        .posted-data {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .posted {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 15%;
+            width: 90%;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 0.5em;
+            margin-top: 1em;
+        }
+
+        .posted-info {
             display: flex;
             flex-direction: column;
         }
