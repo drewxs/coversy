@@ -9,18 +9,8 @@ auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWU
     "endTime": "2022-10-20T21:00:00.000Z"
 }
 
-
 ### GET ALL SHIFTS
 GET http://localhost:5000/api/shift
-
-
-### GET SHIFT BY SITE
-GET http://localhost:5000/api/shift/posted/
-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y
-
-
-### GET SHIFT BY SHIFT ID
-GET http://localhost:5000/api/shift/622791b55751ead8b5e24710
 
 ### UPDATE SHIFT BY ID
 PUT http://localhost:5000/api/shift/622d6af15726bf0b881dc91b
