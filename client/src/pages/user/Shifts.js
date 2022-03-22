@@ -116,49 +116,42 @@ export const Shifts = () => {
                                                         p: 4,
                                                     }}
                                                 >
-                                                    <Typography
-                                                        sx={{ mb: 3 }}
-                                                        variant='h5'
-                                                    >
-                                                        View Shift
-                                                    </Typography>
-                                                    <div className='shift-info'>
-                                                        {'Date: Jan 25, 2022 '}
-                                                        <br></br>
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .firstName
-                                                        }{' '}
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .lastName
-                                                        }
-                                                        <br></br>
-                                                        {'  Start time: '}
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .startTime
-                                                        }
-                                                        <br></br>
-                                                        {' End time: '}
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .endTime
-                                                        }
-                                                        <br></br>
-                                                        <TextField
-                                                            sx={{ mt: '1em' }}
-                                                            label='Description'
-                                                        ></TextField>
-                                                    </div>
-                                                </Box>
-                                            </Modal>
-                                        ) : null}
-                                    </div>
+                                                    View Shift
+                                                </Typography>
+                                                <div className='shift-info'>
+                                                    {'Date: Jan 25, 2022 '}
+                                                    <br></br>
+
+                                                    {
+                                                        shifts[current]?.teacher
+                                                            .firstName
+                                                    }
+                                                    {
+                                                        shifts[current]?.teacher
+                                                            .lastName
+                                                    }
+                                                    <br></br>
+                                                    {'  Start time: '}
+                                                    {
+                                                        shifts[current]?.teacher
+                                                            .startTime
+                                                    }
+                                                    <br></br>
+                                                    {' End time: '}
+                                                    {
+                                                        shifts[current]?.teacher
+                                                            .endTime
+                                                    }
+
+                                                    <br></br>
+                                                    <TextField
+                                                        label='Description'
+                                                        fullWidth
+                                                    />
+                                                </div>
+                                            </Box>
+                                        </Modal>
+                                    ) : null}
                                 </div>
                             </div>
                             <div>
@@ -196,17 +189,14 @@ export const Shifts = () => {
                         >
                             {/* Description Box - Book Time Off Modal */}
                             <Typography variant='h5'>Book Time Off</Typography>
-
                             {/* Select Shift for Time Off - Book Time Off Modal */}
                             <TextField
-                                sx={{ mt: '2em' }}
+                                select
                                 className='input-form'
                                 variant='outlined'
                                 label='Select Shift'
-                            >
-                                Select Shift
-                            </TextField>
-
+                                fullWidth
+                            ></TextField>
                             <TextField
                                 className='input-form'
                                 variant='outlined'
@@ -215,7 +205,8 @@ export const Shifts = () => {
                                 sx={{ mt: '1rem' }}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                            />
+                            ></TextField>
+
                             {/* Book and Cancel Buttons - Book Time Off Modal */}
                             <Button
                                 variant='contained'
