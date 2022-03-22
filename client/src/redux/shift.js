@@ -5,6 +5,10 @@ import store from 'redux/store';
 const api = process.env.REACT_APP_API_URL;
 
 /**
+ * Test comment for pull request from Johnny's branch to master branch
+ */
+
+/**
  * @description Fetches all shifts
  */
 export const GetShifts = async () => {
