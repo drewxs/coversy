@@ -4,6 +4,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
+import PostedModal from 'components/PostedShiftModal';
 import {
     Box,
     Typography,
@@ -30,7 +31,7 @@ export const Shifts = () => {
     }, []);
 
     return (
-        <section className='dashboard-shifts'>
+        <section className='dashboard shifts'>
             <div className='container'>
                 <div className='dash-container'>
                     {/* My Shift / Post Shift */}
@@ -57,55 +58,63 @@ export const Shifts = () => {
 
                         {/* Book Time Off Button */}
                         <div className='displayText'>
-                            <div className='btn-book-time'>
-                                <Button
-                                    sx={{ mb: 2 }}
-                                    variant='contained'
-                                    onClick={() => setOpenBook(true)}
-                                >
-                                    Book time off
-                                </Button>
-                            </div>
+                            <div className='shift-data'>
+                                <div className='btn-book-time'>
+                                    <Button
+                                        sx={{ mb: 2 }}
+                                        variant='contained'
+                                        onClick={() => setOpenBook(true)}
+                                    >
+                                        Book time off
+                                    </Button>
+                                </div>
 
-                            {/* My Shift Example */}
-                            <div className='shift-container'>
-                                <div className='shifts'>
-                                    <div className='shift-data'>
-                                        <p>Science - Jane</p>
-                                        <p>12 PM - 1PM</p>
-                                    </div>
+                                {/* My Shift Example */}
+                                <div className='shift-container'>
+                                    <div className='shifts'>
+                                        <div className='shift-data'>
+                                            <p>
+                                                Science -{' '}
+                                                {
+                                                    shifts[current]?.teacher
+                                                        .firstName
+                                                }{' '}
+                                            </p>
+                                            <p>12 PM - 1PM</p>
+                                        </div>
 
-                                    <div className='view-button'>
-                                        <Button
-                                            onClick={() => setOpenView(true)}
-                                            variant='contained'
-                                        >
-                                            View
-                                        </Button>
-                                    </div>
-
-                                    {/* Modal - View Shift */}
-                                    {openview ? (
-                                        <Modal
-                                            open={openview}
-                                            onClose={() => setOpenView(false)}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    position: 'absolute',
-                                                    top: '50%',
-                                                    left: '50%',
-                                                    transform:
-                                                        'translate(-50%, -50%)',
-                                                    width: 400,
-                                                    bgcolor: 'background.paper',
-                                                    boxShadow: 24,
-                                                    p: 4,
-                                                }}
+                                        <div className='view-button'>
+                                            <Button
+                                                onClick={() =>
+                                                    setOpenView(true)
+                                                }
+                                                variant='contained'
                                             >
-                                                <Typography
-                                                    sx={{ mb: 3 }}
-                                                    variant='h5'
+                                                View
+                                            </Button>
+                                        </div>
+
+                                        {/* Modal - View Shift */}
+                                        {openview ? (
+                                            <Modal
+                                                open={openview}
+                                                onClose={() =>
+                                                    setOpenView(false)
+                                                }
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: '50%',
+                                                        left: '50%',
+                                                        transform:
+                                                            'translate(-50%, -50%)',
+                                                        width: 400,
+                                                        bgcolor:
+                                                            'background.paper',
+                                                        boxShadow: 24,
+                                                        p: 4,
+                                                    }}
                                                 >
                                                     View Shift
                                                 </Typography>
@@ -144,6 +153,9 @@ export const Shifts = () => {
                                         </Modal>
                                     ) : null}
                                 </div>
+                            </div>
+                            <div>
+                                <PostedModal />
                             </div>
                         </div>
                     </div>
