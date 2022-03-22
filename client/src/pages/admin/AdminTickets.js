@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Button,
@@ -9,29 +9,17 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
+import {
+    GetUnresolvedTickets,
+    GetResolvedTickets,
+    AddTicket,
+    ResolveTicket,
+    UnresolveTicket,
+} from 'redux/ticket';
 
 export const AdminTickets = () => {
-    const tickets = [
-        {
-            firstName: 'test',
-            lastName: 'test',
-            email: 'test@test.com',
-            Phone: '000000000',
-            type: 1,
-            message: 'this is a test',
-            resolved: false,
-        },
-        {
-            firstName: 'test',
-            lastName: 'test',
-            email: 'test@test.com',
-            Phone: '000000000',
-            type: 2,
-            message: 'this is a test',
-            resolved: true,
-        },
-    ];
-
+    const tickets = useSelector((state) => state.ticket.tickets);
     const [open, setOpen] = React.useState(false);
     const [current, setCurrent] = React.useState(null);
     const handleOpen = () => setOpen(true);
@@ -44,6 +32,10 @@ export const AdminTickets = () => {
         //set ticket.status to resovled
         setOpen(false);
     };
+
+    useEffect(() => {
+        GetUnresolvedTickets();
+    }, []);
 
     return (
         <>
@@ -62,13 +54,14 @@ export const AdminTickets = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tickets?.map((ticket, k) => (
+                            {tickets.map((ticket, k) => (
                                 <TableRow key={k}>
                                     <TableCell>
-                                        {ticket.firstName} {ticket.lastName}
+                                        {ticket.user.firstName}{' '}
+                                        {ticket.user.lastName}
                                     </TableCell>
-                                    <TableCell>{ticket.email}</TableCell>
-                                    <TableCell>{ticket.Phone}</TableCell>
+                                    <TableCell>{ticket.user.email}</TableCell>
+                                    <TableCell>{ticket.user.phone}</TableCell>
                                     <TableCell>
                                         {ticket.type === 1 && 'Payroll Issue'}
                                         {ticket.type === 2 && 'Time-off Issue'}
