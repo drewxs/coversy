@@ -29,10 +29,6 @@ const TicketSchema = new mongoose.Schema(
 			ref: 'Site',
 			required: true,
 		},
-		payroll: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Payroll',
-		},
 	},
 	{ timestamps: true }
 );
