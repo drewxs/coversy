@@ -5,10 +5,9 @@
     height: 6.5em;
 }
 
-.container-box {
-    display: flex;
-    width: 100%;
-    height: 100%;
+.container {
+    height: 80%;
+    justify-content: flex-end;
 
     .img-box {
         margin-left: 50px;
@@ -26,18 +25,12 @@
     }
 }
 
-.line-spacing {
+.dash-container {
     width: 100%;
-    height: 5px;
-    background-color: $primary;
-}
-
-.mainDash-container {
-    width: 100%;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
-    height: 100vh;
-    padding-top: 10px;
+    height: 70vh;
 
     .left-container {
         width: 25%;
@@ -66,7 +59,7 @@
         }
     }
 
-    .myShiftBox {
+    .option-container {
         width: 100%;
         height: 10%;
         display: flex;
@@ -81,20 +74,12 @@
             height: 50px;
         }
         #shift-box {
+            color: $white;
             height: 100%;
             width: 100%;
             background-color: $primary;
             border: 0.5px solid $black;
             box-sizing: border-box;
-            border-radius: 10px 0px 0px 0px;
-        }
-
-        #shift-box {
-            color: $white;
-        }
-
-        #post-box {
-            color: $black;
         }
 
         #post-box {
@@ -103,7 +88,6 @@
             background: $white;
             border: 0.5px solid $black;
             box-sizing: border-box;
-            border-radius: 0px 10px 0px 0px;
         }
     }
 
@@ -116,19 +100,37 @@
         align-items: center;
         border-radius: 5px;
     }
-    .user {
-        border: 1px solid green;
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        border-radius: 15px;
 
-        padding: 10px;
-        Button {
-            align-items: right;
-        }
-    }
     .input-form {
         margin-top: 2em;
+    }
+
+    .shift-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+
+        .shift-data {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shifts {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 15%;
+            width: 90%;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 0.5em;
+            margin-top: 1em;
+        }
+
+        .shift-info {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
