@@ -43,7 +43,7 @@ export const GetSitePayroll = async (date) => {
 export const GetUserPayroll = async (date) => {
     store.dispatch(loadingPayrolls());
     try {
-        const res = await axios.get(`${api}/payroll/user${date}`, {
+        const res = await axios.get(`${api}/payroll/user/${date}`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
         store.dispatch(setPayroll(res.data));

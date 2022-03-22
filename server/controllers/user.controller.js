@@ -89,7 +89,7 @@ exports.toggleUserActivatedById = async (req, res) => {
  * @access PUBLIC
  */
 exports.getProfilePicture = (req, res) => {
-	const fileKey = req.params.key;
+	const fileKey = escape(req.params.key);
 	const downloadParams = {
 		Key: fileKey,
 		Bucket: process.env.S3_PROFILE_BUCKET,
@@ -115,21 +115,24 @@ exports.updateProfilePicture = async (req, res) => {
 		.catch((err) => res.status(400).json(err));
 };
 
-exports.deleteProfilePicture = async (req, res) => {
+exports.deleteProfilePicture = (req, res) => {
 	const userId = escape(req.params.userId);
 	const updateQuery = { avatar: undefined };
 
 	User.findByIdAndUpdate(userId, updateQuery)
 		.then((user) => {
 			if (user.avatar) {
-				const fileKey = req.params.key;
+				const fileKey = user.avatar.split('/')[2];
 				const deleteParams = {
 					Key: fileKey,
 					Bucket: process.env.S3_PROFILE_BUCKET,
-					VersionId: '?',
 				};
-				s3.deleteObject(deleteParams);
-				res.status(200).json(user);
+				try {
+					s3.deleteObject(deleteParams);
+					res.status(200).json(user);
+				} catch (err) {
+					res.status(400).json(err);
+				}
 			}
 		})
 		.catch((err) => res.status(400).json(err));
