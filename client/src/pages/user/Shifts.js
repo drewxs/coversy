@@ -135,7 +135,10 @@ export const Shifts = () => {
                                                     }
 
                                                     <br></br>
-                                                    <TextField label='Description'></TextField>
+                                                    <TextField
+                                                        label='Description'
+                                                        fullWidth
+                                                    />
                                                 </div>
                                             </Box>
                                         </Modal>
@@ -174,22 +177,24 @@ export const Shifts = () => {
                         >
                             {/* Description Box - Book Time Off Modal */}
                             <Typography variant='h5'>Book Time Off</Typography>
-
                             {/* Select Shift for Time Off - Book Time Off Modal */}
-                            <TextField>
-                                className='input-form' variant='outlined'
+                            <TextField
+                                select
+                                className='input-form'
+                                variant='outlined'
                                 label='Select Shift'
-                            </TextField>
-
+                                fullWidth
+                            ></TextField>
                             <TextField
                                 className='input-form'
                                 variant='outlined'
                                 label='Description'
                                 fullWidth
-                                sx={{ mt: '0.5rem' }}
+                                sx={{ mt: '1rem' }}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                            />
+                            ></TextField>
+
                             {/* Book and Cancel Buttons - Book Time Off Modal */}
                             <Button
                                 variant='contained'
