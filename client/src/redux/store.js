@@ -3,6 +3,7 @@ import adminSlice from './adminSlice';
 import payrollSlice from './payrollSlice';
 import shiftSlice from './shiftSlice';
 import userSlice from './userSlice';
+import ticketSlice from './ticketSlice';
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         payroll: payrollSlice,
         shift: shiftSlice,
         user: userSlice,
+        ticket: ticketSlice,
     },
 });
