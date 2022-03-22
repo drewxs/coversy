@@ -64,9 +64,13 @@ export const App = () => {
                                 path='/dashboard/users'
                                 element={<AdminUsers />}
                             />
-                            <Route
+                            {/* <Route
                                 path='/dashboard/payroll/report'
                                 element={<CombinedPayrollReport />}
+                            /> */}
+                            <Route
+                                path='/payroll/report/:date'
+                                element={<PayrollReport />}
                             />
 
                             {/* Redirects */}
@@ -83,7 +87,7 @@ export const App = () => {
                             <Route path='/shifts' element={<Shifts />} />
                             <Route path='/payroll' element={<Payroll />} />
                             <Route
-                                path='/payroll/report'
+                                path='/payroll/report/:date'
                                 element={<PayrollReport />}
                             />
 
