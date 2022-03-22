@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { GetUserPayroll } from 'redux/payroll';
+import { useParams } from 'react-router-dom';
 
 export const PayrollReport = () => {
+    const params = useParams();
+    const payroll = useSelector((state) => state.payroll.payroll);
+    useEffect(() => {
+        GetUserPayroll(params.date);
+        console.log(payroll);
+    }, [params.date]);
+
     return (
         <section className='report'>
             <div className='container'>

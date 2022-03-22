@@ -46,9 +46,3 @@ export const EditShift = async (shift) => {
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
-
-/**
- * @description Fetches all shifts for specified site
- * @params siteId
- */
-export const GetShiftsBySite = async (siteId) => {};
