@@ -117,7 +117,7 @@ export const Shifts = () => {
                                                     }}
                                                 >
                                                     View Shift
-                                                </Typography>
+                                                </Box>
                                                 <div className='shift-info'>
                                                     {'Date: Jan 25, 2022 '}
                                                     <br></br>
@@ -149,7 +149,6 @@ export const Shifts = () => {
                                                         fullWidth
                                                     />
                                                 </div>
-                                            </Box>
                                         </Modal>
                                     ) : null}
                                 </div>
@@ -159,19 +158,7 @@ export const Shifts = () => {
                             </div>
                         </div>
                     </div>
-                    {/* Calendar View */}
-                    <div className='calendar'>
-                        <Calendar
-                            localizer={localizer}
-                            events={myEventsList}
-                            startAccessor='startTime'
-                            endAccessor='endTime'
-                            onSelectEvent={(event) =>
-                                alert(event.title, event.description)
-                            }
-                            style={{ height: 500, width: 850 }}
-                        />
-                    </div>
+                                              
 
                     {/* Modal - Book Time Off */}
                     <Modal open={openbook} onClose={() => setOpenBook(false)}>
@@ -226,7 +213,22 @@ export const Shifts = () => {
                             </Button>
                         </Box>
                     </Modal>
+               
                 </div>
+                 {/* Calendar View */}
+                 <div className='calendar'>
+                        <Calendar
+                            localizer={localizer}
+                            events={myEventsList}
+                            startAccessor='startTime'
+                            endAccessor='endTime'
+                            onSelectEvent={(event) =>
+                                alert(event.title, event.description)
+                            }
+                            style={{ height: 500, width: 850 }}
+                        />
+                    </div>   
+            </div>
             </div>
         </section>
     );
