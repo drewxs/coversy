@@ -4,7 +4,9 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
-import PostedModal from 'components/PostedShiftModal';
+import PostedModal from 'components/UserPostedShiftModal';
+import ShiftModal from 'components/UserShiftModal';
+
 import {
     Box,
     Typography,
@@ -22,13 +24,24 @@ const myEventsList = [
 export const Shifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [description, setDescription] = useState('');
-    const [openpost, setOpenPost] = useState(false);
+    const [openPost, setOpenPost] = useState(false);
+    const [openShift, setOpenShift] = useState(false);
     const [openview, setOpenView] = useState(false);
     const [openbook, setOpenBook] = useState(false);
     const [current, setCurrent] = useState(0);
     useEffect(() => {
         GetShifts();
     }, []);
+
+    const postedView = () => {
+        setOpenPost(true);
+        setOpenShift(false);
+    };
+
+    const shiftView = () => {
+        setOpenPost(false);
+        setOpenShift(true);
+    };
 
     return (
         <section className='dashboard shifts'>
@@ -38,7 +51,11 @@ export const Shifts = () => {
                     <div className='left-container'>
                         <div className='option-container'>
                             <div className='shiftBox-container'>
-                                <Button variant='variant' id='shift-box'>
+                                <Button
+                                    variant='variant'
+                                    onClick={() => shiftView()}
+                                    id='shift-box'
+                                >
                                     My Shifts
                                 </Button>
                             </div>
@@ -49,7 +66,7 @@ export const Shifts = () => {
                                     className='btn btn-select'
                                     variant='text'
                                     id='post-box'
-                                    onClick={() => setOpenPost(true)}
+                                    onClick={() => postedView()}
                                 >
                                     Posted Shift
                                 </Button>
@@ -61,101 +78,100 @@ export const Shifts = () => {
                             <div className='shift-data'>
                                 <div className='btn-book-time'>
                                     <Button
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: '0.5rem' }}
                                         variant='contained'
                                         onClick={() => setOpenBook(true)}
                                     >
                                         Book time off
                                     </Button>
                                 </div>
+                                {/* Modal - Book Time Off */}
+                                <Modal
+                                    open={openbook}
+                                    onClose={() => setOpenBook(false)}
+                                >
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: 400,
+                                            bgcolor: 'background.paper',
+                                            boxShadow: 24,
+                                            p: 4,
+                                        }}
+                                    >
+                                        {/* Description Box - Book Time Off Modal */}
+                                        <Typography variant='h5'>
+                                            Book Time Off
+                                        </Typography>
 
-                                {/* My Shift Example */}
-                                <div className='shift-container'>
-                                    <div className='shifts'>
-                                        <div className='shift-data'>
-                                            <p>
-                                                Science -{' '}
+                                        {/* Select Shift for Time Off - Book Time Off Modal */}
+
+                                        {/*             
+                                            <Select
+                                            options={[
                                                 {
-                                                    shifts[current]?.teacher
-                                                        .firstName
-                                                }{' '}
-                                            </p>
-                                            <p>12 PM - 1PM</p>
-                                        </div>
+                                                    value: 'chocolate',
+                                                    label: 'Chocolate',
+                                                },
+                                                {
+                                                    value: 'strawberry',
+                                                    label: 'Strawberry',
+                                                },
+                                                {
+                                                    value: 'vanilla',
+                                                    label: 'Vanilla',
+                                                },
+                                            ]}
+                                        />
 
-                                        <div className='view-button'>
-                                            <Button
-                                                onClick={() =>
-                                                    setOpenView(true)
-                                                }
-                                                variant='contained'
-                                            >
-                                                View
-                                            </Button>
-                                        </div>
+                                        */}
 
-                                        {/* Modal - View Shift */}
-                                        {openview ? (
-                                            <Modal
-                                                open={openview}
-                                                onClose={() =>
-                                                    setOpenView(false)
-                                                }
-                                            >
-                                                <Box
-                                                    sx={{
-                                                        position: 'absolute',
-                                                        top: '50%',
-                                                        left: '50%',
-                                                        transform:
-                                                            'translate(-50%, -50%)',
-                                                        width: 400,
-                                                        bgcolor:
-                                                            'background.paper',
-                                                        boxShadow: 24,
-                                                        p: 4,
-                                                    }}
-                                                >
-                                                    View Shift
-                                                </Typography>
-                                                <div className='shift-info'>
-                                                    {'Date: Jan 25, 2022 '}
-                                                    <br></br>
+                                        <TextField
+                                            select
+                                            sx={{ mt: '1rem' }}
+                                            className='input-form'
+                                            variant='outlined'
+                                            label='Select Shift'
+                                            fullWidth
+                                        ></TextField>
 
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .firstName
-                                                    }
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .lastName
-                                                    }
-                                                    <br></br>
-                                                    {'  Start time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .startTime
-                                                    }
-                                                    <br></br>
-                                                    {' End time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .endTime
-                                                    }
-
-                                                    <br></br>
-                                                    <TextField
-                                                        label='Description'
-                                                        fullWidth
-                                                    />
-                                                </div>
-                                            </Box>
-                                        </Modal>
-                                    ) : null}
-                                </div>
-                            </div>
-                            <div>
-                                <PostedModal />
+                                        <TextField
+                                            className='input-form'
+                                            variant='outlined'
+                                            label='Description'
+                                            fullWidth
+                                            sx={{ mt: '1rem' }}
+                                            value={description}
+                                            onChange={(e) =>
+                                                setDescription(e.target.value)
+                                            }
+                                        />
+                                        {/* Book and Cancel Buttons - Book Time Off Modal */}
+                                        <Button
+                                            variant='contained'
+                                            color='primary'
+                                            sx={{ mt: '1rem' }}
+                                            onClick={(e) => setOpenBook(false)}
+                                        >
+                                            Book
+                                        </Button>
+                                        <Button
+                                            variant='outlined'
+                                            color='primary'
+                                            sx={{ mt: '1rem', ml: '1rem' }}
+                                            onClick={(e) => setOpenBook(false)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </Box>
+                                </Modal>
+                                <div>{openShift && <ShiftModal />}</div>{' '}
+                                {/* My Shift View */}
+                                <div>{openPost && <PostedModal />}</div>{' '}
+                                {/* My Posted Shift View */}
                             </div>
                         </div>
                     </div>
@@ -172,64 +188,8 @@ export const Shifts = () => {
                             style={{ height: 500, width: 850 }}
                         />
                     </div>
-
-                    {/* Modal - Book Time Off */}
-                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
-                            {/* Description Box - Book Time Off Modal */}
-                            <Typography variant='h5'>Book Time Off</Typography>
-                            {/* Select Shift for Time Off - Book Time Off Modal */}
-                            <TextField
-                                select
-                                className='input-form'
-                                variant='outlined'
-                                label='Select Shift'
-                                fullWidth
-                            ></TextField>
-                            <TextField
-                                className='input-form'
-                                variant='outlined'
-                                label='Description'
-                                fullWidth
-                                sx={{ mt: '1rem' }}
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            ></TextField>
-
-                            {/* Book and Cancel Buttons - Book Time Off Modal */}
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
-                            >
-                                Book
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                sx={{ mt: '1rem', ml: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
-                    </Modal>
                 </div>
             </div>
         </section>
     );
 };
-
-// testing pull requets with new branch

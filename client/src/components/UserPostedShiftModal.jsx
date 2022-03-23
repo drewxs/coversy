@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Typography, Modal, Button, TextField } from '@mui/material';
 import { GetShifts } from 'redux/shift';
+import moment from 'moment';
 
 const PostedModal = () => {
     const shifts = useSelector((state) => state.shift.shifts);
@@ -48,33 +49,46 @@ const PostedModal = () => {
                                     p: 4,
                                 }}
                             >
-                                <Typography sx={{ mb: 3 }} variant='h5'>
+                                <Typography sx={{ mb: '1rem' }} variant='h5'>
                                     View Shift
                                 </Typography>
-                                <div className='posted-info'>
-                                    {'Date: Jan 25, 2022 '}
-                                    <br></br>
-                                    {shifts[current]?.teacher.firstName}{' '}
-                                    {shifts[current]?.teacher.lastName}
-                                    <br></br>
-                                    {/* {'  Start time: '}
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .startTime
-                                                        }
-                                                        <br></br>
-                                                        {' End time: '}
-                                                        {
-                                                            shifts[current]
-                                                                ?.teacher
-                                                                .endTime
-                                                        } */}
-                                    <br></br>
-                                    <TextField
-                                        sx={{ mt: '1em' }}
-                                        label='Description'
-                                    ></TextField>
+
+                                {/* Shift Info */}
+                                <div className='shift-info'>
+                                    <p>
+                                        <strong>Name: </strong>
+                                        {shifts[current].teacher.firstName}
+                                    </p>
+
+                                    <p>
+                                        <strong>Class: </strong>
+                                        Science
+                                    </p>
+
+                                    <p>
+                                        <strong>Date: </strong>
+                                        {moment(
+                                            shifts[current].startTime
+                                        ).format('MMMM DD, YYYY')}
+                                    </p>
+
+                                    <p>
+                                        <strong>Start time: </strong>
+                                        {moment(
+                                            shifts[current].startTime
+                                        ).format('h:mm a')}
+                                    </p>
+
+                                    <p>
+                                        <strong>End time: </strong>
+                                        {moment(shifts[current].endTime).format(
+                                            'h:mm a'
+                                        )}
+                                    </p>
+
+                                    <p className='shift-description'>
+                                        This is the description.
+                                    </p>
                                 </div>
                             </Box>
                         </Modal>
