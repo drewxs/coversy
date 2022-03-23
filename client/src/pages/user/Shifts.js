@@ -4,7 +4,8 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
-import PostedModal from 'components/PostedShiftModal';
+import PostedModal from 'components/UserPostedShiftModal';
+import ShiftModal from 'components/UserShiftModal';
 
 import {
     Box,
@@ -23,13 +24,24 @@ const myEventsList = [
 export const Shifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [description, setDescription] = useState('');
-    const [openpost, setOpenPost] = useState(false);
+    const [openPost, setOpenPost] = useState(false);
+    const [openShift, setOpenShift] = useState(false);
     const [openview, setOpenView] = useState(false);
     const [openbook, setOpenBook] = useState(false);
     const [current, setCurrent] = useState(0);
     useEffect(() => {
         GetShifts();
     }, []);
+
+    const postedView = () => {
+        setOpenPost(true);
+        setOpenShift(false);
+    };
+
+    const shiftView = () => {
+        setOpenPost(false);
+        setOpenShift(true);
+    };
 
     return (
         <section className='dashboard shifts'>
@@ -39,7 +51,11 @@ export const Shifts = () => {
                     <div className='left-container'>
                         <div className='option-container'>
                             <div className='shiftBox-container'>
-                                <Button variant='variant' id='shift-box'>
+                                <Button
+                                    variant='variant'
+                                    onClick={() => shiftView()}
+                                    id='shift-box'
+                                >
                                     My Shifts
                                 </Button>
                             </div>
@@ -50,7 +66,7 @@ export const Shifts = () => {
                                     className='btn btn-select'
                                     variant='text'
                                     id='post-box'
-                                    onClick={() => setOpenPost(true)}
+                                    onClick={() => postedView()}
                                 >
                                     Posted Shift
                                 </Button>
@@ -69,7 +85,6 @@ export const Shifts = () => {
                                         Book time off
                                     </Button>
                                 </div>
-
                                 {/* Modal - Book Time Off */}
                                 <Modal
                                     open={openbook}
@@ -153,139 +168,10 @@ export const Shifts = () => {
                                         </Button>
                                     </Box>
                                 </Modal>
-
-                                {/* My Shift Example */}
-                                <div className='shift-container'>
-                                    <div className='shifts'>
-                                        <div className='shift-data'>
-                                            <p>
-                                                Science -{' '}
-                                                {
-                                                    shifts[current]?.teacher
-                                                        .firstName
-                                                }
-                                            </p>
-
-                                            {/* For the time display: works but breaks when you refresh the page for some reason
-                                            <p>
-                                                {moment(
-                                                    shifts[current].startTime
-                                                ).format('h:mm a')}
-                                                {' - '}
-
-                                                {moment(
-                                                    shifts[current].endTime
-                                                ).format('h:mm a')}
-                                            </p>
-                                            */}
-                                        </div>
-
-                                        <div className='view-button'>
-                                            <Button
-                                                onClick={() =>
-                                                    setOpenView(true)
-                                                }
-                                                variant='contained'
-                                            >
-                                                View
-                                            </Button>
-                                        </div>
-
-                                        {/* Modal - View Shift */}
-                                        {openview ? (
-                                            <Modal
-                                                open={openview}
-                                                onClose={() =>
-                                                    setOpenView(false)
-                                                }
-                                            >
-                                                <Box
-                                                    sx={{
-                                                        position: 'absolute',
-                                                        top: '50%',
-                                                        left: '50%',
-                                                        transform:
-                                                            'translate(-50%, -50%)',
-                                                        width: 400,
-                                                        bgcolor:
-                                                            'background.paper',
-                                                        boxShadow: 24,
-                                                        p: 4,
-                                                    }}
-                                                >
-                                                    <Typography
-                                                        sx={{ mb: '1rem' }}
-                                                        variant='h5'
-                                                    >
-                                                        View Shift
-                                                    </Typography>
-
-                                                    {/* Shift Info */}
-                                                    <div className='shift-info'>
-                                                        <p>
-                                                            <strong>
-                                                                Name:{' '}
-                                                            </strong>
-                                                            {
-                                                                shifts[current]
-                                                                    .teacher
-                                                                    .firstName
-                                                            }
-                                                        </p>
-
-                                                        <p>
-                                                            <strong>
-                                                                Class:{' '}
-                                                            </strong>
-                                                            Science
-                                                        </p>
-
-                                                        <p>
-                                                            <strong>
-                                                                Date:{' '}
-                                                            </strong>
-                                                            {moment(
-                                                                shifts[current]
-                                                                    .startTime
-                                                            ).format(
-                                                                'MMMM DD, YYYY'
-                                                            )}
-                                                        </p>
-
-                                                        <p>
-                                                            <strong>
-                                                                Start time:{' '}
-                                                            </strong>
-                                                            {moment(
-                                                                shifts[current]
-                                                                    .startTime
-                                                            ).format('h:mm a')}
-                                                        </p>
-
-                                                        <p>
-                                                            <strong>
-                                                                End time:{' '}
-                                                            </strong>
-                                                            {moment(
-                                                                shifts[current]
-                                                                    .endTime
-                                                            ).format('h:mm a')}
-                                                        </p>
-
-                                                        <p className='shift-description'>
-                                                            This is the
-                                                            description.
-                                                        </p>
-                                                    </div>
-                                                </Box>
-                                            </Modal>
-                                        ) : null}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <PostedModal />
+                                <div>{openShift && <ShiftModal />}</div>{' '}
+                                {/* My Shift View */}
+                                <div>{openPost && <PostedModal />}</div>{' '}
+                                {/* My Posted Shift View */}
                             </div>
                         </div>
                     </div>
