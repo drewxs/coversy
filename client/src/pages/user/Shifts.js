@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
 import PostedModal from 'components/PostedShiftModal';
+
 import {
     Box,
     Typography,
@@ -61,13 +62,97 @@ export const Shifts = () => {
                             <div className='shift-data'>
                                 <div className='btn-book-time'>
                                     <Button
-                                        sx={{ mb: 2 }}
+                                        sx={{ mb: '0.5rem' }}
                                         variant='contained'
                                         onClick={() => setOpenBook(true)}
                                     >
                                         Book time off
                                     </Button>
                                 </div>
+
+                                {/* Modal - Book Time Off */}
+                                <Modal
+                                    open={openbook}
+                                    onClose={() => setOpenBook(false)}
+                                >
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: 400,
+                                            bgcolor: 'background.paper',
+                                            boxShadow: 24,
+                                            p: 4,
+                                        }}
+                                    >
+                                        {/* Description Box - Book Time Off Modal */}
+                                        <Typography variant='h5'>
+                                            Book Time Off
+                                        </Typography>
+
+                                        {/* Select Shift for Time Off - Book Time Off Modal */}
+
+                                        {/*             
+                                            <Select
+                                            options={[
+                                                {
+                                                    value: 'chocolate',
+                                                    label: 'Chocolate',
+                                                },
+                                                {
+                                                    value: 'strawberry',
+                                                    label: 'Strawberry',
+                                                },
+                                                {
+                                                    value: 'vanilla',
+                                                    label: 'Vanilla',
+                                                },
+                                            ]}
+                                        />
+
+                                        */}
+
+                                        <TextField
+                                            select
+                                            sx={{ mt: '1rem' }}
+                                            className='input-form'
+                                            variant='outlined'
+                                            label='Select Shift'
+                                            fullWidth
+                                        ></TextField>
+
+                                        <TextField
+                                            className='input-form'
+                                            variant='outlined'
+                                            label='Description'
+                                            fullWidth
+                                            sx={{ mt: '1rem' }}
+                                            value={description}
+                                            onChange={(e) =>
+                                                setDescription(e.target.value)
+                                            }
+                                        />
+                                        {/* Book and Cancel Buttons - Book Time Off Modal */}
+                                        <Button
+                                            variant='contained'
+                                            color='primary'
+                                            sx={{ mt: '1rem' }}
+                                            onClick={(e) => setOpenBook(false)}
+                                        >
+                                            Book
+                                        </Button>
+                                        <Button
+                                            variant='outlined'
+                                            color='primary'
+                                            sx={{ mt: '1rem', ml: '1rem' }}
+                                            onClick={(e) => setOpenBook(false)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </Box>
+                                </Modal>
 
                                 {/* My Shift Example */}
                                 <div className='shift-container'>
@@ -78,9 +163,21 @@ export const Shifts = () => {
                                                 {
                                                     shifts[current]?.teacher
                                                         .firstName
-                                                }{' '}
+                                                }
                                             </p>
-                                            <p>12 PM - 1PM</p>
+
+                                            {/* For the time display: works but breaks when you refresh the page for some reason
+                                            <p>
+                                                {moment(
+                                                    shifts[current].startTime
+                                                ).format('h:mm a')}
+                                                {' - '}
+
+                                                {moment(
+                                                    shifts[current].endTime
+                                                ).format('h:mm a')}
+                                            </p>
+                                            */}
                                         </div>
 
                                         <div className='view-button'>
@@ -116,44 +213,77 @@ export const Shifts = () => {
                                                         p: 4,
                                                     }}
                                                 >
-                                                    View Shift
-                                                </Typography>
-                                                <div className='shift-info'>
-                                                    {'Date: Jan 25, 2022 '}
-                                                    <br></br>
+                                                    <Typography
+                                                        sx={{ mb: '1rem' }}
+                                                        variant='h5'
+                                                    >
+                                                        View Shift
+                                                    </Typography>
 
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .firstName
-                                                    }
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .lastName
-                                                    }
-                                                    <br></br>
-                                                    {'  Start time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .startTime
-                                                    }
-                                                    <br></br>
-                                                    {' End time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .endTime
-                                                    }
+                                                    {/* Shift Info */}
+                                                    <div className='shift-info'>
+                                                        <p>
+                                                            <strong>
+                                                                Name:{' '}
+                                                            </strong>
+                                                            {
+                                                                shifts[current]
+                                                                    .teacher
+                                                                    .firstName
+                                                            }
+                                                        </p>
 
-                                                    <br></br>
-                                                    <TextField
-                                                        label='Description'
-                                                        fullWidth
-                                                    />
-                                                </div>
-                                            </Box>
-                                        </Modal>
-                                    ) : null}
+                                                        <p>
+                                                            <strong>
+                                                                Class:{' '}
+                                                            </strong>
+                                                            Science
+                                                        </p>
+
+                                                        <p>
+                                                            <strong>
+                                                                Date:{' '}
+                                                            </strong>
+                                                            {moment(
+                                                                shifts[current]
+                                                                    .startTime
+                                                            ).format(
+                                                                'MMMM DD, YYYY'
+                                                            )}
+                                                        </p>
+
+                                                        <p>
+                                                            <strong>
+                                                                Start time:{' '}
+                                                            </strong>
+                                                            {moment(
+                                                                shifts[current]
+                                                                    .startTime
+                                                            ).format('h:mm a')}
+                                                        </p>
+
+                                                        <p>
+                                                            <strong>
+                                                                End time:{' '}
+                                                            </strong>
+                                                            {moment(
+                                                                shifts[current]
+                                                                    .endTime
+                                                            ).format('h:mm a')}
+                                                        </p>
+
+                                                        <p className='shift-description'>
+                                                            This is the
+                                                            description.
+                                                        </p>
+                                                    </div>
+                                                </Box>
+                                            </Modal>
+                                        ) : null}
+                                    </div>
                                 </div>
                             </div>
+
                             <div>
                                 <PostedModal />
                             </div>
@@ -172,64 +302,8 @@ export const Shifts = () => {
                             style={{ height: 500, width: 850 }}
                         />
                     </div>
-
-                    {/* Modal - Book Time Off */}
-                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
-                            {/* Description Box - Book Time Off Modal */}
-                            <Typography variant='h5'>Book Time Off</Typography>
-                            {/* Select Shift for Time Off - Book Time Off Modal */}
-                            <TextField
-                                select
-                                className='input-form'
-                                variant='outlined'
-                                label='Select Shift'
-                                fullWidth
-                            ></TextField>
-                            <TextField
-                                className='input-form'
-                                variant='outlined'
-                                label='Description'
-                                fullWidth
-                                sx={{ mt: '1rem' }}
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            ></TextField>
-
-                            {/* Book and Cancel Buttons - Book Time Off Modal */}
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
-                            >
-                                Book
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                sx={{ mt: '1rem', ml: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
-                    </Modal>
                 </div>
             </div>
         </section>
     );
 };
-
-// testing pull requets with new branch
