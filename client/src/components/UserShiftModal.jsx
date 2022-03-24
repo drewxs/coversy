@@ -15,9 +15,10 @@ const ShiftModal = () => {
 
     return (
         <div className='shift-container'>
-            <div className='shifts'>
-                {shifts.slice(0).map((shift, k) => (
-                    <div className='shift-data' key={k}>
+            {shifts.slice(0).map((shift, k) => (
+                // <div key={k}>
+                <div className='shift-data' key={k}>
+                    <div>
                         <p>Science - {shift.teacher.firstName}</p>
                         <p>
                             {moment(shift.startTime).format('h:mm a')}
@@ -25,77 +26,79 @@ const ShiftModal = () => {
 
                             {moment(shift.endTime).format('h:mm a')}
                         </p>
-                        <div className='view-button'>
-                            <Button
-                                onClick={() => setOpenView(true)}
-                                variant='contained'
-                            >
-                                View
-                            </Button>
-                        </div>
                     </div>
-                ))}
 
-                {/* Modal - View Shift */}
-                {openview ? (
-                    <Modal open={openview} onClose={() => setOpenView(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
+                    <div className='view-button'>
+                        <Button
+                            onClick={() => setOpenView(true)}
+                            variant='contained'
                         >
-                            <Typography sx={{ mb: '1rem' }} variant='h5'>
-                                View Shift
-                            </Typography>
+                            View
+                        </Button>
+                    </div>
+                </div>
+                //
+            ))}
 
-                            {/* Shift Info */}
-                            <div className='shift-info'>
-                                <p>
-                                    <strong>Name: </strong>
-                                    {shifts[current].teacher.firstName}
-                                </p>
+            {/* Modal - View Shift */}
+            {openview ? (
+                <Modal open={openview} onClose={() => setOpenView(false)}>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            bgcolor: 'background.paper',
+                            boxShadow: 24,
+                            p: 4,
+                        }}
+                    >
+                        <Typography sx={{ mb: '1rem' }} variant='h5'>
+                            View Shift
+                        </Typography>
 
-                                <p>
-                                    <strong>Class: </strong>
-                                    Science
-                                </p>
+                        {/* Shift Info */}
+                        <div className='shift-info'>
+                            <p>
+                                <strong>Name: </strong>
+                                {shifts[current].teacher.firstName}
+                            </p>
 
-                                <p>
-                                    <strong>Date: </strong>
-                                    {moment(shifts[current].startTime).format(
-                                        'MMMM DD, YYYY'
-                                    )}
-                                </p>
+                            <p>
+                                <strong>Class: </strong>
+                                Science
+                            </p>
 
-                                <p>
-                                    <strong>Start time: </strong>
-                                    {moment(shifts[current].startTime).format(
-                                        'h:mm a'
-                                    )}
-                                </p>
+                            <p>
+                                <strong>Date: </strong>
+                                {moment(shifts[current].startTime).format(
+                                    'MMMM DD, YYYY'
+                                )}
+                            </p>
 
-                                <p>
-                                    <strong>End time: </strong>
-                                    {moment(shifts[current].endTime).format(
-                                        'h:mm a'
-                                    )}
-                                </p>
+                            <p>
+                                <strong>Start time: </strong>
+                                {moment(shifts[current].startTime).format(
+                                    'h:mm a'
+                                )}
+                            </p>
 
-                                <p className='shift-description'>
-                                    This is the description.
-                                </p>
-                            </div>
-                        </Box>
-                    </Modal>
-                ) : null}
-            </div>
+                            <p>
+                                <strong>End time: </strong>
+                                {moment(shifts[current].endTime).format(
+                                    'h:mm a'
+                                )}
+                            </p>
+
+                            <p className='shift-description'>
+                                This is the description.
+                            </p>
+                        </div>
+                    </Box>
+                </Modal>
+            ) : null}
         </div>
     );
 };
