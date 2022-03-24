@@ -8,6 +8,7 @@
     .container {
         height: 80%;
         justify-content: flex-end;
+        flex-direction: row;
 
         .img-box {
             margin-left: 50px;
@@ -23,152 +24,141 @@
             justify-content: center;
             align-items: center;
         }
-    }
-}
 
-.dash-container {
-    width: 100%;
+        .left-container {
+            width: 25%;
+            height: 100%;
+            border: 1px solid black;
+            border-radius: 10px;
+            margin-right: 5%;
+            position: relative;
 
-    display: flex;
-    justify-content: center;
-    height: 70vh;
-
-    .left-container {
-        width: 25%;
-        height: 100%;
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-right: 5%;
-        position: relative;
-
-        .displayText {
-            width: 100%;
-            height: 90%;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            align-items: center;
-
-            .btn-book-time {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
+            .displayText {
                 width: 100%;
-                height: 10%;
-                margin-top: 1em;
-                margin-bottom: 1em;
-                margin-left: 9%;
+                height: 90%;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                align-items: center;
+
+                .btn-book-time {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    height: 10%;
+                    margin-top: 1em;
+                    margin-bottom: 1em;
+                    margin-left: 9%;
+                }
             }
         }
-    }
 
-    .option-container {
-        width: 100%;
-        height: 10%;
-        display: flex;
-
-        .shift-tab-container {
-            width: 50%;
-            height: 50px;
-        }
-
-        .post-tab-container {
-            width: 50%;
-            height: 50px;
-        }
-        #shift-box {
-            color: $white;
-            height: 100%;
+        .option-container {
             width: 100%;
-            background-color: $primary;
-            border: 0.5px solid $black;
-            box-sizing: border-box;
-        }
-
-        #post-box {
-            height: 100%;
-            width: 100%;
-            background: $white;
-            border: 0.5px solid $black;
-            box-sizing: border-box;
-        }
-    }
-
-    .calendar {
-        width: 70%;
-        border: 1px solid $black;
-        display: flex;
-        padding: 8px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-    }
-
-    .input-form {
-        margin-top: 2em;
-    }
-
-    .shift-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        .shift-data {
-            width: 90%;
+            height: 10%;
             display: flex;
-            justify-content: space-around;
-            padding: 0.5em;
-            margin-bottom: 1em;
-            border-radius: 0.5em;
-            border: 1px solid rgb(0, 0, 0);
+
+            .shift-tab-container {
+                width: 50%;
+                height: 50px;
+            }
+
+            .post-tab-container {
+                width: 50%;
+                height: 50px;
+            }
+            #shift-box {
+                color: $white;
+                height: 100%;
+                width: 100%;
+                background-color: $primary;
+                border: 0.5px solid $black;
+                box-sizing: border-box;
+            }
+
+            #post-box {
+                height: 100%;
+                width: 100%;
+                background: $white;
+                border: 0.5px solid $black;
+                box-sizing: border-box;
+            }
         }
 
-        // .shifts {
-        //     display: flex;
-        //     flex-direction: column;
-        //     justify-content: space-around;
-        //     align-items: center;
-        //     height: 15%;
-        //     width: 90%;
-
-        //     border-radius: 0.5em;
-        //     margin-top: 1em;
-        // }
-
-        .shift-info {
+        .calendar {
+            width: 70%;
+            border: 1px solid $black;
             display: flex;
-            flex-direction: column;
-        }
-    }
-
-    .posted-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-
-        .posted-data {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .posted {
-            display: flex;
-            justify-content: space-around;
+            padding: 8px;
+            justify-content: center;
             align-items: center;
-            height: 15%;
-            width: 90%;
-            border: 1px solid rgb(0, 0, 0);
-            border-radius: 0.5em;
-            margin-top: 1em;
+            border-radius: 5px;
         }
 
-        .posted-info {
+        .input-form {
+            margin-top: 2em;
+        }
+
+        .shift-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
+
+            .shift-data {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5em;
+                margin-bottom: 1em;
+                border-radius: 0.5em;
+                border: 1px solid $black;
+            }
+
+            .shifts-cont {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                height: 15%;
+                width: 90%;
+
+                border-radius: 0.5em;
+                margin-top: 1em;
+            }
+
+            .shift-info {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .posted-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            height: 100%;
+
+            .posted-data {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .posted {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: 15%;
+                width: 90%;
+                border: 1px solid rgb(0, 0, 0);
+                border-radius: 0.5em;
+                margin-top: 1em;
+            }
+
+            .posted-info {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
 }

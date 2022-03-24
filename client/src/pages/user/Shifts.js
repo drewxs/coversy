@@ -28,7 +28,7 @@ export const Shifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [description, setDescription] = useState('');
     const [openPost, setOpenPost] = useState(false);
-    const [openShift, setOpenShift] = useState(false);
+    const [openShift, setOpenShift] = useState(true);
     const [openview, setOpenView] = useState(false);
     const [openbook, setOpenBook] = useState(false);
     const [current, setCurrent] = useState(0);
@@ -48,133 +48,131 @@ export const Shifts = () => {
 
     return (
         <section className='dashboard shifts'>
-            <div className='container'>
-                <div className='dash-container'>
-                    {/* My Shift / Post Shift */}
-                    <div className='left-container'>
-                        <div className='option-container'>
-                            <div className='shift-tab-container'>
+            <div className='container dash-container'>
+                {/* My Shift / Post Shift */}
+                <div className='left-container'>
+                    <div className='option-container'>
+                        <div className='shift-tab-container'>
+                            <Button
+                                variant='contained'
+                                onClick={() => shiftView()}
+                                id='shift-box'
+                            >
+                                My Shifts
+                            </Button>
+                        </div>
+
+                        {/* Posted Shifts */}
+                        <div className='post-tab-container'>
+                            <Button
+                                className='btn btn-select'
+                                variant='text'
+                                id='post-box'
+                                onClick={() => postedView()}
+                            >
+                                Posted Shift
+                            </Button>
+                        </div>
+                    </div>
+
+                    {/* Book Time Off Button */}
+                    <div className='displayText'>
+                        <div className='shift-data'>
+                            <div className='btn-book-time'>
                                 <Button
+                                    sx={{ mb: '0.5rem' }}
                                     variant='contained'
-                                    onClick={() => shiftView()}
-                                    id='shift-box'
+                                    onClick={() => setOpenBook(true)}
                                 >
-                                    My Shifts
+                                    Book time off
                                 </Button>
                             </div>
-
-                            {/* Posted Shifts */}
-                            <div className='post-tab-container'>
-                                <Button
-                                    className='btn btn-select'
-                                    variant='text'
-                                    id='post-box'
-                                    onClick={() => postedView()}
+                            {/* Modal - Book Time Off */}
+                            <Modal
+                                open={openbook}
+                                onClose={() => setOpenBook(false)}
+                            >
+                                <Box
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        width: 400,
+                                        bgcolor: 'background.paper',
+                                        boxShadow: 24,
+                                        p: 4,
+                                    }}
                                 >
-                                    Posted Shift
-                                </Button>
-                            </div>
-                        </div>
+                                    {/* Description Box - Book Time Off Modal */}
+                                    <Typography
+                                        variant='h5'
+                                        sx={{ mb: '1rem' }}
+                                    >
+                                        Book Time Off
+                                    </Typography>
 
-                        {/* Book Time Off Button */}
-                        <div className='displayText'>
-                            <div className='shift-data'>
-                                <div className='btn-book-time'>
+                                    {/* Select Shift for Time Off - Book Time Off Modal */}
+
+                                    <FormControl fullWidth>
+                                        <InputLabel></InputLabel>
+                                        <Select label='Select Shift'>
+                                            <MenuItem value={1}>A</MenuItem>
+                                            <MenuItem value={1}>B</MenuItem>
+                                            <MenuItem value={1}>C</MenuItem>
+                                            <MenuItem value={1}>D</MenuItem>
+                                        </Select>
+                                    </FormControl>
+
+                                    <TextField
+                                        className='input-form'
+                                        variant='outlined'
+                                        label='Description'
+                                        fullWidth
+                                        sx={{ mt: '1rem' }}
+                                        value={description}
+                                        onChange={(e) =>
+                                            setDescription(e.target.value)
+                                        }
+                                    />
+                                    {/* Book and Cancel Buttons - Book Time Off Modal */}
                                     <Button
-                                        sx={{ mb: '0.5rem' }}
                                         variant='contained'
-                                        onClick={() => setOpenBook(true)}
+                                        color='primary'
+                                        sx={{ mt: '1rem' }}
+                                        onClick={(e) => setOpenBook(false)}
                                     >
-                                        Book time off
+                                        Book
                                     </Button>
-                                </div>
-                                {/* Modal - Book Time Off */}
-                                <Modal
-                                    open={openbook}
-                                    onClose={() => setOpenBook(false)}
-                                >
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-50%, -50%)',
-                                            width: 400,
-                                            bgcolor: 'background.paper',
-                                            boxShadow: 24,
-                                            p: 4,
-                                        }}
+                                    <Button
+                                        variant='outlined'
+                                        color='primary'
+                                        sx={{ mt: '1rem', ml: '1rem' }}
+                                        onClick={(e) => setOpenBook(false)}
                                     >
-                                        {/* Description Box - Book Time Off Modal */}
-                                        <Typography
-                                            variant='h5'
-                                            sx={{ mb: '1rem' }}
-                                        >
-                                            Book Time Off
-                                        </Typography>
-
-                                        {/* Select Shift for Time Off - Book Time Off Modal */}
-
-                                        <FormControl fullWidth>
-                                            <InputLabel></InputLabel>
-                                            <Select label='Select Shift'>
-                                                <MenuItem value={1}>A</MenuItem>
-                                                <MenuItem value={1}>B</MenuItem>
-                                                <MenuItem value={1}>C</MenuItem>
-                                                <MenuItem value={1}>D</MenuItem>
-                                            </Select>
-                                        </FormControl>
-
-                                        <TextField
-                                            className='input-form'
-                                            variant='outlined'
-                                            label='Description'
-                                            fullWidth
-                                            sx={{ mt: '1rem' }}
-                                            value={description}
-                                            onChange={(e) =>
-                                                setDescription(e.target.value)
-                                            }
-                                        />
-                                        {/* Book and Cancel Buttons - Book Time Off Modal */}
-                                        <Button
-                                            variant='contained'
-                                            color='primary'
-                                            sx={{ mt: '1rem' }}
-                                            onClick={(e) => setOpenBook(false)}
-                                        >
-                                            Book
-                                        </Button>
-                                        <Button
-                                            variant='outlined'
-                                            color='primary'
-                                            sx={{ mt: '1rem', ml: '1rem' }}
-                                            onClick={(e) => setOpenBook(false)}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </Box>
-                                </Modal>
-                                <div>{openShift && <ShiftModal />}</div>{' '}
-                                {/* My Shift View */}
-                                <div>{openPost && <PostedModal />}</div>{' '}
-                                {/* My Posted Shift View */}
-                            </div>
+                                        Cancel
+                                    </Button>
+                                </Box>
+                            </Modal>
+                            <div>{openShift && <ShiftModal />}</div>{' '}
+                            {/* My Shift View */}
+                            <div>{openPost && <PostedModal />}</div>{' '}
+                            {/* My Posted Shift View */}
                         </div>
                     </div>
-                    {/* Calendar View */}
-                    <div className='calendar'>
-                        <Calendar
-                            localizer={localizer}
-                            events={myEventsList}
-                            startAccessor='startTime'
-                            endAccessor='endTime'
-                            onSelectEvent={(event) =>
-                                alert(event.title, event.description)
-                            }
-                            style={{ height: 500, width: 850 }}
-                        />
-                    </div>
+                </div>
+                {/* Calendar View */}
+                <div className='calendar'>
+                    <Calendar
+                        localizer={localizer}
+                        events={myEventsList}
+                        startAccessor='startTime'
+                        endAccessor='endTime'
+                        onSelectEvent={(event) =>
+                            alert(event.title, event.description)
+                        }
+                        style={{ height: 500, width: 850 }}
+                    />
                 </div>
             </div>
         </section>

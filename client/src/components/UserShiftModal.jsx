@@ -14,34 +14,36 @@ const ShiftModal = () => {
     }, []);
 
     return (
-        <div className='shift-container'>
-            {shifts.slice(0).map((shift, k) => (
-                // <div key={k}>
-                <div className='shift-data' key={k}>
-                    <div>
-                        <p>Science - {shift.teacher.firstName}</p>
-                        <p>
-                            {moment(shift.startTime).format('h:mm a')}
-                            {' - '}
+        <>
+            <div className='shift-container'>
+                <div className='shifts-cont'>
+                    {shifts.slice(0).map((shift, k) => (
+                        <div className='shift-data' key={k}>
+                            <p>Science - {shift.teacher.firstName}</p>
+                            <p>
+                                {moment(shift.startTime).format('h:mm a')}
+                                {' - '}
 
-                            {moment(shift.endTime).format('h:mm a')}
-                        </p>
-                    </div>
-
-                    <div className='view-button'>
-                        <Button
-                            onClick={() => setOpenView(true)}
-                            variant='contained'
-                        >
-                            View
-                        </Button>
-                    </div>
+                                {moment(shift.endTime).format('h:mm a')}
+                            </p>
+                            <div className='view-button'>
+                                <Button
+                                    onClick={() => {
+                                        setCurrent(k);
+                                        setOpenView(true);
+                                    }}
+                                    variant='contained'
+                                >
+                                    View
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                //
-            ))}
+            </div>
 
             {/* Modal - View Shift */}
-            {openview ? (
+            {openview && (
                 <Modal open={openview} onClose={() => setOpenView(false)}>
                     <Box
                         sx={{
@@ -98,8 +100,8 @@ const ShiftModal = () => {
                         </div>
                     </Box>
                 </Modal>
-            ) : null}
-        </div>
+            )}
+        </>
     );
 };
 
