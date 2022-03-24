@@ -113,10 +113,10 @@ export const Shifts = () => {
                                         {/* Select Shift for Time Off - Book Time Off Modal */}
 
                                         <FormControl fullWidth>
-                                            <InputLabel>
+                                            <InputLabel id='demo-simple-select-label'>
                                                 Select Shift
                                             </InputLabel>
-                                            <Select>
+                                            <Select label='Select Shift'>
                                                 <MenuItem value={1}>A</MenuItem>
                                                 <MenuItem value={1}>B</MenuItem>
                                                 <MenuItem value={1}>C</MenuItem>
