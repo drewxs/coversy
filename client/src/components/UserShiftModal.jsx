@@ -21,6 +21,11 @@ const ShiftModal = () => {
                     <p>
                         {moment(shifts[current].startTime).format('h:mm a')}
                         {' - '}
+                    </p>
+
+                    <p>
+                        {moment(shifts[current].startTime).format('h:mm a')}
+                        {' - '}
 
                         {moment(shifts[current].endTime).format('h:mm a')}
                     </p>
