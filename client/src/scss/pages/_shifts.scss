@@ -65,12 +65,12 @@
         height: 10%;
         display: flex;
 
-        .shiftBox-container {
+        .shift-tab-container {
             width: 50%;
             height: 50px;
         }
 
-        .postBox-container {
+        .post-tab-container {
             width: 50%;
             height: 50px;
         }
@@ -127,7 +127,6 @@
             border: 1px solid rgb(0, 0, 0);
             border-radius: 0.5em;
             margin-top: 1em;
-            padding: 0.25em 0.25em;
         }
 
         .shift-info {

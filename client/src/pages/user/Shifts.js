@@ -53,9 +53,9 @@ export const Shifts = () => {
                     {/* My Shift / Post Shift */}
                     <div className='left-container'>
                         <div className='option-container'>
-                            <div className='shiftBox-container'>
+                            <div className='shift-tab-container'>
                                 <Button
-                                    variant='variant'
+                                    variant='contained'
                                     onClick={() => shiftView()}
                                     id='shift-box'
                                 >
@@ -64,7 +64,7 @@ export const Shifts = () => {
                             </div>
 
                             {/* Posted Shifts */}
-                            <div className='postBox-container'>
+                            <div className='post-tab-container'>
                                 <Button
                                     className='btn btn-select'
                                     variant='text'
