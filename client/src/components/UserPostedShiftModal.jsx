@@ -19,7 +19,12 @@ const PostedModal = () => {
                 <div className='posted'>
                     <div className='posted-data'>
                         <p>Math - {shifts[current]?.teacher.firstName}</p>
-                        <p>12 PM - 1PM</p>
+                        <p>
+                            {moment(shifts[current].startTime).format('h:mm a')}
+                            {' - '}
+
+                            {moment(shifts[current].endTime).format('h:mm a')}
+                        </p>
                     </div>
 
                     <div className='view-button'>
