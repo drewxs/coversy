@@ -24,9 +24,12 @@ exports.loginValidation = (data) => {
 
 exports.updateValidation = (data) => {
 	const schema = Joi.object({
-		firstName: Joi.string().max(64).required(),
-		lastName: Joi.string().max(64).required(),
+		firstName: Joi.string().max(64),
+		lastName: Joi.string().max(64),
 		middleInitial: Joi.string().min(1).max(1),
+		phone: Joi.string()
+			.length(10)
+			.pattern(/^[0-9]+$/),
 	});
 	return schema.validate(data);
 };

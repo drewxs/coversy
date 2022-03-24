@@ -85,7 +85,6 @@ describe('Endpoint testing [shifts]', () => {
 	});
 });
 
-// test liam branch
 describe('Endpoint testing [users]', () => {
 	it('Get user by id', (done) => {
 		chai.request(server)
@@ -165,33 +164,7 @@ describe('Endpoint testing [users]', () => {
 			.put(`/api/user/555555/activate`)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {
-				res.should.have.status(400);
-				done();
-			});
-	});
-	it('Update user profile picture by id', (done) => {
-		chai.request(server)
-			.put(`/api/user/${process.env.TEST_TEACHER}/updatepicture`)
-			.set('content-type', 'application/json')
-			.set('auth-token', process.env.TEST_TOKEN)
-			.send({
-				avatar: 'user/images/' + process.env.S3_ACCESS_KEY,
-			})
-			.end((err, res) => {
-				res.should.have.status(200);
-				done();
-			});
-	});
-	it('Update user profile picture by id fail', (done) => {
-		chai.request(server)
-			.put(`/api/user/555555/updatepicture`)
-			.set('content-type', 'application/json')
-			.set('auth-token', process.env.TEST_TOKEN)
-			.send({
-				avatar: 'user/images/' + process.env.S3_ACCESS_KEY,
-			})
-			.end((err, res) => {
-				res.should.have.status(400);
+				res.should.have.status(404);
 				done();
 			});
 	});
@@ -209,7 +182,7 @@ describe('Endpoint testing [users]', () => {
 	it('Delete user profile picture fail', (done) => {
 		chai.request(server)
 			.delete(
-				`/api/user/5555555/${process.env.S3_ACCESS_KEY}/deletepicture`
+				`/api/user/555555/${process.env.S3_ACCESS_KEY}/deletepicture`
 			)
 			.set('auth-token', process.env.TEST_TOKEN)
 			.end((err, res) => {

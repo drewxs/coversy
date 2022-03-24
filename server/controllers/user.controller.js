@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
 const aws = require('aws-sdk');
+const { updateValidation } = require('../util/validation');
 
 aws.config.update({
 	secretAccessKey: process.env.S3_ACCESS_SECRET,
@@ -41,7 +42,7 @@ exports.getUsersBySite = async (req, res) => {
  * @route PUT /user/:userId
  * @access User
  */
-exports.updateUserById = async (req, res) => {
+exports.updateUserById = (req, res) => {
 	const updateQuery = {};
 	if (req.body.firstName) updateQuery.firstName = escape(req.body.firstName);
 	if (req.body.lastName) updateQuery.lastName = escape(req.body.lastName);
@@ -54,6 +55,9 @@ exports.updateUserById = async (req, res) => {
 	if (req.body.verified) updateQuery.verified = escape(req.body.verified);
 	if (req.body.site) updateQuery.site = escape(req.body.site);
 	const userId = escape(req.params.userId);
+
+	const { error } = updateValidation(updateQuery);
+	if (error) return res.status(400).json(error.details[0].message);
 
 	User.findByIdAndUpdate(userId, updateQuery, { new: true })
 		.then((user) => {
@@ -70,7 +74,12 @@ exports.updateUserById = async (req, res) => {
  */
 exports.toggleUserActivatedById = async (req, res) => {
 	const userId = escape(req.params.userId);
-	const user = await User.findById(userId);
+	let user;
+	try {
+		user = await User.findById(userId);
+	} catch (err) {
+		return res.status(404).send('User not found.');
+	}
 
 	if (!user) return res.status(404).json('Error: User ID does not exist.');
 	if (user.site != req.user.site)
