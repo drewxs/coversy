@@ -4,20 +4,10 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
-import PostedModal from 'components/UserPostedShiftModal';
-import ShiftModal from 'components/UserShiftModal';
+import PostedView from 'components/UserPostedShiftView';
+import ShiftView from 'components/UserShiftView';
 
-import {
-    Box,
-    Typography,
-    Modal,
-    Button,
-    TextField,
-    Select,
-    InputLabel,
-    FormControl,
-    MenuItem,
-} from '@mui/material';
+import { Box, Typography, Modal, Button, TextField } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
 const myEventsList = [
@@ -105,25 +95,11 @@ export const Shifts = () => {
                                     }}
                                 >
                                     {/* Description Box - Book Time Off Modal */}
-                                    <Typography
-                                        variant='h5'
-                                        sx={{ mb: '1rem' }}
-                                    >
+                                    <Typography variant='h5'>
                                         Book Time Off
                                     </Typography>
 
                                     {/* Select Shift for Time Off - Book Time Off Modal */}
-
-                                    <FormControl fullWidth>
-                                        <InputLabel></InputLabel>
-                                        <Select label='Select Shift'>
-                                            <MenuItem value={1}>A</MenuItem>
-                                            <MenuItem value={1}>B</MenuItem>
-                                            <MenuItem value={1}>C</MenuItem>
-                                            <MenuItem value={1}>D</MenuItem>
-                                        </Select>
-                                    </FormControl>
-
                                     <TextField
                                         className='input-form'
                                         variant='outlined'
@@ -154,10 +130,10 @@ export const Shifts = () => {
                                     </Button>
                                 </Box>
                             </Modal>
-                            <div>{openShift && <ShiftModal />}</div>{' '}
+                            <div>{openShift && <ShiftView />}</div>{' '}
                             {/* My Shift View */}
-                            <div>{openPost && <PostedModal />}</div>{' '}
-                            {/* My Posted Shift View */}
+                            <div>{openPost && <PostedView />}</div>{' '}
+                            {/* My Posted Shift View */}{' '}
                         </div>
                     </div>
                 </div>

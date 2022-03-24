@@ -4,7 +4,7 @@ import { Box, Typography, Modal, Button, TextField } from '@mui/material';
 import { GetShifts } from 'redux/shift';
 import moment from 'moment';
 
-const PostedModal = () => {
+const PostedView = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const [current, setCurrent] = useState(0);
     const [openview, setOpenView] = useState(false);
@@ -104,4 +104,4 @@ const PostedModal = () => {
     );
 };
 
-export default PostedModal;
+export default PostedView;
