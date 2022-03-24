@@ -106,16 +106,17 @@ export const Shifts = () => {
                                         }}
                                     >
                                         {/* Description Box - Book Time Off Modal */}
-                                        <Typography variant='h5'>
+                                        <Typography
+                                            variant='h5'
+                                            sx={{ mb: '1rem' }}
+                                        >
                                             Book Time Off
                                         </Typography>
 
                                         {/* Select Shift for Time Off - Book Time Off Modal */}
 
                                         <FormControl fullWidth>
-                                            <InputLabel id='demo-simple-select-label'>
-                                                Select Shift
-                                            </InputLabel>
+                                            <InputLabel></InputLabel>
                                             <Select label='Select Shift'>
                                                 <MenuItem value={1}>A</MenuItem>
                                                 <MenuItem value={1}>B</MenuItem>

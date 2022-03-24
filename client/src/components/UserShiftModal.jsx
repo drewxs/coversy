@@ -16,24 +16,25 @@ const ShiftModal = () => {
     return (
         <div className='shift-container'>
             <div className='shifts'>
-                <div className='shift-data'>
-                    <p>Science - {shifts[current]?.teacher.firstName}</p>
-                    <p>
-                        {moment(shifts[current].startTime).format('h:mm a')}
-                        {' - '}
+                {shifts.slice(0).map((shift, k) => (
+                    <div className='shift-data' key={k}>
+                        <p>Science - {shift.teacher.firstName}</p>
+                        <p>
+                            {moment(shift.startTime).format('h:mm a')}
+                            {' - '}
 
-                        {moment(shifts[current].endTime).format('h:mm a')}
-                    </p>
-                </div>
-
-                <div className='view-button'>
-                    <Button
-                        onClick={() => setOpenView(true)}
-                        variant='contained'
-                    >
-                        View
-                    </Button>
-                </div>
+                            {moment(shift.endTime).format('h:mm a')}
+                        </p>
+                        <div className='view-button'>
+                            <Button
+                                onClick={() => setOpenView(true)}
+                                variant='contained'
+                            >
+                                View
+                            </Button>
+                        </div>
+                    </div>
+                ))}
 
                 {/* Modal - View Shift */}
                 {openview ? (
