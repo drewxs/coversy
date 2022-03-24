@@ -14,6 +14,9 @@ import {
     Button,
     TextField,
     Select,
+    InputLabel,
+    FormControl,
+    MenuItem,
 } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
@@ -109,31 +112,17 @@ export const Shifts = () => {
 
                                         {/* Select Shift for Time Off - Book Time Off Modal */}
 
-                                        <Select
-                                            options={[
-                                                {
-                                                    value: 'chocolate',
-                                                    label: 'Chocolate',
-                                                },
-                                                {
-                                                    value: 'strawberry',
-                                                    label: 'Strawberry',
-                                                },
-                                                {
-                                                    value: 'vanilla',
-                                                    label: 'Vanilla',
-                                                },
-                                            ]}
-                                        />
-
-                                        <TextField
-                                            select
-                                            sx={{ mt: '1rem' }}
-                                            className='input-form'
-                                            variant='outlined'
-                                            label='Select Shift'
-                                            fullWidth
-                                        ></TextField>
+                                        <FormControl fullWidth>
+                                            <InputLabel>
+                                                Select Shift
+                                            </InputLabel>
+                                            <Select>
+                                                <MenuItem value={1}>A</MenuItem>
+                                                <MenuItem value={1}>B</MenuItem>
+                                                <MenuItem value={1}>C</MenuItem>
+                                                <MenuItem value={1}>D</MenuItem>
+                                            </Select>
+                                        </FormControl>
 
                                         <TextField
                                             className='input-form'
