@@ -19,18 +19,13 @@ const ShiftModal = () => {
                 <div className='shift-data'>
                     <p>Science - {shifts[current]?.teacher.firstName}</p>
 
-                    {/* For the time display: works but breaks when you refresh the page for some reason
-                                            <p>
-                                                {moment(
-                                                    shifts[current].startTime
-                                                ).format('h:mm a')}
-                                                {' - '}
+                    {/* For the time display: works but breaks when you refresh the page for some reason */}
+                    <p>
+                        {moment(shifts[current].startTime).format('h:mm a')}
+                        {' - '}
 
-                                                {moment(
-                                                    shifts[current].endTime
-                                                ).format('h:mm a')}
-                                            </p>
-                                            */}
+                        {moment(shifts[current].endTime).format('h:mm a')}
+                    </p>
                 </div>
 
                 <div className='view-button'>
