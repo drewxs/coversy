@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Typography, Modal, Button, TextField } from '@mui/material';
+import { Box, Typography, Modal, Button } from '@mui/material';
 import { GetShifts } from 'redux/shift';
 import moment from 'moment';
 
 const ShiftView = () => {
     const shifts = useSelector((state) => state.shift.shifts);
-    const [description, setDescription] = useState('');
     const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(0);
     useEffect(() => {
@@ -16,30 +15,34 @@ const ShiftView = () => {
     return (
         <>
             <div className='shift-container'>
-                <div className='shifts-cont'>
-                    {shifts.slice(0).map((shift, k) => (
-                        <div className='shift-data' key={k}>
-                            <p>Science - {shift.teacher.firstName}</p>
-                            <p>
-                                {moment(shift.startTime).format('h:mm a')}
-                                {' - '}
+                {shifts.slice(0).map((shift, k) => (
+                    <div className='shift-data card' key={k}>
+                        <div className='shift-info'>
+                            <div>
+                                <p>Science - {shift.teacher.firstName}</p>
+                                <p>
+                                    {moment(shift.startTime).format('h:mm a')}
+                                    {' - '}
 
-                                {moment(shift.endTime).format('h:mm a')}
-                            </p>
-                            <div className='view-button'>
-                                <Button
-                                    onClick={() => {
-                                        setCurrent(k);
-                                        setOpenView(true);
-                                    }}
-                                    variant='contained'
-                                >
-                                    View
-                                </Button>
+                                    {moment(shift.endTime).format('h:mm a')}
+                                </p>
                             </div>
                         </div>
-                    ))}
-                </div>
+
+                        {/* View Button */}
+                        <div className='view-button'>
+                            <Button
+                                onClick={() => {
+                                    setCurrent(k);
+                                    setOpenView(true);
+                                }}
+                                variant='contained'
+                            >
+                                View
+                            </Button>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* Modal - View Shift */}
