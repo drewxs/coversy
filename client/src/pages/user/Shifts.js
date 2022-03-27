@@ -10,6 +10,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Typography, Modal, Button, TextField, Tab } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
+// Figure out how to make events show in the calendar
+
 const myEventsList = [
     { start: new Date(), end: new Date(), title: 'special event' },
 ];
