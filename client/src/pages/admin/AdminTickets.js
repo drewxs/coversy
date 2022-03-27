@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -8,12 +8,15 @@ import {
     TableCell,
     TableHead,
     TableRow,
+    Tab,
+    Tabs,
+    CircularProgress,
 } from '@mui/material';
+import { TabPanel, TabContext } from '@mui/lab';
 import { useSelector } from 'react-redux';
 import {
     GetUnresolvedTickets,
     GetResolvedTickets,
-    AddTicket,
     ResolveTicket,
     UnresolveTicket,
 } from 'redux/ticket';
@@ -22,72 +25,148 @@ import {
 
 export const AdminTickets = () => {
     const tickets = useSelector((state) => state.ticket.tickets);
-    const [open, setOpen] = React.useState(false);
-    const [current, setCurrent] = React.useState(null);
+    const resolvedTickets = useSelector(
+        (state) => state.ticket.resolvedTickets
+    );
+    const loading = useSelector((state) => state.ticket.loading);
+    const loadingResolved = useSelector(
+        (state) => state.ticket.loadingResolved
+    );
+
+    const [open, setOpen] = useState(false);
+    const [current, setCurrent] = useState({});
     const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setCurrent(null);
-        setOpen(false);
+    const handleResolve = (ticket) => {
+        if (ticket.resolved) {
+            UnresolveTicket(ticket);
+        } else {
+            ResolveTicket(ticket);
+        }
     };
 
-    const handleResovle = () => {
-        //set ticket.status to resovled
-        setOpen(false);
+    const [tabValue, setTabValue] = React.useState('0');
+    const handleChange = (event, newValue) => {
+        setTabValue(newValue);
     };
 
     useEffect(() => {
         GetUnresolvedTickets();
     }, []);
 
+    useEffect(() => {
+        if (tabValue === '1') GetResolvedTickets();
+    }, [tabValue]);
+
     return (
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Table stickyHeader>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Phone</TableCell>
-                                <TableCell>Type</TableCell>
-                                <TableCell>Description</TableCell>
-                                <TableCell>View</TableCell>
-                                <TableCell>Status</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {tickets.map((ticket, k) => (
-                                <TableRow key={k}>
-                                    <TableCell>
-                                        {ticket.user.firstName}{' '}
-                                        {ticket.user.lastName}
-                                    </TableCell>
-                                    <TableCell>{ticket.user.email}</TableCell>
-                                    <TableCell>{ticket.user.phone}</TableCell>
-                                    <TableCell>
-                                        {ticket.type === 1 && 'Payroll Issue'}
-                                        {ticket.type === 2 && 'Time-off Issue'}
-                                    </TableCell>
-                                    <TableCell>{ticket.message}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            onClick={() => {
-                                                handleOpen();
-                                                setCurrent(k);
-                                            }}
-                                        >
-                                            View
-                                        </Button>
-                                    </TableCell>
-                                    <TableCell>
-                                        {ticket.resolved
-                                            ? 'Resolved'
-                                            : 'Unresolved'}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <TabContext value={tabValue}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <Tabs value={tabValue} onChange={handleChange}>
+                                <Tab label='Unresolved' value='0' />
+                                <Tab label='Resolved' value='1' />
+                            </Tabs>
+                        </Box>
+                        <TabPanel value='0' sx={{ width: '100%' }}>
+                            {loading ? (
+                                <CircularProgress />
+                            ) : (
+                                <Table stickyHeader>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Email</TableCell>
+                                            <TableCell>Phone</TableCell>
+                                            <TableCell>Type</TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {tickets.map((ticket, k) => (
+                                            <TableRow key={k}>
+                                                <TableCell>
+                                                    {ticket.user.firstName}{' '}
+                                                    {ticket.user.lastName}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.user.email}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.user.phone}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.type === 1 &&
+                                                        'Payroll Issue'}
+                                                    {ticket.type === 2 &&
+                                                        'Time-off Issue'}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Button
+                                                        onClick={() => {
+                                                            handleOpen();
+                                                            setCurrent(ticket);
+                                                        }}
+                                                    >
+                                                        Review
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </TabPanel>
+                        <TabPanel value='1' sx={{ width: '100%' }}>
+                            {loadingResolved ? (
+                                <CircularProgress />
+                            ) : (
+                                <Table stickyHeader>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Email</TableCell>
+                                            <TableCell>Phone</TableCell>
+                                            <TableCell>Type</TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {resolvedTickets.map((ticket, k) => (
+                                            <TableRow key={k}>
+                                                <TableCell>
+                                                    {ticket.user.firstName}{' '}
+                                                    {ticket.user.lastName}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.user.email}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.user.phone}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {ticket.type === 1 &&
+                                                        'Payroll Issue'}
+                                                    {ticket.type === 2 &&
+                                                        'Time-off Issue'}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Button
+                                                        onClick={() => {
+                                                            handleOpen();
+                                                            setCurrent(ticket);
+                                                        }}
+                                                    >
+                                                        Review
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </TabPanel>
+                    </TabContext>
                 </div>
             </section>
 
@@ -98,6 +177,7 @@ export const AdminTickets = () => {
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
+                        transform: 'translate(-50%, -50%)',
                         width: 400,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
@@ -105,21 +185,28 @@ export const AdminTickets = () => {
                     }}
                 >
                     <h2>View</h2>
-                    <p>Name: </p>
+
                     <p>
-                        Type: {tickets[current]?.type === 1 && 'Payroll Issue'}
-                        {tickets[current]?.type === 2 && 'Time-off Issue'}
+                        Type: {current.type === 1 && 'Payroll Issue'}
+                        {current.type === 2 && 'Time-off Issue'}
                     </p>
-                    <p>Description</p>
+                    <p> {current.message} </p>
                     <br />
                     <Button
                         variant='outlined'
                         color='primary'
-                        onClick={() => handleResovle()}
+                        onClick={() => {
+                            handleResolve(current);
+                            setOpen(false)();
+                        }}
                     >
-                        Resovle
+                        {current.resolved ? (
+                            <p>Set Unresolved</p>
+                        ) : (
+                            <p>Set Resolved</p>
+                        )}
                     </Button>
-                    <Button onClick={() => handleClose()}>Cancel</Button>
+                    <Button onClick={() => setOpen(false)()}>Cancel</Button>
                 </Box>
             </Modal>
         </>
