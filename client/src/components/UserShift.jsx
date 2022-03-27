@@ -1,0 +1,46 @@
+import React from 'react';
+import moment from 'moment';
+import { PostShift } from 'redux/shift';
+import { Button } from '@mui/material';
+
+export const UserShift = (shift, setCurrent, setOpenView) => {
+    return (
+        <div className='shift-data card'>
+            <div className='shift-info'>
+                <h3>
+                    {shift.subject} - {shift.teacher.firstName}
+                </h3>
+                <p>
+                    {moment(shift.startTime).format('h:mm a')}
+                    {' - '}
+
+                    {moment(shift.endTime).format('h:mm a')}
+                </p>
+            </div>
+
+            {/* View Button */}
+            <div className='view-button'>
+                <Button
+                    size='small'
+                    onClick={() => {
+                        setCurrent(shift);
+                        setOpenView(true);
+                    }}
+                    variant='contained'
+                    sx={{ mb: '0.5rem' }}
+                >
+                    View
+                </Button>
+                <Button
+                    size='small'
+                    onClick={() => {
+                        PostShift(shift._id);
+                    }}
+                    variant='contained'
+                >
+                    Post
+                </Button>
+            </div>
+        </div>
+    );
+};
