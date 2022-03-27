@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { GetShifts } from 'redux/shift';
-import PostedModal from 'components/PostedShiftModal';
-import {
-    Box,
-    Typography,
-    Modal,
-    Button,
-    TextField,
-    Select,
-} from '@mui/material';
+import PostedView from 'components/UserPostedShiftView';
+import ShiftView from 'components/UserShiftView';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
+import { Box, Typography, Modal, Button, TextField, Tab } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
 const myEventsList = [
@@ -20,12 +15,13 @@ const myEventsList = [
 ];
 
 export const Shifts = () => {
-    const shifts = useSelector((state) => state.shift.shifts);
     const [description, setDescription] = useState('');
-    const [openpost, setOpenPost] = useState(false);
-    const [openview, setOpenView] = useState(false);
     const [openbook, setOpenBook] = useState(false);
-    const [current, setCurrent] = useState(0);
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event1, newValue) => {
+        setValue(newValue);
+    };
     useEffect(() => {
         GetShifts();
     }, []);
@@ -33,147 +29,51 @@ export const Shifts = () => {
     return (
         <section className='dashboard shifts'>
             <div className='container'>
-                <div className='dash-container'>
-                    {/* My Shift / Post Shift */}
-                    <div className='left-container'>
-                        <div className='option-container'>
-                            <div className='shiftBox-container'>
-                                <Button variant='variant' id='shift-box'>
-                                    My Shifts
-                                </Button>
-                            </div>
-
-                            {/* Posted Shifts */}
-                            <div className='postBox-container'>
-                                <Button
-                                    className='btn btn-select'
-                                    variant='text'
-                                    id='post-box'
-                                    onClick={() => setOpenPost(true)}
+                <div className='shift-col card'>
+                    <div className='tab-container'>
+                        {/*{/* My Shift / Posted Shift Tabs */}
+                        <Box sx={{ width: '100%', typography: 'body1' }}>
+                            <TabContext value={value}>
+                                <Box
+                                    sx={{
+                                        borderBottom: 1,
+                                        borderColor: 'divider',
+                                    }}
                                 >
-                                    Posted Shift
-                                </Button>
-                            </div>
-                        </div>
+                                    <TabList centered onChange={handleChange}>
+                                        <Tab label='My Shifts' value='1' />
+                                        <Tab label='Posted Shifts' value='2' />
+                                    </TabList>
+                                </Box>
 
-                        {/* Book Time Off Button */}
-                        <div className='displayText'>
-                            <div className='shift-data'>
-                                <div className='btn-book-time'>
-                                    <Button
-                                        sx={{ mb: 2 }}
-                                        variant='contained'
-                                        onClick={() => setOpenBook(true)}
-                                    >
-                                        Book time off
-                                    </Button>
-                                </div>
+                                <TabPanel className='shift-tab' value='1'>
+                                    {/*The Shift View*/}
+                                    {/* Book Time Off Button */}
 
-                                {/* My Shift Example */}
-                                <div className='shift-container'>
-                                    <div className='shifts'>
-                                        <div className='shift-data'>
-                                            <p>
-                                                Science -{' '}
-                                                {
-                                                    shifts[current]?.teacher
-                                                        .firstName
-                                                }{' '}
-                                            </p>
-                                            <p>12 PM - 1PM</p>
-                                        </div>
-
-                                        <div className='view-button'>
-                                            <Button
-                                                onClick={() =>
-                                                    setOpenView(true)
-                                                }
-                                                variant='contained'
-                                            >
-                                                View
-                                            </Button>
-                                        </div>
-
-                                        {/* Modal - View Shift */}
-                                        {openview ? (
-                                            <Modal
-                                                open={openview}
-                                                onClose={() =>
-                                                    setOpenView(false)
-                                                }
-                                            >
-                                                <Box
-                                                    sx={{
-                                                        position: 'absolute',
-                                                        top: '50%',
-                                                        left: '50%',
-                                                        transform:
-                                                            'translate(-50%, -50%)',
-                                                        width: 400,
-                                                        bgcolor:
-                                                            'background.paper',
-                                                        boxShadow: 24,
-                                                        p: 4,
-                                                    }}
-                                                >
-                                                    View Shift
-                                                </Typography>
-                                                <div className='shift-info'>
-                                                    {'Date: Jan 25, 2022 '}
-                                                    <br></br>
-
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .firstName
-                                                    }
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .lastName
-                                                    }
-                                                    <br></br>
-                                                    {'  Start time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .startTime
-                                                    }
-                                                    <br></br>
-                                                    {' End time: '}
-                                                    {
-                                                        shifts[current]?.teacher
-                                                            .endTime
-                                                    }
-
-                                                    <br></br>
-                                                    <TextField
-                                                        label='Description'
-                                                        fullWidth
-                                                    />
-                                                </div>
-                                            </Box>
-                                        </Modal>
-                                    ) : null}
-                                </div>
-                            </div>
-                            <div>
-                                <PostedModal />
-                            </div>
-                        </div>
-                    </div>
-                    {/* Calendar View */}
-                    <div className='calendar'>
-                        <Calendar
-                            localizer={localizer}
-                            events={myEventsList}
-                            startAccessor='startTime'
-                            endAccessor='endTime'
-                            onSelectEvent={(event) =>
-                                alert(event.title, event.description)
-                            }
-                            style={{ height: 500, width: 850 }}
-                        />
+                                    <div className='timeoff-button'>
+                                        <Button
+                                            sx={{
+                                                mb: '1rem',
+                                                ml: '1rem',
+                                            }}
+                                            variant='contained'
+                                            onClick={() => setOpenBook(true)}
+                                        >
+                                            Book time off{' '}
+                                        </Button>
+                                    </div>
+                                    <ShiftView />
+                                </TabPanel>
+                                <TabPanel value='2'>
+                                    {/*The Posted Shift View*/}
+                                    <PostedView />
+                                </TabPanel>
+                            </TabContext>
+                        </Box>
                     </div>
 
                     {/* Modal - Book Time Off */}
+
                     <Modal open={openbook} onClose={() => setOpenBook(false)}>
                         <Box
                             sx={{
@@ -189,14 +89,8 @@ export const Shifts = () => {
                         >
                             {/* Description Box - Book Time Off Modal */}
                             <Typography variant='h5'>Book Time Off</Typography>
+
                             {/* Select Shift for Time Off - Book Time Off Modal */}
-                            <TextField
-                                select
-                                className='input-form'
-                                variant='outlined'
-                                label='Select Shift'
-                                fullWidth
-                            ></TextField>
                             <TextField
                                 className='input-form'
                                 variant='outlined'
@@ -205,8 +99,7 @@ export const Shifts = () => {
                                 sx={{ mt: '1rem' }}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                            ></TextField>
-
+                            />
                             {/* Book and Cancel Buttons - Book Time Off Modal */}
                             <Button
                                 variant='contained'
@@ -227,9 +120,20 @@ export const Shifts = () => {
                         </Box>
                     </Modal>
                 </div>
+                {/* Calendar View */}
+                <div className='calendar card'>
+                    <Calendar
+                        localizer={localizer}
+                        events={myEventsList}
+                        startAccessor='startTime'
+                        endAccessor='endTime'
+                        onSelectEvent={(event) =>
+                            alert(event.title, event.description)
+                        }
+                        style={{ height: 500, width: 850 }}
+                    />
+                </div>
             </div>
         </section>
     );
 };
-
-// testing pull requets with new branch
