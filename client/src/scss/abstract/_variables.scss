@@ -6,19 +6,19 @@ $black: #080808;
 $white: #fcfcfc;
 
 // Fonts
-$fontBody: 'Inter';
+$fontBody: 'Montserrat';
 $fontBodyFallback: 'sans-serif';
-$fontHeading: 'Raleway';
+$fontHeading: 'Montserrat';
 $fontFaceUrl: 'https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Raleway:wght@500&display=swap';
 
 // Exporting for use in JS
 :export {
-	primary: $primary;
-	secondary: $secondary;
-	error: $error;
-	black: $black;
-	fontBody: $fontBody;
-	fontBodyFallback: $fontBodyFallback;
-	fontHeading: $fontHeading;
-	fontFaceUrl: $fontFaceUrl;
+    primary: $primary;
+    secondary: $secondary;
+    error: $error;
+    black: $black;
+    fontBody: $fontBody;
+    fontBodyFallback: $fontBodyFallback;
+    fontHeading: $fontHeading;
+    fontFaceUrl: $fontFaceUrl;
 }

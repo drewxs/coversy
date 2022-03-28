@@ -36,23 +36,23 @@ export const Shifts = () => {
                 <div className='shift-col card'>
                     <div className='tab-container'>
                         {/*{/* My Shift / Posted Shift Tabs */}
-                        <Box sx={{ width: '100%', typography: 'body1' }}>
-                            <Box
-                                sx={{
-                                    borderBottom: 1,
-                                    borderColor: 'divider',
-                                }}
+                        <Box
+                            sx={{
+                                width: '100%',
+                                typography: 'body1',
+                                position: 'relative',
+                            }}
+                        >
+                            <Tabs
+                                value={tab}
+                                onChange={(e, v) => setTab(v)}
+                                textColor='primary'
+                                indicatorColor='primary'
+                                className='tab-header'
                             >
-                                <Tabs
-                                    value={tab}
-                                    onChange={(e, v) => setTab(v)}
-                                    textColor='primary'
-                                    indicatorColor='primary'
-                                >
-                                    <Tab value={0} label='My Shifts' />
-                                    <Tab value={1} label='Posted Shifts' />
-                                </Tabs>
-                            </Box>
+                                <Tab value={0} label='My Shifts' />
+                                <Tab value={1} label='Posted Shifts' />
+                            </Tabs>
 
                             {/* Tab - My Shifts */}
                             {tab === 0 && (
@@ -100,8 +100,8 @@ export const Shifts = () => {
                                         )
                                         .map((shift, k) => (
                                             <UserShift
-                                                key={k}
                                                 shift={shift}
+                                                key={k}
                                                 setCurrent={setCurrent}
                                                 setOpenView={setOpenView}
                                             />
@@ -131,21 +131,12 @@ export const Shifts = () => {
                                             sx={{ mb: '1rem' }}
                                             variant='h5'
                                         >
-                                            View Shift
+                                            {current.subject} -
+                                            {current.teacher.firstName}
                                         </Typography>
 
                                         {/* Shift Info */}
                                         <div className='shift-info'>
-                                            <p>
-                                                <strong>Name: </strong>
-                                                {current.teacher.firstName}
-                                            </p>
-
-                                            <p>
-                                                <strong>Class: </strong>
-                                                {current.subject}
-                                            </p>
-
                                             <p>
                                                 <strong>Date: </strong>
                                                 {moment(
@@ -154,19 +145,15 @@ export const Shifts = () => {
                                             </p>
 
                                             <p>
-                                                <strong>Start time: </strong>
+                                                <strong>Time: </strong>
                                                 {moment(
                                                     current.startTime
-                                                ).format('h:mm a')}
-                                            </p>
-
-                                            <p>
-                                                <strong>End time: </strong>
+                                                ).format('h:mm a')}{' '}
+                                                -{' '}
                                                 {moment(current.endTime).format(
                                                     'h:mm a'
                                                 )}
                                             </p>
-
                                             <p className='shift-description'>
                                                 {current.details}
                                             </p>

@@ -121,16 +121,6 @@ export const Nav = () => {
                                 Shifts
                             </Button>
                             <Button
-                                href='/profile'
-                                className={`button ${
-                                    window.location.pathname === '/profile'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Profile
-                            </Button>
-                            <Button
                                 href='/payroll'
                                 className={`button ${
                                     window.location.pathname === '/payroll'
@@ -139,6 +129,16 @@ export const Nav = () => {
                                 }`}
                             >
                                 Payroll
+                            </Button>
+                            <Button
+                                href='/profile'
+                                className={`button ${
+                                    window.location.pathname === '/profile'
+                                        ? 'active'
+                                        : ''
+                                }`}
+                            >
+                                Profile
                             </Button>
                         </>
                     )}

@@ -21,6 +21,14 @@
             align-items: center;
         }
 
+        .tab-header {
+            background-color: $white;
+            box-shadow: 0 4px 4px -2px rgba($color: $black, $alpha: 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
         // Data for My Shift Data Tab
         .shift-container {
             display: flex;
@@ -39,7 +47,6 @@
                 .shift-info {
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
                     min-height: 100%;
                 }
 

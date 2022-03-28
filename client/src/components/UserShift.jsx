@@ -3,7 +3,7 @@ import moment from 'moment';
 import { PostShift } from 'redux/shift';
 import { Button } from '@mui/material';
 
-export const UserShift = (shift, setCurrent, setOpenView) => {
+export const UserShift = ({ shift, setCurrent, setOpenView }) => {
     return (
         <div className='shift-data card'>
             <div className='shift-info'>

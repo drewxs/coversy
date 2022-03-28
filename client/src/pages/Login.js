@@ -16,7 +16,7 @@ export const Login = () => {
     };
 
     useEffect(() => {
-        if (success) navigate('/profile');
+        if (success) navigate('/');
     }, [success, navigate]);
 
     return (
