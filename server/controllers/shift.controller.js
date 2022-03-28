@@ -76,7 +76,6 @@ exports.getShiftById = (req, res) => {
 exports.getShiftsBySite = (req, res) => {
     Shift.find({ site: req.user.site })
         .populate('teacher', 'firstName lastName email')
-        .populate('site', 'name')
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
 };
