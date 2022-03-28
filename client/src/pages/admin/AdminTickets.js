@@ -12,7 +12,6 @@ import {
     Tabs,
     CircularProgress,
 } from '@mui/material';
-import { TabPanel, TabContext } from '@mui/lab';
 import { useSelector } from 'react-redux';
 import {
     GetUnresolvedTickets,
@@ -44,7 +43,7 @@ export const AdminTickets = () => {
         }
     };
 
-    const [tabValue, setTabValue] = React.useState('0');
+    const [tabValue, setTabValue] = React.useState(0);
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
@@ -54,21 +53,21 @@ export const AdminTickets = () => {
     }, []);
 
     useEffect(() => {
-        if (tabValue === '1') GetResolvedTickets();
+        if (tabValue === 1) GetResolvedTickets();
     }, [tabValue]);
 
     return (
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <TabContext value={tabValue}>
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <Tabs value={tabValue} onChange={handleChange}>
-                                <Tab label='Unresolved' value='0' />
-                                <Tab label='Resolved' value='1' />
-                            </Tabs>
-                        </Box>
-                        <TabPanel value='0' sx={{ width: '100%' }}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={tabValue} onChange={handleChange}>
+                            <Tab label='Unresolved' value={0} />
+                            <Tab label='Resolved' value={1} />
+                        </Tabs>
+                    </Box>
+                    {tabValue === 0 && (
+                        <>
                             {loading ? (
                                 <CircularProgress />
                             ) : (
@@ -116,8 +115,10 @@ export const AdminTickets = () => {
                                     </TableBody>
                                 </Table>
                             )}
-                        </TabPanel>
-                        <TabPanel value='1' sx={{ width: '100%' }}>
+                        </>
+                    )}
+                    {tabValue === 1 && (
+                        <>
                             {loadingResolved ? (
                                 <CircularProgress />
                             ) : (
@@ -165,8 +166,8 @@ export const AdminTickets = () => {
                                     </TableBody>
                                 </Table>
                             )}
-                        </TabPanel>
-                    </TabContext>
+                        </>
+                    )}
                 </div>
             </section>
 
