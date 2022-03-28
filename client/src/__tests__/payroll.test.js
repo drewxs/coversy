@@ -21,20 +21,24 @@ describe('payroll state test', () => {
         expect(reducer(undefined, {})).toEqual(initialState);
     });
 
-    it('handles setPayroll pass', () => {
-        expect(reducer(initialState, setPayrolls('test to pass'))).toEqual({
-            ...initialState,
-            payrolls: 'test to pass',
-            loading: false,
-        });
-    });
-
-    it('handles setPayroll pass', () => {
-        expect(reducer(initialState, setPayroll('test to pass'))).toEqual({
-            ...initialState,
-            payroll: 'test to pass',
-            loading: false,
-        });
+    it('should return the setPayrolls', () => {
+        expect(
+            reducer(initialState, {
+                type: types.setPayrolls,
+                payload: {
+                    period: '2022-2',
+                    shifts: [{ id: '1', teacher: 'someone' }],
+                    hours: 2,
+                    pay: 480,
+                    deductions: 24,
+                    netPay: 456,
+                },
+            }).toEqual({
+                ...initialState,
+                shifts: [{ id: '1', teacher: 'someone' }],
+                loading: false,
+            })
+        );
     });
 
     it('handles loading pass', () => {
