@@ -30,8 +30,8 @@ exports.getUserPayrolls = async (req, res) => {
  */
 exports.getSitePayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
 
     const query = {
         site: req.user.site,
@@ -47,14 +47,13 @@ exports.getSitePayroll = async (req, res) => {
  */
 exports.getUserPayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
 
     const query = {
         $or: [{ teacher: req.user._id, sub: null }, { sub: req.user._id }],
         startTime: { $gte: firstDay, $lt: lastDay },
     };
-
     generateReport(req, res, query);
 };
 
