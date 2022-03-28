@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -43,10 +43,7 @@ export const AdminTickets = () => {
         }
     };
 
-    const [tabValue, setTabValue] = React.useState(0);
-    const handleChange = (event, newValue) => {
-        setTabValue(newValue);
-    };
+    const [tabValue, setTabValue] = useState(0);
 
     useEffect(() => {
         GetUnresolvedTickets();
@@ -61,7 +58,12 @@ export const AdminTickets = () => {
             <section className='dashboard'>
                 <div className='container'>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={tabValue} onChange={handleChange}>
+                        <Tabs
+                            value={tabValue}
+                            onChange={(e, v) => {
+                                setTabValue(v);
+                            }}
+                        >
                             <Tab label='Unresolved' value={0} />
                             <Tab label='Resolved' value={1} />
                         </Tabs>
