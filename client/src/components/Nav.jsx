@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { LogoutUser } from 'redux/user';
+import logo from 'assets/logo.svg';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
@@ -11,30 +12,28 @@ export const Nav = () => {
     return (
         <section className='nav'>
             <div className='container'>
-                <h2>Coversy</h2>
+                <img className='logo' src={logo} alt='Coversy logo'></img>
                 <div>
                     {/* Unauthenticated links */}
                     {!authenticated && (
                         <>
                             <Button
-                                color={
-                                    window.location.pathname !== '/register'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/register'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname === '/register'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Register
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !== '/login'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/login'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname === '/login'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Login
                             </Button>
@@ -45,61 +44,56 @@ export const Nav = () => {
                     {authenticated && user.type === 1 && (
                         <>
                             <Button
-                                color={
-                                    window.location.pathname !==
-                                    '/dashboard/shifts'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/dashboard/shifts'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname ===
+                                    '/dashboard/shifts'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Shifts
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !==
-                                    '/dashboard/payroll'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/dashboard/payroll'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname ===
+                                    '/dashboard/payroll'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Payroll
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !==
-                                    '/dashboard/users'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/dashboard/users'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname ===
+                                    '/dashboard/users'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Users
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !==
-                                    '/dashboard/tickets'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/dashboard/tickets'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname ===
+                                    '/dashboard/tickets'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Tickets
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !== '/profile'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/profile'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname === '/profile'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Profile
                             </Button>
@@ -117,29 +111,33 @@ export const Nav = () => {
                     {authenticated && user.type === 2 && (
                         <>
                             <Button
-                                color={
-                                    window.location.pathname !==
-                                    '/dashboard/shifts'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
-                                href='/dashboard/shifts'
-                                className='button'
+                                href='/shifts'
+                                className={`button ${
+                                    window.location.pathname === '/shifts'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Shifts
                             </Button>
                             <Button
-                                color={
-                                    window.location.pathname !== '/profile'
-                                        ? 'primary'
-                                        : 'secondary'
-                                }
                                 href='/profile'
-                                className='button'
+                                className={`button ${
+                                    window.location.pathname === '/profile'
+                                        ? 'active'
+                                        : ''
+                                }`}
                             >
                                 Profile
                             </Button>
-                            <Button className='button logout' href='/payroll'>
+                            <Button
+                                href='/payroll'
+                                className={`button ${
+                                    window.location.pathname === '/payroll'
+                                        ? 'active'
+                                        : ''
+                                }`}
+                            >
                                 Payroll
                             </Button>
                         </>

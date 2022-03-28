@@ -1,14 +1,15 @@
 const router = require('express').Router();
 const {
-	createShift,
-	getShiftById,
-	getShiftsBySite,
-	getPostedShiftsBySite,
-	updateShiftById,
-	deleteShiftsBySite,
-	getShiftMaterials,
-	updateShiftMaterials,
-	takeShift,
+    createShift,
+    getShiftById,
+    getShiftsBySite,
+    getPostedShiftsBySite,
+    getShiftMaterials,
+    updateShiftById,
+    postShift,
+    takeShift,
+    updateShiftMaterials,
+    deleteShiftsBySite,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
 const { uploadMaterials } = require('../middleware/s3.uploader');
@@ -25,13 +26,13 @@ router.get('/:shiftId/files/:fileName', getShiftMaterials);
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
-router.put('/:shiftId/take', verifyToken, verifyShift, takeShift);
+router.put('/:shiftId/post', verifyToken, postShift);
+router.put('/:shiftId/take', verifyToken, takeShift);
 router.put(
-	'/:shiftId/uploadfiles',
-	verifyToken,
-	verifyShift,
-	uploadMaterials.array('materials', 10),
-	updateShiftMaterials
+    '/:shiftId/uploadfiles',
+    verifyToken,
+    uploadMaterials.array('materials', 10),
+    updateShiftMaterials
 );
 
 // DELETE

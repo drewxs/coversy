@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts, AddShift } from 'redux/shift';
-import Time from 'react-pure-time';
 import {
     Box,
     Typography,
@@ -14,6 +13,7 @@ import {
     TableRow,
 } from '@mui/material';
 import Papa from 'papaparse';
+import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
@@ -58,6 +58,7 @@ export const AdminShifts = () => {
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
+                                <TableCell>Subject</TableCell>
                                 <TableCell>Teacher</TableCell>
                                 <TableCell>Shift Date</TableCell>
                                 <TableCell>Shift Time</TableCell>
@@ -66,21 +67,20 @@ export const AdminShifts = () => {
                         <TableBody>
                             {shifts.map((shift) => (
                                 <TableRow key={shift._id}>
+                                    <TableCell>{shift.subject}</TableCell>
                                     <TableCell>
                                         {shift.teacher.firstName}{' '}
                                         {shift.teacher.lastName}
                                     </TableCell>
                                     <TableCell>
-                                        <Time
-                                            value={shift.startTime}
-                                            format='M d, Y'
-                                        />
+                                        {moment(shift.startTime).format(
+                                            'MMM d, Y'
+                                        )}
                                     </TableCell>
                                     <TableCell>
-                                        <Time
-                                            value={shift.endTime}
-                                            format='M d, Y'
-                                        />
+                                        {moment(shift.endTime).format(
+                                            'MMM d, Y'
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -1,189 +1,183 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
 import { GetShifts } from 'redux/shift';
-import { FetchSites } from 'redux/user';
+import { useSelector } from 'react-redux';
+import { UserShift } from 'components';
 import {
     Box,
     Typography,
     Modal,
     Button,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
     TextField,
+    Tabs,
+    Tab,
 } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
-const myEventsList = [
-    { start: new Date(), end: new Date(), title: 'special event' },
-];
-
 export const Shifts = () => {
+    const user = useSelector((state) => state.user.user);
     const shifts = useSelector((state) => state.shift.shifts);
+
     const [description, setDescription] = useState('');
-    const [openpost, setOpenPost] = useState(false);
-    const [openview, setOpenView] = useState(false);
     const [openbook, setOpenBook] = useState(false);
-    const sites = useSelector((state) => state.user.sites);
-    const [site, setSite] = useState('');
-    const [current, setCurrent] = useState(0);
+    const [openview, setOpenView] = useState(false);
+    const [current, setCurrent] = useState(null);
+    const [tab, setTab] = useState(0);
+
     useEffect(() => {
         GetShifts();
-        FetchSites();
     }, []);
 
     return (
         <section className='dashboard shifts'>
             <div className='container'>
-                <div className='mainDash-container'>
-                    {/* My Shift / Post Shift */}
-
-                    <div className='left-container'>
-                        <div className='myShiftBox'>
-                            <div className='shiftBox-container'>
-                                <Button variant='contained' id='shift-box'>
-                                    Shift Box
-                                </Button>
-                            </div>
-
-                            <div className='postBox-container'>
-                                <Button
-                                    className='btn btn-select'
-                                    variant='text'
-                                    id='post-box'
-                                    onClick={() => setOpenPost(true)}
+                <div className='shift-col card'>
+                    <div className='tab-container'>
+                        {/*{/* My Shift / Posted Shift Tabs */}
+                        <Box sx={{ width: '100%', typography: 'body1' }}>
+                            <Box
+                                sx={{
+                                    borderBottom: 1,
+                                    borderColor: 'divider',
+                                }}
+                            >
+                                <Tabs
+                                    value={tab}
+                                    onChange={(e, v) => setTab(v)}
+                                    textColor='primary'
+                                    indicatorColor='primary'
                                 >
-                                    Post Shift
-                                </Button>
-                            </div>
-                        </div>
-                        <div className='displayText'>
-                            <div className='btn-book-time'>
-                                <Button
-                                    sx={{ mb: 2 }}
-                                    variant='contained'
-                                    onClick={() => setOpenBook(true)}
-                                >
-                                    Book time off
-                                </Button>
-                            </div>
-                            <div className='cards'>
-                                {shifts.map((shift, k) => (
-                                    <div className='user'>
-                                        {shift.teacher.firstName}{' '}
-                                        {shift.teacher.lastName}
+                                    <Tab value={0} label='My Shifts' />
+                                    <Tab value={1} label='Posted Shifts' />
+                                </Tabs>
+                            </Box>
+
+                            {/* Tab - My Shifts */}
+                            {tab === 0 && (
+                                <>
+                                    {/* Book Time Off Button */}
+                                    <div className='timeoff-button'>
                                         <Button
-                                            sx={{ mb: 2 }}
-                                            variant='contained'
-                                            onClick={() => {
-                                                setCurrent(k);
-                                                setOpenView(true);
+                                            sx={{
+                                                marginLeft: '1rem',
+                                                marginTop: '1rem',
                                             }}
+                                            variant='contained'
+                                            onClick={() => setOpenBook(true)}
                                         >
-                                            View Shift
+                                            Book time off{' '}
                                         </Button>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                                    <div className='shift-container'>
+                                        {shifts
+                                            ?.filter(
+                                                (shift) =>
+                                                    shift.teacher._id ===
+                                                    user._id
+                                            )
+                                            .map((shift, k) => (
+                                                <UserShift
+                                                    key={k}
+                                                    shift={shift}
+                                                    setCurrent={setCurrent}
+                                                    setOpenView={setOpenView}
+                                                />
+                                            ))}
+                                    </div>
+                                </>
+                            )}
 
-                    {/* Calendar View */}
-                    <div className='calendar'>
-                        <Calendar
-                            localizer={localizer}
-                            events={myEventsList}
-                            startAccessor='start'
-                            endAccessor='end'
-                            onSelectEvent={(event) =>
-                                alert(event.title, event.description)
-                            }
-                            style={{ height: 500, width: 850 }}
-                        />
-                    </div>
+                            {/* Tab - Posted Shifts */}
+                            {tab === 1 && (
+                                <div className='shift-container'>
+                                    {shifts
+                                        ?.filter(
+                                            (shift) =>
+                                                shift.teacher._id ===
+                                                    user._id && shift.posted
+                                        )
+                                        .map((shift, k) => (
+                                            <UserShift
+                                                key={k}
+                                                shift={shift}
+                                                setCurrent={setCurrent}
+                                                setOpenView={setOpenView}
+                                            />
+                                        ))}
+                                </div>
+                            )}
 
-                    <Modal open={openpost} onClose={() => setOpenPost(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
-                            <Typography variant='h6'>Post Shift</Typography>
-                            <FormControl fullWidth>
-                                <InputLabel>Preferred Sub</InputLabel>
-                                <Select
-                                    className='input-form'
-                                    value={site}
-                                    label='Age'
-                                    onChange={(e) => setSite(e.target.value)}
+                            {/* Modal - View Shift */}
+                            {openview && (
+                                <Modal
+                                    open={openview}
+                                    onClose={() => setOpenView(false)}
                                 >
-                                    {sites?.map((site, k) => (
-                                        <MenuItem value={site._id} key={k}>
-                                            {site.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                className='input-form'
-                                variant='outlined'
-                                label='Description'
-                                fullWidth
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: 3 }}
-                                onClick={(e) => setOpenPost(false)}
-                            >
-                                Post
-                            </Button>
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: 3 }}
-                                onClick={(e) => setOpenPost(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
-                    </Modal>
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: 400,
+                                            bgcolor: 'background.paper',
+                                            boxShadow: 24,
+                                            p: 4,
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{ mb: '1rem' }}
+                                            variant='h5'
+                                        >
+                                            View Shift
+                                        </Typography>
 
-                    <Modal open={openview} onClose={() => setOpenView(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
-                            <Typography variant='h6'>View Shift</Typography>
-                            {shifts[current]?.teacher.firstName}{' '}
-                            {shifts[current]?.teacher.lastName} {' \n '}
-                            <br></br>
-                            {'  Start time: '} <br></br>
-                            {shifts[current]?.teacher.startTime}
-                            {' End time: '} {shifts[current]?.teacher.endTime}
+                                        {/* Shift Info */}
+                                        <div className='shift-info'>
+                                            <p>
+                                                <strong>Name: </strong>
+                                                {current.teacher.firstName}
+                                            </p>
+
+                                            <p>
+                                                <strong>Class: </strong>
+                                                {current.subject}
+                                            </p>
+
+                                            <p>
+                                                <strong>Date: </strong>
+                                                {moment(
+                                                    current.startTime
+                                                ).format('MMMM DD, YYYY')}
+                                            </p>
+
+                                            <p>
+                                                <strong>Start time: </strong>
+                                                {moment(
+                                                    current.startTime
+                                                ).format('h:mm a')}
+                                            </p>
+
+                                            <p>
+                                                <strong>End time: </strong>
+                                                {moment(current.endTime).format(
+                                                    'h:mm a'
+                                                )}
+                                            </p>
+
+                                            <p className='shift-description'>
+                                                {current.details}
+                                            </p>
+                                        </div>
+                                    </Box>
+                                </Modal>
+                            )}
                         </Box>
-                    </Modal>
+                    </div>
+
+                    {/* Modal - Book Time Off */}
                     <Modal open={openbook} onClose={() => setOpenBook(false)}>
                         <Box
                             sx={{
@@ -197,50 +191,55 @@ export const Shifts = () => {
                                 p: 4,
                             }}
                         >
-                            <Typography variant='h6'>Book Time Off</Typography>
-                            <FormControl fullWidth>
-                                <InputLabel>Preferred Sub</InputLabel>
-                                <Select
-                                    className='input-form'
-                                    value={site}
-                                    label='Age'
-                                    onChange={(e) =>
-                                        setOpenView(e.target.value)
-                                    }
-                                >
-                                    {sites?.map((site, k) => (
-                                        <MenuItem value={site._id} key={k}>
-                                            {site.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+                            <Typography variant='h5'>Book Time Off</Typography>
+
+                            {/* Select Shift for Time Off - Book Time Off Modal */}
+                            {/* Description Box - Book Time Off Modal */}
                             <TextField
                                 className='input-form'
                                 variant='outlined'
                                 label='Description'
                                 fullWidth
+                                sx={{ mt: '1rem' }}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
+                            {/* Book and Cancel Buttons - Book Time Off Modal */}
                             <Button
                                 variant='contained'
                                 color='primary'
-                                sx={{ mt: 3 }}
+                                sx={{ mt: '1rem' }}
                                 onClick={(e) => setOpenBook(false)}
                             >
                                 Book
                             </Button>
                             <Button
-                                variant='contained'
+                                variant='outlined'
                                 color='primary'
-                                sx={{ mt: 3 }}
+                                sx={{ mt: '1rem', ml: '1rem' }}
                                 onClick={(e) => setOpenBook(false)}
                             >
                                 Cancel
                             </Button>
                         </Box>
                     </Modal>
+                </div>
+
+                {/* Calendar View */}
+                <div className='calendar card'>
+                    <Calendar
+                        localizer={localizer}
+                        events={shifts}
+                        titleAccessor='subject'
+                        startAccessor='startTime'
+                        endAccessor='endTime'
+                        views={['month', 'agenda']}
+                        onSelectEvent={(event) => {
+                            setCurrent(event);
+                            setOpenView(true);
+                        }}
+                        style={{ height: 500, width: 850 }}
+                    />
                 </div>
             </div>
         </section>
