@@ -23,14 +23,15 @@
         margin-left: 1em;
         padding-bottom: 0.25em;
         border-bottom: 2px solid transparent;
-        transition: color 400ms ease, border-color 400ms ease;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        transition: color 800ms ease, border-color 800ms ease;
 
         &:hover {
             color: lighten($primary, 15%);
             background-color: transparent;
             border-color: lighten($primary, 15%);
+            transition: color 400ms ease, border-color 400ms ease;
         }
         &.active {
             color: lighten($primary, 15%);
