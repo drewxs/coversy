@@ -64,13 +64,9 @@ export const App = () => {
                                 path='/dashboard/users'
                                 element={<AdminUsers />}
                             />
-                            {/* <Route
-                                path='/dashboard/payroll/report'
-                                element={<CombinedPayrollReport />}
-                            /> */}
                             <Route
                                 path='/payroll/report/:date'
-                                element={<PayrollReport />}
+                                element={<CombinedPayrollReport />}
                             />
 
                             {/* Redirects */}

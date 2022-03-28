@@ -34,7 +34,7 @@ export const GetSitePayroll = async (date) => {
         const res = await axios.get(`${api}/payroll/site/${date}`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
-        store.dispatch(setPayroll(res.data));
+        store.dispatch(setPayroll(res.data[0]));
     } catch (err) {
         console.error(err);
     }
@@ -46,7 +46,7 @@ export const GetUserPayroll = async (date) => {
         const res = await axios.get(`${api}/payroll/user/${date}`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
-        store.dispatch(setPayroll(res.data));
+        store.dispatch(setPayroll(res.data[0]));
     } catch (err) {
         console.error(err);
     }

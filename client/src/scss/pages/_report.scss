@@ -19,26 +19,19 @@
     margin-bottom: 260px;
 
     .titles {
-        /*border: 1px solid rgb(0, 0, 0);*/
         float: left;
         width: 30%;
         padding: 5px;
     }
 
     .pay-info {
-        /*border: 1px solid rgb(0, 0, 0);*/
         float: right;
         display: block;
         padding: 5px;
         width: 20%;
     }
 
-    .period {
-        padding-top: 10px;
-    }
-
     .site {
-        /*border: 1px solid rgb(0, 0, 0);*/
         float: right;
         display: block;
         padding: 5px;
@@ -48,7 +41,6 @@
 
 .earnings,
 .deductions {
-    /*border: 1px solid rgb(0, 0, 0);*/
     p {
         display: inline;
     }

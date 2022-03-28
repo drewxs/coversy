@@ -35,11 +35,21 @@ export const Payroll = () => {
                             {payrolls?.map((payroll, k) => (
                                 <TableRow key={k}>
                                     <TableCell>{payroll.period}</TableCell>
-                                    <TableCell>${payroll.pay}</TableCell>
-                                    <TableCell>${payroll.deductions}</TableCell>
-                                    <TableCell>${payroll.netPay}</TableCell>
                                     <TableCell>
-                                        <Button>View</Button>
+                                        ${payroll.pay?.toFixed(2)}
+                                    </TableCell>
+                                    <TableCell>
+                                        ${payroll.deductions?.toFixed(2)}
+                                    </TableCell>
+                                    <TableCell>
+                                        ${payroll.netPay?.toFixed(2)}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            href={`/payroll/report/${payroll.period}`}
+                                        >
+                                            View
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
