@@ -74,13 +74,13 @@ export const AdminShifts = () => {
                                     </TableCell>
                                     <TableCell>
                                         {moment(shift.startTime).format(
-                                            'MMM d, Y'
+                                            'MMM D, Y'
                                         )}
                                     </TableCell>
                                     <TableCell>
-                                        {moment(shift.endTime).format(
-                                            'MMM d, Y'
-                                        )}
+                                        {moment(shift.startTime).format('h:mm')}
+                                        {' - '}
+                                        {moment(shift.endTime).format('h:mm A')}
                                     </TableCell>
                                 </TableRow>
                             ))}

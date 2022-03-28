@@ -11,9 +11,11 @@ export const UserShift = ({ shift, setCurrent, setOpenView }) => {
                     {shift.subject} - {shift.teacher.firstName}
                 </h3>
                 <p>
-                    {moment(shift.startTime).format('h:mm a')}
+                    {moment(shift.startTime).format('MMM D')}
+                    {'\u00a0\u00a0\u00a0'}
+                    {moment(shift.startTime).format('h:mm')}
                     {' - '}
-                    {moment(shift.endTime).format('h:mm a')}
+                    {moment(shift.endTime).format('h:mm A')}
                 </p>
             </div>
 
