@@ -8,6 +8,7 @@ const {
 	deleteShiftsBySite,
 	getShiftMaterials,
 	updateShiftMaterials,
+	takeShift,
 } = require('../controllers/shift.controller');
 const { verifyShift } = require('../middleware/verify.shift');
 const { uploadMaterials } = require('../middleware/s3.uploader');
@@ -24,10 +25,11 @@ router.get('/:shiftId/files/:fileName', getShiftMaterials);
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
+router.put('/:shiftId/take', verifyToken, verifyShift, takeShift);
 router.put(
 	'/:shiftId/uploadfiles',
-	// verifyToken,
-	// verifyShift,
+	verifyToken,
+	verifyShift,
 	uploadMaterials.array('materials', 10),
 	updateShiftMaterials
 );
