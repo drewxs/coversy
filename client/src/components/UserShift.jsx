@@ -13,7 +13,6 @@ export const UserShift = ({ shift, setCurrent, setOpenView }) => {
                 <p>
                     {moment(shift.startTime).format('h:mm a')}
                     {' - '}
-
                     {moment(shift.endTime).format('h:mm a')}
                 </p>
             </div>
@@ -33,9 +32,7 @@ export const UserShift = ({ shift, setCurrent, setOpenView }) => {
                 </Button>
                 <Button
                     size='small'
-                    onClick={() => {
-                        PostShift(shift._id);
-                    }}
+                    onClick={() => PostShift(shift._id)}
                     variant='contained'
                 >
                     Post

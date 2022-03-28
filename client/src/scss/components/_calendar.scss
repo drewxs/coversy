@@ -1,1 +1,10 @@
-@import 'react-big-calendar/lib/sass/styles';
+@use '../abstract' as *;
+@use 'react-big-calendar/lib/sass/styles';
+
+.rbc-event {
+    background-color: $primary;
+
+    &.rbc-selected {
+        background-color: rgba($color: $primary, $alpha: 0.8);
+    }
+}

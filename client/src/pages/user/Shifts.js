@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import { GetShifts } from 'redux/shift';
 import { useSelector } from 'react-redux';
@@ -36,148 +35,118 @@ export const Shifts = () => {
                 <div className='shift-col card'>
                     <div className='tab-container'>
                         {/*{/* My Shift / Posted Shift Tabs */}
-                        <Box
-                            sx={{
-                                width: '100%',
-                                typography: 'body1',
-                                position: 'relative',
-                            }}
+                        <Tabs
+                            value={tab}
+                            onChange={(e, v) => setTab(v)}
+                            textColor='primary'
+                            indicatorColor='primary'
+                            className='tab-header'
                         >
-                            <Tabs
-                                value={tab}
-                                onChange={(e, v) => setTab(v)}
-                                textColor='primary'
-                                indicatorColor='primary'
-                                className='tab-header'
-                            >
-                                <Tab value={0} label='My Shifts' />
-                                <Tab value={1} label='Posted Shifts' />
-                            </Tabs>
+                            <Tab value={0} label='My Shifts' />
+                            <Tab value={1} label='Posted Shifts' />
+                        </Tabs>
 
-                            {/* Tab - My Shifts */}
-                            {tab === 0 && (
-                                <>
-                                    {/* Book Time Off Button */}
-                                    <div className='timeoff-button'>
-                                        <Button
-                                            sx={{
-                                                marginLeft: '1rem',
-                                                marginTop: '1rem',
-                                            }}
-                                            variant='contained'
-                                            onClick={() => setOpenBook(true)}
-                                        >
-                                            Book time off{' '}
-                                        </Button>
-                                    </div>
-                                    <div className='shift-container'>
-                                        {shifts
-                                            ?.filter(
-                                                (shift) =>
-                                                    shift.teacher._id ===
-                                                    user._id
-                                            )
-                                            .map((shift, k) => (
-                                                <UserShift
-                                                    key={k}
-                                                    shift={shift}
-                                                    setCurrent={setCurrent}
-                                                    setOpenView={setOpenView}
-                                                />
-                                            ))}
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Tab - Posted Shifts */}
-                            {tab === 1 && (
+                        {/* Tab - My Shifts */}
+                        {tab === 0 && (
+                            <>
+                                {/* Book Time Off Button */}
+                                <div className='timeoff-button'>
+                                    <Button
+                                        sx={{
+                                            marginLeft: '1rem',
+                                            marginTop: '1rem',
+                                        }}
+                                        variant='contained'
+                                        onClick={() => setOpenBook(true)}
+                                    >
+                                        Book time off{' '}
+                                    </Button>
+                                </div>
                                 <div className='shift-container'>
                                     {shifts
                                         ?.filter(
                                             (shift) =>
-                                                shift.teacher._id ===
-                                                    user._id && shift.posted
+                                                shift.teacher._id === user._id
                                         )
                                         .map((shift, k) => (
                                             <UserShift
-                                                shift={shift}
                                                 key={k}
+                                                shift={shift}
                                                 setCurrent={setCurrent}
                                                 setOpenView={setOpenView}
                                             />
                                         ))}
                                 </div>
-                            )}
+                            </>
+                        )}
 
-                            {/* Modal - View Shift */}
-                            {openview && (
-                                <Modal
-                                    open={openview}
-                                    onClose={() => setOpenView(false)}
-                                >
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-50%, -50%)',
-                                            width: 400,
-                                            bgcolor: 'background.paper',
-                                            boxShadow: 24,
-                                            p: 4,
-                                        }}
-                                    >
-                                        <Typography
-                                            sx={{ mb: '1rem' }}
-                                            variant='h5'
-                                        >
-                                            {current.subject} -
-                                            {current.teacher.firstName}
-                                        </Typography>
-
-                                        {/* Shift Info */}
-                                        <div className='shift-info'>
-                                            <p>
-                                                <strong>Date: </strong>
-                                                {moment(
-                                                    current.startTime
-                                                ).format('MMMM DD, YYYY')}
-                                            </p>
-
-                                            <p>
-                                                <strong>Time: </strong>
-                                                {moment(
-                                                    current.startTime
-                                                ).format('h:mm a')}{' '}
-                                                -{' '}
-                                                {moment(current.endTime).format(
-                                                    'h:mm a'
-                                                )}
-                                            </p>
-                                            <p className='shift-description'>
-                                                {current.details}
-                                            </p>
-                                        </div>
-                                    </Box>
-                                </Modal>
-                            )}
-                        </Box>
+                        {/* Tab - Posted Shifts */}
+                        {tab === 1 && (
+                            <div className='shift-container'>
+                                {shifts
+                                    ?.filter(
+                                        (shift) =>
+                                            shift.teacher._id === user._id &&
+                                            shift.posted
+                                    )
+                                    .map((shift, k) => (
+                                        <UserShift
+                                            shift={shift}
+                                            key={k}
+                                            setCurrent={setCurrent}
+                                            setOpenView={setOpenView}
+                                        />
+                                    ))}
+                            </div>
+                        )}
                     </div>
+
+                    {/* Modal - View Shift */}
+                    {openview && (
+                        <Modal
+                            open={openview}
+                            onClose={() => setOpenView(false)}
+                        >
+                            <Box
+                                className='modal-container'
+                                sx={{ width: 400 }}
+                            >
+                                <Typography sx={{ mb: '1rem' }} variant='h5'>
+                                    {current.subject}
+                                    {' - '}
+                                    {current.teacher.firstName}
+                                </Typography>
+
+                                {/* Shift Info */}
+                                <div className='shift-info'>
+                                    <p>
+                                        <strong>Date: </strong>
+                                        {moment(current.startTime).format(
+                                            'MMMM DD, YYYY'
+                                        )}
+                                    </p>
+
+                                    <p>
+                                        <strong>Time: </strong>
+                                        {moment(current.startTime).format(
+                                            'h:mm a'
+                                        )}{' '}
+                                        -{' '}
+                                        {moment(current.endTime).format(
+                                            'h:mm a'
+                                        )}
+                                    </p>
+                                    <p className='shift-description'>
+                                        {current.details}
+                                    </p>
+                                </div>
+                            </Box>
+                        </Modal>
+                    )}
 
                     {/* Modal - Book Time Off */}
                     <Modal open={openbook} onClose={() => setOpenBook(false)}>
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: 400,
-                                bgcolor: 'background.paper',
-                                boxShadow: 24,
-                                p: 4,
-                            }}
-                        >
+                        <Box className='modal-container' sx={{ width: 400 }}>
                             <Typography variant='h5'>Book Time Off</Typography>
 
                             {/* Select Shift for Time Off - Book Time Off Modal */}
