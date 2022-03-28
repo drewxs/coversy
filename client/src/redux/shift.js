@@ -46,3 +46,38 @@ export const EditShift = async (shift) => {
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
+
+/**
+ * @description Posts a shift
+ * @params shiftId
+ */
+export const PostShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/post`, null, {
+            headers: {
+                'content-type': 'application/json',
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+        });
+        store.dispatch(editShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+/**
+ * @description Takes a shift
+ * @params shiftId
+ */
+export const TakeShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
+            headers: {
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+        });
+        store.dispatch(editShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};

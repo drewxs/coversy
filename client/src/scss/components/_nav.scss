@@ -1,7 +1,7 @@
 @use '../abstract' as *;
 
 .nav {
-    background-color: $black;
+    background-color: rgba($color: $black, $alpha: 0.9);
     color: #fff;
     height: 15vh;
     position: fixed;
@@ -13,13 +13,32 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    .logo {
+        width: auto;
+        max-height: 4em;
+    }
+    .button {
+        color: $white;
+        margin-left: 1em;
+        padding-bottom: 0.25em;
+        border-bottom: 2px solid transparent;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        transition: color 800ms ease, border-color 800ms ease;
 
-        .button {
-            margin-left: 1em;
-
-            &:hover {
-                background-color: rgba($color: $primary, $alpha: 0.3);
-            }
+        &:hover {
+            color: lighten($primary, 15%);
+            background-color: transparent;
+            border-color: lighten($primary, 15%);
+            transition: color 400ms ease, border-color 400ms ease;
         }
+        &.active {
+            color: lighten($primary, 15%);
+            border-color: lighten($primary, 15%);
+        }
+    }
+    .logout-btn {
+        color: rgba($color: $white, $alpha: 0.5);
     }
 }

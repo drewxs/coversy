@@ -4,6 +4,9 @@ html {
     font-size: 14px;
     font-family: $fontBody, $fontBodyFallback;
     color: $black;
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @include headings {
