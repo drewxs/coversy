@@ -19,7 +19,6 @@ exports.getUnresolvedTickets = async (req, res) => {
 
 	Ticket.find({ site, resolved: false })
 		.populate('user', 'firstName lastName email phone')
-		.populate('site', 'name')
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
@@ -29,7 +28,6 @@ exports.getResolvedTickets = async (req, res) => {
 
 	Ticket.find({ site, resolved: true })
 		.populate('user', 'firstName lastName email phone')
-		.populate('site', 'name')
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
@@ -40,6 +38,7 @@ exports.resolveTicket = (req, res) => {
 	};
 	const ticketId = escape(req.params.ticketId);
 	Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
+		.populate('user', 'firstName lastName email phone')
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };
@@ -50,6 +49,7 @@ exports.unresolveTicket = (req, res) => {
 	};
 	const ticketId = escape(req.params.ticketId);
 	Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
+		.populate('user', 'firstName lastName email phone')
 		.then((ticket) => res.status(200).json(ticket))
 		.catch((err) => res.status(400).json(err));
 };

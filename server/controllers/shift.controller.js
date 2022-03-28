@@ -74,7 +74,7 @@ exports.getShiftById = (req, res) => {
  * @access Admin
  */
 exports.getShiftsBySite = (req, res) => {
-    Shift.find({ site: req.user.site }, { site: 0 })
+    Shift.find({ site: req.user.site })
         .populate('teacher', 'firstName lastName email')
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
@@ -109,6 +109,22 @@ exports.updateShiftById = (req, res) => {
 
     Shift.findByIdAndUpdate(shiftId, updateQuery)
         .then((shift) => res.status(200).json(shift))
+        .catch((err) => res.status(400).json(err));
+};
+exports.takeShift = (req, res) => {
+    const shiftId = escape(req.params.shiftId);
+    const updateQuery = { sub: req.user };
+
+    Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
+        .populate('teacher')
+        .then((shift) => {
+            createNotification(
+                shift.sub,
+                shift.teacher,
+                `${shift.sub} has taken your shift on ${shift.date}`
+            );
+            res.status(200).json(shift);
+        })
         .catch((err) => res.status(400).json(err));
 };
 

@@ -13,7 +13,7 @@ import store from 'redux/store';
 const api = process.env.REACT_APP_API_URL;
 
 export const GetUnresolvedTickets = () => {
-    store.dispatch(loadingTickets);
+    store.dispatch(loadingTickets());
     axios
         .get(`${api}/ticket/unresolved`, {
             headers: {
@@ -25,7 +25,7 @@ export const GetUnresolvedTickets = () => {
 };
 
 export const GetResolvedTickets = () => {
-    store.dispatch(loadingResolvedTickets);
+    store.dispatch(loadingResolvedTickets());
     axios
         .get(`${api}/ticket/resolved`, {
             headers: {
@@ -37,7 +37,7 @@ export const GetResolvedTickets = () => {
 };
 
 export const AddTicket = (ticket) => {
-    store.dispatch(loadingTickets);
+    store.dispatch(loadingTickets());
     axios
         .post(`${api}/ticket`, ticket, {
             headers: {
