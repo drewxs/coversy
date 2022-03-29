@@ -22,12 +22,14 @@ export const GetShifts = async () => {
  * @params shift, siteId
  */
 export const AddShift = async (shift) => {
-    await axios
-        .post(`${api}/shift`, shift, {
+    try {
+        const res = await axios.post(`${api}/shift`, shift, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => store.dispatch(addShift(res.data)))
-        .catch((err) => console.error(err));
+        });
+        store.dispatch(addShift(res.data));
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 /**
@@ -36,7 +38,9 @@ export const AddShift = async (shift) => {
  */
 export const EditShift = async (shift) => {
     await axios
-        .put(`${api}/shift/${shift._id}`)
+        .put(`${api}/shift/${shift._id}`, shift, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        })
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };

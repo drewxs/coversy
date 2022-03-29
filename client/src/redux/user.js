@@ -88,5 +88,4 @@ const setAuthorizationHeader = (token, id) => {
     localStorage.setItem('auth-token', token);
     localStorage.setItem('id', id);
     axios.defaults.headers.common['auth-token'] = token;
-    axios.defaults.headers.common['content-type'] = 'application/json';
 };

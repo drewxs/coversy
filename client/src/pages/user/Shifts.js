@@ -142,6 +142,15 @@ export const Shifts = () => {
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
+                                    {current.teacher._id !== user._id && (
+                                        <Button
+                                            sx={{ marginTop: '1rem' }}
+                                            variant='contained'
+                                            onClick={() => setOpenBook(true)}
+                                        >
+                                            Take Shift
+                                        </Button>
+                                    )}
                                 </div>
                             </Box>
                         </Modal>
