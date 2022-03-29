@@ -21,7 +21,7 @@ export const GetNotifications = async () => {
 export const ReadNotification = async (notification) => {
     store.dispatch(loadingNotifications);
     await axios
-        .get(`${api}/notification/${notification._id}`, {
+        .put(`${api}/notification/${notification._id}`, {
             headers: {
                 'content-type': 'application/json',
                 'auth-token': localStorage.getItem('auth-token'),
