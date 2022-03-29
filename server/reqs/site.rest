@@ -13,4 +13,16 @@ Content-Type: application/json
 }
 
 ### GET ALL SITES
-GET http://localhost:5000/api/shifts
+GET http://localhost:5000/api/site
+
+### GET SITE BY ID
+GET http://localhost:5000/api/site/623c9437dc08e33dc73c6678c
+
+### Update SITE BY ID
+PUT http://localhost:5000/api/site/623c9437dc08e33dc73c6678c
+Content-Type: application/json
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ1MDY4NjA0fQ.zzovHAF1jMV4heveoKkKbZKR5FzcEgTDEabyXwy9k5o
+
+{
+    "name": "Test Site" 
+}
