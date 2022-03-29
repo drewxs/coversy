@@ -32,7 +32,7 @@ describe('payroll state test', () => {
                         {
                             _id: '62366ffcf5babb1d5b667',
                             teacher: {
-                                id: '628d74e79b7de75762ea432c',
+                                _id: '628d74e79b7de75762ea432c',
                                 email: 'tester@test.com',
                                 hourlyRate: '28',
                                 taxRate: '10',
@@ -47,7 +47,7 @@ describe('payroll state test', () => {
                         {
                             _id: '62300ffcf5dc5babb1d5b609',
                             teacher: {
-                                id: '620d74e79b7de75762ea432c',
+                                _id: '620d74e79b7de75762ea432c',
                                 email: 'tester@test.com',
                                 hourlyRate: '20',
                                 taxRate: '10',
@@ -74,7 +74,7 @@ describe('payroll state test', () => {
                     {
                         _id: '62366ffcf5babb1d5b667',
                         teacher: {
-                            id: '628d74e79b7de75762ea432c',
+                            _id: '628d74e79b7de75762ea432c',
                             email: 'tester@test.com',
                             hourlyRate: '28',
                             taxRate: '10',
@@ -89,7 +89,7 @@ describe('payroll state test', () => {
                     {
                         _id: '62300ffcf5dc5babb1d5b609',
                         teacher: {
-                            id: '620d74e79b7de75762ea432c',
+                            _id: '620d74e79b7de75762ea432c',
                             email: 'tester@test.com',
                             hourlyRate: '20',
                             taxRate: '10',
@@ -122,7 +122,7 @@ describe('payroll state test', () => {
                         {
                             _id: '62366ffcf5babb1d5b667',
                             teacher: {
-                                id: '628d74e79b7de75762ea432c',
+                                _id: '628d74e79b7de75762ea432c',
                                 email: 'tester@test.com',
                                 hourlyRate: '28',
                                 taxRate: '10',
@@ -137,7 +137,7 @@ describe('payroll state test', () => {
                         {
                             _id: '62300ffcf5dc5babb1d5b609',
                             teacher: {
-                                id: '620d74e79b7de75762ea432c',
+                                _id: '620d74e79b7de75762ea432c',
                                 email: 'tester@test.com',
                                 hourlyRate: '20',
                                 taxRate: '10',
@@ -164,7 +164,7 @@ describe('payroll state test', () => {
                     {
                         _id: '62366ffcf5babb1d5b667',
                         teacher: {
-                            id: '628d74e79b7de75762ea432c',
+                            _id: '628d74e79b7de75762ea432c',
                             email: 'tester@test.com',
                             hourlyRate: '28',
                             taxRate: '10',
@@ -179,7 +179,7 @@ describe('payroll state test', () => {
                     {
                         _id: '62300ffcf5dc5babb1d5b609',
                         teacher: {
-                            id: '620d74e79b7de75762ea432c',
+                            _id: '620d74e79b7de75762ea432c',
                             email: 'tester@test.com',
                             hourlyRate: '20',
                             taxRate: '10',
