@@ -20,7 +20,6 @@ export const AdminUsers = () => {
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('Controlled');
     const [firstname, setFirstname] = useState(null);
     const [lastname, setLastname] = useState(null);
     const [hourlyrate, setHourlyrate] = useState(null);

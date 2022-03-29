@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     Box,
     Modal,
@@ -11,6 +11,9 @@ import {
 import { Edit } from '@mui/icons-material';
 
 const EditUserDetailModal = () => {
+    const users = useSelector((state) => state.admin.users);
+    const [firstname, setFirstname] = useState(null);
+    const [lastname, setLastname] = useState(null);
     const [open, setOpen] = useState(false);
 
     return (
@@ -22,7 +25,11 @@ const EditUserDetailModal = () => {
                         width: '45ch',
                     },
                 }}
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    setFirstname(users.firstName);
+                    setLastname(users.lastName);
+                    setOpen(true);
+                }}
             >
                 <Edit color='primary' />
             </IconButton>
