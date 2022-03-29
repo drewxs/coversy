@@ -42,12 +42,18 @@ const EditUserDetailModal = () => {
                         <form>
                             <div className='edit-info'>
                                 <TextField
+                                    onChange={(e) =>
+                                        setFirstname(e.target.value)
+                                    }
                                     fullWidth
                                     label='First Name'
                                     placeholder='First Name'
                                     sx={{ mb: '1rem' }}
                                 />
                                 <TextField
+                                    onChange={(e) =>
+                                        setLastname(e.target.value)
+                                    }
                                     sx={{ mb: '1rem' }}
                                     fullWidth
                                     label='Last Name'
