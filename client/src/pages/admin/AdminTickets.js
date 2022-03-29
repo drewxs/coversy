@@ -98,28 +98,41 @@ export const AdminTickets = () => {
                         position: 'absolute',
                         top: '50%',
                         left: '50%',
+                        transform: 'translate(-50%, -50%)',
                         width: 400,
                         bgcolor: 'background.paper',
-                        boxShadow: 24,
+                        boxShadow: 25,
                         p: 4,
                     }}
                 >
                     <h2>View</h2>
-                    <p>Name: </p>
+
                     <p>
-                        Type: {tickets[current]?.type === 1 && 'Payroll Issue'}
+                        <strong>Name: </strong>
+                    </p>
+                    <p>
+                        <strong>Type: </strong>
+                        {tickets[current]?.type === 1 && 'Payroll Issue'}
                         {tickets[current]?.type === 2 && 'Time-off Issue'}
                     </p>
-                    <p>Description</p>
+                    <p>
+                        <strong>Description: </strong>
+                    </p>
                     <br />
                     <Button
-                        variant='outlined'
+                        variant='contained'
                         color='primary'
                         onClick={() => handleResovle()}
                     >
                         Resovle
                     </Button>
-                    <Button onClick={() => handleClose()}>Cancel</Button>
+                    <Button
+                        onClick={() => handleClose()}
+                        variant='outlined'
+                        sx={{ ml: '1rem' }}
+                    >
+                        Cancel
+                    </Button>
                 </Box>
             </Modal>
         </>
