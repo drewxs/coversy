@@ -166,7 +166,7 @@ exports.updateShiftMaterials = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
     const updateQuery = { materials: [] };
     let shift;
-    
+
     req.files.forEach((file) => {
         updateQuery.materials.push({
             fileName: file.originalname,
@@ -177,14 +177,13 @@ exports.updateShiftMaterials = async (req, res) => {
     try {
         shift = await Shift.findById(shiftId).lean();
         if (shift.materials) {
-            shift.materials.forEach((file) =>{
+            shift.materials.forEach(async (file) => {
                 const deleteParams = {
                     Key: file.key,
                     Bucket: process.env.S3_PROFILE_BUCKET,
                 };
                 await s3.deleteObject(deleteParams).promise();
-
-            })
+            });
         }
     } catch (err) {
         res.status(400).json(err);
