@@ -3,6 +3,7 @@
 .register {
     min-height: 100vh;
     padding-top: 17vh;
+
     @include bg;
 
     .card {
