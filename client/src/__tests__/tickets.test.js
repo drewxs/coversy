@@ -229,7 +229,27 @@ describe('ticket state test', () => {
 
     //test setResolved
     it('test setResolved', () => {
-        expect(reducer(testsetResolved, setResolved({}))).toEqual({
+        expect(
+            reducer(
+                testsetResolved,
+                setResolved([
+                    {
+                        _id: '62391094af07064e5e7ee938',
+                        type: 1,
+                        message: 'test ticket 1',
+                        resolved: true,
+                        user: {
+                            _id: '6208b81fdc1a21e127631d4e',
+                            firstName: 'SITE',
+                            lastName: 'ADMIN',
+                            email: 'test@test.com',
+                            phone: '1111111111',
+                        },
+                        site: '6208b81edc1a21e127631d4c',
+                    },
+                ])
+            )
+        ).toEqual({
             ...testsetResolved,
             tickets: [],
             resolvedTickets: [
