@@ -72,12 +72,11 @@ exports.updateSiteById = async (req, res) => {
             province: escape(req.body.address.province),
         };
     }
-    const siteId = escape(req.params.siteId);
 
     const { error } = siteValidation(updateQuery);
     if (error) return res.status(400).json(error.details[0].message);
 
-    Site.findByIdAndUpdate(siteId, updateQuery, { new: true })
+    Site.findByIdAndUpdate(req.user.site, updateQuery, { new: true })
         .then((site) => res.status(200).json(site))
         .catch((err) => res.status(400).json(err));
 };
