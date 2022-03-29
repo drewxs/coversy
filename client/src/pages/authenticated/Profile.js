@@ -54,7 +54,7 @@ export const Profile = () => {
                             {user.firstName?.charAt(0)}{' '}
                             {user.lastName?.charAt(0)}
                         </Avatar>
-                        <div className='overlay'></div>
+                        <div className='overlay'>Change image</div>
                         <input
                             type='file'
                             className='upload-avatar'
