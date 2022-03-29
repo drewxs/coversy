@@ -240,7 +240,7 @@ describe('Endpoint testing [site]', () => {
                 name: 'test_site',
                 address: {
                     street: 'test_street',
-                    zip: 'A1A',
+                    zip: 'A1A 1A1',
                     city: 'test_city',
                     province: 'CC',
                 },
@@ -261,7 +261,7 @@ describe('Endpoint testing [site]', () => {
     });
     it('Update site by id', (done) => {
         chai.request(server)
-            .post(`/api/site/6208b81edc1a21e127631d4c`)
+            .put(`/api/site`)
             .set('auth-token', process.env.TEST_TOKEN)
             .send({
                 name: 'Test Site',
@@ -273,13 +273,13 @@ describe('Endpoint testing [site]', () => {
     });
     it('Update site by id fail', (done) => {
         chai.request(server)
-            .post(`/api/site/555555`)
+            .put(`/api/site`)
             .set('auth-token', process.env.TEST_TOKEN)
             .send({
-                name: 'Test Site',
+                address: 'Test Site',
             })
             .end((err, res) => {
-                res.should.have.status(404);
+                res.should.have.status(400);
                 done();
             });
     });
