@@ -66,7 +66,8 @@ export const Shifts = () => {
                                     {shifts
                                         ?.filter(
                                             (shift) =>
-                                                shift.teacher._id === user._id
+                                                shift.teacher._id ===
+                                                    user._id && !shift.posted
                                         )
                                         .map((shift, k) => (
                                             <UserShift
@@ -74,6 +75,7 @@ export const Shifts = () => {
                                                 shift={shift}
                                                 setCurrent={setCurrent}
                                                 setOpenView={setOpenView}
+                                                btnText={'Post'}
                                             />
                                         ))}
                                 </div>
@@ -95,6 +97,7 @@ export const Shifts = () => {
                                             key={k}
                                             setCurrent={setCurrent}
                                             setOpenView={setOpenView}
+                                            btnText={'Unpost'}
                                         />
                                     ))}
                             </div>
