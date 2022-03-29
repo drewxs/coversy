@@ -57,6 +57,21 @@ export const PostShift = async (shiftId) => {
 };
 
 /**
+ * @description Unposts a shift
+ * @params shiftId
+ */
+export const UnpostShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/unpost`, null, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(editShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+/**
  * @description Takes a shift
  * @params shiftId
  */

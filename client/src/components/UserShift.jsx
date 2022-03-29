@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { PostShift } from 'redux/shift';
+import { PostShift, UnpostShift } from 'redux/shift';
 import { Button } from '@mui/material';
 
 export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
@@ -34,7 +34,11 @@ export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
                 </Button>
                 <Button
                     size='small'
-                    onClick={() => PostShift(shift._id)}
+                    onClick={() =>
+                        btnText === 'Post'
+                            ? PostShift(shift._id)
+                            : UnpostShift(shift._id)
+                    }
                     variant='contained'
                 >
                     {btnText}

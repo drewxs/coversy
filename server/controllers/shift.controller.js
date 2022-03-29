@@ -189,6 +189,24 @@ exports.postShift = async (req, res) => {
 };
 
 /**
+ * @desc This function posts a shift
+ * @route PUT /:shiftId/unpost
+ * @access User
+ */
+exports.unpostShift = async (req, res) => {
+    try {
+        const shift = await Shift.findByIdAndUpdate(
+            escape(req.params.shiftId),
+            { posted: false },
+            { new: true }
+        );
+        res.status(200).json(shift);
+    } catch (err) {
+        res.status(400).json(err.message);
+    }
+};
+
+/**
  * @desc This function takes a shift
  * @route PUT /:shiftId/take
  * @access User
