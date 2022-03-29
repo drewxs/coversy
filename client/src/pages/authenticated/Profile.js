@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
 import EditUserDetailModal from 'components/EditUserDetail';
+import EditAdminDetailModal from 'components/EditAdminDetail';
 import axios from 'axios';
 
 export const Profile = () => {
@@ -65,8 +66,11 @@ export const Profile = () => {
                         <h3>
                             {user?.firstName} {user?.lastName}
                         </h3>
-
-                        <EditUserDetailModal />
+                        {user.type === 1 ? (
+                            <EditAdminDetailModal />
+                        ) : (
+                            <EditUserDetailModal />
+                        )}
                     </div>
                     <div className='divider'></div>
                     <div className='block detail'>

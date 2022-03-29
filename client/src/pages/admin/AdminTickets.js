@@ -166,12 +166,25 @@ export const AdminTickets = () => {
             {/* Ticket Modal */}
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
+                    <h2>View</h2>
+
+                    <p>
+                        <strong>Name: </strong>
+                    </p>
+                    <p>
+                        <strong>Type: </strong>
+                        {tickets[current]?.type === 1 && 'Payroll Issue'}
+                        {tickets[current]?.type === 2 && 'Time-off Issue'}
+                    </p>
+                    <p>
+                        <strong>Description: </strong>
+                    </p>
                     <h3>Type: {current.type === 1 && 'Payroll Issue'}</h3>
                     <p>{current.type === 2 && 'Time-off Issue'}</p>
                     <p>{current.message}</p>
                     <br />
                     <Button
-                        variant='outlined'
+                        variant='contained'
                         color='primary'
                         onClick={() => {
                             handleResolve(current);
@@ -181,7 +194,13 @@ export const AdminTickets = () => {
                     >
                         {current.resolved ? <p>Unresolve</p> : <p>Resolve</p>}
                     </Button>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button
+                        onClick={() => setOpen(false)}
+                        variant='outlined'
+                        sx={{ ml: '1rem' }}
+                    >
+                        Cancel
+                    </Button>
                 </Box>
             </Modal>
         </>

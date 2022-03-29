@@ -1,9 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
-    Backdrop,
     Box,
     Modal,
-    Fade,
     Button,
     Typography,
     TextField,
@@ -11,104 +10,75 @@ import {
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 350,
-    height: 350,
-    display: 'flex',
-    flexDirection: 'column',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    borderRadius: '0.5em',
-    p: 4,
-};
-
-const style1 = {
-    marginBottom: '1em',
-};
-
-export const EditUserDetailModal = () => {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+const EditUserDetailModal = () => {
+    const users = useSelector((state) => state.admin.users);
+    const [firstname, setFirstname] = useState(null);
+    const [lastname, setLastname] = useState(null);
+    const [open, setOpen] = useState(false);
 
     return (
         <div>
             <IconButton
                 sx={{
-                    marginRight: '-4em',
+                    '& .MuiTextField-root': {
+                        m: '1rem',
+                        width: '45ch',
+                    },
                 }}
-                onClick={handleOpen}
+                onClick={() => {
+                    setFirstname(users.firstName);
+                    setLastname(users.lastName);
+                    setOpen(true);
+                }}
             >
                 <Edit color='primary' />
             </IconButton>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                    <Box sx={style}>
-                        <Typography
-                            id='transition-modal-title'
-                            sx={{ marginBottom: '0.5em' }}
-                            variant='h6'
-                            component='h2'
-                        >
-                            Edit User Profile
-                        </Typography>
-                        <Typography
-                            id='transition-modal-description'
-                            sx={{ mt: 2 }}
-                        >
-                            <form>
-                                <div className='edit-info'>
-                                    <TextField
-                                        style={style1}
-                                        id='outlined-textarea'
-                                        label='First Name'
-                                        placeholder='First Name'
-                                        multiline
-                                    />
-                                    <TextField
-                                        style={style1}
-                                        id='outlined-textarea'
-                                        label='Last Name'
-                                        placeholder='Last Name'
-                                        multiline
-                                    />
-                                </div>
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <Typography sx={{ mb: '0.5em' }} variant='h6'>
+                        Edit User Profile
+                    </Typography>
+                    <Typography sx={{ mt: '1rem' }}>
+                        <form>
+                            <div className='edit-info'>
+                                <TextField
+                                    onChange={(e) =>
+                                        setFirstname(e.target.value)
+                                    }
+                                    fullWidth
+                                    label='First Name'
+                                    placeholder='First Name'
+                                    sx={{ mb: '1rem' }}
+                                />
+                                <TextField
+                                    onChange={(e) =>
+                                        setLastname(e.target.value)
+                                    }
+                                    sx={{ mb: '1rem' }}
+                                    fullWidth
+                                    label='Last Name'
+                                    placeholder='Last Name'
+                                />
+                            </div>
 
-                                <div
-                                    className='edit-btn'
-                                    style={{ marginTop: '1em' }}
+                            <div className='edit-btn'>
+                                <Button
+                                    sx={{ mr: '1rem' }}
+                                    onClick={() => setOpen(false)}
+                                    variant='contained'
                                 >
-                                    <Button
-                                        onClick={handleClose}
-                                        variant='contained'
-                                    >
-                                        Submit
-                                    </Button>
-                                    <Button
-                                        onClick={handleClose}
-                                        style={{ marginLeft: '1em' }}
-                                        variant='outlined'
-                                    >
-                                        Cancel
-                                    </Button>
-                                </div>
-                            </form>
-                        </Typography>
-                    </Box>
-                </Fade>
+                                    Submit
+                                </Button>
+                                <Button
+                                    onClick={() => setOpen(false)}
+                                    variant='outlined'
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        </form>
+                    </Typography>
+                </Box>
             </Modal>
         </div>
     );
