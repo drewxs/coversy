@@ -69,9 +69,7 @@ export const LoadUser = async () => {
     try {
         const res = await axios.get(
             `${api}/user/${localStorage.getItem('id')}`,
-            {
-                headers: { 'auth-token': localStorage.getItem('auth-token') },
-            }
+            { headers: { 'auth-token': localStorage.getItem('auth-token') } }
         );
         store.dispatch(setUser(res.data));
     } catch (err) {
