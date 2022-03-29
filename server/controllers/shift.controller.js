@@ -76,6 +76,8 @@ exports.getShiftById = (req, res) => {
 exports.getShiftsBySite = (req, res) => {
     Shift.find({ site: req.user.site })
         .populate('teacher', 'firstName lastName email')
+        .populate('sub', 'firstName lastName email')
+        .lean()
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
 };
@@ -88,6 +90,7 @@ exports.getShiftsBySite = (req, res) => {
 exports.getPostedShiftsBySite = (req, res) => {
     Shift.find({ site: req.user.site, posted: true })
         .populate('teacher', 'firstName lastName email')
+        .populate('sub', 'firstName lastName email')
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
 };
@@ -116,7 +119,7 @@ exports.takeShift = (req, res) => {
     const updateQuery = { sub: req.user };
 
     Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
-        .populate('teacher')
+        .populate('teacher', 'firstName lastName email')
         .then((shift) => {
             createNotification(
                 shift.sub,
