@@ -3,11 +3,13 @@
 .register {
     min-height: 100vh;
     padding-top: 17vh;
+    @include bg;
 
     .card {
         width: 60%;
         max-width: 720px;
         padding: 4em 6em;
+        background-color: $white;
 
         .h-cont {
             border-bottom: 4px solid $primary;
