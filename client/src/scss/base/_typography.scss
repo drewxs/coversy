@@ -5,6 +5,7 @@ html {
     font-family: $fontBody, $fontBodyFallback;
     color: $black;
     font-smooth: always;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
