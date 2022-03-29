@@ -3,27 +3,47 @@ import reducer, {
     setResolvedTickets,
     addTicket,
     setResolved,
-    setUnresolved,
     loadingTickets,
     loadingResolvedTickets,
 } from '../redux/ticketSlice';
 
 const initialState = {
     tickets: [],
-    resolvedtickets: [],
+    resolvedTickets: [],
+    loading: false,
+    loadingResolved: false,
+};
+const testingadd = {
+    tickets: [
+        {
+            _id: '62391094af07064e5e7ee937',
+            type: 1,
+            message: 'test ticket',
+            resolved: false,
+            user: {
+                _id: '6208b81fdc1a21e127631d4e',
+                firstName: 'SITE',
+                lastName: 'ADMIN',
+                email: 'test@test.com',
+                phone: '1111111111',
+            },
+            site: '6208b81edc1a21e127631d4c',
+        },
+    ],
+    resolvedTickets: [],
     loading: false,
     loadingResolved: false,
 };
 const testLoading = {
     tickets: [],
-    resolvedtickets: [],
+    resolvedTickets: [],
     loading: true,
     loadingResolved: false,
 };
 
 const testLoadingResolved = {
     tickets: [],
-    resolvedtickets: [],
+    resolvedTickets: [],
     loading: false,
     loadingResolved: true,
 };
@@ -59,37 +79,46 @@ describe('ticket state test', () => {
         expect(
             reducer(
                 initialState,
-                setTickets({
+                setTickets([
+                    {
+                        _id: '62391094af07064e5e7ee938',
+                        type: 1,
+                        message: 'test ticket 1',
+                        resolved: false,
+                        user: [
+                            {
+                                _id: '6208b81fdc1a21e127631d4e',
+                                firstName: 'SITE',
+                                lastName: 'ADMIN',
+                                email: 'test@test.com',
+                                phone: '1111111111',
+                            },
+                        ],
+                        site: '6208b81edc1a21e127631d4c',
+                    },
+                ])
+            )
+        ).toEqual({
+            ...initialState,
+            tickets: [
+                {
                     _id: '62391094af07064e5e7ee938',
                     type: 1,
                     message: 'test ticket 1',
                     resolved: false,
-                    user: {
-                        _id: '6208b81fdc1a21e127631d4e',
-                        firstName: 'SITE',
-                        lastName: 'ADMIN',
-                        email: 'test@test.com',
-                        phone: '1111111111',
-                    },
+                    user: [
+                        {
+                            _id: '6208b81fdc1a21e127631d4e',
+                            firstName: 'SITE',
+                            lastName: 'ADMIN',
+                            email: 'test@test.com',
+                            phone: '1111111111',
+                        },
+                    ],
                     site: '6208b81edc1a21e127631d4c',
-                })
-            )
-        ).toEqual({
-            ...initialState,
-            tickets: {
-                _id: '62391094af07064e5e7ee938',
-                type: 1,
-                message: 'test ticket 1',
-                resolved: false,
-                user: {
-                    _id: '6208b81fdc1a21e127631d4e',
-                    firstName: 'SITE',
-                    lastName: 'ADMIN',
-                    email: 'test@test.com',
-                    phone: '1111111111',
                 },
-                site: '6208b81edc1a21e127631d4c',
-            },
+            ],
+
             loading: false,
         });
     });
@@ -99,7 +128,27 @@ describe('ticket state test', () => {
         expect(
             reducer(
                 initialState,
-                setResolvedTickets({
+                setResolvedTickets([
+                    {
+                        _id: '62391094af07064e5e7ee938',
+                        type: 1,
+                        message: 'test ticket 1',
+                        resolved: false,
+                        user: {
+                            _id: '6208b81fdc1a21e127631d4e',
+                            firstName: 'SITE',
+                            lastName: 'ADMIN',
+                            email: 'test@test.com',
+                            phone: '1111111111',
+                        },
+                        site: '6208b81edc1a21e127631d4c',
+                    },
+                ])
+            )
+        ).toEqual({
+            ...initialState,
+            resolvedTickets: [
+                {
                     _id: '62391094af07064e5e7ee938',
                     type: 1,
                     message: 'test ticket 1',
@@ -112,24 +161,8 @@ describe('ticket state test', () => {
                         phone: '1111111111',
                     },
                     site: '6208b81edc1a21e127631d4c',
-                })
-            )
-        ).toEqual({
-            ...initialState,
-            resolvedTickets: {
-                _id: '62391094af07064e5e7ee938',
-                type: 1,
-                message: 'test ticket 1',
-                resolved: false,
-                user: {
-                    _id: '6208b81fdc1a21e127631d4e',
-                    firstName: 'SITE',
-                    lastName: 'ADMIN',
-                    email: 'test@test.com',
-                    phone: '1111111111',
                 },
-                site: '6208b81edc1a21e127631d4c',
-            },
+            ],
             loadingResolved: false,
         });
     });
@@ -138,29 +171,31 @@ describe('ticket state test', () => {
     it('Test add Ticket', () => {
         expect(
             reducer(
-                initialState,
-                addTicket({
-                    _id: '62391094af07064e5e7ee938',
-                    type: 1,
-                    message: 'test ticket 1',
-                    resolved: false,
-                    user: {
-                        _id: '6208b81fdc1a21e127631d4e',
-                        firstName: 'SITE',
-                        lastName: 'ADMIN',
-                        email: 'test@test.com',
-                        phone: '1111111111',
+                testingadd,
+                addTicket([
+                    {
+                        _id: '62391094af07064e5e7ee938',
+                        type: 1,
+                        message: 'test ticket 1',
+                        resolved: false,
+                        user: {
+                            _id: '6208b81fdc1a21e127631d4e',
+                            firstName: 'SITE',
+                            lastName: 'ADMIN',
+                            email: 'test@test.com',
+                            phone: '1111111111',
+                        },
+                        site: '6208b81edc1a21e127631d4c',
                     },
-                    site: '6208b81edc1a21e127631d4c',
-                })
+                ])
             )
-        ).toEqual([
-            {
-                ...initialState,
-                tickets: {
-                    _id: '62391094af07064e5e7ee938',
+        ).toEqual({
+            ...testingadd,
+            tickets: [
+                {
+                    _id: '62391094af07064e5e7ee937',
                     type: 1,
-                    message: 'test ticket 1',
+                    message: 'test ticket',
                     resolved: false,
                     user: {
                         _id: '6208b81fdc1a21e127631d4e',
@@ -171,9 +206,25 @@ describe('ticket state test', () => {
                     },
                     site: '6208b81edc1a21e127631d4c',
                 },
-                loading: false,
-            },
-        ]);
+                {
+                    _id: '62391094af07064e5e7ee938',
+                    type: 1,
+                    message: 'test ticket 1',
+                    resolved: false,
+                    user: [
+                        {
+                            _id: '6208b81fdc1a21e127631d4e',
+                            firstName: 'SITE',
+                            lastName: 'ADMIN',
+                            email: 'test@test.com',
+                            phone: '1111111111',
+                        },
+                    ],
+                    site: '6208b81edc1a21e127631d4c',
+                },
+            ],
+            loading: false,
+        });
     });
 
     //test setResolved
@@ -181,20 +232,22 @@ describe('ticket state test', () => {
         expect(reducer(testsetResolved, setResolved({}))).toEqual({
             ...testsetResolved,
             tickets: [],
-            resolvedTickets: {
-                _id: '62391094af07064e5e7ee938',
-                type: 1,
-                message: 'test ticket 1',
-                resolved: true,
-                user: {
-                    _id: '6208b81fdc1a21e127631d4e',
-                    firstName: 'SITE',
-                    lastName: 'ADMIN',
-                    email: 'test@test.com',
-                    phone: '1111111111',
+            resolvedTickets: [
+                {
+                    _id: '62391094af07064e5e7ee938',
+                    type: 1,
+                    message: 'test ticket 1',
+                    resolved: true,
+                    user: {
+                        _id: '6208b81fdc1a21e127631d4e',
+                        firstName: 'SITE',
+                        lastName: 'ADMIN',
+                        email: 'test@test.com',
+                        phone: '1111111111',
+                    },
+                    site: '6208b81edc1a21e127631d4c',
                 },
-                site: '6208b81edc1a21e127631d4c',
-            },
+            ],
             loading: false,
             loadingResolved: false,
         });
