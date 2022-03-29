@@ -166,19 +166,6 @@ export const AdminTickets = () => {
             {/* Ticket Modal */}
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
-                    <h2>View</h2>
-
-                    <p>
-                        <strong>Name: </strong>
-                    </p>
-                    <p>
-                        <strong>Type: </strong>
-                        {tickets[current]?.type === 1 && 'Payroll Issue'}
-                        {tickets[current]?.type === 2 && 'Time-off Issue'}
-                    </p>
-                    <p>
-                        <strong>Description: </strong>
-                    </p>
                     <h3>Type: {current.type === 1 && 'Payroll Issue'}</h3>
                     <p>{current.type === 2 && 'Time-off Issue'}</p>
                     <p>{current.message}</p>

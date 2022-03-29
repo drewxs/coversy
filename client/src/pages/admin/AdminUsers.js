@@ -83,6 +83,7 @@ export const AdminUsers = () => {
                                 </TableRow>
                             ))}
                         </TableBody>
+
                         {/*Edit Users For Admin Modal*/}
                         <Modal open={open} onClose={() => setOpen(false)}>
                             <Box
@@ -97,7 +98,6 @@ export const AdminUsers = () => {
                                         sx={{
                                             '& .MuiTextField-root': {
                                                 mb: '1rem',
-                                                width: '45ch',
                                             },
                                         }}
                                     >
@@ -106,6 +106,7 @@ export const AdminUsers = () => {
                                             onChange={(e) =>
                                                 setFirstname(e.target.value)
                                             }
+                                            fullWidth
                                             label='First Name'
                                             placeholder='First Name'
                                         />

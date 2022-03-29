@@ -44,14 +44,7 @@ export const EditAdminDetailModal = () => {
                         Edit Admin Profile
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
-                        <Box
-                            sx={{
-                                '& .MuiTextField-root': {
-                                    mb: '1rem',
-                                    width: '45ch',
-                                },
-                            }}
-                        >
+                        <Box sx={{ '& .MuiTextField-root': { mb: '1rem' } }}>
                             <form>
                                 <div className='edit-info'>
                                     <TextField
@@ -93,58 +86,45 @@ export const EditAdminDetailModal = () => {
                                             <MenuItem value={'AB'}>
                                                 Alberta
                                             </MenuItem>
-
                                             <MenuItem value={'BC'}>
                                                 British Columbia
                                             </MenuItem>
-
                                             <MenuItem value={'MB'}>
                                                 Manitoba
                                             </MenuItem>
-
                                             <MenuItem value={'NB'}>
                                                 New Brunswick
                                             </MenuItem>
-
                                             <MenuItem value={'NL'}>
                                                 Newfoundland and Labrador
                                             </MenuItem>
-
                                             <MenuItem value={'NS'}>
                                                 Nova Scotia
                                             </MenuItem>
-
                                             <MenuItem value={'NT'}>
                                                 Northwest Territories
                                             </MenuItem>
-
                                             <MenuItem value={'NU'}>
                                                 Nunavut
                                             </MenuItem>
-
                                             <MenuItem value={'ON'}>
                                                 Ontario
                                             </MenuItem>
-
                                             <MenuItem value={'PE'}>
                                                 Prince Edward Island
                                             </MenuItem>
-
                                             <MenuItem value={'QC'}>
                                                 Quebec
                                             </MenuItem>
-
                                             <MenuItem value={'SK'}>
                                                 Saskatchewan
                                             </MenuItem>
-
                                             <MenuItem value={'YT'}>
                                                 Yukon
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
                                 </div>
-
                                 <div
                                     className='edit-btn'
                                     style={{ marginTop: '1.5em' }}

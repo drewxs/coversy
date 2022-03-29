@@ -22,7 +22,7 @@ export const EditUserDetailModal = () => {
                 sx={{
                     '& .MuiTextField-root': {
                         m: '1rem',
-                        width: '45ch',
+                        width: '100%',
                     },
                 }}
                 onClick={() => {
