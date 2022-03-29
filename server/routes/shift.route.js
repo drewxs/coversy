@@ -7,6 +7,7 @@ const {
     getShiftMaterials,
     updateShiftById,
     postShift,
+    unpostShift,
     takeShift,
     updateShiftMaterials,
     deleteShiftsBySite,
@@ -27,6 +28,7 @@ router.get('/:shiftId/files/:fileName', getShiftMaterials);
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put('/:shiftId/post', verifyToken, postShift);
+router.put('/:shiftId/unpost', verifyToken, unpostShift);
 router.put('/:shiftId/take', verifyToken, takeShift);
 router.put(
     '/:shiftId/uploadfiles',

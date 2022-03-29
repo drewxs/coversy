@@ -4,7 +4,7 @@ export const ticketSlice = createSlice({
     name: 'ticket',
     initialState: {
         tickets: [],
-        resolvedtickets: [],
+        resolvedTickets: [],
         loading: false,
         loadingResolved: false,
     },
@@ -19,7 +19,7 @@ export const ticketSlice = createSlice({
         setResolvedTickets: (state, action) => {
             return {
                 ...state,
-                tickets: [...action.payload],
+                resolvedTickets: [...action.payload],
                 loadingResolved: false,
             };
         },
@@ -38,7 +38,7 @@ export const ticketSlice = createSlice({
                         (ticket) => ticket._id !== action.payload._id
                     ),
                 ],
-                resolvedtickets: [...state.resolvedtickets, action.payload],
+                resolvedTickets: [...state.resolvedTickets, action.payload],
                 loading: false,
                 loadingResolved: false,
             };
@@ -46,9 +46,9 @@ export const ticketSlice = createSlice({
         setUnresolved: (state, action) => {
             return {
                 ...state,
-                tickets: [...state.resolvedtickets, action.payload],
-                resolvedtickets: [
-                    ...state.tickets.filter(
+                tickets: [...state.tickets, action.payload],
+                resolvedTickets: [
+                    ...state.resolvedTickets.filter(
                         (ticket) => ticket._id !== action.payload._id
                     ),
                 ],

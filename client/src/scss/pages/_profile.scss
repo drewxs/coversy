@@ -2,14 +2,22 @@
 
 .profile {
     height: 100vh;
-    background: linear-gradient(180deg, #ffffff 60%, #333333 40%);
     align-items: end;
     padding-bottom: 0;
+
+    @include bg;
+
+    &::after {
+        background: linear-gradient(
+            180deg,
+            transparent 60%,
+            rgba($color: $black, $alpha: 0.9) 40%
+        );
+    }
 
     .card {
         background-color: #fff;
         height: 82vh;
-
         display: flex;
 
         .col {
@@ -29,27 +37,33 @@
 
                     .overlay {
                         position: absolute;
-                        z-index: 2;
+                        z-index: 1;
                         width: 100%;
                         height: 100%;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: $white;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        opacity: 0;
+                        transition: opacity 400ms ease;
                     }
 
                     input {
                         position: absolute;
                         opacity: 0;
-                        z-index: 5;
+                        z-index: 2;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        cursor: pointer;
                     }
                 }
 
                 .avatar-upload:hover {
-                    input {
-                        overflow: hidden;
-                        width: 65%;
-                        opacity: 100;
-                    }
-
                     .overlay {
-                        background-color: rgba(0, 0, 0, 0.5);
+                        opacity: 1;
                     }
                 }
 
@@ -71,7 +85,7 @@
                     &.detail {
                         width: 70%;
                         margin-bottom: 1em;
-                        align-items: start;
+                        align-items: flex-start;
                     }
                     p {
                         margin-left: 1em;

@@ -3,39 +3,23 @@
 .home {
     height: 100vh;
     max-height: 100vh;
+    position: relative;
+    padding-top: 50vh;
 
-    .hero {
+    .container {
+        display: flex;
         height: 100%;
-        background-color: $white;
-        padding-top: 18vh;
-
-        .container {
-            display: flex;
-            height: 100%;
-
-            .col {
-                width: 50%;
-
-                &.left {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: center;
-                    padding-right: 4em;
-
-                    h3 {
-                        margin-bottom: 1.5em;
-                        max-width: 40ch;
-                    }
-                }
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    object-position: 0 0;
-                }
-            }
-        }
+        align-items: flex-start;
+        justify-content: center;
     }
+}
+
+.bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    z-index: -1;
 }

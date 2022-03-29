@@ -1,32 +1,42 @@
 @use 'breakpoints' as *;
+@use 'variables' as *;
 
 @mixin respond-to($key) {
-	$size: map-get($breakpoints, $key);
+    $size: map-get($breakpoints, $key);
 
-	@if ($key == laptop or $key == desktop) {
-		@media only screen and (min-width: $size) {
-			@content;
-		}
-	} @else {
-		@media only screen and (max-width: $size) {
-			@content;
-		}
-	}
+    @if ($key == laptop or $key == desktop) {
+        @media only screen and (min-width: $size) {
+            @content;
+        }
+    } @else {
+        @media only screen and (max-width: $size) {
+            @content;
+        }
+    }
 }
 
 @mixin text-overflow {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @mixin headings {
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		@content;
-	}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @content;
+    }
+}
+
+@mixin bg {
+    background: linear-gradient(
+        180deg,
+        transparent 60%,
+        rgba($color: $black, $alpha: 0.9) 40%
+    );
+    background-attachment: fixed;
 }

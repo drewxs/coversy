@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const {
-	getNotificationsByUserId,
+	getNotifications,
 	readNotification,
 } = require('../controllers/notification.controller');
 const { verifyToken } = require('../middleware/verify');
-const { verifyUser } = require('../middleware/verify.user');
 
 // READ
-router.get('/user/:userId', verifyUser, getNotificationsByUserId);
+router.get('/', verifyToken, getNotifications);
 
 // UPDATE
 router.put('/:notificationId', verifyToken, readNotification);
