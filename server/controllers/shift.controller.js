@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const Shift = require('../models/shift.model');
 const escape = require('escape-html');
 const aws = require('aws-sdk');
+const { createNotification } = require('./notification.controller');
 
 aws.config.update({
     secretAccessKey: process.env.S3_ACCESS_SECRET,
