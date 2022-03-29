@@ -1,4 +1,5 @@
 @use 'breakpoints' as *;
+@use 'variables' as *;
 
 @mixin respond-to($key) {
     $size: map-get($breakpoints, $key);
@@ -32,23 +33,10 @@
 }
 
 @mixin bg {
-    background-image: url('/assets/bg.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
-@mixin bg2 {
-    background-image: url('/assets/bg2.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
-@mixin bg3 {
-    background-image: url('/assets/bg3.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: linear-gradient(
+        180deg,
+        transparent 60%,
+        rgba($color: $black, $alpha: 0.9) 40%
+    );
     background-attachment: fixed;
 }
