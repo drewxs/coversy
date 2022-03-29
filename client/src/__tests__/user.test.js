@@ -10,7 +10,8 @@ const initialState = {
     loading: false,
     user: [],
     loadingUser: false,
-    authenticated: false,
+    authenticated: true,
+    localStorage: true,
 };
 const testingUser = {
     user: {
@@ -18,9 +19,8 @@ const testingUser = {
         firstName: 'Test',
         lastName: 'User',
         type: 2,
-        email: 'testuser@test.com',
-        password:
-            '$2a$10$rki8TMXBPzcpA/5RarKt0.C3TM.1Uusj97/6GRzy5B7wPtOuoPC9S',
+        email: 'test@test.com',
+        password: 'testpass',
         activated: true,
         verified: true,
         confirmationCode:
@@ -33,15 +33,13 @@ const testingUser = {
                 province: 'AB',
             },
             _id: '6208b81edc1a21e127631d4c',
-            name: 'Test Site',
-            __v: 0,
         },
     },
 };
 
 test('submit user and password', () => {
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual(initialState);
+        expect(reducer(localStorage, {})).toEqual(initialState);
     });
     it('handle the sign in', () => {
         expect(
