@@ -24,51 +24,41 @@ import {
 
 export const AdminTickets = () => {
     const tickets = useSelector((state) => state.ticket.tickets);
+    const loading = useSelector((state) => state.ticket.loading);
     const resolvedTickets = useSelector(
         (state) => state.ticket.resolvedTickets
     );
-    const loading = useSelector((state) => state.ticket.loading);
     const loadingResolved = useSelector(
         (state) => state.ticket.loadingResolved
     );
 
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState({});
-    const handleOpen = () => setOpen(true);
-    const handleResolve = (ticket) => {
-        if (ticket.resolved) {
-            UnresolveTicket(ticket);
-        } else {
-            ResolveTicket(ticket);
-        }
-    };
+    const [tab, setTab] = useState(0);
 
-    const [tabValue, setTabValue] = useState(0);
+    const handleResolve = (ticket) => {
+        ticket.resolved ? UnresolveTicket(ticket) : ResolveTicket(ticket);
+    };
 
     useEffect(() => {
         GetUnresolvedTickets();
     }, []);
 
     useEffect(() => {
-        if (tabValue === 1) GetResolvedTickets();
-    }, [tabValue]);
+        if (tab === 1) GetResolvedTickets();
+    }, [tab]);
 
     return (
         <>
             <section className='dashboard'>
                 <div className='container'>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs
-                            value={tabValue}
-                            onChange={(e, v) => {
-                                setTabValue(v);
-                            }}
-                        >
+                        <Tabs value={tab} onChange={(__e, v) => setTab(v)}>
                             <Tab label='Unresolved' value={0} />
                             <Tab label='Resolved' value={1} />
                         </Tabs>
                     </Box>
-                    {tabValue === 0 && (
+                    {tab === 0 && (
                         <>
                             {loading ? (
                                 <CircularProgress />
@@ -105,7 +95,7 @@ export const AdminTickets = () => {
                                                 <TableCell>
                                                     <Button
                                                         onClick={() => {
-                                                            handleOpen();
+                                                            setOpen(true);
                                                             setCurrent(ticket);
                                                         }}
                                                     >
@@ -119,7 +109,7 @@ export const AdminTickets = () => {
                             )}
                         </>
                     )}
-                    {tabValue === 1 && (
+                    {tab === 1 && (
                         <>
                             {loadingResolved ? (
                                 <CircularProgress />
@@ -156,7 +146,7 @@ export const AdminTickets = () => {
                                                 <TableCell>
                                                     <Button
                                                         onClick={() => {
-                                                            handleOpen();
+                                                            setOpen(true)();
                                                             setCurrent(ticket);
                                                         }}
                                                     >
@@ -175,25 +165,10 @@ export const AdminTickets = () => {
 
             {/* Ticket Modal */}
             <Modal open={open} onClose={() => setOpen(false)}>
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 400,
-                        bgcolor: 'background.paper',
-                        boxShadow: 24,
-                        p: 4,
-                    }}
-                >
-                    <h2>View</h2>
-
-                    <p>
-                        Type: {current.type === 1 && 'Payroll Issue'}
-                        {current.type === 2 && 'Time-off Issue'}
-                    </p>
-                    <p> {current.message} </p>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <h3>Type: {current.type === 1 && 'Payroll Issue'}</h3>
+                    <p>{current.type === 2 && 'Time-off Issue'}</p>
+                    <p>{current.message}</p>
                     <br />
                     <Button
                         variant='outlined'
@@ -202,14 +177,11 @@ export const AdminTickets = () => {
                             handleResolve(current);
                             setOpen(false)();
                         }}
+                        sx={{ marginRight: '1rem' }}
                     >
-                        {current.resolved ? (
-                            <p>Set Unresolved</p>
-                        ) : (
-                            <p>Set Resolved</p>
-                        )}
+                        {current.resolved ? <p>Unresolve</p> : <p>Resolve</p>}
                     </Button>
-                    <Button onClick={() => setOpen(false)()}>Cancel</Button>
+                    <Button onClick={() => setOpen(false)}>Cancel</Button>
                 </Box>
             </Modal>
         </>
