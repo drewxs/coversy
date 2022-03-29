@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
-const EditAdminDetailModal = () => {
+export const EditAdminDetailModal = () => {
     const admin = useSelector((state) => state.user.user);
     const [open, setOpen] = useState(false);
     const [street, setStreet] = useState(null);
@@ -55,6 +55,7 @@ const EditAdminDetailModal = () => {
                             <form>
                                 <div className='edit-info'>
                                     <TextField
+                                        value={street}
                                         onChange={(e) =>
                                             setStreet(e.target.value)
                                         }
@@ -63,13 +64,14 @@ const EditAdminDetailModal = () => {
                                         placeholder='Street'
                                     />
                                     <TextField
+                                        value={zip}
                                         onChange={(e) => setZip(e.target.value)}
                                         fullWidth
                                         label='Zip Code'
                                         placeholder='Zip Code'
-                                        multiline
                                     />
                                     <TextField
+                                        value={city}
                                         onChange={(e) =>
                                             setCity(e.target.value)
                                         }
@@ -169,5 +171,3 @@ const EditAdminDetailModal = () => {
         </div>
     );
 };
-
-export default EditAdminDetailModal;

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
-import EditUserDetailModal from 'components/EditUserDetail';
-import EditAdminDetailModal from 'components/EditAdminDetail';
+import { EditUserDetailModal, EditAdminDetailModal } from 'components';
+
 import axios from 'axios';
 
 export const Profile = () => {
@@ -61,7 +61,6 @@ export const Profile = () => {
                             onChange={(e) => setImage(e.target.files[0])}
                         />
                     </div>
-
                     <div className='block name'>
                         <h3>
                             {user?.firstName} {user?.lastName}

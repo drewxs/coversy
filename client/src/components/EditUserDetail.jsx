@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
-const EditUserDetailModal = () => {
+export const EditUserDetailModal = () => {
     const users = useSelector((state) => state.admin.users);
     const [firstname, setFirstname] = useState(null);
     const [lastname, setLastname] = useState(null);
@@ -42,6 +42,7 @@ const EditUserDetailModal = () => {
                         <form>
                             <div className='edit-info'>
                                 <TextField
+                                    value={firstname}
                                     onChange={(e) =>
                                         setFirstname(e.target.value)
                                     }
@@ -51,6 +52,7 @@ const EditUserDetailModal = () => {
                                     sx={{ mb: '1rem' }}
                                 />
                                 <TextField
+                                    value={lastname}
                                     onChange={(e) =>
                                         setLastname(e.target.value)
                                     }
@@ -60,7 +62,6 @@ const EditUserDetailModal = () => {
                                     placeholder='Last Name'
                                 />
                             </div>
-
                             <div className='edit-btn'>
                                 <Button
                                     sx={{ mr: '1rem' }}
@@ -83,5 +84,3 @@ const EditUserDetailModal = () => {
         </div>
     );
 };
-
-export default EditUserDetailModal;
