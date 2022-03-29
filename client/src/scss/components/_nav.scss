@@ -9,6 +9,19 @@
     top: 0;
     box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
 
+    .logo-cont {
+        display: flex;
+        align-items: center;
+    }
+    .hello {
+        margin-top: 0.1em;
+        margin-left: 2em;
+    }
+
+    .nav-links {
+        display: flex;
+    }
+
     .container {
         display: flex;
         align-items: center;
