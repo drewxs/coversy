@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const {
-	getUserById,
-	getUsersBySite,
-	updateUserById,
-	toggleUserActivatedById,
-	getProfilePicture,
-	updateProfilePicture,
-	deleteProfilePicture,
+    getUserById,
+    getUsersBySite,
+    updateUserById,
+    toggleUserActivatedById,
+    getProfilePicture,
+    updateProfilePicture,
 } = require('../controllers/user.controller');
 const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
@@ -19,10 +18,9 @@ router.get('/images/:key', getProfilePicture);
 router.put('/:userId', verifyUser, updateUserById);
 router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
 router.put(
-	'/:userId/updatepicture',
-	uploadProfile.single('avatar'),
-	updateProfilePicture
+    '/:userId/updatepicture',
+    uploadProfile.single('avatar'),
+    updateProfilePicture
 );
-router.delete('/:userId/:key/deletepicture', deleteProfilePicture);
 
 module.exports = router;
