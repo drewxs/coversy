@@ -65,7 +65,6 @@ export const AdminUsers = () => {
                                             }
                                         />
                                     </TableCell>
-
                                     {/*Edit Button For Edit User*/}
                                     <TableCell>
                                         <Button
@@ -84,7 +83,6 @@ export const AdminUsers = () => {
                                 </TableRow>
                             ))}
                         </TableBody>
-
                         {/*Edit Users For Admin Modal*/}
                         <Modal open={open} onClose={() => setOpen(false)}>
                             <Box
