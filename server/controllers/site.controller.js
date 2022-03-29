@@ -4,31 +4,6 @@ const { siteValidation } = require('../util/validation');
 
 /**
  *
- * @desc This function registers a site.
- * @route POST /site/
- * @access Admin
- */
-exports.createSite = async (req, res) => {
-    const location = {
-        name: escape(req.body.name),
-        address: {
-            street: escape(req.body.address.street),
-            zip: escape(req.body.address.zip),
-            city: escape(req.body.address.city),
-            province: escape(req.body.address.province),
-        },
-    };
-
-    const { error } = siteValidation(location);
-    if (error) return res.status(400).json(error.details[0].message);
-
-    Site.create(location)
-        .then((site) => res.status(201).json(site))
-        .catch((err) => res.status(400).json(err));
-};
-
-/**
- *
  * @desc This function returns all sites.
  * @route GET /site/
  * @access Admin
