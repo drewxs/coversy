@@ -193,63 +193,6 @@ describe('Endpoint testing [users]', () => {
 });
 
 describe('Endpoint testing [site]', () => {
-    it('Create site', (done) => {
-        chai.request(server)
-            .post(`/api/site`)
-            .set('content-type', 'application/json')
-            .set('auth-token', process.env.TEST_TOKEN)
-            .send({
-                name: 'test_site',
-                address: {
-                    street: 'test_street',
-                    zip: 'A1A 1A1',
-                    city: 'test_city',
-                    province: 'AB',
-                },
-            })
-            .end((err, res) => {
-                res.should.have.status(201);
-                done();
-            });
-    });
-    it('Create site zip validation fail', (done) => {
-        chai.request(server)
-            .post(`/api/site`)
-            .set('content-type', 'application/json')
-            .set('auth-token', process.env.TEST_TOKEN)
-            .send({
-                name: 'test_site',
-                address: {
-                    street: 'test_street',
-                    zip: 'A1A',
-                    city: 'test_city',
-                    province: 'AB',
-                },
-            })
-            .end((err, res) => {
-                res.should.have.status(400);
-                done();
-            });
-    });
-    it('Create site province validation fail', (done) => {
-        chai.request(server)
-            .post(`/api/site`)
-            .set('content-type', 'application/json')
-            .set('auth-token', process.env.TEST_TOKEN)
-            .send({
-                name: 'test_site',
-                address: {
-                    street: 'test_street',
-                    zip: 'A1A 1A1',
-                    city: 'test_city',
-                    province: 'CC',
-                },
-            })
-            .end((err, res) => {
-                res.should.have.status(400);
-                done();
-            });
-    });
     it('Get all sites', (done) => {
         chai.request(server)
             .get(`/api/site`)
@@ -319,6 +262,63 @@ describe('Endpoint testing [payroll]', () => {
             .set('auth-token', process.env.TEST_TOKEN)
             .end((err, res) => {
                 res.should.status(200);
+                done();
+            });
+    });
+});
+
+describe('Endpoint testing [tickets]', () => {
+    it('Get unresolved tickets', (done) => {
+        chai.request(server)
+            .get(`/api/ticket/unresolved`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(200);
+                done();
+            });
+    });
+    it('Get resolved tickets', (done) => {
+        chai.request(server)
+            .get(`/api/ticket/resolved`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(200);
+                done();
+            });
+    });
+    it('Resolve ticket', (done) => {
+        chai.request(server)
+            .put(`/api/ticket/${process.env.TEST_TICKET}/resolve`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(200);
+                done();
+            });
+    });
+    it('Resolve ticket bad request', (done) => {
+        chai.request(server)
+            .put(`/api/ticket/555555/resolve`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(400);
+                done();
+            });
+    });
+    it('Unresolve ticket', (done) => {
+        chai.request(server)
+            .put(`/api/ticket/${process.env.TEST_TICKET}/unresolve`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(200);
+                done();
+            });
+    });
+    it('Unresolve ticket bad request', (done) => {
+        chai.request(server)
+            .put(`/api/ticket/555555/unresolve`)
+            .set('auth-token', process.env.TEST_TOKEN)
+            .end((err, res) => {
+                res.should.status(400);
                 done();
             });
     });
