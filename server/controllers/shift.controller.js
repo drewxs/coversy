@@ -161,18 +161,34 @@ exports.getShiftMaterials = (req, res) => {
  * @access User
  */
 
-exports.updateShiftMaterials = (req, res) => {
+exports.updateShiftMaterials = async (req, res) => {
     if (!req.files) return res.status(400).send('No files uploaded');
     const shiftId = escape(req.params.shiftId);
-
     const updateQuery = { materials: [] };
-
+    let shift;
+    
     req.files.forEach((file) => {
         updateQuery.materials.push({
             fileName: file.originalname,
             fileKey: file.key,
         });
     });
+
+    try {
+        shift = await Shift.findById(shiftId).lean();
+        if (shift.materials) {
+            shift.materials.forEach((file) =>{
+                const deleteParams = {
+                    Key: file.key,
+                    Bucket: process.env.S3_PROFILE_BUCKET,
+                };
+                await s3.deleteObject(deleteParams).promise();
+
+            })
+        }
+    } catch (err) {
+        res.status(400).json(err);
+    }
 
     Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
         .then((shift) => res.status(200).json(shift))
