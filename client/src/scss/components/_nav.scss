@@ -41,4 +41,8 @@
     .logout-btn {
         color: rgba($color: $white, $alpha: 0.5);
     }
+
+    @media print {
+        display: none;
+    }
 }
