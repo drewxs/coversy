@@ -19,7 +19,7 @@ export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
     const shifts = useSelector((state) => state.shift.shifts);
 
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(null);
     const [openbook, setOpenBook] = useState(false);
     const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(null);
@@ -57,7 +57,10 @@ export const Shifts = () => {
                                             marginTop: '1rem',
                                         }}
                                         variant='contained'
-                                        onClick={() => setOpenBook(true)}
+                                        onClick={() => {
+                                            setDescription(user.description);
+                                            setOpenBook(true);
+                                        }}
                                     >
                                         Book time off{' '}
                                     </Button>
@@ -139,6 +142,17 @@ export const Shifts = () => {
                                             'h:mm a'
                                         )}
                                     </p>
+                                    {/* Upload Docments*/}
+                                    <Typography
+                                        variant='h6'
+                                        sx={{ mt: '0.5rem' }}
+                                    >
+                                        Upload Documents
+                                    </Typography>
+                                    <Typography>
+                                        <input type='file' accept='.docx' />
+                                    </Typography>
+
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
@@ -204,6 +218,7 @@ export const Shifts = () => {
                         views={['month', 'agenda']}
                         onSelectEvent={(event) => {
                             setCurrent(event);
+                            setDescription(user.description);
                             setOpenView(true);
                         }}
                         style={{ height: 500, width: 850 }}
