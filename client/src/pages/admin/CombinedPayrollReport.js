@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { GetUserPayroll } from 'redux/payroll';
+import { GetSitePayroll } from 'redux/payroll';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 export const CombinedPayrollReport = () => {
     const params = useParams();
+
+    const user = useSelector((state) => state.user.user);
     const payroll = useSelector((state) => state.payroll.payroll);
+
     useEffect(() => {
-        GetUserPayroll(params.date);
+        GetSitePayroll(params.date);
     }, [params.date]);
     console.log(payroll);
 
@@ -19,50 +23,46 @@ export const CombinedPayrollReport = () => {
                         <h1>REPORT</h1>
                     </div>
                     <div className='site'>
-                        <p id='bold'>Site: Name</p>
-                        <p>123 Street SE</p>
-                        <p>Calgary, AB T2E S79</p>
+                        <p className='bold'>{user?.site.name}</p>
+                        <p>{user?.site.address.street}</p>
+                        <p>
+                            {user?.site.address.city},{' '}
+                            {user?.site.address.province}{' '}
+                            {user?.site.address.zip}
+                        </p>
                         <p>Canada</p>
                     </div>
                     <div className='pay-info'>
-                        <p id='bold'>Pay Date:</p>
-                        <p>Feb 12, 2022</p>
                         <div className='period'>
-                            <p id='bold'>Pay Period:</p>
-                            <p>Feb 12, 2022 - Mar 12, 2022</p>
+                            <p className='bold'>Pay Period:</p>
+                            <p>{moment(payroll?.period).format('MMMM Y')}</p>
                         </div>
                     </div>
                 </div>
                 <div className='earnings'>
-                    <p id='bold'>Employe Total</p>
-                    <p id='amount-header'>Amount: CAD</p>
+                    <p className='bold'>Earnings</p>
+                    <p className='amount-header'>Amount: CAD</p>
                     <hr />
-                    <p>John Doe's Salary - Monthly (20000)</p>
-                    <p id='amount'>20000</p>
+                    <p>Pay - {payroll?.hours} Hours</p>
+                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
                     <hr />
-                    <p>Jane Doe's Salary - Monthly (30000)</p>
-                    <p id='amount'>30000</p>
-                    <hr />
-                    <p id='bold'>Total Earnings</p>
-                    <p id='amount'>50000</p>
+                    <p className='bold'>Total Payout</p>
+                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
                 </div>
                 <div className='deductions'>
-                    <p id='bold'>Deductions</p>
-                    <p id='amount-header'>Amount: CAD</p>
+                    <p className='bold'>Deductions</p>
+                    <p className='amount-header'>Amount: CAD</p>
                     <hr />
-                    <p>John Doe</p>
-                    <p id='amount'>2000</p>
+                    <p>Employee Taxes</p>
+                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
                     <hr />
-                    <p>Jane Doe</p>
-                    <p id='amount'>3000</p>
-                    <hr />
-                    <p id='bold'>Total Deductions</p>
-                    <p id='amount'>5000</p>
+                    <p className='bold'>Total Deductions</p>
+                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
                 </div>
                 <div className='payout'>
                     <hr />
-                    <p>Total Payout</p>
-                    <p id='amount'>45000</p>
+                    <p>Net Payout</p>
+                    <p className='amount'>${payroll?.netPay?.toFixed(2)}</p>
                     <hr />
                 </div>
             </div>
