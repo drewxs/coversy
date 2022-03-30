@@ -11,13 +11,13 @@ import {
 import { Edit } from '@mui/icons-material';
 
 export const EditUserDetailModal = () => {
-    const users = useSelector((state) => state.admin.users);
+    const user = useSelector((state) => state.user.user);
     const [firstname, setFirstname] = useState(null);
     const [lastname, setLastname] = useState(null);
     const [open, setOpen] = useState(false);
 
     return (
-        <div>
+        <>
             <IconButton
                 sx={{
                     '& .MuiTextField-root': {
@@ -26,13 +26,14 @@ export const EditUserDetailModal = () => {
                     },
                 }}
                 onClick={() => {
-                    setFirstname(users.firstName);
-                    setLastname(users.lastName);
+                    setFirstname(user.firstName);
+                    setLastname(user.lastName);
                     setOpen(true);
                 }}
             >
                 <Edit color='primary' />
             </IconButton>
+
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography sx={{ mb: '0.5em' }} variant='h6'>
@@ -81,6 +82,6 @@ export const EditUserDetailModal = () => {
                     </Typography>
                 </Box>
             </Modal>
-        </div>
+        </>
     );
 };
