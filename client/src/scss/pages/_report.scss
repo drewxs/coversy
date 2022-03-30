@@ -1,15 +1,15 @@
 @use '../abstract' as *;
 
-#bold {
+.bold {
     display: inline;
     font-weight: bold;
 }
 
-#amount {
+.amount {
     float: right;
 }
 
-#amount-header {
+.amount-header {
     float: right;
     font-weight: bold;
 }
@@ -41,19 +41,21 @@
 
 .earnings,
 .deductions {
-    p {
-        display: inline;
-    }
     width: 50%;
     padding: 5px;
     margin-bottom: 60px;
-}
 
-.payout {
     p {
         display: inline;
     }
+}
+
+.payout {
     width: 50%;
     padding: 5px;
     margin-top: 60px;
+
+    p {
+        display: inline;
+    }
 }
