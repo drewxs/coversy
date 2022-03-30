@@ -18,7 +18,7 @@ router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 router.get('/images/:key', getProfilePicture);
 
 router.put('/:userId', verifyUser, updateUserById);
-router.put('/:userId/admin', verifyUser, updateUserAsAdmin);
+router.put('/:userId/admin', verifyAdmin, updateUserAsAdmin);
 router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
 router.put(
     '/:userId/updatepicture',

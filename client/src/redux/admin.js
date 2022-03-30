@@ -30,9 +30,13 @@ export const ToggleUserActivatedById = async (userId) => {
 
 export const UpdateUserAsAdmin = async (userId, updateQuery) => {
     try {
-        const res = await axios.put(`${api}/user/${userId}/admin`, updateQuery);
+        const res = await axios.put(
+            `${api}/user/${userId}/admin`,
+            updateQuery,
+            { headers: { 'auth-token': localStorage.getItem('auth-token') } }
+        );
         store.dispatch(updateUser(res.data));
     } catch (err) {
-        console.error(err);
+        console.error(err.message);
     }
 };
