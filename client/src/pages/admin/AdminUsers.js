@@ -13,21 +13,33 @@ import {
     Modal,
     TextField,
 } from '@mui/material';
-// import { Box, Tab, TabContext, TabList, TabPanel } from '@mui/material';
 import { FetchUsers, ToggleUserActivatedById } from 'redux/admin';
+import { UpdateUserAsAdmin } from 'redux/admin';
 
 export const AdminUsers = () => {
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
+
     const [open, setOpen] = useState(false);
     const [firstname, setFirstname] = useState(null);
     const [lastname, setLastname] = useState(null);
-    const [hourlyrate, setHourlyrate] = useState(null);
-    const [taxrate, setTaxrate] = useState(null);
+    const [hourlyRate, setHourlyRate] = useState(null);
+    const [taxRate, setTaxRate] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         if (admin.site._id) FetchUsers(admin.site._id);
     }, [admin]);
+
+    const handleSave = () => {
+        UpdateUserAsAdmin(userId, {
+            firstname,
+            lastname,
+            hourlyRate,
+            taxRate,
+        });
+        setOpen(false);
+    };
 
     return (
         <>
@@ -72,8 +84,9 @@ export const AdminUsers = () => {
                                             onClick={() => {
                                                 setFirstname(user.firstName);
                                                 setLastname(user.lastName);
-                                                setHourlyrate(user.hourlyRate);
-                                                setTaxrate(user.taxRate);
+                                                setHourlyRate(user.hourlyRate);
+                                                setTaxRate(user.taxRate);
+                                                setUserId(user._id);
                                                 setOpen(true);
                                             }}
                                         >
@@ -93,79 +106,71 @@ export const AdminUsers = () => {
                                 <Typography variant='h5'>
                                     Edit User Details
                                 </Typography>
-                                <Typography sx={{ mt: '1rem' }}>
-                                    <Box
+                                <Box
+                                    sx={{
+                                        mt: '1.5rem',
+                                        '& .MuiTextField-root': {
+                                            mb: '1rem',
+                                        },
+                                    }}
+                                >
+                                    <TextField
+                                        value={firstname}
+                                        onChange={(e) =>
+                                            setFirstname(e.target.value)
+                                        }
+                                        label='First Name'
+                                        placeholder='First Name'
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        value={lastname}
+                                        onChange={(e) =>
+                                            setLastname(e.target.value)
+                                        }
+                                        label='Last Name'
+                                        placeholder='Last Name'
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        value={hourlyRate}
+                                        onChange={(e) =>
+                                            setHourlyRate(e.target.value)
+                                        }
+                                        label=' Hourly Rate'
+                                        placeholder='Hourly Rate'
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        value={taxRate}
+                                        onChange={(e) =>
+                                            setTaxRate(e.target.value)
+                                        }
+                                        label='Tax Rate'
+                                        placeholder='Tax Rate'
+                                        fullWidth
+                                    />
+                                    <Button
                                         sx={{
-                                            '& .MuiTextField-root': {
-                                                mb: '1rem',
-                                            },
+                                            mt: '1rem',
+                                            mr: '1rem',
+                                        }}
+                                        variant='contained'
+                                        onClick={() => {
+                                            handleSave();
+                                            setOpen(false);
                                         }}
                                     >
-                                        <TextField
-                                            value={firstname}
-                                            onChange={(e) =>
-                                                setFirstname(e.target.value)
-                                            }
-                                            fullWidth
-                                            label='First Name'
-                                            placeholder='First Name'
-                                        />
-                                        <TextField
-                                            value={lastname}
-                                            onChange={(e) =>
-                                                setLastname(e.target.value)
-                                            }
-                                            fullWidth
-                                            label='Last Name'
-                                            placeholder='Last Name'
-                                        />
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                            }}
-                                        >
-                                            <TextField
-                                                sx={{ mr: '0.9rem' }}
-                                                value={hourlyrate}
-                                                onChange={(e) =>
-                                                    setHourlyrate(
-                                                        e.target.value
-                                                    )
-                                                }
-                                                fullWidth
-                                                label=' Hourly Rate'
-                                                placeholder='Hourly Rate'
-                                            />
-                                            <TextField
-                                                value={taxrate}
-                                                onChange={(e) =>
-                                                    setTaxrate(e.target.value)
-                                                }
-                                                fullWidth
-                                                label='Tax Rate'
-                                                placeholder='Tax Rate'
-                                            />
-                                        </div>
-
-                                        <div id='btn-edit-user'>
-                                            <Button
-                                                sx={{
-                                                    mr: '1rem',
-                                                }}
-                                                variant='contained'
-                                                onClick={() => setOpen(false)}
-                                            >
-                                                Save
-                                            </Button>
-                                            <Button
-                                                variant='outlined'
-                                                onClick={() => setOpen(false)}
-                                            >
-                                                Cancel
-                                            </Button>
-                                        </div>
-                                    </Box>
-                                </Typography>
+                                        Save
+                                    </Button>
+                                    <Button
+                                        sx={{ mt: '1rem' }}
+                                        variant='outlined'
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </Box>
                             </Box>
                         </Modal>
                     </Table>
