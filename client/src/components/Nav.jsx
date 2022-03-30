@@ -12,8 +12,15 @@ export const Nav = () => {
     return (
         <section className='nav'>
             <div className='container'>
-                <img className='logo' src={logo} alt='Coversy logo'></img>
-                <div>
+                <div className='logo-cont'>
+                    <img className='logo' src={logo} alt='Coversy logo'></img>
+                    {authenticated && (
+                        <p className='hello'>
+                            Hello {user.firstName} {user.lastName}
+                        </p>
+                    )}
+                </div>
+                <div className='nav-links'>
                     {/* Unauthenticated links */}
                     {!authenticated && (
                         <>
@@ -97,13 +104,6 @@ export const Nav = () => {
                             >
                                 Profile
                             </Button>
-                            {/* <Button
-                                
-                                className='button logout'
-                                href='/payroll'
-                            >
-                                Payroll
-                            </Button> */}
                         </>
                     )}
 

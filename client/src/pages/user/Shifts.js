@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { GetShifts } from 'redux/shift';
+import { GetShifts, TakeShift } from 'redux/shift';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
 import {
@@ -67,6 +67,7 @@ export const Shifts = () => {
                                 </div>
                                 <div className='shift-container'>
                                     {shifts
+                                        .slice()
                                         ?.filter(
                                             (shift) =>
                                                 shift.teacher._id ===
@@ -160,7 +161,10 @@ export const Shifts = () => {
                                         <Button
                                             sx={{ marginTop: '1rem' }}
                                             variant='contained'
-                                            onClick={() => setOpenBook(true)}
+                                            onClick={() => {
+                                                TakeShift(current._id);
+                                                setOpenView(false);
+                                            }}
                                         >
                                             Take Shift
                                         </Button>
@@ -221,7 +225,7 @@ export const Shifts = () => {
                             setDescription(user.description);
                             setOpenView(true);
                         }}
-                        style={{ height: 500, width: 850 }}
+                        style={{ height: '100%', width: '100%' }}
                     />
                 </div>
             </div>
