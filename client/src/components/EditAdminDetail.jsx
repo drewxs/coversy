@@ -15,29 +15,50 @@ import {
 import { Edit } from '@mui/icons-material';
 
 export const EditAdminDetailModal = () => {
-    const admin = useSelector((state) => state.user.user);
+    const admin = useSelector((state) => state.user.user.site);
+
     const [open, setOpen] = useState(false);
     const [street, setStreet] = useState(null);
-    const [city, setCity] = useState(null);
+    const [city, setCity] = useState('');
     const [zip, setZip] = useState(null);
     const [province, setProvince] = useState(null);
 
+    const provinces = [
+        { code: 'AB', name: 'Alberta' },
+        { code: 'BC', name: 'British Columbia' },
+        { code: 'MB', name: 'Manitoba' },
+        { code: 'NB', name: 'New Brunswick' },
+        { code: 'NL', name: 'Newfoundland and Labrador' },
+        { code: 'NS', name: 'Nova Scotia' },
+        { code: 'NT', name: 'Northwest Territories' },
+        { code: 'NU', name: 'Nunavut' },
+        { code: 'ON', name: 'Ontario' },
+        { code: 'PE', name: 'Prince Edward Island' },
+        { code: 'QC', name: 'Quebec' },
+        { code: 'SK', name: 'Saskatchewan' },
+        { code: 'YT', name: 'Yukon' },
+    ];
+
     return (
-        <div>
+        <>
             <IconButton
-                sx={{
-                    marginRight: '-4em',
-                }}
                 onClick={() => {
-                    setStreet(admin.street);
+                    setStreet(admin.Street);
                     setCity(admin.city);
                     setZip(admin.zip);
                     setProvince(admin.province);
-                    setOpen(true);
                 }}
+                style={{ borderRadius: '50%' }}
             >
-                <Edit color='primary' />
+                <Edit
+                    syle={{ padding: '0.5em' }}
+                    color='primary'
+                    onClick={() => {
+                        setOpen(true);
+                    }}
+                />
             </IconButton>
+
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography sx={{ marginBottom: '0.5em' }} variant='h6'>
@@ -53,75 +74,49 @@ export const EditAdminDetailModal = () => {
                                             setStreet(e.target.value)
                                         }
                                         fullWidth
-                                        label='Street'
-                                        placeholder='Street'
+                                        label='Address'
+                                        placeholder='Address'
                                     />
-                                    <TextField
-                                        value={zip}
-                                        onChange={(e) => setZip(e.target.value)}
-                                        fullWidth
-                                        label='Zip Code'
-                                        placeholder='Zip Code'
-                                    />
-                                    <TextField
-                                        value={city}
-                                        onChange={(e) =>
-                                            setCity(e.target.value)
-                                        }
-                                        fullWidth
-                                        label='City'
-                                        placeholder='City'
-                                    />
+                                    <div style={{ display: 'flex' }}>
+                                        <TextField
+                                            sx={{ mr: '0.9rem' }}
+                                            value={zip}
+                                            onChange={(e) =>
+                                                setZip(e.target.value)
+                                            }
+                                            fullWidth
+                                            label='Postal Code'
+                                            placeholder='Postal Code'
+                                        />
+                                        <TextField
+                                            value={city}
+                                            onChange={(e) =>
+                                                setCity(e.target.value)
+                                            }
+                                            fullWidth
+                                            label='City'
+                                            placeholder='City'
+                                        />
+                                    </div>
+
                                     <FormControl fullWidth>
-                                        <InputLabel label='Province'>
-                                            Province
-                                        </InputLabel>
+                                        <InputLabel>Province</InputLabel>
                                         <Select
+                                            className='input'
+                                            value={province}
+                                            label='Province'
                                             onChange={(e) =>
                                                 setProvince(e.target.value)
                                             }
-                                            value={province}
-                                            label='Province'
                                         >
-                                            <MenuItem value={'AB'}>
-                                                Alberta
-                                            </MenuItem>
-                                            <MenuItem value={'BC'}>
-                                                British Columbia
-                                            </MenuItem>
-                                            <MenuItem value={'MB'}>
-                                                Manitoba
-                                            </MenuItem>
-                                            <MenuItem value={'NB'}>
-                                                New Brunswick
-                                            </MenuItem>
-                                            <MenuItem value={'NL'}>
-                                                Newfoundland and Labrador
-                                            </MenuItem>
-                                            <MenuItem value={'NS'}>
-                                                Nova Scotia
-                                            </MenuItem>
-                                            <MenuItem value={'NT'}>
-                                                Northwest Territories
-                                            </MenuItem>
-                                            <MenuItem value={'NU'}>
-                                                Nunavut
-                                            </MenuItem>
-                                            <MenuItem value={'ON'}>
-                                                Ontario
-                                            </MenuItem>
-                                            <MenuItem value={'PE'}>
-                                                Prince Edward Island
-                                            </MenuItem>
-                                            <MenuItem value={'QC'}>
-                                                Quebec
-                                            </MenuItem>
-                                            <MenuItem value={'SK'}>
-                                                Saskatchewan
-                                            </MenuItem>
-                                            <MenuItem value={'YT'}>
-                                                Yukon
-                                            </MenuItem>
+                                            {provinces.map((province) => (
+                                                <MenuItem
+                                                    value={province.code}
+                                                    key={province.code}
+                                                >
+                                                    {province.name}
+                                                </MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
                                 </div>
@@ -148,6 +143,6 @@ export const EditAdminDetailModal = () => {
                     </Typography>
                 </Box>
             </Modal>
-        </div>
+        </>
     );
 };
