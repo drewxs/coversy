@@ -12,7 +12,6 @@ import { Edit } from '@mui/icons-material';
 
 export const EditUserDetailModal = () => {
     const user = useSelector((state) => state.user.user);
-
     const [firstname, setFirstname] = useState(null);
     const [lastname, setLastname] = useState(null);
     const [open, setOpen] = useState(false);

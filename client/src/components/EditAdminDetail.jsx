@@ -15,7 +15,7 @@ import {
 import { Edit } from '@mui/icons-material';
 
 export const EditAdminDetailModal = () => {
-    const admin = useSelector((state) => state.user.user.site);
+    const user = useSelector((state) => state.user.user);
 
     const [open, setOpen] = useState(false);
     const [street, setStreet] = useState(null);
@@ -43,10 +43,10 @@ export const EditAdminDetailModal = () => {
         <>
             <IconButton
                 onClick={() => {
-                    setStreet(admin.Street);
-                    setCity(admin.city);
-                    setZip(admin.zip);
-                    setProvince(admin.province);
+                    setStreet(user?.site?.address?.street);
+                    setCity(user?.site?.address.city);
+                    setZip(user?.site?.address?.zip);
+                    setProvince(user?.site?.address?.province);
                 }}
                 style={{ borderRadius: '50%' }}
             >
@@ -62,7 +62,7 @@ export const EditAdminDetailModal = () => {
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography sx={{ marginBottom: '0.5em' }} variant='h6'>
-                        Edit Admin Profile
+                        Edit Site Details
                     </Typography>
                     <Typography sx={{ mt: 2 }}>
                         <Box sx={{ '& .MuiTextField-root': { mb: '1rem' } }}>
@@ -73,9 +73,9 @@ export const EditAdminDetailModal = () => {
                                         onChange={(e) =>
                                             setStreet(e.target.value)
                                         }
-                                        fullWidth
                                         label='Address'
                                         placeholder='Address'
+                                        fullWidth
                                     />
                                     <div style={{ display: 'flex' }}>
                                         <TextField

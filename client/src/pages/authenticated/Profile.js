@@ -74,7 +74,12 @@ export const Profile = () => {
                     <div className='divider'></div>
                     <div className='block detail'>
                         <LocationOn color='primary' />
-                        <p>{user?.site?.name}</p>
+                        <div style={{ display: 'flex' }}>
+                            {user?.site?.address?.street}{' '}
+                            {user?.site?.address?.city}{' '}
+                            {user?.site?.address.province}{' '}
+                            {user?.site?.address?.zip}{' '}
+                        </div>
                     </div>
                     {user?.phone && (
                         <div className='block detail'>
