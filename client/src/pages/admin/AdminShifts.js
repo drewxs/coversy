@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts, AddShift } from 'redux/shift';
 import {
-    Box,
-    Typography,
-    Modal,
-    Button,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
+    Button,
+    Box,
+    Typography,
+    Modal,
 } from '@mui/material';
 import Papa from 'papaparse';
 import moment from 'moment';
@@ -62,6 +62,7 @@ export const AdminShifts = () => {
                                 <TableCell>Teacher</TableCell>
                                 <TableCell>Shift Date</TableCell>
                                 <TableCell>Shift Time</TableCell>
+                                <TableCell>Edit Shifts</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -82,6 +83,9 @@ export const AdminShifts = () => {
                                         {' - '}
                                         {moment(shift.endTime).format('h:mm A')}
                                     </TableCell>
+                                    <TableCell>
+                                        <Button>Edit</Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -89,18 +93,23 @@ export const AdminShifts = () => {
                 </div>
             </section>
 
+            {/* Edit Shift Modal For Admin */}
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box
+                    className='modal-container'
+                    sx={{
+                        width: 400,
+                    }}
+                >
+                    <Typography variant='h6'>Edit User Shifts</Typography>
+                </Box>
+            </Modal>
             {/* Upload Schedule Modal */}
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box
+                    className='modal-container'
                     sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
                         width: 400,
-                        bgcolor: 'background.paper',
-                        boxShadow: 24,
-                        p: 4,
                     }}
                 >
                     <Typography variant='h6'>Upload Schedule</Typography>
