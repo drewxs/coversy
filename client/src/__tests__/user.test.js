@@ -11,7 +11,6 @@ const initialState = {
     user: [],
     loadingUser: false,
     authenticated: true,
-    localStorage: true,
 };
 const testingUser = {
     user: {
@@ -39,7 +38,7 @@ const testingUser = {
 
 test('submit user and password', () => {
     it('should return the initial state', () => {
-        expect(reducer(localStorage, {})).toEqual(initialState);
+        expect(reducer(undefined, {})).toEqual(initialState);
     });
     it('handle the sign in', () => {
         expect(
