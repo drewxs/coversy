@@ -149,6 +149,7 @@ exports.updateProfilePicture = async (req, res) => {
     const updateQuery = { avatar: 'user/images/' + req.file.key };
 
     User.findByIdAndUpdate(userId, updateQuery, { new: true })
+        .populate('site')
         .then((user) => res.status(200).json(user))
         .catch((err) => res.status(400).json(err));
 };

@@ -41,6 +41,12 @@ export const userSlice = createSlice({
                 loading: false,
             };
         },
+        editUser: (state, action) => {
+            return {
+                ...state,
+                user: action.payload,
+            };
+        },
         loadingUser: (state) => {
             return {
                 ...state,
@@ -100,6 +106,7 @@ export const {
     registerUser,
     registerSite,
     setUser,
+    editUser,
     loadingUser,
     logoutUser,
     setErrors,

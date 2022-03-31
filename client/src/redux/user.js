@@ -3,6 +3,7 @@ import {
     registerUser,
     registerSite,
     setUser,
+    editUser,
     loadingUser,
     logoutUser,
     setErrors,
@@ -73,7 +74,7 @@ export const LoadUser = async () => {
         );
         store.dispatch(setUser(res.data));
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 
@@ -82,6 +83,27 @@ export const LogoutUser = async () => {
     localStorage.removeItem('id');
     delete axios.defaults.headers.common['Authorization'];
     store.dispatch(logoutUser());
+};
+
+export const UpdateProfilePicture = async (image) => {
+    const formData = new FormData();
+    formData.append('avatar', image);
+
+    try {
+        const res = await axios.put(
+            `${api}/user/${localStorage.getItem('id')}/updatepicture`,
+            formData,
+            {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    'auth-token': localStorage.getItem('auth-token'),
+                },
+            }
+        );
+        store.dispatch(editUser(res.data));
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 const setAuthorizationHeader = (token, id) => {

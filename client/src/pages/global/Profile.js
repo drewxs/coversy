@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
 import { EditUserDetailModal, EditAdminDetailModal } from 'components';
-
-import axios from 'axios';
+import { UpdateProfilePicture } from 'redux/user';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
@@ -13,25 +12,8 @@ export const Profile = () => {
     const [image, setImage] = useState(null);
 
     useEffect(() => {
-        if (image && user) {
-            const formData = new FormData();
-            formData.append('avatar', image);
-            axios
-                .put(
-                    `http://localhost:5000/api/user/${user._id}/updatepicture`,
-                    formData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'auth-token': localStorage.getItem('auth-token'),
-                        },
-                    }
-                )
-                .then((res) => {
-                    console.log(res.data);
-                });
-        }
-    }, [image, user]);
+        if (image) UpdateProfilePicture(image);
+    }, [image]);
 
     return (
         <section className='profile'>
