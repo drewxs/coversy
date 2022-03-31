@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { GetShifts } from 'redux/shift';
+import { GetShifts, TakeShift } from 'redux/shift';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
 import {
@@ -19,7 +19,7 @@ export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
     const shifts = useSelector((state) => state.shift.shifts);
 
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(null);
     const [openbook, setOpenBook] = useState(false);
     const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(null);
@@ -57,16 +57,21 @@ export const Shifts = () => {
                                             marginTop: '1rem',
                                         }}
                                         variant='contained'
-                                        onClick={() => setOpenBook(true)}
+                                        onClick={() => {
+                                            setDescription(user.description);
+                                            setOpenBook(true);
+                                        }}
                                     >
                                         Book time off{' '}
                                     </Button>
                                 </div>
                                 <div className='shift-container'>
                                     {shifts
+                                        .slice()
                                         ?.filter(
                                             (shift) =>
-                                                shift.teacher._id === user._id
+                                                shift.teacher._id ===
+                                                    user._id && !shift.posted
                                         )
                                         .map((shift, k) => (
                                             <UserShift
@@ -74,6 +79,7 @@ export const Shifts = () => {
                                                 shift={shift}
                                                 setCurrent={setCurrent}
                                                 setOpenView={setOpenView}
+                                                btnText={'Post'}
                                             />
                                         ))}
                                 </div>
@@ -95,6 +101,7 @@ export const Shifts = () => {
                                             key={k}
                                             setCurrent={setCurrent}
                                             setOpenView={setOpenView}
+                                            btnText={'Unpost'}
                                         />
                                     ))}
                             </div>
@@ -136,9 +143,32 @@ export const Shifts = () => {
                                             'h:mm a'
                                         )}
                                     </p>
+                                    {/* Upload Docments*/}
+                                    <Typography
+                                        variant='h6'
+                                        sx={{ mt: '0.5rem' }}
+                                    >
+                                        Upload Documents
+                                    </Typography>
+                                    <Typography>
+                                        <input type='file' accept='.docx' />
+                                    </Typography>
+
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
+                                    {current.teacher._id !== user._id && (
+                                        <Button
+                                            sx={{ marginTop: '1rem' }}
+                                            variant='contained'
+                                            onClick={() => {
+                                                TakeShift(current._id);
+                                                setOpenView(false);
+                                            }}
+                                        >
+                                            Take Shift
+                                        </Button>
+                                    )}
                                 </div>
                             </Box>
                         </Modal>
@@ -192,9 +222,10 @@ export const Shifts = () => {
                         views={['month', 'agenda']}
                         onSelectEvent={(event) => {
                             setCurrent(event);
+                            setDescription(user.description);
                             setOpenView(true);
                         }}
-                        style={{ height: 500, width: 850 }}
+                        style={{ height: '100%', width: '100%' }}
                     />
                 </div>
             </div>

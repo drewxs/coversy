@@ -1,7 +1,10 @@
 const User = require('../models/user.model');
 const escape = require('escape-html');
 const aws = require('aws-sdk');
-const { updateValidation } = require('../util/validation');
+const {
+    updateValidation,
+    updateValidationAdmin,
+} = require('../util/validation');
 
 aws.config.update({
     secretAccessKey: process.env.S3_ACCESS_SECRET,
@@ -46,8 +49,6 @@ exports.updateUserById = (req, res) => {
     const updateQuery = {};
     if (req.body.firstName) updateQuery.firstName = escape(req.body.firstName);
     if (req.body.lastName) updateQuery.lastName = escape(req.body.lastName);
-    if (req.body.middleInitial)
-        updateQuery.middleInitial = escape(req.body.middleInitial);
     if (req.body.phone) updateQuery.phone = escape(req.body.phone);
     if (req.body.email) updateQuery.email = escape(req.body.email);
     if (req.body.avatar) updateQuery.avatar = escape(req.body.avatar);
@@ -116,6 +117,7 @@ exports.getProfilePicture = (req, res) => {
 exports.updateProfilePicture = async (req, res) => {
     if (!req.file) return res.status(400).send('No image uploaded');
     const userId = escape(req.params.userId);
+  
     const updateQuery = { avatar: 'user/images/' + req.file.key };
     let user;
 

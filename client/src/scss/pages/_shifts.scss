@@ -1,22 +1,26 @@
 @use '../abstract' as *;
 
 .shifts {
+    height: 100vh;
+
     .container {
         height: 100%;
         flex-direction: row;
 
         .shift-col {
-            width: 100%;
+            width: 30%;
             height: 100%;
             margin-right: 4%;
             overflow-y: scroll;
+            background-color: $white;
         }
 
         .calendar {
             height: 100%;
-            width: 80%;
+            width: 70%;
             display: flex;
             padding: 3rem 1rem;
+            background-color: $white;
         }
 
         .tab-header {

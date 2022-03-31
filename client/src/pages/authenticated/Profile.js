@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
-import EditUserDetailModal from 'components/EditUserDetail';
+import { EditUserDetailModal, EditAdminDetailModal } from 'components';
+
 import axios from 'axios';
 
 export const Profile = () => {
@@ -53,25 +54,32 @@ export const Profile = () => {
                             {user.firstName?.charAt(0)}{' '}
                             {user.lastName?.charAt(0)}
                         </Avatar>
-                        <div className='overlay'></div>
+                        <div className='overlay'>Change image</div>
                         <input
                             type='file'
                             className='upload-avatar'
                             onChange={(e) => setImage(e.target.files[0])}
                         />
                     </div>
-
                     <div className='block name'>
                         <h3>
                             {user?.firstName} {user?.lastName}
                         </h3>
-
-                        <EditUserDetailModal />
+                        {user.type === 1 ? (
+                            <EditAdminDetailModal />
+                        ) : (
+                            <EditUserDetailModal />
+                        )}
                     </div>
                     <div className='divider'></div>
                     <div className='block detail'>
                         <LocationOn color='primary' />
-                        <p>{user?.site?.name}</p>
+                        <div style={{ display: 'flex' }}>
+                            {user?.site?.address?.street}{' '}
+                            {user?.site?.address?.city}{' '}
+                            {user?.site?.address.province}{' '}
+                            {user?.site?.address?.zip}{' '}
+                        </div>
                     </div>
                     {user?.phone && (
                         <div className='block detail'>

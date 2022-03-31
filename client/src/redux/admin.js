@@ -1,4 +1,9 @@
-import { setUsers, activateUser, loadingUsers } from 'redux/adminSlice';
+import {
+    setUsers,
+    activateUser,
+    loadingUsers,
+    updateUser,
+} from 'redux/adminSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -21,4 +26,17 @@ export const ToggleUserActivatedById = async (userId) => {
         })
         .then((res) => store.dispatch(activateUser(res.data)))
         .catch((err) => console.log(err));
+};
+
+export const UpdateUserAsAdmin = async (userId, updateQuery) => {
+    try {
+        const res = await axios.put(
+            `${api}/user/${userId}/admin`,
+            updateQuery,
+            { headers: { 'auth-token': localStorage.getItem('auth-token') } }
+        );
+        store.dispatch(updateUser(res.data));
+    } catch (err) {
+        console.error(err.message);
+    }
 };

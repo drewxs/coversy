@@ -6,6 +6,7 @@ const {
     toggleUserActivatedById,
     getProfilePicture,
     updateProfilePicture,
+    updateUserAsAdmin,
 } = require('../controllers/user.controller');
 const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
@@ -16,6 +17,7 @@ router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 router.get('/images/:key', getProfilePicture);
 
 router.put('/:userId', verifyUser, updateUserById);
+router.put('/:userId/admin', verifyAdmin, updateUserAsAdmin);
 router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
 router.put(
     '/:userId/updatepicture',

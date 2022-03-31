@@ -1,8 +1,14 @@
 @use '../abstract' as *;
 
 .dashboard {
-    height: 100vh;
-    padding-top: 20vh;
+    min-height: 100vh;
+    padding-top: 18vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
+
+    @include bg;
 
     .container {
         display: flex;

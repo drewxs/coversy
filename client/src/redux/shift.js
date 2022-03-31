@@ -11,10 +11,7 @@ export const GetShifts = async () => {
     store.dispatch(loadingShifts);
     await axios
         .get(`${api}/shift`, {
-            headers: {
-                'content-type': 'application/json',
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
         })
         .then((res) => store.dispatch(setShifts(res.data)))
         .catch((err) => console.error(err));
@@ -25,15 +22,14 @@ export const GetShifts = async () => {
  * @params shift, siteId
  */
 export const AddShift = async (shift) => {
-    await axios
-        .post(`${api}/shift`, shift, {
-            headers: {
-                'content-type': 'application/json',
-                'auth-token': localStorage.getItem('auth-token'),
-            },
-        })
-        .then((res) => store.dispatch(addShift(res.data)))
-        .catch((err) => console.error(err));
+    try {
+        const res = await axios.post(`${api}/shift`, shift, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(addShift(res.data));
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 /**
@@ -42,7 +38,9 @@ export const AddShift = async (shift) => {
  */
 export const EditShift = async (shift) => {
     await axios
-        .put(`${api}/shift/${shift._id}`)
+        .put(`${api}/shift/${shift._id}`, shift, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        })
         .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
@@ -54,10 +52,22 @@ export const EditShift = async (shift) => {
 export const PostShift = async (shiftId) => {
     try {
         const shift = await axios.put(`${api}/shift/${shiftId}/post`, null, {
-            headers: {
-                'content-type': 'application/json',
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(editShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+/**
+ * @description Unposts a shift
+ * @params shiftId
+ */
+export const UnpostShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/unpost`, null, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
         store.dispatch(editShift(shift.data));
     } catch (err) {
@@ -72,9 +82,7 @@ export const PostShift = async (shiftId) => {
 export const TakeShift = async (shiftId) => {
     try {
         const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
-            headers: {
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
         store.dispatch(editShift(shift.data));
     } catch (err) {

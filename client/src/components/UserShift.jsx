@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-import { PostShift } from 'redux/shift';
+import { PostShift, UnpostShift } from 'redux/shift';
 import { Button } from '@mui/material';
 
-export const UserShift = ({ shift, setCurrent, setOpenView }) => {
+export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
     return (
         <div className='shift-data card'>
             <div className='shift-info'>
@@ -34,10 +34,14 @@ export const UserShift = ({ shift, setCurrent, setOpenView }) => {
                 </Button>
                 <Button
                     size='small'
-                    onClick={() => PostShift(shift._id)}
+                    onClick={() =>
+                        btnText === 'Post'
+                            ? PostShift(shift._id)
+                            : UnpostShift(shift._id)
+                    }
                     variant='contained'
                 >
-                    Post
+                    {btnText}
                 </Button>
             </div>
         </div>

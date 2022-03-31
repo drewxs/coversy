@@ -6,8 +6,10 @@ import moment from 'moment';
 
 export const PayrollReport = () => {
     const params = useParams();
+
     const user = useSelector((state) => state.user.user);
     const payroll = useSelector((state) => state.payroll.payroll);
+
     useEffect(() => {
         GetUserPayroll(params.date);
     }, [params.date]);
@@ -23,7 +25,7 @@ export const PayrollReport = () => {
                         </h3>
                     </div>
                     <div className='site'>
-                        <p id='bold'>Site: Name</p>
+                        <p className='bold'>{user?.site.name}</p>
                         <p>{user?.site.address.street}</p>
                         <p>
                             {user?.site.address.city},{' '}
@@ -34,38 +36,38 @@ export const PayrollReport = () => {
                     </div>
                     <div className='pay-info'>
                         <div className='period'>
-                            <p id='bold'>Pay Period:</p>
+                            <p className='bold'>Pay Period:</p>
                             <p>{moment(payroll?.period).format('MMMM Y')}</p>
                         </div>
                     </div>
                 </div>
                 <div className='earnings'>
-                    <p id='bold'>Earnings</p>
-                    <p id='amount-header'>Amount: CAD</p>
+                    <p className='bold'>Earnings</p>
+                    <p className='amount-header'>Amount: CAD</p>
                     <hr />
                     <p>
                         {user.firstName} {user.lastName}'s Salary - Hourly ( $
                         {user.hourlyRate} )
                     </p>
-                    <p id='amount'>${payroll?.pay?.toFixed(2)}</p>
+                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
                     <hr />
-                    <p id='bold'>Total Earnings</p>
-                    <p id='amount'>${payroll?.pay?.toFixed(2)}</p>
+                    <p className='bold'>Total Earnings</p>
+                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
                 </div>
                 <div className='deductions'>
-                    <p id='bold'>Deductions</p>
-                    <p id='amount-header'>Amount: CAD</p>
+                    <p className='bold'>Deductions</p>
+                    <p className='amount-header'>Amount: CAD</p>
                     <hr />
                     <p>Employee Taxes</p>
-                    <p id='amount'>${payroll?.deductions?.toFixed(2)}</p>
+                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
                     <hr />
-                    <p id='bold'>Total Deductions</p>
-                    <p id='amount'>${payroll?.deductions?.toFixed(2)}</p>
+                    <p className='bold'>Total Deductions</p>
+                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
                 </div>
                 <div className='payout'>
                     <hr />
                     <p>Take Home Pay</p>
-                    <p id='amount'>${payroll?.netPay?.toFixed(2)}</p>
+                    <p className='amount'>${payroll?.netPay?.toFixed(2)}</p>
                     <hr />
                 </div>
             </div>
