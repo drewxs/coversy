@@ -28,6 +28,4 @@ router.put(
     updateProfilePicture
 );
 
-router.delete('/:userId/:key/deletepicture', deleteProfilePicture);
-
 module.exports = router;

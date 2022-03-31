@@ -168,34 +168,21 @@ exports.findUserByPasswordResetCode = async (req, res) => {
 exports.updateProfilePicture = async (req, res) => {
     if (!req.file) return res.status(400).send('No image uploaded');
     const userId = escape(req.params.userId);
-
     const updateQuery = { avatar: 'user/images/' + req.file.key };
+
+    try {
+        let user = await User.findById(userId).lean();
+        if (user.avatar) {
+            const deleteParams = {
+                Key: user.avatar.split('/')[2],
+                Bucket: process.env.S3_PROFILE_BUCKET,
+            };
+            await s3.deleteObject(deleteParams).promise();
+        }
+    } catch (err) {}
 
     User.findByIdAndUpdate(userId, updateQuery, { new: true })
         .populate('site')
         .then((user) => res.status(200).json(user))
-        .catch((err) => res.status(400).json(err));
-};
-
-exports.deleteProfilePicture = (req, res) => {
-    const userId = escape(req.params.userId);
-    const updateQuery = { avatar: undefined };
-
-    User.findByIdAndUpdate(userId, updateQuery)
-        .then((user) => {
-            if (user.avatar) {
-                const fileKey = user.avatar.split('/')[2];
-                const deleteParams = {
-                    Key: fileKey,
-                    Bucket: process.env.S3_PROFILE_BUCKET,
-                };
-                try {
-                    s3.deleteObject(deleteParams);
-                    res.status(200).json(user);
-                } catch (err) {
-                    res.status(400).json(err);
-                }
-            }
-        })
         .catch((err) => res.status(400).json(err));
 };
