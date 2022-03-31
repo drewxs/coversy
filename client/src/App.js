@@ -21,6 +21,7 @@ import {
     Shifts,
     PayrollReport,
     CombinedPayrollReport,
+    ForgotPassword,
 } from 'pages';
 import { Nav } from 'components';
 import { LoadUser } from 'redux/user';
@@ -101,6 +102,10 @@ export const App = () => {
                             <Route path='/' element={<Home />} />
                             <Route path='/login' element={<Login />} />
                             <Route path='/register' element={<Register />} />
+                            <Route
+                                path='/forgotpassword'
+                                element={<ForgotPassword />}
+                            />
                             <Route
                                 path='/register/site'
                                 element={<SiteRegister />}
