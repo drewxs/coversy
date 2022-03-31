@@ -25,6 +25,5 @@ router.put(
     uploadProfile.single('avatar'),
     updateProfilePicture
 );
-router.delete('/:userId/:key/deletepicture', deleteProfilePicture);
 
 module.exports = router;

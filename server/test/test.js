@@ -168,28 +168,6 @@ describe('Endpoint testing [users]', () => {
                 done();
             });
     });
-    it('Delete user profile picture', (done) => {
-        chai.request(server)
-            .delete(
-                `/api/user/${process.env.TEST_TEACHER}/${process.env.S3_ACCESS_KEY}/deletepicture`
-            )
-            .set('auth-token', process.env.TEST_TOKEN)
-            .end((err, res) => {
-                res.should.have.status(200);
-                done();
-            });
-    });
-    it('Delete user profile picture fail', (done) => {
-        chai.request(server)
-            .delete(
-                `/api/user/555555/${process.env.S3_ACCESS_KEY}/deletepicture`
-            )
-            .set('auth-token', process.env.TEST_TOKEN)
-            .end((err, res) => {
-                res.should.have.status(400);
-                done();
-            });
-    });
 });
 
 describe('Endpoint testing [site]', () => {
