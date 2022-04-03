@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { LoginUser } from 'redux/user';
 import { Button, TextField } from '@mui/material';
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const errors = useSelector((state) => state.user.errors);
-    const success = useSelector((state) => state.user.success);
     const [page, setPage] = useState(1);
     const resetExists = true;
-    const navigate = useNavigate();
 
     return (
         <section className='register'>

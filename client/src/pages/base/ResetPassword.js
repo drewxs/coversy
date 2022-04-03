@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { LoginUser } from 'redux/user';
+import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
 export const ResetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const errors = useSelector((state) => state.user.errors);
 
     const [page, setPage] = useState(1);
     const resetExists = true;
-    const handleSubmit = async () => {};
     return (
         <section className='register'>
             <div className='card'>
