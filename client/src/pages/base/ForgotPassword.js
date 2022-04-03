@@ -41,9 +41,6 @@ export const ForgotPassword = () => {
                         >
                             Submit
                         </Button>
-                        <p>
-                            New User? <a href='/register'>Register Here</a>
-                        </p>
                     </form>
                 )}
                 {page === 2 && resetExists && (
