@@ -47,7 +47,7 @@ export const ResetPassword = () => {
                                 setPage(page + 1);
                             }}
                         >
-                            Submit
+                            Reset Password
                         </Button>
                     </form>
                 )}
