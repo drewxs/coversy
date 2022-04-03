@@ -4,6 +4,7 @@ export { Login } from 'pages/base/Login';
 export { Register } from 'pages/base/Register';
 export { SiteRegister } from 'pages/base/SiteRegister';
 export { ForgotPassword } from 'pages/base/ForgotPassword';
+export { ResetPassword } from 'pages/base/ResetPassword';
 
 // Utility pages
 export { Welcome } from 'pages/util/Welcome';

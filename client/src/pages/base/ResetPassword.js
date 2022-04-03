@@ -4,31 +4,39 @@ import { useSelector } from 'react-redux';
 import { LoginUser } from 'redux/user';
 import { Button, TextField } from '@mui/material';
 
-export const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
+export const ResetPassword = () => {
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const errors = useSelector((state) => state.user.errors);
-    const success = useSelector((state) => state.user.success);
+
     const [page, setPage] = useState(1);
     const resetExists = true;
-    const navigate = useNavigate();
-
+    const handleSubmit = async () => {};
     return (
         <section className='register'>
             <div className='card'>
-                <Button href='/Login'>{`< Back`}</Button>
                 <div className='h-cont'>
-                    <h1>Forgot Password</h1>
+                    <h1>Reset Password</h1>
                 </div>
                 {page === 1 && resetExists && (
                     <form>
                         <TextField
                             className='input'
                             variant='outlined'
-                            label='Email'
-                            type='email'
+                            label='New Password'
+                            type='newPassword'
                             fullWidth
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <TextField
+                            className='input'
+                            variant='outlined'
+                            label='Confirm Password'
+                            type='confirmPassword'
+                            fullWidth
+                            value={password}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         <Button
                             className='submit-btn'
@@ -41,28 +49,10 @@ export const ForgotPassword = () => {
                         >
                             Submit
                         </Button>
-                        <p>
-                            New User? <a href='/register'>Register Here</a>
-                        </p>
                     </form>
-                )}
-                {page === 2 && resetExists && (
-                    <h3>
-                        Please check your email for a link to reset your
-                        password. If you do not see an email, please check your
-                        junk mail folder.
-                    </h3>
                 )}
                 {!resetExists && (
-                    <form>
-                        <h3>
-                            Password reset does not exist or is no longer valid
-                        </h3>
-                        {errors && <p className='error'>{errors}</p>}
-                        <p>
-                            New User? <a href='/register'>Register Here</a>
-                        </p>
-                    </form>
+                    <h3>Password reset does not exist or is no longer valid</h3>
                 )}
             </div>
         </section>
