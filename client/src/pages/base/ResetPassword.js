@@ -35,7 +35,7 @@ export const ResetPassword = () => {
                             label='Confirm Password'
                             type='confirmPassword'
                             fullWidth
-                            value={password}
+                            value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         <Button
