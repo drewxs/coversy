@@ -9,6 +9,7 @@ import {
     setErrors,
     clearErrors,
     success,
+    clearSuccess,
     // setUpdateErrors,
     // clearUpdateErrors,
     setSites,
@@ -20,6 +21,7 @@ const api = process.env.REACT_APP_API_URL;
 
 export const LoginUser = async (user) => {
     store.dispatch(loadingUser());
+    store.dispatch(clearSuccess());
     try {
         const res = await axios.post(`${api}/auth/login`, user);
         setAuthorizationHeader(res.data.token, res.data.user._id);
@@ -33,6 +35,7 @@ export const LoginUser = async (user) => {
 
 export const RegisterUser = async (data) => {
     store.dispatch(loadingUser());
+    store.dispatch(clearSuccess());
     try {
         await axios.post(`${api}/auth/register/user`, data);
         store.dispatch(clearErrors());
@@ -45,6 +48,7 @@ export const RegisterUser = async (data) => {
 
 export const RegisterSite = async (data) => {
     store.dispatch(loadingUser());
+    store.dispatch(clearSuccess());
     try {
         await axios.post(`${api}/auth/register/site`, data);
         store.dispatch(clearErrors());

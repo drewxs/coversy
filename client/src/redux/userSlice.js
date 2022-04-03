@@ -92,6 +92,12 @@ export const userSlice = createSlice({
                 success: true,
             };
         },
+        clearSuccess: (state) => {
+            return {
+                ...state,
+                success: false,
+            };
+        },
         setSites: (state, action) => {
             return {
                 ...state,
@@ -114,6 +120,7 @@ export const {
     setUpdateErrors,
     clearUpdateErrors,
     success,
+    clearSuccess,
     setSites,
 } = userSlice.actions;
 

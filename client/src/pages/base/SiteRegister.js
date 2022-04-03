@@ -23,6 +23,8 @@ export const SiteRegister = () => {
     const errors = useSelector((state) => state.user.errors);
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+
         RegisterSite({
             name,
             address: {
@@ -60,8 +62,8 @@ export const SiteRegister = () => {
                 <div className='h-cont'>
                     <h1>Registration</h1>
                 </div>
-                {!success || errors ? (
-                    <form>
+                {!success ? (
+                    <form onSubmit={handleSubmit}>
                         <TextField
                             className='input'
                             variant='outlined'
@@ -135,7 +137,7 @@ export const SiteRegister = () => {
                             variant='contained'
                             color='primary'
                             size='large'
-                            onClick={handleSubmit}
+                            type='submit'
                         >
                             Register
                         </Button>
