@@ -8,6 +8,7 @@ import logo from 'assets/logo.svg';
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+    const greetings = ['Hello', 'Greetings', 'Good day'];
 
     return (
         <section className='nav'>
@@ -16,7 +17,12 @@ export const Nav = () => {
                     <img className='logo' src={logo} alt='Coversy logo'></img>
                     {authenticated && (
                         <p className='hello'>
-                            Hello {user.firstName} {user.lastName}
+                            {
+                                greetings[
+                                    Math.floor(Math.random() * greetings.length)
+                                ]
+                            }
+                            , {user.firstName} {user.lastName}
                         </p>
                     )}
                 </div>
