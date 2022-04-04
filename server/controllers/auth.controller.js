@@ -178,8 +178,7 @@ exports.confirmUser = async (req, res) => {
         user.verified = true;
         await user.save();
 
-        res.redirect(`${process.env.CLIENT_URL}`);
-        // return res.status(200).json('Email Successfully Verified');
+        return res.status(200).json('Email Successfully Verified');
     } catch (err) {
         return res.status(400).json(err.message);
     }
@@ -193,14 +192,17 @@ exports.confirmUser = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     const email = escape(req.body.email);
 
-    const passwordResetCode = jwt.sign(
-        { email: user.email },
-        process.env.PASSWORD_RESET_CODE
-    );
-    user.passwordResetCode = passwordResetCode;
-
     try {
         const user = await user.findOne({ email });
+
+        if (!user) return res.status(404).json('Email does not exist.');
+
+        const passwordResetCode = jwt.sign(
+            { email: user.email },
+            process.env.PASSWORD_RESET_CODE
+        );
+        user.passwordResetCode = passwordResetCode;
+
         sendForgotEmail(
             `${user.firstName} ${user.lastName}`,
             user.email,
@@ -221,24 +223,23 @@ exports.resetPassword = async (req, res) => {
     const confirmNewPassword = escape(req.body.confirmNewPassword);
     const passwordResetCode = escape(req.params.code);
 
-    if (newPassword !== confirmNewPassword) {
+    if (newPassword !== confirmNewPassword)
         return res.status(400).json('Passwords do not match.');
-    }
 
     try {
         const user = await User.findOne({ passwordResetCode });
 
-        if (!user) {
+        if (!user)
             return res.status(404).json('Password reset code does not exist.');
-        }
-        if (user._id !== req.user._id) {
+
+        if (user._id !== req.user._id)
             return res.status(401).json('Unauthorized.');
-        }
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(newPassword, salt);
 
-        await User.findByIdAndUpdate(user._id, { password: hashedPass });
+        user.password = hashedPass;
+        await user.save();
 
         res.status(200).json('Password successfully reset.');
     } catch (err) {

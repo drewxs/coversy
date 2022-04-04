@@ -20,12 +20,13 @@ exports.sendConfirmationEmail = (name, email, confirmationCode) => {
         .sendMail({
             from: name,
             to: email,
-            subject: 'Please confirm your account',
-            html: `<h1>Email Confirmation</h1>
-        <h2>Hi ${name}</h2>
-        <p>Please confirm your email by clicking on the following link</p>
-        <a href=${process.env.API_URL}/auth/confirm/${confirmationCode}> Click here</a>
-        </div>`,
+            subject: 'Coversy: Please confirm your account',
+            html: `
+                <h2>Hi ${name}</h2>
+                <p>Please confirm your email by clicking on the following link</p>
+                <a href=${process.env.CLIENT_URL}/confirm?code=${confirmationCode}> Click here</a>
+                </div>
+            `,
         })
         .catch((err) => console.log(err));
 };
@@ -41,11 +42,12 @@ exports.sendForgotEmail = (name, email, forgotPasswordCode) => {
         .sendMail({
             from: name,
             to: email,
-            subject: 'Coversy Password Reset',
+            subject: 'Coversy: Password Reset',
             html: `
-	<h2>Hi ${name}</h2>
-	<a href=${process.env.CLIENT_URL}/forgotpassword?code=${forgotPasswordCode}>Reset your password</a>
-	</div>`,
+                <h2>Hi ${name}</h2>
+                <a href=${process.env.CLIENT_URL}/forgotpassword?code=${forgotPasswordCode}>Reset your password</a>
+                </div>
+            `,
         })
         .catch((err) => console.log(err));
 };

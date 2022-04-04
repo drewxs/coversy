@@ -115,10 +115,7 @@ export const App = () => {
                                 path='/register/site'
                                 element={<SiteRegister />}
                             />
-                            <Route
-                                path='/confirm/:confirmationCode'
-                                element={<Welcome />}
-                            />
+                            <Route path='/confirm' element={<Welcome />} />
 
                             {/* Redirects */}
                             <Route path='*' element={<Navigate to='/' />} />

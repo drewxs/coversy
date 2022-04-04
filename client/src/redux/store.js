@@ -5,14 +5,16 @@ import payrollSlice from './payrollSlice';
 import shiftSlice from './shiftSlice';
 import ticketSlice from './ticketSlice';
 import userSlice from './userSlice';
+import verificationSlice from './verificationSlice';
 
 export default configureStore({
     reducer: {
         admin: adminSlice,
-        auth: passwordSlice,
+        password: passwordSlice,
         payroll: payrollSlice,
         shift: shiftSlice,
-        user: userSlice,
         ticket: ticketSlice,
+        user: userSlice,
+        verification: verificationSlice,
     },
 });

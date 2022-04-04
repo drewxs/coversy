@@ -81,7 +81,7 @@ export const LoadUser = async () => {
     }
 };
 
-export const LogoutUser = async () => {
+export const LogoutUser = () => {
     localStorage.removeItem('auth-token');
     localStorage.removeItem('id');
     store.dispatch(logoutUser());

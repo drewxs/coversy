@@ -130,6 +130,7 @@ export const SiteRegister = () => {
                             type='password'
                             fullWidth
                             value={password}
+                            autoComplete='new-password'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button
