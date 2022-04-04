@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const userSlice = createSlice({
+export const mockUserSlice = createSlice({
     name: 'user',
     initialState: {
         user: {},
         sites: [],
-        token: localStorage.getItem('auth-token'),
-        authenticated: localStorage.getItem('auth-token') ? true : false,
+        token: null,
+        authenticated: null,
         loading: true,
         success: false,
         errors: null,
@@ -92,12 +92,6 @@ export const userSlice = createSlice({
                 success: true,
             };
         },
-        clearSuccess: (state) => {
-            return {
-                ...state,
-                success: false,
-            };
-        },
         setSites: (state, action) => {
             return {
                 ...state,
@@ -120,8 +114,7 @@ export const {
     setUpdateErrors,
     clearUpdateErrors,
     success,
-    clearSuccess,
     setSites,
-} = userSlice.actions;
+} = mockUserSlice.actions;
 
-export default userSlice.reducer;
+export default mockUserSlice.reducer;

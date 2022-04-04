@@ -146,7 +146,7 @@ export const AdminTickets = () => {
                                                 <TableCell>
                                                     <Button
                                                         onClick={() => {
-                                                            setOpen(true)();
+                                                            setOpen(true);
                                                             setCurrent(ticket);
                                                         }}
                                                     >
@@ -175,7 +175,7 @@ export const AdminTickets = () => {
                         color='primary'
                         onClick={() => {
                             handleResolve(current);
-                            setOpen(false)();
+                            setOpen(false);
                         }}
                         sx={{ marginRight: '1rem' }}
                     >
