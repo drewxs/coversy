@@ -190,7 +190,7 @@ export const AdminTickets = () => {
                                 variant='contained'
                                 color='primary'
                                 onClick={() => {
-                                    handleResolve(current);
+                                    handleResolve(tickets[current]);
                                     setOpen(false);
                                 }}
                                 sx={{ marginRight: '1rem' }}
@@ -229,7 +229,7 @@ export const AdminTickets = () => {
                                 variant='contained'
                                 color='primary'
                                 onClick={() => {
-                                    handleResolve(current);
+                                    handleResolve(resolvedTickets[current]);
                                     setOpen(false);
                                 }}
                                 sx={{ marginRight: '1rem' }}
