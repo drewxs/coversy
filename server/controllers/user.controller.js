@@ -138,6 +138,27 @@ exports.getProfilePicture = (req, res) => {
 };
 
 /**
+ * @desc This function checks if a password reset code exists
+ * @route GET /user/:userId/passwordresetcode/:passwordResetCode
+ * @access USER
+ */
+exports.findUserByPasswordResetCode = async (req, res) => {
+    const passwordResetCode = escape(req.params.passwordResetCode);
+
+    try {
+        const user = await User.findOne({ passwordResetCode });
+        if (!user) {
+            return res
+                .status(404)
+                .json('Error: Password reset code not exist.');
+        }
+        return res.status(200).json('Password reset code is valid.');
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+};
+
+/**
  * @desc This function updates the users Profile Picture
  * @route PUT /user/:userId/updatepicture
  * @access USER

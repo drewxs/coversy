@@ -45,7 +45,6 @@ export const RegisterUser = async (data) => {
 
 export const RegisterSite = async (data) => {
     store.dispatch(loadingUser());
-
     try {
         await axios.post(`${api}/auth/register/site`, data);
         store.dispatch(clearErrors());
@@ -81,7 +80,6 @@ export const LoadUser = async () => {
 export const LogoutUser = async () => {
     localStorage.removeItem('auth-token');
     localStorage.removeItem('id');
-    delete axios.defaults.headers.common['Authorization'];
     store.dispatch(logoutUser());
 };
 

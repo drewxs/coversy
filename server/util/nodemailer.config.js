@@ -9,6 +9,12 @@ const transport = nodemailer.createTransport({
     },
 });
 
+/**
+ * Sends an email to the user with a link to confirm their email address
+ * @param {*} name
+ * @param {*} email
+ * @param {*} confirmationCode
+ */
 exports.sendConfirmationEmail = (name, email, confirmationCode) => {
     transport
         .sendMail({
@@ -24,16 +30,21 @@ exports.sendConfirmationEmail = (name, email, confirmationCode) => {
         .catch((err) => console.log(err));
 };
 
-exports.sendForgotEmail = (name, email) => {
+/**
+ * Sends an email to the user with a link to reset their password
+ * @param {*} name
+ * @param {*} email
+ * @param {*} forgotPasswordCode
+ */
+exports.sendForgotEmail = (name, email, forgotPasswordCode) => {
     transport
         .sendMail({
             from: name,
             to: email,
-            subject: '',
-            html: `<h1>Forgot Password</h1>
+            subject: 'Coversy Password Reset',
+            html: `
 	<h2>Hi ${name}</h2>
-	<p>Please confirm your email by clicking on the following link</p>
-	<a href=${process.env.API_URL}/auth/confirm/${confirmationCode}> Click here</a>
+	<a href=${process.env.CLIENT_URL}/forgotpassword?code=${forgotPasswordCode}>Reset your password</a>
 	</div>`,
         })
         .catch((err) => console.log(err));
