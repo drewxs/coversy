@@ -209,11 +209,11 @@ export const AdminTickets = () => {
                     {tab === 1 && (
                         <>
                             <p>
-                                Name: {resolvedTickets[current]?.firstName}{' '}
+                                Name: {resolvedTickets[current]?.user.firstName}{' '}
                                 {resolvedTickets[current]?.user.lastName}
                             </p>
-                            <p>Email: {resolvedTickets[current]?.email}</p>
-                            <p>Phone: {resolvedTickets[current]?.phone}</p>
+                            <p>Email: {resolvedTickets[current]?.user.email}</p>
+                            <p>Phone: {resolvedTickets[current]?.user.phone}</p>
                             <p>
                                 Type:{' '}
                                 {resolvedTickets[current]?.type === 1 &&
