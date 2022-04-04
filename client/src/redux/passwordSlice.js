@@ -6,18 +6,21 @@ export const password = createSlice({
         loading: false,
         success: false,
         errors: null,
+        reset: true,
     },
     reducers: {
         loading: (state) => {
             return {
                 ...state,
                 loading: true,
+                success: false,
             };
         },
         setErrors: (state, action) => {
             return {
                 ...state,
                 errors: action.payload,
+                loading: false,
             };
         },
         clearErrors: (state) => {
@@ -33,9 +36,30 @@ export const password = createSlice({
                 success: true,
             };
         },
+        setReset: (state) => {
+            return {
+                ...state,
+                reset: true,
+                loading: false,
+            };
+        },
+        setResetFalse: (state) => {
+            return {
+                ...state,
+                reset: false,
+                loading: false,
+            };
+        },
     },
 });
 
-export const { loading, setErrors, clearErrors, success } = password.actions;
+export const {
+    loading,
+    setErrors,
+    clearErrors,
+    success,
+    setReset,
+    setResetFalse,
+} = password.actions;
 
 export default password.reducer;

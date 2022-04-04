@@ -11,6 +11,7 @@ const {
     registerValidation,
     loginValidation,
     siteValidation,
+    passwordResetValidation,
 } = require('../util/validation');
 
 /**
@@ -193,7 +194,7 @@ exports.forgotPassword = async (req, res) => {
     const email = escape(req.body.email);
 
     try {
-        const user = await user.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json('Email does not exist.');
 
@@ -201,13 +202,17 @@ exports.forgotPassword = async (req, res) => {
             { email: user.email },
             process.env.PASSWORD_RESET_CODE
         );
+
         user.passwordResetCode = passwordResetCode;
+        user.save();
 
         sendForgotEmail(
             `${user.firstName} ${user.lastName}`,
             user.email,
             user.passwordResetCode
         );
+
+        return res.status(200).json('Password reset link sent.');
     } catch (err) {
         return res.status(400).json(err.message);
     }
@@ -223,6 +228,12 @@ exports.resetPassword = async (req, res) => {
     const confirmNewPassword = escape(req.body.confirmNewPassword);
     const passwordResetCode = escape(req.params.code);
 
+    const { error } = passwordResetValidation({ password: newPassword });
+    if (error) return res.status(400).json(error.details[0].message);
+
+    if (!passwordResetCode)
+        return res.status(400).json('Invalid password reset code.');
+
     if (newPassword !== confirmNewPassword)
         return res.status(400).json('Passwords do not match.');
 
@@ -232,13 +243,11 @@ exports.resetPassword = async (req, res) => {
         if (!user)
             return res.status(404).json('Password reset code does not exist.');
 
-        if (user._id !== req.user._id)
-            return res.status(401).json('Unauthorized.');
-
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(newPassword, salt);
 
         user.password = hashedPass;
+        user.passwordResetCode = null;
         await user.save();
 
         res.status(200).json('Password successfully reset.');

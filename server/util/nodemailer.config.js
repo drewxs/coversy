@@ -45,7 +45,7 @@ exports.sendForgotEmail = (name, email, forgotPasswordCode) => {
             subject: 'Coversy: Password Reset',
             html: `
                 <h2>Hi ${name}</h2>
-                <a href=${process.env.CLIENT_URL}/forgotpassword?code=${forgotPasswordCode}>Reset your password</a>
+                <a href=${process.env.CLIENT_URL}/resetpassword?code=${forgotPasswordCode}>Reset your password</a>
                 </div>
             `,
         })
