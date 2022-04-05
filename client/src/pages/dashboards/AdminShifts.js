@@ -23,9 +23,9 @@ export const AdminShifts = () => {
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
     const [teacher, setTeacher] = useState(null);
-    const [date, setDate] = useState(new Date());
+    //const [date, setDate] = useState(new Date());
     const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
+    //const [endTime, setEndTime] = useState(null);
 
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts

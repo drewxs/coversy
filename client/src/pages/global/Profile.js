@@ -17,8 +17,6 @@ import {
     Select,
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { editUser } from 'redux/userSlice';
-import { userSlice } from 'redux/userSlice';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
@@ -48,14 +46,6 @@ export const Profile = () => {
     ];
 
     const [image, setImage] = useState(null);
-
-    const handleSave = () => {
-        editUser(firstName, lastName, {
-            firstName,
-            lastName,
-        });
-        setOpen(false);
-    };
 
     useEffect(() => {
         if (image) UpdateProfilePicture(image);
@@ -325,7 +315,7 @@ export const Profile = () => {
                                                     <Button
                                                         sx={{ mr: '1rem' }}
                                                         onClick={() => {
-                                                            handleSave();
+                                                            //handleSave();
                                                             setOpen(false);
                                                         }}
                                                         variant='contained'
