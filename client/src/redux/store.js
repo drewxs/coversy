@@ -7,7 +7,6 @@ import ticketSlice from './ticketSlice';
 import notifSlice from './notifSlice';
 import userSlice from './userSlice';
 import verificationSlice from './verificationSlice';
-import notifSlice from './notifSlice';
 
 export default configureStore({
     reducer: {
@@ -19,6 +18,5 @@ export default configureStore({
         notification: notifSlice,
         user: userSlice,
         verification: verificationSlice,
-        notification: notifSlice,
     },
 });
