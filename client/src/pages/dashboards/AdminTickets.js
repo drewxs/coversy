@@ -11,6 +11,7 @@ import {
     Tab,
     Tabs,
     CircularProgress,
+    Divider,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import {
@@ -33,7 +34,7 @@ export const AdminTickets = () => {
     );
 
     const [open, setOpen] = useState(false);
-    const [current, setCurrent] = useState({});
+    const [current, setCurrent] = useState(0);
     const [tab, setTab] = useState(0);
 
     const handleResolve = (ticket) => {
@@ -97,7 +98,7 @@ export const AdminTickets = () => {
                                                         variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
-                                                            setCurrent(ticket);
+                                                            setCurrent(k);
                                                         }}
                                                     >
                                                         Review
@@ -149,7 +150,7 @@ export const AdminTickets = () => {
                                                         variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
-                                                            setCurrent(ticket);
+                                                            setCurrent(k);
                                                         }}
                                                     >
                                                         Review
@@ -168,27 +169,84 @@ export const AdminTickets = () => {
             {/* Ticket Modal */}
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
-                    <h3>Type: {current.type === 1 && 'Payroll Issue'}</h3>
-                    <p>{current.type === 2 && 'Time-off Issue'}</p>
-                    <p>Description: {current.message}</p>
-                    <br />
-                    <Button
-                        variant='contained'
-                        color='primary'
-                        onClick={() => {
-                            handleResolve(current);
-                            setOpen(false);
-                        }}
-                    >
-                        {current.resolved ? <p>Unresolve</p> : <p>Resolve</p>}
-                    </Button>
-                    <Button
-                        onClick={() => setOpen(false)}
-                        variant='outlined'
-                        sx={{ ml: '1rem' }}
-                    >
-                        Cancel
-                    </Button>
+                    {tab === 0 && (
+                        <>
+                            <p>
+                                Name: {tickets[current]?.user.firstName}{' '}
+                                {tickets[current]?.user.lastName}
+                            </p>
+                            <p>Email: {tickets[current]?.user.email}</p>
+                            <p>Phone: {tickets[current]?.user.phone}</p>
+                            <p>
+                                Type:{' '}
+                                {tickets[current]?.type === 1 &&
+                                    'Payroll Issue'}
+                                {tickets[current]?.type === 2 &&
+                                    'Time-off Issue'}
+                            </p>
+                            <Divider></Divider>
+                            <br />
+                            <p>{tickets[current]?.message}</p>
+                            <br />
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={() => {
+                                    handleResolve(tickets[current]);
+                                    setOpen(false);
+                                }}
+                                sx={{ marginRight: '1rem' }}
+                            >
+                                Resolve
+                            </Button>
+                            <Button
+                                onClick={() => setOpen(false)}
+                                variant='outlined'
+                                sx={{ ml: '1rem' }}
+                            >
+                                Cancel
+                            </Button>
+                        </>
+                    )}
+                    {tab === 1 && (
+                        <>
+                            <p>
+                                Name: {resolvedTickets[current]?.user.firstName}{' '}
+                                {resolvedTickets[current]?.user.lastName}
+                            </p>
+                            <p>Email: {resolvedTickets[current]?.user.email}</p>
+                            <p>Phone: {resolvedTickets[current]?.user.phone}</p>
+                            <p>
+                                Type:{' '}
+                                {resolvedTickets[current]?.type === 1 &&
+                                    'Payroll Issue'}
+                                {resolvedTickets[current]?.type === 2 &&
+                                    'Time-off Issue'}
+                            </p>
+                            <Divider></Divider>
+                            <br />
+                            <p>{resolvedTickets[current]?.message}</p>
+                            <br />
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={() => {
+                                    handleResolve(resolvedTickets[current]);
+                                    setOpen(false);
+                                }}
+                                sx={{ marginRight: '1rem' }}
+                            >
+                                Unresolve
+                            </Button>
+                            <Button
+                                onClick={() => setOpen(false)}
+                                variant='outlined'
+                                sx={{ ml: '1rem' }}
+                            >
+                                Cancel
+                            </Button>
+                        </>
+                    )}
                 </Box>
             </Modal>
         </>
