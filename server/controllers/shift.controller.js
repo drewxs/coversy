@@ -145,7 +145,11 @@ exports.getShiftMaterials = (req, res) => {
 exports.updateShiftMaterials = (req, res) => {
     if (!req.files) return res.status(400).send('No files uploaded');
     const shiftId = escape(req.params.shiftId);
-    const updateQuery = { materials: [] };
+    let updateQuery;
+    try {
+        let shift = await Shift.findById(shiftId).lean();
+        updateQuery = { materials: shift.materials };
+    } catch (err) {res.status(400).send('Failed to get Current Files')}
 
     req.files.forEach((file) => {
         updateQuery.materials.push({
@@ -247,6 +251,7 @@ exports.takeShift = async (req, res) => {
         createNotification(
             shift.sub,
             shift.teacher,
+            `Shift was taken`,
             `${shift.sub} has taken your shift on ${shift.date}`
         );
         return res.status(200).json(shift);
