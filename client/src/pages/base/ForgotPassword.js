@@ -1,0 +1,62 @@
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button, TextField } from '@mui/material';
+import { RequestPasswordReset } from 'redux/password';
+import { CircularProgress } from '@mui/material';
+
+export const ForgotPassword = () => {
+    const loading = useSelector((state) => state.password.loading);
+    const success = useSelector((state) => state.password.success);
+    const errors = useSelector((state) => state.password.errors);
+
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        RequestPasswordReset({ email });
+    };
+
+    return (
+        <section className='register'>
+            <div className='card'>
+                <Button href='/Login'>{`< Back`}</Button>
+                <div className='h-cont'>
+                    <h1>Forgot Password</h1>
+                </div>
+                {!success ? (
+                    !loading ? (
+                        <form onSubmit={handleSubmit}>
+                            <TextField
+                                className='input'
+                                variant='outlined'
+                                label='Email'
+                                type='email'
+                                fullWidth
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {errors && <p className='error'>{errors}</p>}
+                            <Button
+                                className='submit-btn'
+                                variant='contained'
+                                color='primary'
+                                size='large'
+                                type='submit'
+                            >
+                                Submit
+                            </Button>
+                        </form>
+                    ) : (
+                        <CircularProgress />
+                    )
+                ) : (
+                    <p>
+                        Please check your email for a link to reset your
+                        password. If you do not see an email, please check your
+                        junk mail folder.
+                    </p>
+                )}
+            </div>
+        </section>
+    );
+};

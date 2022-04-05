@@ -1,16 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { verifyUser } from 'services/auth.service';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ConfirmUser } from 'redux/verification';
 
 export const Welcome = (props) => {
-	if (props.match.path === '/confirm/:confirmationCode') {
-		verifyUser(props.match.params.confirmationCode);
-	}
+    const success = useSelector((state) => state.verification.success);
+    const errors = useSelector((state) => state.verification.errors);
 
-	return (
-		<div className='container'>
-			<h1>Account confirmed!</h1>
-			<Link to={'/login'}>Please Login</Link>
-		</div>
-	);
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        ConfirmUser(searchParams.get('code'));
+    }, [searchParams]);
+
+    return (
+        <section className='dashboard'>
+            <div className='container'>
+                {success ? (
+                    <>
+                        <h1>Account Verified!</h1>
+                        <Link to={'/login'}>Please Login</Link>
+                    </>
+                ) : (
+                    <>
+                        <h1>Error</h1>
+                        {errors && <p className='error'>{errors}</p>}
+                        <br />
+                        <Link to={'/login'}>Please Login</Link>
+                    </>
+                )}
+            </div>
+        </section>
+    );
 };

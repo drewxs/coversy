@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
     getUserById,
     getUsersBySite,
+    findUserByPasswordResetCode,
     updateUserById,
     updateUserAsAdmin,
     toggleUserActivatedById,
@@ -15,6 +16,7 @@ const { verifyUser } = require('../middleware/verify.user');
 router.get('/:userId', verifyUser, getUserById);
 router.get('/site/:siteId', verifyAdmin, getUsersBySite);
 router.get('/images/:key', getProfilePicture);
+router.get('/passwordreset/:code', findUserByPasswordResetCode);
 
 router.put('/:userId', verifyUser, updateUserById);
 router.put('/:userId/admin', verifyAdmin, updateUserAsAdmin);

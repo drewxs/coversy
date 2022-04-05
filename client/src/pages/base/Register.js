@@ -22,6 +22,8 @@ export const Register = () => {
     const success = useSelector((state) => state.user.success);
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+
         RegisterUser({
             firstName: firstName,
             lastName: lastName,
@@ -42,8 +44,8 @@ export const Register = () => {
                 <div className='h-cont'>
                     <h1>Registration</h1>
                 </div>
-                {!success || errors ? (
-                    <form>
+                {!success ? (
+                    <form onSubmit={handleSubmit}>
                         <FormControl fullWidth>
                             <InputLabel>Site</InputLabel>
                             <Select
@@ -91,6 +93,7 @@ export const Register = () => {
                             type='password'
                             fullWidth
                             value={password}
+                            autoComplete='new-password'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button
@@ -98,7 +101,7 @@ export const Register = () => {
                             variant='contained'
                             color='primary'
                             size='large'
-                            onClick={handleSubmit}
+                            type='submit'
                         >
                             Register
                         </Button>
