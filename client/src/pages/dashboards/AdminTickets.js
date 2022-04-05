@@ -69,8 +69,8 @@ export const AdminTickets = () => {
                                             <TableCell>Name</TableCell>
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
-                                            <TableCell>Type</TableCell>
-                                            <TableCell></TableCell>
+                                            <TableCell>Issue Type</TableCell>
+                                            <TableCell>View Issue</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -94,6 +94,7 @@ export const AdminTickets = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
+                                                        variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
                                                             setCurrent(ticket);
@@ -121,7 +122,7 @@ export const AdminTickets = () => {
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
                                             <TableCell>Type</TableCell>
-                                            <TableCell></TableCell>
+                                            <TableCell>View Issue</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -145,6 +146,7 @@ export const AdminTickets = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
+                                                        variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
                                                             setCurrent(ticket);
@@ -168,7 +170,7 @@ export const AdminTickets = () => {
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <h3>Type: {current.type === 1 && 'Payroll Issue'}</h3>
                     <p>{current.type === 2 && 'Time-off Issue'}</p>
-                    <p>{current.message}</p>
+                    <p>Description: {current.message}</p>
                     <br />
                     <Button
                         variant='contained'
@@ -177,7 +179,6 @@ export const AdminTickets = () => {
                             handleResolve(current);
                             setOpen(false);
                         }}
-                        sx={{ marginRight: '1rem' }}
                     >
                         {current.resolved ? <p>Unresolve</p> : <p>Resolve</p>}
                     </Button>
