@@ -13,8 +13,11 @@ import {
     Modal,
     TextField,
 } from '@mui/material';
-import { FetchUsers, ToggleUserActivatedById } from 'redux/admin';
-import { UpdateUserAsAdmin } from 'redux/admin';
+import {
+    FetchUsers,
+    ToggleUserActivatedById,
+    UpdateUserAsAdmin,
+} from 'redux/admin';
 
 export const AdminUsers = () => {
     const users = useSelector((state) => state.admin.users);

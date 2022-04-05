@@ -4,6 +4,7 @@ import {
     loadingUsers,
     updateUser,
 } from 'redux/adminSlice';
+import { editSite } from 'redux/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -36,6 +37,17 @@ export const UpdateUserAsAdmin = async (userId, updateQuery) => {
             { headers: { 'auth-token': localStorage.getItem('auth-token') } }
         );
         store.dispatch(updateUser(res.data));
+    } catch (err) {
+        console.error(err.message);
+    }
+};
+
+export const UpdateSite = async (updateQuery) => {
+    try {
+        const res = await axios.put(`${api}/site`, updateQuery, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(editSite(res.data));
     } catch (err) {
         console.error(err.message);
     }

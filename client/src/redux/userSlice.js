@@ -104,6 +104,14 @@ export const userSlice = createSlice({
                 sites: action.payload,
             };
         },
+        editSite: (state, action) => {
+            let newUser = state.user;
+            newUser.site = action.payload;
+            return {
+                ...state,
+                user: newUser,
+            };
+        },
     },
 });
 
@@ -122,6 +130,7 @@ export const {
     success,
     clearSuccess,
     setSites,
+    editSite,
 } = userSlice.actions;
 
 export default userSlice.reducer;
