@@ -124,5 +124,4 @@ export const UpdateUser = async (updateQuery) => {
 const setAuthorizationHeader = (token, id) => {
     localStorage.setItem('auth-token', token);
     localStorage.setItem('id', id);
-    axios.defaults.headers.common['auth-token'] = token;
 };
