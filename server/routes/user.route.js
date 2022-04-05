@@ -8,7 +8,6 @@ const {
     toggleUserActivatedById,
     getProfilePicture,
     updateProfilePicture,
-    deleteProfilePicture,
 } = require('../controllers/user.controller');
 const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
