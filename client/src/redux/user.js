@@ -108,6 +108,19 @@ export const UpdateProfilePicture = async (image) => {
     }
 };
 
+export const UpdateUser = async (updateQuery) => {
+    try {
+        const res = await axios.put(
+            `${api}/user/${localStorage.getItem('id')}`,
+            updateQuery,
+            { headers: { 'auth-token': localStorage.getItem('auth-token') } }
+        );
+        store.dispatch(editUser(res.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
 const setAuthorizationHeader = (token, id) => {
     localStorage.setItem('auth-token', token);
     localStorage.setItem('id', id);
