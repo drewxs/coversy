@@ -4,6 +4,7 @@ import payrollSlice from './payrollSlice';
 import shiftSlice from './shiftSlice';
 import userSlice from './userSlice';
 import ticketSlice from './ticketSlice';
+import notifSlice from './notifSlice';
 
 export default configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
         shift: shiftSlice,
         user: userSlice,
         ticket: ticketSlice,
+        notification: notifSlice,
     },
 });
