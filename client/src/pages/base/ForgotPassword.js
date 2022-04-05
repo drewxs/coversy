@@ -23,29 +23,37 @@ export const ForgotPassword = () => {
                 <div className='h-cont'>
                     <h1>Forgot Password</h1>
                 </div>
+
                 {!success ? (
                     !loading ? (
-                        <form onSubmit={handleSubmit}>
-                            <TextField
-                                className='input'
-                                variant='outlined'
-                                label='Email'
-                                type='email'
-                                fullWidth
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            {errors && <p className='error'>{errors}</p>}
-                            <Button
-                                className='submit-btn'
-                                variant='contained'
-                                color='primary'
-                                size='large'
-                                type='submit'
-                            >
-                                Submit
-                            </Button>
-                        </form>
+                        <>
+                            <p>
+                                Enter the email associated with your account and
+                                you will be sent a link to reset your password.
+                            </p>
+                            <form onSubmit={handleSubmit}>
+                                <TextField
+                                    sx={{ mt: '1rem' }}
+                                    className='input'
+                                    variant='outlined'
+                                    label='Email'
+                                    type='email'
+                                    fullWidth
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                {errors && <p className='error'>{errors}</p>}
+                                <Button
+                                    className='submit-btn'
+                                    variant='contained'
+                                    color='primary'
+                                    size='large'
+                                    type='submit'
+                                >
+                                    Submit
+                                </Button>
+                            </form>
+                        </>
                     ) : (
                         <CircularProgress />
                     )

@@ -142,11 +142,16 @@ exports.getShiftMaterials = (req, res) => {
  * @access User
  */
 
-exports.updateShiftMaterials = (req, res) => {
+exports.updateShiftMaterials = async (req, res) => {
     if (!req.files) return res.status(400).send('No files uploaded');
     const shiftId = escape(req.params.shiftId);
-
-    const updateQuery = { materials: [] };
+    let updateQuery;
+    try {
+        let shift = await Shift.findById(shiftId).lean();
+        updateQuery = { materials: shift.materials };
+    } catch (err) {
+        res.status(400).send('Failed to get Current Files');
+    }
 
     req.files.forEach((file) => {
         updateQuery.materials.push({
@@ -154,6 +159,31 @@ exports.updateShiftMaterials = (req, res) => {
             fileKey: file.key,
         });
     });
+
+    Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
+        .then((shift) => res.status(200).json(shift))
+        .catch((err) => res.status(400).json(err));
+};
+
+exports.deleteShiftMaterial = async (req, res) => {
+    const shiftId = escape(req.params.shiftId);
+    const fileKey = escape(req.params.fileKey);
+
+    const updateQuery = {};
+    const deleteParams = {
+        Key: fileKey,
+        Bucket: process.env.S3_PROFILE_BUCKET,
+    };
+
+    try {
+        let shift = await Shift.findById(shiftId).lean();
+        updateParams = {
+            materials: shift.material.filter(
+                (material) => material.fileKey != fileKey
+            ),
+        };
+        await s3.deleteObject(deleteParams).promise();
+    } catch (err) {}
 
     Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
         .then((shift) => res.status(200).json(shift))
@@ -223,7 +253,8 @@ exports.takeShift = async (req, res) => {
         createNotification(
             shift.sub,
             shift.teacher,
-            `${shift.sub} has taken your shift on ${shift.date}`
+            `Shift was taken`,
+            `${shift.sub} has taken your shift on ${shift.startTime}`
         );
         return res.status(200).json(shift);
     } catch (err) {

@@ -27,7 +27,8 @@ export const CombinedPayrollReport = () => {
                         <p>{user?.site.address.street}</p>
                         <p>
                             {user?.site.address.city},{' '}
-                            {user?.site.address.province}{' '}
+                            {user?.site.address.province}
+                            {', '}
                             {user?.site.address.zip}
                         </p>
                         <p>Canada</p>

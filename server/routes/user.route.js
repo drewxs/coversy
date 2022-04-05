@@ -8,7 +8,6 @@ const {
     toggleUserActivatedById,
     getProfilePicture,
     updateProfilePicture,
-    deleteProfilePicture,
 } = require('../controllers/user.controller');
 const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
@@ -27,7 +26,5 @@ router.put(
     uploadProfile.single('avatar'),
     updateProfilePicture
 );
-
-router.delete('/:userId/:key/deletepicture', deleteProfilePicture);
 
 module.exports = router;

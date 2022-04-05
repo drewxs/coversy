@@ -1,10 +1,11 @@
 const Notification = require('../models/notification.model');
 const escape = require('escape-html');
 
-exports.createNotification = async (sender, receiver, msg) => {
+exports.createNotification = async (sender, receiver, title, msg) => {
     const query = {
         sender: sender,
         receiver: receiver,
+        title: title,
         message: msg,
         read: false,
     };

@@ -144,16 +144,8 @@ export const Shifts = () => {
                                         )}
                                     </p>
                                     {/* Upload Docments*/}
-                                    <Typography
-                                        variant='h6'
-                                        sx={{ mt: '0.5rem' }}
-                                    >
-                                        Upload Documents
-                                    </Typography>
-                                    <Typography>
-                                        <input type='file' accept='.docx' />
-                                    </Typography>
-
+                                    <p>Upload Documents</p>
+                                    <input type='file' accept='.docx' />
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
@@ -195,7 +187,7 @@ export const Shifts = () => {
                                 variant='contained'
                                 color='primary'
                                 sx={{ mt: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
+                                onClick={() => setOpenBook(false)}
                             >
                                 Book
                             </Button>
@@ -203,7 +195,7 @@ export const Shifts = () => {
                                 variant='outlined'
                                 color='primary'
                                 sx={{ mt: '1rem', ml: '1rem' }}
-                                onClick={(e) => setOpenBook(false)}
+                                onClick={() => setOpenBook(false)}
                             >
                                 Cancel
                             </Button>
