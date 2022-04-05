@@ -21,11 +21,11 @@ export const PayrollReport = () => {
                     <div className='titles'>
                         <h1>PAYSLIP</h1>
                         <h3>
-                            {user?.firstName} {user?.lastName}
+                            Name: {user?.firstName} {user?.lastName}
                         </h3>
                     </div>
                     <div className='site'>
-                        <p className='bold'>{user?.site.name}</p>
+                        <p className='bold'>Location: {user?.site.name}</p>
                         <p>{user?.site.address.street}</p>
                         <p>
                             {user?.site.address.city},{' '}

@@ -18,7 +18,7 @@ import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
-    const [open1, setOpen1] = useState(false);
+    const [openShiftEdit, setOpenShiftEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
@@ -128,7 +128,7 @@ export const AdminShifts = () => {
                                                     shift.teacher.firstName
                                                 );
                                                 setStartTime(shift.startTime);
-                                                setOpen1(true);
+                                                setOpenShiftEdit(true);
                                             }}
                                         >
                                             Edit
@@ -139,7 +139,10 @@ export const AdminShifts = () => {
                         </TableBody>
 
                         {/* Edit Shift Modal */}
-                        <Modal open={open1} onClose={() => setOpen1(false)}>
+                        <Modal
+                            open={openShiftEdit}
+                            onClose={() => setOpenShiftEdit(false)}
+                        >
                             <Box
                                 className='modal-container'
                                 sx={{ width: 400 }}
@@ -203,13 +206,13 @@ export const AdminShifts = () => {
                                     <Button
                                         sx={{ mr: '1rem' }}
                                         variant='contained'
-                                        onClick={() => setOpen1(false)}
+                                        onClick={() => setOpenShiftEdit(false)}
                                     >
                                         Save
                                     </Button>
                                     <Button
                                         variant='outlined'
-                                        onClick={() => setOpen1(false)}
+                                        onClick={() => setOpenShiftEdit(false)}
                                     >
                                         Cancel
                                     </Button>
