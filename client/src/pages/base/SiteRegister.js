@@ -80,40 +80,48 @@ export const SiteRegister = () => {
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
                         />
-                        <TextField
-                            className='input'
-                            variant='outlined'
-                            label='City'
-                            fullWidth
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                        />
-                        <TextField
-                            className='input'
-                            variant='outlined'
-                            label='Zip'
-                            fullWidth
-                            value={zip}
-                            onChange={(e) => setZip(e.target.value)}
-                        />
-                        <FormControl fullWidth>
-                            <InputLabel>Province</InputLabel>
-                            <Select
+                        <div style={{ display: 'flex', width: '100%' }}>
+                            <TextField
+                                fullWidth
+                                sx={{ mr: '1rem' }}
                                 className='input'
-                                value={province}
-                                label='Province'
-                                onChange={(e) => setProvince(e.target.value)}
-                            >
-                                {provinces.map((province) => (
-                                    <MenuItem
-                                        value={province.code}
-                                        key={province.code}
-                                    >
-                                        {province.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                variant='outlined'
+                                label='City'
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            />
+
+                            <TextField
+                                fullWidth
+                                sx={{ mr: '1rem' }}
+                                className='input'
+                                variant='outlined'
+                                label='Postal Code'
+                                value={zip}
+                                onChange={(e) => setZip(e.target.value)}
+                            />
+
+                            <FormControl fullWidth>
+                                <InputLabel>Province</InputLabel>
+                                <Select
+                                    className='input'
+                                    value={province}
+                                    label='Province'
+                                    onChange={(e) =>
+                                        setProvince(e.target.value)
+                                    }
+                                >
+                                    {provinces.map((province) => (
+                                        <MenuItem
+                                            value={province.code}
+                                            key={province.code}
+                                        >
+                                            {province.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
                         <TextField
                             className='input'
                             variant='outlined'

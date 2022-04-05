@@ -21,8 +21,8 @@ export const AdminUsers = () => {
     const admin = useSelector((state) => state.user.user);
 
     const [open, setOpen] = useState(false);
-    const [firstname, setFirstname] = useState(null);
-    const [lastname, setLastname] = useState(null);
+    const [firstName, setFirstname] = useState(null);
+    const [lastName, setLastname] = useState(null);
     const [hourlyRate, setHourlyRate] = useState(null);
     const [taxRate, setTaxRate] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -33,8 +33,8 @@ export const AdminUsers = () => {
 
     const handleSave = () => {
         UpdateUserAsAdmin(userId, {
-            firstname,
-            lastname,
+            firstName,
+            lastName,
             hourlyRate,
             taxRate,
         });
@@ -80,7 +80,7 @@ export const AdminUsers = () => {
                                     {/*Edit Button For Edit User*/}
                                     <TableCell>
                                         <Button
-                                            variant='outlined'
+                                            variant='contained'
                                             onClick={() => {
                                                 setFirstname(user.firstName);
                                                 setLastname(user.lastName);
@@ -115,7 +115,7 @@ export const AdminUsers = () => {
                                     }}
                                 >
                                     <TextField
-                                        value={firstname}
+                                        value={firstName}
                                         onChange={(e) =>
                                             setFirstname(e.target.value)
                                         }
@@ -124,7 +124,7 @@ export const AdminUsers = () => {
                                         fullWidth
                                     />
                                     <TextField
-                                        value={lastname}
+                                        value={lastName}
                                         onChange={(e) =>
                                             setLastname(e.target.value)
                                         }
@@ -132,24 +132,27 @@ export const AdminUsers = () => {
                                         placeholder='Last Name'
                                         fullWidth
                                     />
-                                    <TextField
-                                        value={hourlyRate}
-                                        onChange={(e) =>
-                                            setHourlyRate(e.target.value)
-                                        }
-                                        label=' Hourly Rate'
-                                        placeholder='Hourly Rate'
-                                        fullWidth
-                                    />
-                                    <TextField
-                                        value={taxRate}
-                                        onChange={(e) =>
-                                            setTaxRate(e.target.value)
-                                        }
-                                        label='Tax Rate'
-                                        placeholder='Tax Rate'
-                                        fullWidth
-                                    />
+                                    <div style={{ display: 'flex' }}>
+                                        <TextField
+                                            value={hourlyRate}
+                                            onChange={(e) =>
+                                                setHourlyRate(e.target.value)
+                                            }
+                                            label=' Hourly Rate'
+                                            placeholder='Hourly Rate'
+                                            fullWidth
+                                            sx={{ mr: '0.9rem' }}
+                                        />
+                                        <TextField
+                                            value={taxRate}
+                                            onChange={(e) =>
+                                                setTaxRate(e.target.value)
+                                            }
+                                            label='Tax Rate'
+                                            placeholder='Tax Rate'
+                                            fullWidth
+                                        />
+                                    </div>
                                     <Button
                                         sx={{
                                             mt: '1rem',
