@@ -46,6 +46,7 @@ export const AdminPayroll = () => {
                                     </TableCell>
                                     <TableCell>
                                         <Button
+                                            variant='contained'
                                             href={`/payroll/report/${payroll.period}`}
                                         >
                                             View

@@ -49,9 +49,9 @@ export const Register = () => {
                         <FormControl fullWidth>
                             <InputLabel>Site</InputLabel>
                             <Select
+                                label='Site'
                                 className='input'
                                 value={site}
-                                label='Age'
                                 onChange={(e) => setSite(e.target.value)}
                             >
                                 {sites?.map((site, k) => (

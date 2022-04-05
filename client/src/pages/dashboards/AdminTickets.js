@@ -70,8 +70,8 @@ export const AdminTickets = () => {
                                             <TableCell>Name</TableCell>
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
-                                            <TableCell>Type</TableCell>
-                                            <TableCell></TableCell>
+                                            <TableCell>Issue Type</TableCell>
+                                            <TableCell>View Issue</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -95,6 +95,7 @@ export const AdminTickets = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
+                                                        variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
                                                             setCurrent(k);
@@ -122,7 +123,7 @@ export const AdminTickets = () => {
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
                                             <TableCell>Type</TableCell>
-                                            <TableCell></TableCell>
+                                            <TableCell>View Issue</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -146,6 +147,7 @@ export const AdminTickets = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
+                                                        variant='contained'
                                                         onClick={() => {
                                                             setOpen(true);
                                                             setCurrent(k);

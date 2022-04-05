@@ -17,6 +17,8 @@ import {
     Select,
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import { editUser } from 'redux/userSlice';
+import { userSlice } from 'redux/userSlice';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
@@ -26,8 +28,8 @@ export const Profile = () => {
     const [city, setCity] = useState('');
     const [zip, setZip] = useState(null);
     const [province, setProvince] = useState(null);
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
+    const [firstName, setFirstname] = useState(null);
+    const [lastName, setLastname] = useState(null);
 
     const provinces = [
         { code: 'AB', name: 'Alberta' },
@@ -47,6 +49,14 @@ export const Profile = () => {
 
     const [image, setImage] = useState(null);
 
+    const handleSave = () => {
+        editUser(firstName, lastName, {
+            firstName,
+            lastName,
+        });
+        setOpen(false);
+    };
+
     useEffect(() => {
         if (image) UpdateProfilePicture(image);
     }, [image]);
@@ -56,6 +66,7 @@ export const Profile = () => {
             <div className='card container'>
                 <div className='col left'>
                     <div className='avatar-upload'>
+                        {' '}
                         <Avatar
                             src={
                                 loading
@@ -259,8 +270,8 @@ export const Profile = () => {
                                         },
                                     }}
                                     onClick={() => {
-                                        setFirstName(user.firstName);
-                                        setLastName(user.lastName);
+                                        setFirstname(user.firstName);
+                                        setLastname(user.lastName);
                                         setOpen(true);
                                     }}
                                 >
@@ -288,7 +299,7 @@ export const Profile = () => {
                                                     <TextField
                                                         value={firstName}
                                                         onChange={(e) =>
-                                                            setFirstName(
+                                                            setFirstname(
                                                                 e.target.value
                                                             )
                                                         }
@@ -300,7 +311,7 @@ export const Profile = () => {
                                                     <TextField
                                                         value={lastName}
                                                         onChange={(e) =>
-                                                            setLastName(
+                                                            setLastname(
                                                                 e.target.value
                                                             )
                                                         }
@@ -310,19 +321,19 @@ export const Profile = () => {
                                                         placeholder='Last Name'
                                                     />
                                                 </div>
-                                                <div className='edit-btn'>
+                                                <div>
                                                     <Button
                                                         sx={{ mr: '1rem' }}
-                                                        onClick={() =>
-                                                            setOpen(false)
-                                                        }
+                                                        onClick={() => {
+                                                            handleSave();
+                                                            setOpen(false);
+                                                        }}
                                                         variant='contained'
                                                     >
                                                         Save
                                                     </Button>
                                                     <Button
                                                         onClick={() => {
-                                                            //handleSave();
                                                             setOpen(false);
                                                         }}
                                                         variant='outlined'
