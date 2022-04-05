@@ -38,7 +38,7 @@ exports.updateValidationAdmin = (data) => {
     const schema = Joi.object({
         firstName: Joi.string().max(64),
         lastName: Joi.string().max(64),
-        hourlyRate: Joi.number().min(1).max(1000),
+        hourlyRate: Joi.number().min(10).max(1000),
         taxRate: Joi.number().min(0).max(100),
     });
     return schema.validate(data);

@@ -5,6 +5,8 @@ export const adminSlice = createSlice({
     initialState: {
         users: [],
         loadingUsers: true,
+        errors: null,
+        openEditUser: false,
     },
     reducers: {
         setUsers: (state, action) => {
@@ -41,10 +43,35 @@ export const adminSlice = createSlice({
                 users: [...newArr],
             };
         },
+        setErrors: (state, action) => {
+            return {
+                ...state,
+                errors: action.payload,
+            };
+        },
+        clearErrors: (state) => {
+            return {
+                ...state,
+                errors: null,
+            };
+        },
+        openEditUser: (state, action) => {
+            return {
+                ...state,
+                openEditUser: action.payload,
+            };
+        },
     },
 });
 
-export const { setUsers, activateUser, loadingUsers, updateUser } =
-    adminSlice.actions;
+export const {
+    setUsers,
+    activateUser,
+    loadingUsers,
+    updateUser,
+    setErrors,
+    clearErrors,
+    openEditUser,
+} = adminSlice.actions;
 
 export default adminSlice.reducer;
