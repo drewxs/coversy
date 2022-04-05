@@ -1,7 +1,7 @@
 @use '../abstract/variables' as *;
 
 @font-face {
-    font-family: $fontBody, $fontBodyFallback;
-    src: url($fontFaceUrl);
+    font-family: $fontBody;
+    src: url('../font/Montserrat-Regular.ttf') format('truetype');
     font-display: swap;
 }

@@ -25,12 +25,15 @@ export const Profile = () => {
     const open = useSelector((state) => state.user.editOpen);
     const errors = useSelector((state) => state.user.editErrors);
 
+    const [siteName, setSiteName] = useState(null);
     const [street, setStreet] = useState(null);
     const [city, setCity] = useState('');
     const [zip, setZip] = useState(null);
     const [province, setProvince] = useState(null);
+
     const [firstName, setFirstname] = useState(null);
     const [lastName, setLastname] = useState(null);
+
     const [image, setImage] = useState(null);
 
     const provinces = [
@@ -56,7 +59,7 @@ export const Profile = () => {
 
     const handleSubmitAdmin = (e) => {
         e.preventDefault();
-        UpdateSite({ street, city, zip, province });
+        UpdateSite({ name: siteName, street, city, zip, province });
     };
 
     useEffect(() => {
@@ -101,19 +104,20 @@ export const Profile = () => {
                                 {/* Edit Icon */}
                                 <IconButton
                                     onClick={() => {
+                                        setSiteName(user?.site?.name);
                                         setStreet(user?.site?.address?.street);
                                         setCity(user?.site?.address.city);
                                         setZip(user?.site?.address?.zip);
                                         setProvince(
                                             user?.site?.address?.province
                                         );
+                                        SetEditOpen(true);
                                     }}
                                     style={{ borderRadius: '50%' }}
                                 >
                                     <Edit
                                         syle={{ padding: '0.5em' }}
                                         color='primary'
-                                        onClick={() => SetEditOpen(true)}
                                     />
                                 </IconButton>
 
@@ -137,11 +141,21 @@ export const Profile = () => {
                                                 sx={{
                                                     '& .MuiTextField-root': {
                                                         mb: '1rem',
-                                                        mt: '1rem',
                                                     },
                                                 }}
                                             >
                                                 <div className='edit-info'>
+                                                    <TextField
+                                                        value={siteName}
+                                                        onChange={(e) =>
+                                                            setSiteName(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        label='Site Name'
+                                                        placeholder='Site Name'
+                                                        fullWidth
+                                                    />
                                                     <TextField
                                                         value={street}
                                                         onChange={(e) =>
@@ -233,10 +247,7 @@ export const Profile = () => {
                                                     }}
                                                 >
                                                     <Button
-                                                        onClick={() =>
-                                                            //handleSave();
-                                                            SetEditOpen(false)
-                                                        }
+                                                        type='submit'
                                                         variant='contained'
                                                     >
                                                         Save
@@ -326,9 +337,9 @@ export const Profile = () => {
                                             )}
                                             <div>
                                                 <Button
-                                                    sx={{ mr: '1rem' }}
                                                     type='submit'
                                                     variant='contained'
+                                                    sx={{ mr: '1rem' }}
                                                 >
                                                     Save
                                                 </Button>
@@ -351,8 +362,10 @@ export const Profile = () => {
                     <div className='block detail'>
                         <LocationOn color='primary' sx={{ mr: '1rem' }} />
                         <div style={{ display: 'flex' }}>
+                            {user?.site?.name}
+                            <br />
                             {user?.site?.address?.street}
-                            <br></br>
+                            <br />
                             {user?.site?.address?.city}
                             {', '}
                             {user?.site?.address.province}
