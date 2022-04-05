@@ -6,6 +6,7 @@ import shiftSlice from './shiftSlice';
 import ticketSlice from './ticketSlice';
 import userSlice from './userSlice';
 import verificationSlice from './verificationSlice';
+import notifSlice from './notifSlice';
 
 export default configureStore({
     reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
         ticket: ticketSlice,
         user: userSlice,
         verification: verificationSlice,
+        notification: notifSlice,
     },
 });
