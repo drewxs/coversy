@@ -34,7 +34,6 @@ export const ToggleUserActivatedById = async (userId) => {
 };
 
 export const UpdateUserAsAdmin = async (userId, updateQuery) => {
-    store.dispatch(clearErrors());
     try {
         const res = await axios.put(
             `${api}/user/${userId}/admin`,
@@ -50,16 +49,15 @@ export const UpdateUserAsAdmin = async (userId, updateQuery) => {
 };
 
 export const UpdateSite = async (updateQuery) => {
-    store.dispatch(clearEditErrors());
     try {
         const res = await axios.put(`${api}/site`, updateQuery, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
         store.dispatch(clearEditErrors());
-        store.dispatch(setEditOpen(false));
         store.dispatch(editSite(res.data));
+        store.dispatch(setEditOpen(false));
     } catch (err) {
-        store.dispatch(setEditErrors());
+        store.dispatch(setEditErrors(err.response.data));
     }
 };
 

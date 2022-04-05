@@ -117,7 +117,7 @@ export const userSlice = createSlice({
             newUser.site = action.payload;
             return {
                 ...state,
-                user: newUser,
+                user: [...newUser],
             };
         },
     },
