@@ -142,14 +142,16 @@ exports.getShiftMaterials = (req, res) => {
  * @access User
  */
 
-exports.updateShiftMaterials = (req, res) => {
+exports.updateShiftMaterials = async (req, res) => {
     if (!req.files) return res.status(400).send('No files uploaded');
     const shiftId = escape(req.params.shiftId);
     let updateQuery;
     try {
         let shift = await Shift.findById(shiftId).lean();
         updateQuery = { materials: shift.materials };
-    } catch (err) {res.status(400).send('Failed to get Current Files')}
+    } catch (err) {
+        res.status(400).send('Failed to get Current Files');
+    }
 
     req.files.forEach((file) => {
         updateQuery.materials.push({
