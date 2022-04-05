@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {
     getAllSites,
     getSiteById,
-    updateSiteById,
+    updateSite,
 } = require('../controllers/site.controller');
 const { verifyAdmin } = require('../middleware/verify');
 
@@ -11,6 +11,6 @@ router.get('/', getAllSites);
 router.get('/:siteID', getSiteById);
 
 // UPDATE
-router.put('/', verifyAdmin, updateSiteById);
+router.put('/', verifyAdmin, updateSite);
 
 module.exports = router;

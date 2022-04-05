@@ -30,11 +30,11 @@ exports.getSiteById = async (req, res) => {
 
 /**
  *
- * @desc This function updates sites by ID.
- * @route PUT /site/:siteId
+ * @desc This function updates a site.
+ * @route PUT /site/
  * @access Admin
  */
-exports.updateSiteById = async (req, res) => {
+exports.updateSite = async (req, res) => {
     const updateQuery = {};
     if (req.body.name) {
         updateQuery.name = escape(req.body.name);
