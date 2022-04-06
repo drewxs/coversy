@@ -1,13 +1,37 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
+import { Button, IconButton, Badge } from '@mui/material';
 import { LogoutUser } from 'redux/user';
+import { NotificationsNone } from '@mui/icons-material';
+import { UserNotifications } from './UserNotification';
 import logo from 'assets/logo.svg';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+    // const notifications = useSelector(
+    //     (state) => state.notification.notifications
+    // );
+    const notifications = [
+        {
+            title: 'test',
+            message: 'Test notification 1',
+            read: true,
+        },
+        {
+            title: 'test',
+            message: 'Test notification 2',
+            read: true,
+        },
+    ];
+    const hasUnread = () => {
+        let total = 0;
+        notifications.forEach((notif) => {
+            total += notif.read;
+        });
+        return total == notifications.length;
+    };
     const greetings = ['Hello', 'Greetings', 'Good day'];
 
     return (
@@ -151,16 +175,38 @@ export const Nav = () => {
 
                     {/* Authenticated links */}
                     {authenticated && (
-                        <Button
-                            color='primary'
-                            className='button logout-btn'
-                            onClick={() => {
-                                <Navigate to='/login' />;
-                                LogoutUser();
-                            }}
-                        >
-                            Logout
-                        </Button>
+                        <>
+                            <Badge
+                                variant='dot'
+                                color='primary'
+                                overlap='circular'
+                                invisible={hasUnread()}
+                            >
+                                <IconButton
+                                    color='primary'
+                                    className='button notif-btn'
+                                    onClick={() => {}}
+                                >
+                                    <NotificationsNone />
+                                </IconButton>
+                            </Badge>
+                            {notifOpen && (
+                                <>
+                                    <div>test</div>
+                                </>
+                            )}
+
+                            <Button
+                                color='primary'
+                                className='button logout-btn'
+                                onClick={() => {
+                                    <Navigate to='/login' />;
+                                    LogoutUser();
+                                }}
+                            >
+                                Logout
+                            </Button>
+                        </>
                     )}
                 </div>
             </div>
