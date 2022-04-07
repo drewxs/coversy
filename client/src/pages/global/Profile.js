@@ -59,7 +59,10 @@ export const Profile = () => {
 
     const handleSubmitAdmin = (e) => {
         e.preventDefault();
-        UpdateSite({ name: siteName, street, city, zip, province });
+        UpdateSite({
+            name: siteName,
+            address: { street, city, zip, province },
+        });
     };
 
     useEffect(() => {
@@ -67,329 +70,263 @@ export const Profile = () => {
     }, [image]);
 
     return (
-        <section className='profile'>
-            <div className='card container'>
-                <div className='col left'>
-                    <div className='avatar-upload'>
-                        {' '}
-                        <Avatar
-                            src={
-                                loading
-                                    ? 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
-                                    : `${process.env.REACT_APP_API_URL}/${user.avatar}`
-                            }
-                            alt={`${user.firstName} ${user.lastName}`}
+        <>
+            <section className='profile'>
+                <div className='card container'>
+                    <div className='col left'>
+                        <div className='avatar-upload'>
+                            {' '}
+                            <Avatar
+                                src={
+                                    loading
+                                        ? 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                                        : `${process.env.REACT_APP_API_URL}/${user.avatar}`
+                                }
+                                alt={`${user.firstName} ${user.lastName}`}
+                                sx={{
+                                    fontSize: '4em',
+                                    width: '2.5em',
+                                    height: '2.5em',
+                                }}
+                            >
+                                {user.firstName?.charAt(0)}{' '}
+                                {user.lastName?.charAt(0)}
+                            </Avatar>
+                            <div className='overlay'>Change image</div>
+                            <input
+                                type='file'
+                                className='upload-avatar'
+                                onChange={(e) => setImage(e.target.files[0])}
+                            />
+                        </div>
+                        <div className='block name'>
+                            <h3>
+                                {user?.firstName} {user?.lastName}
+                            </h3>
+                            {user.type === 1 ? (
+                                <>
+                                    {/* Edit Icon */}
+                                    <IconButton
+                                        onClick={() => {
+                                            setSiteName(user?.site?.name);
+                                            setStreet(
+                                                user?.site?.address?.street
+                                            );
+                                            setCity(user?.site?.address.city);
+                                            setZip(user?.site?.address?.zip);
+                                            setProvince(
+                                                user?.site?.address?.province
+                                            );
+                                            SetEditOpen(true);
+                                        }}
+                                        style={{ borderRadius: '50%' }}
+                                    >
+                                        <Edit
+                                            syle={{ padding: '0.5em' }}
+                                            color='primary'
+                                        />
+                                    </IconButton>
+                                </>
+                            ) : (
+                                <>
+                                    {/* Edit Icon */}
+                                    <IconButton
+                                        sx={{
+                                            '& .MuiTextField-root': {
+                                                m: '1rem',
+                                                width: '100%',
+                                            },
+                                        }}
+                                        onClick={() => {
+                                            setFirstname(user.firstName);
+                                            setLastname(user.lastName);
+                                            SetEditOpen(true);
+                                        }}
+                                    >
+                                        <Edit color='primary' />
+                                    </IconButton>
+                                </>
+                            )}
+                        </div>
+                        <div className='divider'></div>
+                        <div className='block detail'>
+                            <LocationOn color='primary' sx={{ mr: '1rem' }} />
+                            <div style={{ display: 'flex' }}>
+                                {user?.site?.name}
+                                <br />
+                                {user?.site?.address?.street}
+                                <br />
+                                {user?.site?.address?.city}
+                                {', '}
+                                {user?.site?.address.province}
+                                {', '}
+                                {user?.site?.address?.zip}
+                            </div>
+                        </div>
+                        {user?.phone && (
+                            <div className='block detail'>
+                                <Phone color='primary' />
+                                <p>{user.phone}</p>
+                            </div>
+                        )}
+                        <div className='block detail'>
+                            <Email color='primary' />
+                            <p>{user?.email}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Edit User Profile Modal */}
+            <Modal open={open} onClose={() => SetEditOpen(false)}>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <Typography sx={{ mb: '1.5rem' }} variant='h6'>
+                        Edit User Profile
+                    </Typography>
+                    <form onSubmit={handleSubmitUser}>
+                        <div className='edit-info'>
+                            <TextField
+                                value={firstName}
+                                onChange={(e) => setFirstname(e.target.value)}
+                                fullWidth
+                                label='First Name'
+                                placeholder='First Name'
+                                sx={{ mb: '1rem' }}
+                            />
+                            <TextField
+                                value={lastName}
+                                onChange={(e) => setLastname(e.target.value)}
+                                sx={{ mb: '1rem' }}
+                                fullWidth
+                                label='Last Name'
+                                placeholder='Last Name'
+                            />
+                        </div>
+                        {errors && <p className='error'>{errors}</p>}
+                        <div>
+                            <Button
+                                type='submit'
+                                variant='contained'
+                                sx={{ mr: '1rem' }}
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                onClick={() => SetEditOpen(false)}
+                                variant='outlined'
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </form>
+                </Box>
+            </Modal>
+
+            {/* Edit Admin Site Details Modal */}
+            <Modal open={open} onClose={() => SetEditOpen(false)}>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <form onSubmit={handleSubmitAdmin}>
+                        <Typography sx={{ marginBottom: '0.5em' }} variant='h6'>
+                            Edit Site Details
+                        </Typography>
+                        <Box
                             sx={{
-                                fontSize: '4em',
-                                width: '2.5em',
-                                height: '2.5em',
+                                '& .MuiTextField-root': {
+                                    mb: '1rem',
+                                },
                             }}
                         >
-                            {user.firstName?.charAt(0)}{' '}
-                            {user.lastName?.charAt(0)}
-                        </Avatar>
-                        <div className='overlay'>Change image</div>
-                        <input
-                            type='file'
-                            className='upload-avatar'
-                            onChange={(e) => setImage(e.target.files[0])}
-                        />
-                    </div>
-                    <div className='block name'>
-                        <h3>
-                            {user?.firstName} {user?.lastName}
-                        </h3>
-                        {user.type === 1 ? (
-                            <>
-                                {/* Edit Icon */}
-                                <IconButton
-                                    onClick={() => {
-                                        setSiteName(user?.site?.name);
-                                        setStreet(user?.site?.address?.street);
-                                        setCity(user?.site?.address.city);
-                                        setZip(user?.site?.address?.zip);
-                                        setProvince(
-                                            user?.site?.address?.province
-                                        );
-                                        SetEditOpen(true);
+                            <div className='edit-info'>
+                                <TextField
+                                    value={siteName}
+                                    onChange={(e) =>
+                                        setSiteName(e.target.value)
+                                    }
+                                    label='Site Name'
+                                    placeholder='Site Name'
+                                    fullWidth
+                                />
+                                <TextField
+                                    value={street}
+                                    onChange={(e) => setStreet(e.target.value)}
+                                    label='Street Address'
+                                    placeholder='Street Address'
+                                    fullWidth
+                                />
+                                <div
+                                    style={{
+                                        display: 'flex',
                                     }}
-                                    style={{ borderRadius: '50%' }}
                                 >
-                                    <Edit
-                                        syle={{ padding: '0.5em' }}
-                                        color='primary'
+                                    <TextField
+                                        sx={{
+                                            mr: '0.9rem',
+                                        }}
+                                        value={zip}
+                                        onChange={(e) => setZip(e.target.value)}
+                                        fullWidth
+                                        label='Postal Code'
+                                        placeholder='Postal Code'
                                     />
-                                </IconButton>
-
-                                {/* Edit Admin Site Details Modal */}
-                                <Modal
-                                    open={open}
-                                    onClose={() => SetEditOpen(false)}
-                                >
-                                    <Box
-                                        className='modal-container'
-                                        sx={{ width: 400 }}
+                                    <TextField
+                                        value={city}
+                                        onChange={(e) =>
+                                            setCity(e.target.value)
+                                        }
+                                        fullWidth
+                                        label='City'
+                                        placeholder='City'
+                                    />
+                                </div>
+                                <FormControl fullWidth>
+                                    <InputLabel>Province</InputLabel>
+                                    <Select
+                                        className='input'
+                                        value={province}
+                                        label='Province'
+                                        placeholder='Province'
+                                        onChange={(e) =>
+                                            setProvince(e.target.value)
+                                        }
                                     >
-                                        <form onSubmit={handleSubmitAdmin}>
-                                            <Typography
-                                                sx={{ marginBottom: '0.5em' }}
-                                                variant='h6'
+                                        {provinces.map((province) => (
+                                            <MenuItem
+                                                value={province.code}
+                                                key={province.code}
                                             >
-                                                Edit Site Details
-                                            </Typography>
-                                            <Box
-                                                sx={{
-                                                    '& .MuiTextField-root': {
-                                                        mb: '1rem',
-                                                    },
-                                                }}
-                                            >
-                                                <div className='edit-info'>
-                                                    <TextField
-                                                        value={siteName}
-                                                        onChange={(e) =>
-                                                            setSiteName(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        label='Site Name'
-                                                        placeholder='Site Name'
-                                                        fullWidth
-                                                    />
-                                                    <TextField
-                                                        value={street}
-                                                        onChange={(e) =>
-                                                            setStreet(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        label='Address'
-                                                        placeholder='Address'
-                                                        fullWidth
-                                                    />
-                                                    <div
-                                                        style={{
-                                                            display: 'flex',
-                                                        }}
-                                                    >
-                                                        <TextField
-                                                            sx={{
-                                                                mr: '0.9rem',
-                                                            }}
-                                                            value={zip}
-                                                            onChange={(e) =>
-                                                                setZip(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                            fullWidth
-                                                            label='Postal Code'
-                                                            placeholder='Postal Code'
-                                                        />
-                                                        <TextField
-                                                            value={city}
-                                                            onChange={(e) =>
-                                                                setCity(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                            fullWidth
-                                                            label='City'
-                                                            placeholder='City'
-                                                        />
-                                                    </div>
-                                                    <FormControl fullWidth>
-                                                        <InputLabel>
-                                                            Province
-                                                        </InputLabel>
-                                                        <Select
-                                                            className='input'
-                                                            value={province}
-                                                            label='Province'
-                                                            placeholder='Province'
-                                                            onChange={(e) =>
-                                                                setProvince(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        >
-                                                            {provinces.map(
-                                                                (province) => (
-                                                                    <MenuItem
-                                                                        value={
-                                                                            province.code
-                                                                        }
-                                                                        key={
-                                                                            province.code
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            province.name
-                                                                        }
-                                                                    </MenuItem>
-                                                                )
-                                                            )}
-                                                        </Select>
-                                                    </FormControl>
-                                                </div>
-                                                {errors && (
-                                                    <p className='error'>
-                                                        {errors}
-                                                    </p>
-                                                )}
-                                                <div
-                                                    className='edit-btn'
-                                                    style={{
-                                                        marginTop: '1.5em',
-                                                    }}
-                                                >
-                                                    <Button
-                                                        type='submit'
-                                                        variant='contained'
-                                                    >
-                                                        Save
-                                                    </Button>
-                                                    <Button
-                                                        onClick={() => {
-                                                            SetEditOpen(false);
-                                                        }}
-                                                        style={{
-                                                            marginLeft: '1.5em',
-                                                        }}
-                                                        variant='outlined'
-                                                    >
-                                                        Cancel
-                                                    </Button>
-                                                </div>
-                                            </Box>
-                                        </form>
-                                    </Box>
-                                </Modal>
-                            </>
-                        ) : (
-                            <>
-                                {/* Edit Icon */}
-                                <IconButton
-                                    sx={{
-                                        '& .MuiTextField-root': {
-                                            m: '1rem',
-                                            width: '100%',
-                                        },
-                                    }}
+                                                {province.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            {errors && <p className='error'>{errors}</p>}
+                            <div
+                                className='edit-btn'
+                                style={{
+                                    marginTop: '1.5em',
+                                }}
+                            >
+                                <Button type='submit' variant='contained'>
+                                    Save
+                                </Button>
+                                <Button
                                     onClick={() => {
-                                        setFirstname(user.firstName);
-                                        setLastname(user.lastName);
-                                        SetEditOpen(true);
+                                        SetEditOpen(false);
                                     }}
+                                    style={{
+                                        marginLeft: '1.5em',
+                                    }}
+                                    variant='outlined'
                                 >
-                                    <Edit color='primary' />
-                                </IconButton>
-
-                                {/* Edit User Profile Modal */}
-                                <Modal
-                                    open={open}
-                                    onClose={() => SetEditOpen(false)}
-                                >
-                                    <Box
-                                        className='modal-container'
-                                        sx={{ width: 400 }}
-                                    >
-                                        <Typography
-                                            sx={{ mb: '1.5rem' }}
-                                            variant='h6'
-                                        >
-                                            Edit User Profile
-                                        </Typography>
-                                        <form onSubmit={handleSubmitUser}>
-                                            <div className='edit-info'>
-                                                <TextField
-                                                    value={firstName}
-                                                    onChange={(e) =>
-                                                        setFirstname(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    fullWidth
-                                                    label='First Name'
-                                                    placeholder='First Name'
-                                                    sx={{ mb: '1rem' }}
-                                                />
-                                                <TextField
-                                                    value={lastName}
-                                                    onChange={(e) =>
-                                                        setLastname(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    sx={{ mb: '1rem' }}
-                                                    fullWidth
-                                                    label='Last Name'
-                                                    placeholder='Last Name'
-                                                />
-                                            </div>
-                                            {errors && (
-                                                <p className='error'>
-                                                    {errors}
-                                                </p>
-                                            )}
-                                            <div>
-                                                <Button
-                                                    type='submit'
-                                                    variant='contained'
-                                                    sx={{ mr: '1rem' }}
-                                                >
-                                                    Save
-                                                </Button>
-                                                <Button
-                                                    onClick={() =>
-                                                        SetEditOpen(false)
-                                                    }
-                                                    variant='outlined'
-                                                >
-                                                    Cancel
-                                                </Button>
-                                            </div>
-                                        </form>
-                                    </Box>
-                                </Modal>
-                            </>
-                        )}
-                    </div>
-                    <div className='divider'></div>
-                    <div className='block detail'>
-                        <LocationOn color='primary' sx={{ mr: '1rem' }} />
-                        <div style={{ display: 'flex' }}>
-                            {user?.site?.name}
-                            <br />
-                            {user?.site?.address?.street}
-                            <br />
-                            {user?.site?.address?.city}
-                            {', '}
-                            {user?.site?.address.province}
-                            {', '}
-                            {user?.site?.address?.zip}
-                            {''}
-                        </div>
-                    </div>
-                    {user?.phone && (
-                        <div className='block detail'>
-                            <Phone color='primary' />
-                            <p>{user.phone}</p>
-                        </div>
-                    )}
-                    <div className='block detail'>
-                        <Email color='primary' />
-                        <p>{user?.email}</p>
-                    </div>
-                </div>
-                <div className='col right'>
-                    {user.type === 1 ? <></> : <></>}
-                </div>
-            </div>
-        </section>
+                                    Cancel
+                                </Button>
+                            </div>
+                        </Box>
+                    </form>
+                </Box>
+            </Modal>
+        </>
     );
 };
 
