@@ -7,9 +7,7 @@ export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
     return (
         <div className='shift-data card'>
             <div className='shift-info'>
-                <h3>
-                    {shift.subject} - {shift.teacher.firstName}
-                </h3>
+                <h3>{shift.subject}</h3>
                 <p>
                     {moment(shift.startTime).format('MMM D')}
                     {'\u00a0\u00a0\u00a0'}
