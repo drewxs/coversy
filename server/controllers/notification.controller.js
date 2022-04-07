@@ -45,9 +45,7 @@ exports.readNotification = (req, res) => {
     const updateQuery = {
         read: true,
     };
-    const notificationId = escape(req.params.notificationId);
-
-    Notification.findByIdAndUpdate(notificationId, updateQuery, { new: true })
+    Notification.updateMany({ receiver: req.user }, updateQuery, { new: true })
         .then((notification) => res.status(200).json(notification))
         .catch((err) => res.status(400).json(err));
 };
