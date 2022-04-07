@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y';
+
 export const mockUserSlice = createSlice({
     name: 'user',
     initialState: {
         user: {},
         sites: [],
-        token: null,
-        authenticated: null,
+        token: token,
+        authenticated: false,
         loading: true,
         success: false,
         errors: null,
@@ -19,13 +22,18 @@ export const mockUserSlice = createSlice({
                 user: action.payload.user,
                 token: action.payload.token,
                 errors: null,
-                authenticated: true,
+                authenticated: false,
+                sites: [],
             };
         },
         registerUser: (state) => {
             return {
                 ...state,
                 errors: null,
+                loadingUser: false,
+                updateErrors: false,
+                sites: [],
+                token: token,
             };
         },
         registerSite: (state) => {
@@ -39,6 +47,12 @@ export const mockUserSlice = createSlice({
                 ...state,
                 user: action.payload,
                 loading: false,
+                loadingUser: false,
+                errors: false,
+                sites: [],
+                success: false,
+                user: {},
+                updateErrors: false,
             };
         },
         editUser: (state, action) => {
@@ -51,15 +65,22 @@ export const mockUserSlice = createSlice({
             return {
                 ...state,
                 loading: true,
+                errors: false,
+                loadingUser: true,
+                updateErrors: false,
             };
         },
         logoutUser: (state) => {
             return {
                 ...state,
                 user: {},
-                token: '',
+                token: token,
                 authenticated: false,
                 success: false,
+                errors: false,
+                sites: [],
+                loadingUser: false,
+                updateErrors: true,
             };
         },
         setErrors: (state, action) => {
