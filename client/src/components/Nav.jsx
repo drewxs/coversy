@@ -8,7 +8,7 @@ import logo from 'assets/logo.svg';
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
-    const greetings = ['Hello', 'Greetings', 'Good day'];
+    const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
         <section className='nav'>
