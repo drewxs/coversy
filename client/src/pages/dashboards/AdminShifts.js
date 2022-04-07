@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import DatePicker from 'react-date-picker';
+import TimePicker from 'react-time-picker';
 import { GetShifts, AddShift } from 'redux/shift';
 import {
     Table,
@@ -12,20 +14,21 @@ import {
     Typography,
     Modal,
     TextField,
+    Select,
+    MenuItem,
 } from '@mui/material';
 import Papa from 'papaparse';
 import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
+    const subjects = useSelector((state) => state.subject);
     const [openShiftEdit, setOpenShiftEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
     const [teacher, setTeacher] = useState(null);
-    //const [date, setDate] = useState(new Date());
-    const [startTime, setStartTime] = useState(null);
-    //const [endTime, setEndTime] = useState(null);
+    const [startTime, setStartTime] = useState(new Date());
 
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
@@ -119,7 +122,7 @@ export const AdminShifts = () => {
                                         {moment(shift.endTime).format('h:mm A')}
                                     </TableCell>
                                     <TableCell>
-                                        {/* Edit Shift Modal */}
+                                        {/* Edit Shift Modal Button */}
                                         <Button
                                             variant='contained'
                                             onClick={() => {
@@ -127,7 +130,7 @@ export const AdminShifts = () => {
                                                 setTeacher(
                                                     shift.teacher.firstName
                                                 );
-                                                setStartTime(shift.startTime);
+
                                                 setOpenShiftEdit(true);
                                             }}
                                         >
@@ -138,7 +141,7 @@ export const AdminShifts = () => {
                             ))}
                         </TableBody>
 
-                        {/* Edit Shift Modal */}
+                        {/* Edit Shift Details Modal */}
                         <Modal
                             open={openShiftEdit}
                             onClose={() => setOpenShiftEdit(false)}
@@ -157,15 +160,23 @@ export const AdminShifts = () => {
                                         },
                                     }}
                                 >
-                                    <TextField
+                                    <Select
+                                        sx={{ mb: '1rem' }}
+                                        label='Subject'
+                                        placeholder='Subject'
+                                        fullWidth
                                         value={subject}
                                         onChange={(e) =>
                                             setSubject(e.target.value)
                                         }
-                                        label='Subject'
-                                        placeholder='Subject'
-                                        fullWidth
-                                    ></TextField>
+                                    >
+                                        {shifts.map((shift) => (
+                                            <MenuItem
+                                                value={subjects}
+                                                key={shift._id}
+                                            ></MenuItem>
+                                        ))}
+                                    </Select>
                                     <TextField
                                         value={teacher}
                                         onChange={(e) =>
@@ -175,42 +186,48 @@ export const AdminShifts = () => {
                                         placeholder='Teacher'
                                         fullWidth
                                     ></TextField>
-                                    <TextField
-                                        value={startTime}
-                                        onChange={(e) =>
-                                            setStartTime(
-                                                moment(e.target.value).format(
-                                                    'MMMM d, YYYY'
-                                                )
-                                            )
-                                        }
-                                        label='Shift Date'
-                                        placeholder='Shift Date'
-                                        fullWidth
-                                    ></TextField>
-                                    <TextField
-                                        value={startTime}
-                                        onChange={(e) => {
-                                            moment(
-                                                setStartTime(
-                                                    moment(
-                                                        shifts?.startTime
-                                                    ).format('MMM D, Y')
-                                                )
-                                            );
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
                                         }}
-                                        label='Shift Time'
-                                        placeholder='Shift Time'
-                                        fullWidth
-                                    ></TextField>
+                                    >
+                                        <DatePicker
+                                            calendarAriaLabel='Toggle calendar'
+                                            clearAriaLabel='Clear value'
+                                            dayAriaLabel='Day'
+                                            monthAriaLabel='Month'
+                                            nativeInputAriaLabel='Date'
+                                            onChange={(e) =>
+                                                setStartTime(e.target.value)
+                                            }
+                                            value={startTime}
+                                            yearAriaLabel='Year'
+                                        />
+                                        <TimePicker
+                                            amPmAriaLabel='Select AM/PM'
+                                            clearAriaLabel='Clear value'
+                                            clockAriaLabel='Toggle clock'
+                                            hourAriaLabel='Hour'
+                                            maxDetail='second'
+                                            minuteAriaLabel='Minute'
+                                            nativeInputAriaLabel='Time'
+                                            onChange={(e) =>
+                                                setStartTime(e.target.value)
+                                            }
+                                            secondAriaLabel='Second'
+                                            value={shifts.startTime}
+                                        />
+                                    </div>
                                     <Button
-                                        sx={{ mr: '1rem' }}
+                                        sx={{ mr: '1rem', mt: '1rem' }}
                                         variant='contained'
                                         onClick={() => setOpenShiftEdit(false)}
                                     >
                                         Save
                                     </Button>
                                     <Button
+                                        sx={{ mt: '1rem' }}
                                         variant='outlined'
                                         onClick={() => setOpenShiftEdit(false)}
                                     >

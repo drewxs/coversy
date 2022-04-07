@@ -120,8 +120,6 @@ export const Shifts = () => {
                             >
                                 <Typography sx={{ mb: '1rem' }} variant='h5'>
                                     {current.subject}
-                                    {' - '}
-                                    {current.teacher.firstName}
                                 </Typography>
 
                                 {/* Shift Info */}
@@ -143,12 +141,15 @@ export const Shifts = () => {
                                             'h:mm a'
                                         )}
                                     </p>
-                                    {/* Upload Docments*/}
-                                    <p>Upload Documents</p>
-                                    <input type='file' accept='.docx' />
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
+                                    <br></br>
+                                    {/* Upload Docments*/}
+                                    <p>
+                                        <strong>Add Documents</strong>
+                                    </p>
+                                    <input type='file' accept='.docx' />
                                     {current.teacher._id !== user._id && (
                                         <Button
                                             sx={{ marginTop: '1rem' }}

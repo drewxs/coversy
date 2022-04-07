@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
+import ClassIcon from '@mui/icons-material/Class';
 import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/user';
 import { UpdateSite } from 'redux/admin';
 
@@ -359,6 +360,12 @@ export const Profile = () => {
                         )}
                     </div>
                     <div className='divider'></div>
+                    {user?.subject && (
+                        <div className='block detail'>
+                            <ClassIcon color='primary'></ClassIcon>
+                            <p>{user.subject}</p>
+                        </div>
+                    )}
                     <div className='block detail'>
                         <LocationOn color='primary' sx={{ mr: '1rem' }} />
                         <div style={{ display: 'flex' }}>
