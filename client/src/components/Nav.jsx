@@ -14,7 +14,14 @@ export const Nav = () => {
         <section className='nav'>
             <div className='container'>
                 <div className='logo-cont'>
-                    <img className='logo' src={logo} alt='Coversy logo'></img>
+                    <a href='/'>
+                        <img
+                            className='logo'
+                            src={logo}
+                            alt='Coversy logo'
+                        ></img>
+                    </a>
+
                     {authenticated && (
                         <p className='hello'>
                             {
