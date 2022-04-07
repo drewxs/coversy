@@ -177,157 +177,170 @@ export const Profile = () => {
                 </div>
             </section>
 
-            {/* Edit User Profile Modal */}
-            <Modal open={open} onClose={() => SetEditOpen(false)}>
-                <Box className='modal-container' sx={{ width: 400 }}>
-                    <Typography sx={{ mb: '1.5rem' }} variant='h6'>
-                        Edit User Profile
-                    </Typography>
-                    <form onSubmit={handleSubmitUser}>
-                        <div className='edit-info'>
-                            <TextField
-                                value={firstName}
-                                onChange={(e) => setFirstname(e.target.value)}
-                                fullWidth
-                                label='First Name'
-                                placeholder='First Name'
-                                sx={{ mb: '1rem' }}
-                            />
-                            <TextField
-                                value={lastName}
-                                onChange={(e) => setLastname(e.target.value)}
-                                sx={{ mb: '1rem' }}
-                                fullWidth
-                                label='Last Name'
-                                placeholder='Last Name'
-                            />
-                        </div>
-                        {errors && <p className='error'>{errors}</p>}
-                        <div>
-                            <Button
-                                type='submit'
-                                variant='contained'
-                                sx={{ mr: '1rem' }}
-                            >
-                                Save
-                            </Button>
-                            <Button
-                                onClick={() => SetEditOpen(false)}
-                                variant='outlined'
-                            >
-                                Cancel
-                            </Button>
-                        </div>
-                    </form>
-                </Box>
-            </Modal>
-
             {/* Edit Admin Site Details Modal */}
-            <Modal open={open} onClose={() => SetEditOpen(false)}>
-                <Box className='modal-container' sx={{ width: 400 }}>
-                    <form onSubmit={handleSubmitAdmin}>
-                        <Typography sx={{ marginBottom: '0.5em' }} variant='h6'>
-                            Edit Site Details
-                        </Typography>
-                        <Box
-                            sx={{
-                                '& .MuiTextField-root': {
-                                    mb: '1rem',
-                                },
-                            }}
-                        >
-                            <div className='edit-info'>
-                                <TextField
-                                    value={siteName}
-                                    onChange={(e) =>
-                                        setSiteName(e.target.value)
-                                    }
-                                    label='Site Name'
-                                    placeholder='Site Name'
-                                    fullWidth
-                                />
-                                <TextField
-                                    value={street}
-                                    onChange={(e) => setStreet(e.target.value)}
-                                    label='Street Address'
-                                    placeholder='Street Address'
-                                    fullWidth
-                                />
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                    }}
-                                >
-                                    <TextField
-                                        sx={{
-                                            mr: '0.9rem',
-                                        }}
-                                        value={zip}
-                                        onChange={(e) => setZip(e.target.value)}
-                                        fullWidth
-                                        label='Postal Code'
-                                        placeholder='Postal Code'
-                                    />
-                                    <TextField
-                                        value={city}
-                                        onChange={(e) =>
-                                            setCity(e.target.value)
-                                        }
-                                        fullWidth
-                                        label='City'
-                                        placeholder='City'
-                                    />
-                                </div>
-                                <FormControl fullWidth>
-                                    <InputLabel>Province</InputLabel>
-                                    <Select
-                                        className='input'
-                                        value={province}
-                                        label='Province'
-                                        placeholder='Province'
-                                        onChange={(e) =>
-                                            setProvince(e.target.value)
-                                        }
-                                    >
-                                        {provinces.map((province) => (
-                                            <MenuItem
-                                                value={province.code}
-                                                key={province.code}
-                                            >
-                                                {province.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </div>
-                            {errors && <p className='error'>{errors}</p>}
-                            <div
-                                className='edit-btn'
-                                style={{
-                                    marginTop: '1.5em',
+            {user?.type === 1 && (
+                <Modal open={open} onClose={() => SetEditOpen(false)}>
+                    <Box className='modal-container' sx={{ width: 400 }}>
+                        <form onSubmit={handleSubmitAdmin}>
+                            <Typography
+                                sx={{ marginBottom: '0.5em' }}
+                                variant='h6'
+                            >
+                                Edit Site Details
+                            </Typography>
+                            <Box
+                                sx={{
+                                    '& .MuiTextField-root': {
+                                        mb: '1rem',
+                                    },
                                 }}
                             >
-                                <Button type='submit' variant='contained'>
+                                <div className='edit-info'>
+                                    <TextField
+                                        value={siteName}
+                                        onChange={(e) =>
+                                            setSiteName(e.target.value)
+                                        }
+                                        label='Site Name'
+                                        placeholder='Site Name'
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        value={street}
+                                        onChange={(e) =>
+                                            setStreet(e.target.value)
+                                        }
+                                        label='Street Address'
+                                        placeholder='Street Address'
+                                        fullWidth
+                                    />
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                        }}
+                                    >
+                                        <TextField
+                                            sx={{
+                                                mr: '0.9rem',
+                                            }}
+                                            value={zip}
+                                            onChange={(e) =>
+                                                setZip(e.target.value)
+                                            }
+                                            fullWidth
+                                            label='Postal Code'
+                                            placeholder='Postal Code'
+                                        />
+                                        <TextField
+                                            value={city}
+                                            onChange={(e) =>
+                                                setCity(e.target.value)
+                                            }
+                                            fullWidth
+                                            label='City'
+                                            placeholder='City'
+                                        />
+                                    </div>
+                                    <FormControl fullWidth>
+                                        <InputLabel>Province</InputLabel>
+                                        <Select
+                                            className='input'
+                                            value={province}
+                                            label='Province'
+                                            placeholder='Province'
+                                            onChange={(e) =>
+                                                setProvince(e.target.value)
+                                            }
+                                        >
+                                            {provinces.map((province) => (
+                                                <MenuItem
+                                                    value={province.code}
+                                                    key={province.code}
+                                                >
+                                                    {province.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                {errors && <p className='error'>{errors}</p>}
+                                <div
+                                    className='edit-btn'
+                                    style={{
+                                        marginTop: '1.5em',
+                                    }}
+                                >
+                                    <Button type='submit' variant='contained'>
+                                        Save
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            SetEditOpen(false);
+                                        }}
+                                        style={{
+                                            marginLeft: '1.5em',
+                                        }}
+                                        variant='outlined'
+                                    >
+                                        Cancel
+                                    </Button>
+                                </div>
+                            </Box>
+                        </form>
+                    </Box>
+                </Modal>
+            )}
+
+            {/* Edit User Profile Modal */}
+            {user?.type === 2 && (
+                <Modal open={open} onClose={() => SetEditOpen(false)}>
+                    <Box className='modal-container' sx={{ width: 400 }}>
+                        <Typography sx={{ mb: '1.5rem' }} variant='h6'>
+                            Edit User Profile
+                        </Typography>
+                        <form onSubmit={handleSubmitUser}>
+                            <div className='edit-info'>
+                                <TextField
+                                    value={firstName}
+                                    onChange={(e) =>
+                                        setFirstname(e.target.value)
+                                    }
+                                    fullWidth
+                                    label='First Name'
+                                    placeholder='First Name'
+                                    sx={{ mb: '1rem' }}
+                                />
+                                <TextField
+                                    value={lastName}
+                                    onChange={(e) =>
+                                        setLastname(e.target.value)
+                                    }
+                                    sx={{ mb: '1rem' }}
+                                    fullWidth
+                                    label='Last Name'
+                                    placeholder='Last Name'
+                                />
+                            </div>
+                            {errors && <p className='error'>{errors}</p>}
+                            <div>
+                                <Button
+                                    type='submit'
+                                    variant='contained'
+                                    sx={{ mr: '1rem' }}
+                                >
                                     Save
                                 </Button>
                                 <Button
-                                    onClick={() => {
-                                        SetEditOpen(false);
-                                    }}
-                                    style={{
-                                        marginLeft: '1.5em',
-                                    }}
+                                    onClick={() => SetEditOpen(false)}
                                     variant='outlined'
                                 >
                                     Cancel
                                 </Button>
                             </div>
-                        </Box>
-                    </form>
-                </Box>
-            </Modal>
+                        </form>
+                    </Box>
+                </Modal>
+            )}
         </>
     );
 };
-
-export default Profile;
