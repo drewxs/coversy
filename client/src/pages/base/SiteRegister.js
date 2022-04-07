@@ -18,9 +18,9 @@ export const SiteRegister = () => {
     const [province, setProvince] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [success, setSuccess] = useState(false);
 
     const errors = useSelector((state) => state.user.errors);
+    const success = useSelector((state) => state.user.success);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,7 +36,6 @@ export const SiteRegister = () => {
             email,
             password,
         });
-        if (!errors) setSuccess(true);
     };
 
     const provinces = [
