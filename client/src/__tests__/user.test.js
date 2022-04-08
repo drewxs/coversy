@@ -9,6 +9,33 @@ import reducer, {
 const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y';
 
+const user = {
+    _id: '6208b81fdc1a21e127631d4e',
+    firstName: 'SITE',
+    lastName: 'ADMIN',
+    type: 1,
+    email: 'test@test.com',
+    password: '$2a$10$SjW7f3VAjeWJypbHgEMpxesYcGo7ya0mjqH99z70jB6u6UAnBTVsW',
+    verified: true,
+    site: {
+        address: {
+            street: '123 Main St',
+            zip: 'A1A1A1',
+            city: 'Anytown',
+            province: 'AB',
+        },
+        _id: '6208b81edc1a21e127631d4c',
+        name: 'Test Site',
+        __v: 0,
+    },
+    __v: 0,
+    hourlyRate: 20,
+    taxRate: 10,
+    avatar: 'user/images/1648712884483',
+    phone: '1111111111',
+    activated: true,
+};
+
 const initialState = {
     user: {},
     sites: [],
@@ -29,27 +56,10 @@ describe('submit user and password', () => {
             reducer(initialState, {
                 type: loginUser.type,
                 payload: {
-                    user: {
-                        _id: '6208b81fdc1a21e127631d4e',
-                        firstName: 'SITE',
-                        lastName: 'ADMIN',
-                        type: 1,
-                        email: 'test@test.com',
-                        password:
-                            '$2a$10$SjW7f3VAjeWJypbHgEMpxesYcGo7ya0mjqH99z70jB6u6UAnBTVsW',
-                        verified: true,
-                        site: '6208b81edc1a21e127631d4c',
-                        __v: 0,
-                        hourlyRate: 20,
-                        taxRate: 10,
-                        avatar: 'user/images/1648712884483',
-                        phone: '1111111111',
-                        activated: false,
-                    },
+                    user: user,
                     token: token,
-                    authenticated: false,
+                    authenticated: true,
                 },
-
                 meta: {
                     successMessage: 'Successfully logged in',
                 },
@@ -64,16 +74,26 @@ describe('submit user and password', () => {
                 password:
                     '$2a$10$SjW7f3VAjeWJypbHgEMpxesYcGo7ya0mjqH99z70jB6u6UAnBTVsW',
                 verified: true,
-                site: '6208b81edc1a21e127631d4c',
+                site: {
+                    address: {
+                        street: '123 Main St',
+                        zip: 'A1A1A1',
+                        city: 'Anytown',
+                        province: 'AB',
+                    },
+                    _id: '6208b81edc1a21e127631d4c',
+                    name: 'Test Site',
+                    __v: 0,
+                },
                 __v: 0,
                 hourlyRate: 20,
                 taxRate: 10,
                 avatar: 'user/images/1648712884483',
                 phone: '1111111111',
-                activated: false,
+                activated: true,
             },
             token: token,
-            authenticated: false,
+            authenticated: true,
             loading: true,
             success: false,
             errors: null,
@@ -91,11 +111,10 @@ describe('submit user and password', () => {
             })
         ).toEqual({
             loading: true,
-            loadingUser: false,
             authenticated: false,
             success: false,
             errors: null,
-            updateErrors: false,
+            updateErrors: null,
             sites: [],
             token: token,
             user: {},
@@ -105,44 +124,17 @@ describe('submit user and password', () => {
         expect(
             reducer(initialState, {
                 type: setUser.type,
-                payload: {
-                    _id: '6208b81fdc1a21e127631d4e',
-                    firstName: 'SITE',
-                    lastName: 'ADMIN',
-                    type: 1,
-                    email: 'test@test.com',
-                    password:
-                        '$2a$10$SjW7f3VAjeWJypbHgEMpxesYcGo7ya0mjqH99z70jB6u6UAnBTVsW',
-                    verified: true,
-                    site: {
-                        address: {
-                            street: '123 Main St',
-                            zip: 'A1A1A1',
-                            city: 'Anytown',
-                            province: 'AB',
-                        },
-                        _id: '6208b81edc1a21e127631d4c',
-                        name: 'Test Site',
-                        __v: 0,
-                    },
-                    __v: 0,
-                    hourlyRate: 20,
-                    taxRate: 10,
-                    avatar: 'user/images/1648712884483',
-                    phone: '1111111111',
-                    activated: true,
-                },
+                payload: user,
             })
         ).toEqual({
             loading: false,
-            loadingUser: false,
             authenticated: false,
-            errors: false,
+            errors: null,
             sites: [],
             success: false,
             token: token,
-            user: {},
-            updateErrors: false,
+            user: user,
+            updateErrors: null,
         });
     });
     it('handle the loading user', () => {
@@ -153,14 +145,14 @@ describe('submit user and password', () => {
         ).toEqual({
             loading: false,
             user: {},
-            loadingUser: true,
+
             authenticated: false,
-            errors: false,
+            errors: null,
             loading: true,
             sites: [],
             token: token,
             success: false,
-            updateErrors: false,
+            updateErrors: null,
         });
     });
     it('handle the logout user', () => {
@@ -171,14 +163,13 @@ describe('submit user and password', () => {
         ).toEqual({
             loading: false,
             user: {},
-            loadingUser: false,
             authenticated: false,
-            errors: false,
+            errors: null,
             loading: true,
-            token: token,
+            token: '',
             success: false,
             sites: [],
-            updateErrors: true,
+            updateErrors: null,
         });
     });
 });
