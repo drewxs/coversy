@@ -10,21 +10,9 @@ import logo from 'assets/logo.svg';
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
-    // const notifications = useSelector(
-    //     (state) => state.notification.notifications
-    // );
-    const notifications = [
-        {
-            title: 'test',
-            message: 'Test notification 1',
-            read: true,
-        },
-        {
-            title: 'test',
-            message: 'Test notification 2',
-            read: true,
-        },
-    ];
+    const notifications = useSelector(
+        (state) => state.notification.notifications
+    );
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         GetNotifications();
