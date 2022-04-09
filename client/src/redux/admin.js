@@ -57,7 +57,8 @@ export const UpdateSite = async (updateQuery) => {
         store.dispatch(editSite(res.data));
         store.dispatch(setEditOpen(false));
     } catch (err) {
-        store.dispatch(setEditErrors(err.response.data));
+        console.log(err);
+        // store.dispatch(setEditErrors(err));
     }
 };
 

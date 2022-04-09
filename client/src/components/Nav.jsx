@@ -8,13 +8,20 @@ import logo from 'assets/logo.svg';
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
-    const greetings = ['Hello', 'Greetings', 'Good day'];
+    const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
         <section className='nav'>
             <div className='container'>
                 <div className='logo-cont'>
-                    <img className='logo' src={logo} alt='Coversy logo'></img>
+                    <a href='/'>
+                        <img
+                            className='logo'
+                            src={logo}
+                            alt='Coversy logo'
+                        ></img>
+                    </a>
+
                     {authenticated && (
                         <p className='hello'>
                             {

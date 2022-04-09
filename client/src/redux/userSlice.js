@@ -113,11 +113,9 @@ export const userSlice = createSlice({
             };
         },
         editSite: (state, action) => {
-            let newUser = state.user;
-            newUser.site = action.payload;
             return {
                 ...state,
-                user: [...newUser],
+                user: (state.user.site = action.payload),
             };
         },
     },
