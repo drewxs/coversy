@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Button, IconButton, Badge } from '@mui/material';
 import { LogoutUser } from 'redux/user';
 import { NotificationsNone } from '@mui/icons-material';
-import { UserNotifications } from './UserNotification';
+import { GetNotifications, ReadNotification } from 'redux/notif';
 import logo from 'assets/logo.svg';
 
 export const Nav = () => {
@@ -25,12 +25,17 @@ export const Nav = () => {
             read: true,
         },
     ];
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        GetNotifications();
+        setOpen(true);
+    };
     const hasUnread = () => {
         let total = 0;
         notifications.forEach((notif) => {
             total += notif.read;
         });
-        return total == notifications.length;
+        return total === notifications.length;
     };
     const greetings = ['Hello', 'Greetings', 'Good day'];
 
@@ -176,26 +181,34 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
-                            <Badge
-                                variant='dot'
-                                color='primary'
-                                overlap='circular'
-                                invisible={hasUnread()}
-                            >
-                                <IconButton
+                            <div>
+                                <Badge
+                                    variant='dot'
                                     color='primary'
-                                    className='button notif-btn'
-                                    onClick={() => {}}
+                                    overlap='circular'
+                                    invisible={hasUnread()}
                                 >
-                                    <NotificationsNone />
-                                </IconButton>
-                            </Badge>
-                            {notifOpen && (
-                                <>
-                                    <div>test</div>
-                                </>
-                            )}
-
+                                    <IconButton
+                                        color='primary'
+                                        className='button notif-btn'
+                                        onClick={() => {
+                                            handleOpen();
+                                        }}
+                                    >
+                                        <NotificationsNone />
+                                    </IconButton>
+                                </Badge>
+                                {open && (
+                                    <div className='notif-dropdown card'>
+                                        {notifications.map((notif, k) => (
+                                            <div className='notif-item' key={k}>
+                                                <h4>{notif.title}</h4>
+                                                <p>{notif.message}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                             <Button
                                 color='primary'
                                 className='button logout-btn'

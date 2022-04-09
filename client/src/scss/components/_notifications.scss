@@ -1,0 +1,32 @@
+@use '../abstract' as *;
+
+.notif-dropdown {
+    background-color: rgba($color: $white, $alpha: 1);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    top: 3.5rem;
+    z-index: 101;
+
+    .notif-item {
+        color: #000;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 0.75em 1em;
+        margin-bottom: 1em;
+        border-radius: 0.5em;
+
+        .notif-info {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        h3 {
+            font-size: 0.8em;
+        }
+    }
+}
