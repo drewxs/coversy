@@ -4,20 +4,27 @@ import { useSelector } from 'react-redux';
 import { Button, IconButton, Badge } from '@mui/material';
 import { LogoutUser } from 'redux/user';
 import { NotificationsNone } from '@mui/icons-material';
-import { GetNotifications, ReadNotification } from 'redux/notif';
+import { GetNotifications, ReadNotifications } from 'redux/notif';
 import logo from 'assets/logo.svg';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+
     const notifications = useSelector(
         (state) => state.notification.notifications
     );
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
-        GetNotifications();
+        ReadNotifications();
         setOpen(true);
     };
+    React.useEffect(() => {
+        if (authenticated) {
+            GetNotifications();
+        }
+    }, []);
+
     const hasUnread = () => {
         let total = 0;
         notifications.forEach((notif) => {
