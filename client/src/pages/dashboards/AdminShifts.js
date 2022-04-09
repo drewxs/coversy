@@ -16,20 +16,20 @@ import {
     TextField,
     Select,
     MenuItem,
+    InputLabel,
 } from '@mui/material';
 import Papa from 'papaparse';
 import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
-    const subjects = useSelector((state) => state.subject);
     const [openShiftEdit, setOpenShiftEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
     const [teacher, setTeacher] = useState(null);
     const [startTime, setStartTime] = useState(new Date());
-
+    const [endTime, setEndTime] = useState(new Date());
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
      */
@@ -127,10 +127,9 @@ export const AdminShifts = () => {
                                             variant='contained'
                                             onClick={() => {
                                                 setSubject(shift.subject);
-                                                setTeacher(
-                                                    shift.teacher.firstName
-                                                );
-
+                                                setTeacher(shift.teacher);
+                                                setStartTime(shift.startTime);
+                                                setEndTime(shift.endTime);
                                                 setOpenShiftEdit(true);
                                             }}
                                         >
@@ -160,65 +159,100 @@ export const AdminShifts = () => {
                                         },
                                     }}
                                 >
-                                    <Select
+                                    <InputLabel>Subject</InputLabel>
+                                    <TextField
                                         sx={{ mb: '1rem' }}
-                                        label='Subject'
                                         placeholder='Subject'
                                         fullWidth
                                         value={subject}
                                         onChange={(e) =>
                                             setSubject(e.target.value)
                                         }
-                                    >
-                                        {shifts.map((shift) => (
-                                            <MenuItem
-                                                value={subjects}
-                                                key={shift._id}
-                                            ></MenuItem>
-                                        ))}
-                                    </Select>
-                                    <TextField
+                                    ></TextField>
+                                    <InputLabel>Teacher</InputLabel>
+                                    <Select
+                                        sx={{ mb: '1rem' }}
+                                        placeholder='Teacher'
+                                        fullWidth
                                         value={teacher}
                                         onChange={(e) =>
                                             setTeacher(e.target.value)
                                         }
-                                        label='Teacher'
-                                        placeholder='Teacher'
-                                        fullWidth
-                                    ></TextField>
-                                    <div
-                                        style={{
-                                            width: '100%',
-                                            display: 'flex',
-                                        }}
                                     >
-                                        <DatePicker
-                                            calendarAriaLabel='Toggle calendar'
-                                            clearAriaLabel='Clear value'
-                                            dayAriaLabel='Day'
-                                            monthAriaLabel='Month'
-                                            nativeInputAriaLabel='Date'
-                                            onChange={(e) =>
-                                                setStartTime(e.target.value)
-                                            }
-                                            value={startTime}
-                                            yearAriaLabel='Year'
-                                        />
-                                        <TimePicker
-                                            amPmAriaLabel='Select AM/PM'
-                                            clearAriaLabel='Clear value'
-                                            clockAriaLabel='Toggle clock'
-                                            hourAriaLabel='Hour'
-                                            maxDetail='second'
-                                            minuteAriaLabel='Minute'
-                                            nativeInputAriaLabel='Time'
-                                            onChange={(e) =>
-                                                setStartTime(e.target.value)
-                                            }
-                                            secondAriaLabel='Second'
-                                            value={shifts.startTime}
-                                        />
+                                        {/* How to add something to remove dupe teacher names?*/}
+                                        {shifts.map((shift) => (
+                                            <MenuItem
+                                                value={shift.teacher}
+                                                key={shift._id}
+                                            >
+                                                {shift.teacher.firstName}{' '}
+                                                {shift.teacher.lastName}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    <div>
+                                        <div>
+                                            <p>Date: </p>
+                                            <DatePicker
+                                                calendarAriaLabel='Toggle calendar'
+                                                clearAriaLabel='Clear value'
+                                                dayAriaLabel='Day'
+                                                monthAriaLabel='Month'
+                                                nativeInputAriaLabel='Date'
+                                                onChange={(e) =>
+                                                    setStartTime(e.target.value)
+                                                }
+                                                value={startTime}
+                                                yearAriaLabel='Year'
+                                            />
+                                        </div>
+                                        <hr
+                                            style={{ visibility: 'hidden' }}
+                                        ></hr>
+                                        <div style={{ display: 'flex' }}>
+                                            <div>
+                                                <p>Start Time: </p>
+                                                <TimePicker
+                                                    amPmAriaLabel='Select AM/PM'
+                                                    clearAriaLabel='Clear value'
+                                                    clockAriaLabel='Toggle clock'
+                                                    hourAriaLabel='Hour'
+                                                    minuteAriaLabel='Minute'
+                                                    nativeInputAriaLabel='Time'
+                                                    onChange={(e) =>
+                                                        setStartTime(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    secondAriaLabel='Second'
+                                                    value={startTime}
+                                                />
+                                            </div>
+                                            <hr
+                                                style={{ visibility: 'hidden' }}
+                                            ></hr>
+                                            <div>
+                                                <p>End Time: </p>
+                                                <TimePicker
+                                                    style={{ ml: '1rem' }}
+                                                    amPmAriaLabel='Select AM/PM'
+                                                    clearAriaLabel='Clear value'
+                                                    clockAriaLabel='Toggle clock'
+                                                    hourAriaLabel='Hour'
+                                                    minuteAriaLabel='Minute'
+                                                    nativeInputAriaLabel='Time'
+                                                    onChange={(e) =>
+                                                        setStartTime(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    secondAriaLabel='Second'
+                                                    value={endTime}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <Button
                                         sx={{ mr: '1rem', mt: '1rem' }}
                                         variant='contained'
