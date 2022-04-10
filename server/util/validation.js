@@ -52,9 +52,15 @@ exports.siteValidation = (data) => {
         name: Joi.string().max(128).required(),
         address: {
             street: Joi.string().max(256).required(),
-            zip: Joi.string().regex(postalCodePattern).required(),
+            zip: Joi.string()
+                .regex(postalCodePattern)
+                .message('Invalid postal code.')
+                .required(),
             city: Joi.string().max(64).required(),
-            province: Joi.string().regex(provincePattern).required(),
+            province: Joi.string()
+                .regex(provincePattern)
+                .message('Invalid province.')
+                .required(),
         },
     });
     return schema.validate(data);

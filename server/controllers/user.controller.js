@@ -180,7 +180,9 @@ exports.updateProfilePicture = async (req, res) => {
             };
             await s3.deleteObject(deleteParams).promise();
         }
-    } catch (err) {}
+    } catch (err) {
+        return res.status(404).json('Error: User does not exist.');
+    }
 
     User.findByIdAndUpdate(userId, updateQuery, { new: true })
         .populate('site')

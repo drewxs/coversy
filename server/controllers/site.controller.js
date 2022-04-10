@@ -51,6 +51,6 @@ exports.updateSite = async (req, res) => {
         });
         return res.status(200).json(site.data);
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json(err.message);
     }
 };
