@@ -31,6 +31,37 @@ export const EditShift = async (shift) => {
 };
 
 /**
+ * @description Updates a shifts materialsd
+ * @params shift
+ */
+export const EditShiftMaterials = async (shift) => {
+    await axios
+        .put(`${api}/shift/${shift._id}/files/upload`, shift, {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+        })
+        .then((res) => store.dispatch(editShift(res.data)))
+        .catch((err) => console.error(err));
+};
+
+/**
+ * @description Deletes a single shift material
+ * @params shift, fileKey
+ */
+export const DeleteShiftMaterials = async (shift, fileKey) => {
+    await axios
+        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, shift, {
+            headers: {
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+        })
+        .then((res) => store.dispatch(editShift(res.data)))
+        .catch((err) => console.error(err));
+};
+
+/**
  * @description Posts a shift
  * @params shiftId
  */

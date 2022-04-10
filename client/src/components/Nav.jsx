@@ -1,13 +1,37 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
+import { Button, IconButton, Badge } from '@mui/material';
 import { LogoutUser } from 'redux/user';
+import { NotificationsNone } from '@mui/icons-material';
+import { GetNotifications, ReadNotifications } from 'redux/notif';
 import logo from 'assets/logo.svg';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+
+    const notifications = useSelector(
+        (state) => state.notification.notifications
+    );
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        ReadNotifications();
+        setOpen(true);
+    };
+    React.useEffect(() => {
+        if (authenticated) {
+            GetNotifications();
+        }
+    }, []);
+
+    const hasUnread = () => {
+        let total = 0;
+        notifications.forEach((notif) => {
+            total += notif.read;
+        });
+        return total === notifications.length;
+    };
     const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
@@ -158,16 +182,46 @@ export const Nav = () => {
 
                     {/* Authenticated links */}
                     {authenticated && (
-                        <Button
-                            color='primary'
-                            className='button logout-btn'
-                            onClick={() => {
-                                <Navigate to='/login' />;
-                                LogoutUser();
-                            }}
-                        >
-                            Logout
-                        </Button>
+                        <>
+                            <div>
+                                <Badge
+                                    variant='dot'
+                                    color='primary'
+                                    overlap='circular'
+                                    invisible={hasUnread()}
+                                >
+                                    <IconButton
+                                        color='primary'
+                                        className='button notif-btn'
+                                        onClick={() => {
+                                            handleOpen();
+                                        }}
+                                    >
+                                        <NotificationsNone />
+                                    </IconButton>
+                                </Badge>
+                                {open && (
+                                    <div className='notif-dropdown card'>
+                                        {notifications.map((notif, k) => (
+                                            <div className='notif-item' key={k}>
+                                                <h4>{notif.title}</h4>
+                                                <p>{notif.message}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <Button
+                                color='primary'
+                                className='button logout-btn'
+                                onClick={() => {
+                                    <Navigate to='/login' />;
+                                    LogoutUser();
+                                }}
+                            >
+                                Logout
+                            </Button>
+                        </>
                     )}
                 </div>
             </div>

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
-	getNotifications,
-	readNotification,
+    getNotifications,
+    readNotification,
 } = require('../controllers/notification.controller');
 const { verifyToken } = require('../middleware/verify');
 
@@ -9,6 +9,6 @@ const { verifyToken } = require('../middleware/verify');
 router.get('/', verifyToken, getNotifications);
 
 // UPDATE
-router.put('/:notificationId', verifyToken, readNotification);
+router.put('/', verifyToken, readNotification);
 
 module.exports = router;

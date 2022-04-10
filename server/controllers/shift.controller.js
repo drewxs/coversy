@@ -254,7 +254,9 @@ exports.takeShift = async (req, res) => {
             shift.sub,
             shift.teacher,
             `Shift was taken`,
-            `${shift.sub} has taken your shift on ${shift.startTime}`
+            `${
+                shift.sub.firstName + ' ' + shift.sub.lastName
+            }  has taken your shift on ${shift.startTime}`
         );
         return res.status(200).json(shift);
     } catch (err) {
