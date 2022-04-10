@@ -24,7 +24,7 @@ describe('Endpoint testing [notifications]', () => {
     });
     it('Read notification bad request', (done) => {
         chai.request(server)
-            .put(`/api/notification/${BAD_REQUEST}`)
+            .put(`/api/notification`)
             .set('auth-token', process.env.TEST_TOKEN)
             .end((err, res) => {
                 res.should.have.status(400);
