@@ -37,11 +37,11 @@ exports.updateValidation = (data) => {
         firstName: Joi.string()
             .max(64)
             .regex(alphanumericPattern)
-            .message('No special characters allowed.'),
+            .message('No special characters allowed for name.'),
         lastName: Joi.string()
             .max(64)
             .regex(alphanumericPattern)
-            .message('No special characters allowed.'),
+            .message('No special characters allowed for name.'),
         middleInitial: Joi.string().min(1).max(1),
         phone: Joi.string()
             .length(10)
@@ -55,11 +55,11 @@ exports.updateValidationAdmin = (data) => {
         firstName: Joi.string()
             .max(64)
             .regex(alphanumericPattern)
-            .message('No special characters allowed.'),
+            .message('No special characters allowed for name.'),
         lastName: Joi.string()
             .max(64)
             .regex(alphanumericPattern)
-            .message('No special characters allowed.'),
+            .message('No special characters allowed for name.'),
         hourlyRate: Joi.number().min(10).max(1000),
         taxRate: Joi.number().min(0).max(100),
     });
@@ -74,13 +74,13 @@ exports.siteValidation = (data) => {
         name: Joi.string()
             .max(128)
             .regex(alphanumericPattern)
-            .message('No special characters allowed.')
+            .message('No special characters allowed for site name.')
             .required(),
         address: {
             street: Joi.string()
                 .max(256)
                 .regex(alphanumericPattern)
-                .message('No special characters allowed.')
+                .message('No special characters allowed street name.')
                 .required(),
             zip: Joi.string()
                 .regex(postalCodePattern)
