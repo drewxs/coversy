@@ -1,14 +1,4 @@
-require('dotenv').config();
-
-process.env.NODE_ENV = 'test';
-process.env.PORT = 5001;
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../index');
-let should = chai.should();
-
-chai.use(chaiHttp);
+const { chai, server } = require('./test.config');
 
 describe('Endpoint testing [tickets]', () => {
     let BAD_REQUEST = '555555';
