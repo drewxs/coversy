@@ -132,6 +132,7 @@ export const AdminShifts = () => {
                         handleChange={(e) => setFile(e)}
                         name='file'
                         types={['CSV']}
+                        classes='file-uploader'
                     />
                     {(shiftCount > 0 || shiftErrorCount > 0) && (
                         <Box sx={{ display: 'flex', mt: '1rem' }}>
