@@ -11,8 +11,6 @@ let should = chai.should();
 chai.use(chaiHttp);
 
 describe('Endpoint testing [notifications]', () => {
-    let BAD_REQUEST = '555555';
-
     it('Get notifications for user', (done) => {
         chai.request(server)
             .get(`/api/notification`)
@@ -25,9 +23,8 @@ describe('Endpoint testing [notifications]', () => {
     it('Read notification bad request', (done) => {
         chai.request(server)
             .put(`/api/notification`)
-            .set('auth-token', process.env.TEST_TOKEN)
             .end((err, res) => {
-                res.should.have.status(400);
+                res.should.have.status(401);
                 done();
             });
     });
