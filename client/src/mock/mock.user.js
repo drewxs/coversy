@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y';
+
 export const mockUserSlice = createSlice({
     name: 'user',
     initialState: {
         user: {},
         sites: [],
-        token: null,
-        authenticated: null,
+        token: token,
+        authenticated: false,
         loading: true,
         success: false,
         errors: null,

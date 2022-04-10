@@ -11,6 +11,8 @@ export const userSlice = createSlice({
         success: false,
         errors: null,
         updateErrors: null,
+        editOpen: false,
+        editErrors: null,
     },
     reducers: {
         loginUser: (state, action) => {
@@ -74,18 +76,6 @@ export const userSlice = createSlice({
                 errors: null,
             };
         },
-        setUpdateErrors: (state, action) => {
-            return {
-                ...state,
-                updateErrors: action.payload,
-            };
-        },
-        clearUpdateErrors: (state) => {
-            return {
-                ...state,
-                updateErrors: null,
-            };
-        },
         success: (state) => {
             return {
                 ...state,
@@ -98,10 +88,34 @@ export const userSlice = createSlice({
                 success: false,
             };
         },
+        setEditOpen: (state, action) => {
+            return {
+                ...state,
+                editOpen: action.payload,
+            };
+        },
+        setEditErrors: (state, action) => {
+            return {
+                ...state,
+                editErrors: action.payload,
+            };
+        },
+        clearEditErrors: (state) => {
+            return {
+                ...state,
+                editErrors: null,
+            };
+        },
         setSites: (state, action) => {
             return {
                 ...state,
                 sites: action.payload,
+            };
+        },
+        editSite: (state, action) => {
+            return {
+                ...state,
+                user: (state.user.site = action.payload),
             };
         },
     },
@@ -117,11 +131,13 @@ export const {
     logoutUser,
     setErrors,
     clearErrors,
-    setUpdateErrors,
-    clearUpdateErrors,
     success,
     clearSuccess,
+    setEditOpen,
+    setEditErrors,
+    clearEditErrors,
     setSites,
+    editSite,
 } = userSlice.actions;
 
 export default userSlice.reducer;

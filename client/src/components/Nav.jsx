@@ -32,13 +32,20 @@ export const Nav = () => {
         });
         return total === notifications.length;
     };
-    const greetings = ['Hello', 'Greetings', 'Good day'];
+    const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
         <section className='nav'>
             <div className='container'>
                 <div className='logo-cont'>
-                    <img className='logo' src={logo} alt='Coversy logo'></img>
+                    <a href='/'>
+                        <img
+                            className='logo'
+                            src={logo}
+                            alt='Coversy logo'
+                        ></img>
+                    </a>
+
                     {authenticated && (
                         <p className='hello'>
                             {

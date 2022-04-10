@@ -3,7 +3,12 @@ import {
     activateUser,
     loadingUsers,
     updateUser,
+    setErrors,
+    clearErrors,
+    openEditUser,
 } from 'redux/adminSlice';
+import { setEditOpen, setEditErrors, clearEditErrors } from 'redux/userSlice';
+import { editSite } from 'redux/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -35,8 +40,28 @@ export const UpdateUserAsAdmin = async (userId, updateQuery) => {
             updateQuery,
             { headers: { 'auth-token': localStorage.getItem('auth-token') } }
         );
+        store.dispatch(clearErrors());
         store.dispatch(updateUser(res.data));
+        store.dispatch(openEditUser(false));
     } catch (err) {
-        console.error(err.message);
+        store.dispatch(setErrors(err.response.data));
     }
+};
+
+export const UpdateSite = async (updateQuery) => {
+    try {
+        const res = await axios.put(`${api}/site`, updateQuery, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(clearEditErrors());
+        store.dispatch(editSite(res.data));
+        store.dispatch(setEditOpen(false));
+    } catch (err) {
+        console.log(err);
+        // store.dispatch(setEditErrors(err));
+    }
+};
+
+export const SetOpenEditUser = (open) => {
+    store.dispatch(openEditUser(open));
 };

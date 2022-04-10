@@ -61,6 +61,7 @@ exports.updateUserById = (req, res) => {
     if (error) return res.status(400).json(error.details[0].message);
 
     User.findByIdAndUpdate(userId, updateQuery, { new: true })
+        .populate('site')
         .then((user) => {
             if (!user) res.status(404).json('Error: User ID does not exist.');
             res.status(200).json(user);

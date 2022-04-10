@@ -10,9 +10,10 @@ import {
     clearErrors,
     success,
     clearSuccess,
-    // setUpdateErrors,
-    // clearUpdateErrors,
     setSites,
+    setEditOpen,
+    setEditErrors,
+    clearEditErrors,
 } from 'redux/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
@@ -108,8 +109,27 @@ export const UpdateProfilePicture = async (image) => {
     }
 };
 
+export const UpdateUser = async (updateQuery) => {
+    store.dispatch(clearErrors());
+    try {
+        const res = await axios.put(
+            `${api}/user/${localStorage.getItem('id')}`,
+            updateQuery,
+            { headers: { 'auth-token': localStorage.getItem('auth-token') } }
+        );
+        store.dispatch(clearEditErrors());
+        store.dispatch(setEditOpen(false));
+        store.dispatch(editUser(res.data));
+    } catch (err) {
+        store.dispatch(setEditErrors());
+    }
+};
+
+export const SetEditOpen = async (open) => {
+    store.dispatch(setEditOpen(open));
+};
+
 const setAuthorizationHeader = (token, id) => {
     localStorage.setItem('auth-token', token);
     localStorage.setItem('id', id);
-    axios.defaults.headers.common['auth-token'] = token;
 };
