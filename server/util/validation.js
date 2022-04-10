@@ -1,7 +1,7 @@
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 
-const alphanumericPattern = /^[a-zA-Z0-9]+$/;
+const alphanumericPattern = /^[a-zA-Z0-9 ]+$/;
 
 exports.registerValidation = (data) => {
     const schema = Joi.object({
