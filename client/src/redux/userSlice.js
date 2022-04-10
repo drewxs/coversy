@@ -115,7 +115,10 @@ export const userSlice = createSlice({
         editSite: (state, action) => {
             return {
                 ...state,
-                user: (state.user.site = action.payload),
+                user: {
+                    ...state.user,
+                    site: action.payload,
+                },
             };
         },
     },

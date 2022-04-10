@@ -49,8 +49,8 @@ exports.updateSite = async (req, res) => {
         const site = await Site.findByIdAndUpdate(req.user.site, updateQuery, {
             new: true,
         });
-        return res.status(200).json(site.data);
+        return res.status(200).json(site);
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json(err.message);
     }
 };

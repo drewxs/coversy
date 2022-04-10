@@ -6,14 +6,27 @@ import {
     setErrors,
     clearErrors,
     openEditUser,
+    openShiftUpload,
+    incrementShiftCount,
+    incrementShiftErrorCount,
+    clearShiftUpload,
 } from 'redux/adminSlice';
-import { setEditOpen, setEditErrors, clearEditErrors } from 'redux/userSlice';
-import { editSite } from 'redux/userSlice';
+import {
+    setEditOpen,
+    setEditErrors,
+    clearEditErrors,
+    editSite,
+} from 'redux/userSlice';
+import { addShift } from './shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/**
+ * @description Fetches all users
+ * @params siteId
+ */
 export const FetchUsers = async (siteId) => {
     store.dispatch(loadingUsers());
     axios
@@ -24,6 +37,10 @@ export const FetchUsers = async (siteId) => {
         .catch((err) => console.log(err));
 };
 
+/**
+ * @description Toggle user active status
+ * @params userId
+ */
 export const ToggleUserActivatedById = async (userId) => {
     await axios
         .put(`${api}/user/${userId}/activate`, null, {
@@ -33,6 +50,10 @@ export const ToggleUserActivatedById = async (userId) => {
         .catch((err) => console.log(err));
 };
 
+/**
+ * @description Updates a user
+ * @params userId, updateQuery
+ */
 export const UpdateUserAsAdmin = async (userId, updateQuery) => {
     try {
         const res = await axios.put(
@@ -48,6 +69,10 @@ export const UpdateUserAsAdmin = async (userId, updateQuery) => {
     }
 };
 
+/**
+ * @description Updates site details
+ * @params updateQuery
+ */
 export const UpdateSite = async (updateQuery) => {
     try {
         const res = await axios.put(`${api}/site`, updateQuery, {
@@ -57,11 +82,32 @@ export const UpdateSite = async (updateQuery) => {
         store.dispatch(editSite(res.data));
         store.dispatch(setEditOpen(false));
     } catch (err) {
-        console.log(err);
-        // store.dispatch(setEditErrors(err));
+        store.dispatch(setEditErrors(err.response.data));
+    }
+};
+
+/**
+ * @description Adds a shift
+ * @params shift
+ */
+export const AddShift = async (shift) => {
+    try {
+        const res = await axios.post(`${api}/shift`, shift, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(addShift(res.data));
+        store.dispatch(incrementShiftCount());
+    } catch (err) {
+        store.dispatch(incrementShiftErrorCount());
     }
 };
 
 export const SetOpenEditUser = (open) => {
     store.dispatch(openEditUser(open));
+    store.dispatch(clearErrors());
+};
+
+export const SetOpenShiftUpload = (open) => {
+    !open && store.dispatch(clearShiftUpload());
+    store.dispatch(openShiftUpload(open));
 };

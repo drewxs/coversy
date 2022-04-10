@@ -1,0 +1,9 @@
+@use '../abstract' as *;
+
+.file-uploader {
+    border: dashed 2px $primary !important;
+
+    path {
+        fill: $primary;
+    }
+}

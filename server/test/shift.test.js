@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 process.env.NODE_ENV = 'test';
 process.env.PORT = 5001;
