@@ -1,4 +1,4 @@
-import { setShifts, addShift, editShift, loadingShifts } from './shiftSlice';
+import { setShifts, editShift, loadingShifts } from './shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -15,21 +15,6 @@ export const GetShifts = async () => {
         })
         .then((res) => store.dispatch(setShifts(res.data)))
         .catch((err) => console.error(err));
-};
-
-/**
- * @description Adds a shift
- * @params shift, siteId
- */
-export const AddShift = async (shift) => {
-    try {
-        const res = await axios.post(`${api}/shift`, shift, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        });
-        store.dispatch(addShift(res.data));
-    } catch (err) {
-        console.error(err);
-    }
 };
 
 /**
