@@ -43,6 +43,7 @@ export const AdminShifts = () => {
                     for (let i = 0; i < res.data.length - 1; i++) {
                         AddShift(res.data[i]);
                     }
+                    setFile(null);
                 },
             });
         }
@@ -133,6 +134,7 @@ export const AdminShifts = () => {
                         name='file'
                         types={['CSV']}
                         classes='file-uploader'
+                        fileOrFiles={file}
                     />
                     {(shiftCount > 0 || shiftErrorCount > 0) && (
                         <Box sx={{ display: 'flex', mt: '1rem' }}>
