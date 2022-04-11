@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button, IconButton, Badge } from '@mui/material';
@@ -14,12 +14,12 @@ export const Nav = () => {
     const notifications = useSelector(
         (state) => state.notification.notifications
     );
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => {
         ReadNotifications();
         setOpen(true);
     };
-    React.useEffect(() => {
+    useEffect(() => {
         if (authenticated) {
             GetNotifications();
         }
