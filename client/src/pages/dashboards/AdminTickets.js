@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import {
     Box,
     Button,
-    Table,
+    Divider,
+    LinearProgress,
     Modal,
+    Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
     Tab,
     Tabs,
-    CircularProgress,
-    Divider,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import {
@@ -20,8 +20,6 @@ import {
     ResolveTicket,
     UnresolveTicket,
 } from 'redux/ticket';
-
-// test
 
 export const AdminTickets = () => {
     const tickets = useSelector((state) => state.ticket.tickets);
@@ -62,7 +60,9 @@ export const AdminTickets = () => {
                     {tab === 0 && (
                         <>
                             {loading ? (
-                                <CircularProgress />
+                                <Box sx={{ width: '100%' }}>
+                                    <LinearProgress />
+                                </Box>
                             ) : (
                                 <Table stickyHeader>
                                     <TableHead>
@@ -114,7 +114,9 @@ export const AdminTickets = () => {
                     {tab === 1 && (
                         <>
                             {loadingResolved ? (
-                                <CircularProgress />
+                                <Box sx={{ width: '100%' }}>
+                                    <LinearProgress />
+                                </Box>
                             ) : (
                                 <Table stickyHeader>
                                     <TableHead>

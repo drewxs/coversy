@@ -3,16 +3,17 @@ import { useSelector } from 'react-redux';
 import { GetShifts } from 'redux/shift';
 import { AddShift, SetOpenShiftUpload } from 'redux/admin';
 import {
+    Box,
+    Button,
+    LinearProgress,
+    Modal,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Button,
-    Box,
-    Typography,
-    Modal,
     TextField,
+    Typography,
 } from '@mui/material';
 import { FileUploader } from 'react-drag-drop-files';
 import Papa from 'papaparse';
@@ -20,6 +21,8 @@ import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
+    const loading = useSelector((state) => state.shift.loading);
+
     const openShiftUpload = useSelector((state) => state.admin.openShiftUpload);
     const shiftCount = useSelector((state) => state.admin.shiftCount);
     const shiftErrorCount = useSelector((state) => state.admin.shiftErrorCount);
@@ -57,61 +60,80 @@ export const AdminShifts = () => {
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Button
-                        sx={{ mb: 2 }}
-                        variant='contained'
-                        onClick={() => SetOpenShiftUpload(true)}
-                    >
-                        Upload Schedule
-                    </Button>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Subject</TableCell>
-                                <TableCell>Teacher</TableCell>
-                                <TableCell>Shift Date</TableCell>
-                                <TableCell>Shift Time</TableCell>
-                                <TableCell>Edit Shift</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {shifts.map((shift) => (
-                                <TableRow key={shift._id}>
-                                    <TableCell>{shift.subject}</TableCell>
-                                    <TableCell>
-                                        {shift.teacher.firstName}{' '}
-                                        {shift.teacher.lastName}
-                                    </TableCell>
-                                    <TableCell>
-                                        {moment(shift.startTime).format(
-                                            'MMM D, Y'
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {moment(shift.startTime).format('h:mm')}
-                                        {' - '}
-                                        {moment(shift.endTime).format('h:mm A')}
-                                    </TableCell>
-                                    <TableCell>
-                                        {/* Edit Shift Modal */}
-                                        <Button
-                                            variant='contained'
-                                            onClick={() => {
-                                                setSubject(shift.subject);
-                                                setTeacher(
-                                                    shift.teacher.firstName
-                                                );
-                                                setStartTime(shift.startTime);
-                                                setOpen(true);
-                                            }}
-                                        >
-                                            Edit
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {loading ? (
+                        <Box sx={{ width: '100%' }}>
+                            <LinearProgress />
+                        </Box>
+                    ) : (
+                        <>
+                            <Button
+                                sx={{ mb: 2 }}
+                                variant='contained'
+                                onClick={() => SetOpenShiftUpload(true)}
+                            >
+                                Upload Schedule
+                            </Button>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Subject</TableCell>
+                                        <TableCell>Teacher</TableCell>
+                                        <TableCell>Shift Date</TableCell>
+                                        <TableCell>Shift Time</TableCell>
+                                        <TableCell>Edit Shift</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {shifts.map((shift) => (
+                                        <TableRow key={shift._id}>
+                                            <TableCell>
+                                                {shift.subject}
+                                            </TableCell>
+                                            <TableCell>
+                                                {shift.teacher.firstName}{' '}
+                                                {shift.teacher.lastName}
+                                            </TableCell>
+                                            <TableCell>
+                                                {moment(shift.startTime).format(
+                                                    'MMM D, Y'
+                                                )}
+                                            </TableCell>
+                                            <TableCell>
+                                                {moment(shift.startTime).format(
+                                                    'h:mm'
+                                                )}
+                                                {' - '}
+                                                {moment(shift.endTime).format(
+                                                    'h:mm A'
+                                                )}
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* Edit Shift Modal */}
+                                                <Button
+                                                    variant='contained'
+                                                    onClick={() => {
+                                                        setSubject(
+                                                            shift.subject
+                                                        );
+                                                        setTeacher(
+                                                            shift.teacher
+                                                                .firstName
+                                                        );
+                                                        setStartTime(
+                                                            shift.startTime
+                                                        );
+                                                        setOpen(true);
+                                                    }}
+                                                >
+                                                    Edit
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </>
+                    )}
                 </div>
             </section>
 
