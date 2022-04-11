@@ -1,6 +1,6 @@
 const { chai, server } = require('./test.config');
 
-describe('Performing pre-test cleaning', () => {
+describe('Performing pre-test cleaning [shift]', () => {
     it('Delete all test shifts', (done) => {
         chai.request(server)
             .delete(`/api/shift`)
@@ -12,7 +12,7 @@ describe('Performing pre-test cleaning', () => {
     });
 });
 
-describe('Endpoint testing [shifts]', () => {
+describe('Endpoint testing [shift]', () => {
     let shiftId;
 
     it('Create shift', (done) => {

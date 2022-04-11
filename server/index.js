@@ -6,9 +6,13 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const CONNECTION_URL =
+    process.env.NODE_ENV === 'production'
+        ? process.env.CONNECTION_URL
+        : process.env.TEST_CONNECTION_URL;
 
 mongoose
-    .connect(process.env.CONNECTION_URL, { useNewUrlParser: true })
+    .connect(CONNECTION_URL, { useNewUrlParser: true })
     .then(() =>
         app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
     )
