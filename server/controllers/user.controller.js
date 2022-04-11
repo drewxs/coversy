@@ -119,10 +119,9 @@ exports.updateUserAsAdmin = async (req, res) => {
             });
         }
         for (let i = 0; i < rate.ratelog.length; i++) {
-            if (checkSamePeriod(currDate, rate.ratelog[i].date)) {
+            if (checkSamePeriod(rate.ratelog[i].date, currDate)) {
                 rate.ratelog[i].hourlyRate = user.hourlyRate;
                 rate.ratelog[i].taxRate = user.taxRate;
-                break;
             }
         }
         await rate.save();

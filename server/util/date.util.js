@@ -7,8 +7,8 @@
  */
 exports.checkSamePeriod = (date1, date2) => {
     return (
-        new Date(date1).getMonth() === new Date(date2).getMonth() &&
-        new Date(date1).getFullYear() === new Date(date2).getFullYear()
+        new Date(date1).getMonth() >= new Date(date2).getMonth() &&
+        new Date(date1).getFullYear() >= new Date(date2).getFullYear()
     );
 };
 
