@@ -3,7 +3,8 @@ const escape = require('escape-html');
 const { siteValidation } = require('../util/validation');
 
 /**
- * @desc This function returns all sites.
+ * This function returns all sites.
+ *
  * @route GET /site/
  * @access Admin
  */
@@ -14,20 +15,8 @@ exports.getAllSites = async (req, res) => {
 };
 
 /**
- * @desc This function returns sites by ID.
- * @route GET /site/:siteId
- * @access Admin
- */
-exports.getSiteById = async (req, res) => {
-    const siteId = escape(req.params.siteId);
-
-    Site.findById(siteId)
-        .then((site) => res.status(200).json(site))
-        .catch((err) => res.status(400).json(err));
-};
-
-/**
- * @desc This function updates a site.
+ * This function updates a site.
+ *
  * @route PUT /site/
  * @access Admin
  */

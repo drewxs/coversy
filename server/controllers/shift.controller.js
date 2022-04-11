@@ -12,7 +12,8 @@ aws.config.update({
 const s3 = new aws.S3();
 
 /**
- * @desc This function creates a shift.
+ * This function creates a shift.
+ *
  * @route POST /shift
  * @access Admin
  */
@@ -56,7 +57,8 @@ exports.createShift = async (req, res) => {
 };
 
 /**
- * @desc This function returns shift by shift Id.
+ * This function returns shift by shift Id.
+ *
  * @route GET /shift/id/:shiftId
  * @access Admin
  */
@@ -69,7 +71,8 @@ exports.getShiftById = (req, res) => {
 };
 
 /**
- * @desc This function returns shifts by site.
+ * This function returns shifts by site.
+ *
  * @route GET /shift/
  * @access Admin
  */
@@ -81,7 +84,8 @@ exports.getShiftsBySite = (req, res) => {
 };
 
 /**
- * @desc This function returns posted shifts by site.
+ * This function returns posted shifts by site.
+ *
  * @route GET /shift/posted
  * @access Admin
  */
@@ -93,7 +97,8 @@ exports.getPostedShiftsBySite = (req, res) => {
 };
 
 /**
- * @desc This function updates shifts by shift id.
+ * This function updates shifts by shift id.
+ *
  * @route PUT /shift/:shiftId
  * @access Admin
  */
@@ -137,7 +142,8 @@ exports.getShiftMaterials = (req, res) => {
 };
 
 /**
- * @desc This function updates shift materials by ID.
+ * This function updates shift materials by ID.
+ *
  * @route PUT /shift/:shiftId/uploadfiles
  * @access User
  */
@@ -191,7 +197,8 @@ exports.deleteShiftMaterial = async (req, res) => {
 };
 
 /**
- * @desc This function deletes all shifts from a site
+ * This function deletes all shifts from a site
+ *
  * @route DELETE /site/:siteId
  * @access Admin
  */
@@ -202,7 +209,8 @@ exports.deleteShiftsBySite = (req, res) => {
 };
 
 /**
- * @desc This function posts a shift
+ * This function posts a shift
+ *
  * @route PUT /:shiftId/post
  * @access User
  */
@@ -220,7 +228,8 @@ exports.postShift = async (req, res) => {
 };
 
 /**
- * @desc This function posts a shift
+ * This function posts a shift
+ *
  * @route PUT /:shiftId/unpost
  * @access User
  */
@@ -238,7 +247,8 @@ exports.unpostShift = async (req, res) => {
 };
 
 /**
- * @desc This function takes a shift
+ * This function takes a shift
+ *
  * @route PUT /:shiftId/take
  * @access User
  */

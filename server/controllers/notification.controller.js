@@ -1,6 +1,12 @@
 const Notification = require('../models/notification.model');
 const escape = require('escape-html');
 
+/**
+ * This function creates a notification.
+ *
+ * @route GET /notification/
+ * @access Admin
+ */
 exports.createNotification = async (sender, receiver, title, msg) => {
     const query = {
         sender: sender,
@@ -24,9 +30,10 @@ exports.createNotification = async (sender, receiver, title, msg) => {
 
 /**
  *
- * @desc This function gets notifications for a user
+ * This function gets notifications for a user
+ *
  * @route GET /notification/
- * @access USER
+ * @access User
  */
 exports.getNotifications = (req, res) => {
     Notification.find({ receiver: req.user._id })
@@ -37,15 +44,17 @@ exports.getNotifications = (req, res) => {
 
 /**
  *
- * @desc This function updates the read parameter of a notification.
- * @route POST /notification/:notificationId
- * @access USER
+ * This function reads notifications for a user
+ *
+ * @route PUT /notification/
+ * @access User
  */
-exports.readNotification = (req, res) => {
-    const updateQuery = {
-        read: true,
-    };
-    Notification.updateMany({ receiver: req.user }, updateQuery, { new: true })
-        .then((notification) => res.status(200).json(notification))
+exports.readNotifications = (req, res) => {
+    Notification.updateMany(
+        { receiver: req.user },
+        { read: true },
+        { new: true }
+    )
+        .then((notifications) => res.status(200).json(notifications))
         .catch((err) => res.status(400).json(err));
 };
