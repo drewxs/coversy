@@ -1,18 +1,22 @@
 const Shift = require('../models/shift.model');
+const Rate = require('../models/rate.model');
 const escape = require('escape-html');
+const { checkRatelogHasPeriod, checkSamePeriod } = require('../util/date.util');
 
 /**
- * @desc This function gets all payrolls from a site.
+ * This function generates all payrolls from a site.
+ *
  * @route GET /payroll/site
  * @access Admin
  */
 exports.getSitePayrolls = async (req, res) => {
     const query = { site: req.user.site };
-    generateReport(req, res, query);
+    generateReport(res, query);
 };
 
 /**
- * @desc This function gets all payrolls for a user.
+ * This function generates all payrolls for a user.
+ *
  * @route GET /payroll/user
  * @access User
  */
@@ -20,45 +24,51 @@ exports.getUserPayrolls = async (req, res) => {
     const query = {
         $or: [{ teacher: req.user._id, sub: null }, { sub: req.user._id }],
     };
-    generateReport(req, res, query);
+    generateReport(res, query);
 };
 
 /**
- * @desc This function gets a payroll for a given month (site-wide).
+ * This function generates a payroll for a given month (site-wide).
+ *
  * @route GET /payroll/site/:date
  * @access Admin
  */
 exports.getSitePayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
-    const firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
     const query = {
         site: req.user.site,
         startTime: { $gte: firstDay, $lt: lastDay },
     };
-    generateReport(req, res, query);
+    generateReport(res, query);
 };
 
 /**
- * @desc This function gets a payroll for a given month.
+ * This function generates a payroll for a given month.
+ *
  * @route GET /payroll/user/:date
  * @access User
  */
 exports.getUserPayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
-    const firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
     const query = {
         $or: [{ teacher: req.user._id, sub: null }, { sub: req.user._id }],
         startTime: { $gte: firstDay, $lt: lastDay },
     };
-    generateReport(req, res, query);
+    generateReport(res, query);
 };
 
-// Generate a payroll report.
-const generateReport = async (req, res, query) => {
+/**
+ * This function generates a payroll report based on a given query.
+ *
+ * @returns payrolls array
+ */
+const generateReport = async (res, query) => {
     try {
         let payrolls = [];
 
@@ -70,11 +80,10 @@ const generateReport = async (req, res, query) => {
             .sort({ startTime: 1 });
 
         // Cleaning for individual shift objects to to be pushed into respective timeframes.
-        shifts.forEach((shift) => {
+        for (const shift of shifts) {
             let period = `${new Date(shift.startTime).getFullYear()}-${
                 new Date(shift.startTime).getMonth() + 1
             }`;
-
             // Check if timeframe exists in payrolls.
             let timeframe = payrolls.filter((s) => s.period === period)[0];
 
@@ -83,9 +92,26 @@ const generateReport = async (req, res, query) => {
                 new Date(shift.startTime).getHours();
 
             shift.hours = hours;
-            shift.pay = hours * shift.teacher.hourlyRate;
-            shift.deductions = shift.pay * (shift.teacher.taxRate / 100);
-            shift.netPay = shift.pay - shift.deductions;
+
+            const rate = await Rate.findOne({ user: shift.teacher });
+
+            if (!checkRatelogHasPeriod(rate.ratelog, shift.startTime)) {
+                rate.ratelog.push({
+                    date: shift.startTime,
+                    hourlyRate: shift.teacher.hourlyRate,
+                    taxRate: shift.teacher.taxRate,
+                });
+            }
+            await rate.save();
+
+            for (const log of rate.ratelog) {
+                if (checkSamePeriod(log.date, shift.startTime)) {
+                    shift.pay = hours * log.hourlyRate;
+                    shift.deductions = shift.pay * (log.taxRate / 100);
+                    shift.netPay = shift.pay - shift.deductions;
+                    break;
+                }
+            }
 
             // If timeframe exists, push shift into timeframe, otherwise create timeframe and push shift.
             if (timeframe) {
@@ -96,10 +122,10 @@ const generateReport = async (req, res, query) => {
                     shifts: [shift],
                 });
             }
-        });
+        }
 
         // Add up totals for each timeframe.
-        payrolls.forEach((payroll) => {
+        for (const payroll of payrolls) {
             payroll.hours = payroll.shifts.reduce((acc, shift) => {
                 return acc + shift.hours;
             }, 0);
@@ -112,7 +138,9 @@ const generateReport = async (req, res, query) => {
             payroll.netPay = payroll.shifts.reduce((acc, shift) => {
                 return acc + shift.netPay;
             }, 0);
-        });
+        }
+
+        delete payrolls.shifts;
 
         return res.status(200).json(payrolls);
     } catch (err) {

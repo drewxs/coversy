@@ -1,10 +1,12 @@
 const User = require('../models/user.model');
+const Rate = require('../models/rate.model');
 const escape = require('escape-html');
 const aws = require('aws-sdk');
 const {
     updateValidation,
     updateValidationAdmin,
 } = require('../util/validation');
+const { checkSamePeriod, checkRatelogHasPeriod } = require('../util/date.util');
 
 aws.config.update({
     secretAccessKey: process.env.S3_ACCESS_SECRET,
@@ -14,7 +16,8 @@ aws.config.update({
 const s3 = new aws.S3();
 
 /**
- * @desc This function returns users by user id.
+ * This function returns users by user id.
+ *
  * @route GET /user/:userId
  * @access User
  */
@@ -28,7 +31,8 @@ exports.getUserById = async (req, res) => {
 };
 
 /**
- * @desc This function returns users by site.
+ * This function returns users by site.
+ *
  * @route GET /user/site/:siteid
  * @access Admin
  */
@@ -41,7 +45,8 @@ exports.getUsersBySite = async (req, res) => {
 };
 
 /**
- * @desc This function updates users by id.
+ * This function updates users by id.
+ *
  * @route PUT /user/:userId
  * @access User
  */
@@ -70,7 +75,8 @@ exports.updateUserById = (req, res) => {
 };
 
 /**
- * @desc This function updates users by id as admin
+ * This function updates users by id as admin
+ *
  * @route PUT /user/:userId/admin
  * @access Admin
  */
@@ -91,6 +97,36 @@ exports.updateUserAsAdmin = async (req, res) => {
             new: true,
         });
         if (!user) res.status(404).json('Error: User ID does not exist.');
+
+        const rate = await Rate.findOne({ user: userId });
+        if (!rate) {
+            rate = await Rate.create({
+                user: userId,
+                site: user.site,
+                ratelog: {
+                    hourlyRate: user.hourlyRate,
+                    taxRate: user.taxRate,
+                },
+            });
+        }
+
+        const currDate = new Date();
+        if (!checkRatelogHasPeriod(rate.ratelog, currDate)) {
+            rate.ratelog.push({
+                date: currDate,
+                hourlyRate: user.hourlyRate,
+                taxRate: user.taxRate,
+            });
+        }
+        for (let i = 0; i < rate.ratelog.length; i++) {
+            if (checkSamePeriod(currDate, rate.ratelog[i].date)) {
+                rate.ratelog[i].hourlyRate = user.hourlyRate;
+                rate.ratelog[i].taxRate = user.taxRate;
+                break;
+            }
+        }
+        await rate.save();
+
         return res.status(200).json(user);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -98,7 +134,8 @@ exports.updateUserAsAdmin = async (req, res) => {
 };
 
 /**
- * @desc This function activates/deactivates users by id.
+ * This function activates/deactivates users by id.
+ *
  * @route PUT /user/:userId/:siteId/activate
  * @access Admin
  */
@@ -123,9 +160,10 @@ exports.toggleUserActivatedById = async (req, res) => {
 };
 
 /**
- * @desc This function updates the users Profile Picture
+ * This function updates the users Profile Picture
+ *
  * @route GET /user/images/:key
- * @access PUBLIC
+ * @access User
  */
 exports.getProfilePicture = (req, res) => {
     const fileKey = escape(req.params.key);
@@ -139,9 +177,10 @@ exports.getProfilePicture = (req, res) => {
 };
 
 /**
- * @desc This function checks if a password reset code exists
+ * This function checks if a password reset code exists
+ *
  * @route GET /user/passwordreset/:code
- * @access USER
+ * @access User
  */
 exports.findUserByPasswordResetCode = async (req, res) => {
     const passwordResetCode = escape(req.params.code);
@@ -162,9 +201,10 @@ exports.findUserByPasswordResetCode = async (req, res) => {
 };
 
 /**
- * @desc This function updates the users Profile Picture
+ * This function updates the users Profile Picture
+ *
  * @route PUT /user/:userId/updatepicture
- * @access USER
+ * @access User
  */
 exports.updateProfilePicture = async (req, res) => {
     if (!req.file) return res.status(400).send('No image uploaded');

@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const Site = require('../models/site.model');
+const Rate = require('../models/rate.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const escape = require('escape-html');
@@ -89,6 +90,18 @@ exports.registerUser = async (req, res) => {
             userRes.email,
             userRes.confirmationCode
         );
+
+        await Rate.create({
+            user: userRes._id,
+            site: userRes.site,
+            ratelog: [
+                {
+                    date: new Date(),
+                    hourlyRate: userRes.hourlyRate,
+                    taxRate: userRes.taxRate,
+                },
+            ],
+        });
 
         return res.status(201).json('Account successfully created.');
     } catch (err) {
