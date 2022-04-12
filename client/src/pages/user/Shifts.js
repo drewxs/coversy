@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { GetMyShifts, TakeShift } from 'redux/shift';
+import { GetMyShifts, GetPostedShifts, TakeShift } from 'redux/shift';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
 import {
@@ -28,6 +28,7 @@ export const Shifts = () => {
     const [tab, setTab] = useState(0);
 
     useEffect(() => {
+        GetPostedShifts();
         GetMyShifts();
     }, []);
 
@@ -46,6 +47,7 @@ export const Shifts = () => {
                         >
                             <Tab value={0} label='My Shifts' />
                             <Tab value={1} label='Posted Shifts' />
+                            <Tab value={2} label='Take Shifts' />
                         </Tabs>
 
                         {/* Tab - My Shifts */}
@@ -91,6 +93,21 @@ export const Shifts = () => {
                                         setCurrent={setCurrent}
                                         setOpenView={setOpenView}
                                         btnText={'Unpost'}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Tab - Take Shifts */}
+                        {tab === 2 && (
+                            <div className='shift-container'>
+                                {shifts.map((shift, k) => (
+                                    <UserShift
+                                        shift={shift}
+                                        key={k}
+                                        setCurrent={setCurrent}
+                                        setOpenView={setOpenView}
+                                        btnText={'Take'}
                                     />
                                 ))}
                             </div>
@@ -196,7 +213,13 @@ export const Shifts = () => {
                 <div className='calendar card'>
                     <Calendar
                         localizer={localizer}
-                        events={shifts}
+                        events={
+                            tab === 0
+                                ? myShifts
+                                : tab === 1
+                                ? myPostedShifts
+                                : shifts
+                        }
                         titleAccessor='subject'
                         startAccessor='startTime'
                         endAccessor='endTime'

@@ -47,10 +47,8 @@ exports.createShift = async (req, res) => {
         };
         if (req.body.details) shiftObj.details = escape(req.body.details);
 
-        const shift = await Shift.create(shiftObj).populate(
-            'teacher',
-            'firstName lastName email'
-        );
+        const shift = await Shift.create(shiftObj);
+        await shift.populate('teacher', 'firstName lastName email');
 
         res.status(201).json(shift);
     } catch (err) {
@@ -115,7 +113,11 @@ exports.getShiftsByUser = async (req, res) => {
  * @access Admin
  */
 exports.getPostedShiftsBySite = (req, res) => {
-    Shift.find({ site: req.user.site, posted: true })
+    Shift.find({
+        site: req.user.site,
+        posted: true,
+        teacher: { $ne: req.user._id },
+    })
         .lean()
         .populate('teacher', 'firstName lastName email')
         .then((shifts) => res.status(200).json(shifts))
@@ -143,6 +145,12 @@ exports.updateShiftById = (req, res) => {
         .catch((err) => res.status(400).json(err));
 };
 
+/**
+ * This function gets all materials for a shift.
+ *
+ * @route GET /:shiftId/files/:filekey
+ * @access Admin
+ */
 exports.getShiftMaterials = (req, res) => {
     const shiftId = escape(req.params.shiftId);
     const fileName = escape(req.params.fileName);

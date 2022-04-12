@@ -17,8 +17,23 @@ const api = process.env.REACT_APP_API_URL;
  */
 export const GetShifts = () => {
     store.dispatch(loadingShifts);
+
     axios
         .get(`${api}/shift`, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        })
+        .then((res) => store.dispatch(setShifts(res.data)))
+        .catch((err) => console.error(err));
+};
+
+/**
+ * Fetches all posted shifts (excluding user's own shifts)
+ */
+export const GetPostedShifts = () => {
+    store.dispatch(loadingShifts);
+
+    axios
+        .get(`${api}/shift/posted`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         })
         .then((res) => store.dispatch(setShifts(res.data)))
