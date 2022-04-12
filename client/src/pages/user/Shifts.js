@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
+import axios from 'axios';
 import moment from 'moment';
-import { GetShifts, TakeShift } from 'redux/shift';
+import {
+    GetShifts,
+    TakeShift,
+    UploadShiftMaterials,
+    DeleteShiftMaterials,
+} from 'redux/shift';
+import { FileUploader } from 'react-drag-drop-files';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
+import { CloseRounded } from '@mui/icons-material';
 import {
     Box,
     Typography,
@@ -12,6 +20,7 @@ import {
     TextField,
     Tabs,
     Tab,
+    IconButton,
 } from '@mui/material';
 const localizer = momentLocalizer(moment);
 
@@ -24,6 +33,31 @@ export const Shifts = () => {
     const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(null);
     const [tab, setTab] = useState(0);
+
+    {
+        /* Fetches specified file from shift and has user download it  */
+    }
+    const getFile = (shift, file) => {
+        let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
+        axios({
+            url: createURL,
+            method: 'GET',
+            headers: {
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+            responseType: 'blob',
+        })
+            .then((res) => {
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', file.fileName);
+                console.log(url, link);
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch((err) => console.error(err));
+    };
 
     useEffect(() => {
         GetShifts();
@@ -143,12 +177,51 @@ export const Shifts = () => {
                                             'h:mm a'
                                         )}
                                     </p>
-                                    {/* Upload Docments*/}
-                                    <p>Upload Documents</p>
-                                    <input type='file' accept='.docx' />
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
+                                    {/* Shift Materials Upload/Download/Delete */}
+                                    <p>Class Materials</p>
+                                    {current.materials.map((file, k) => (
+                                        <div key={k}>
+                                            <button
+                                                onClick={() =>
+                                                    getFile(current, file)
+                                                }
+                                            >
+                                                {file.fileName}
+                                            </button>
+                                            {current.teacher._id ===
+                                                user._id && (
+                                                <IconButton
+                                                    color='primary'
+                                                    onClick={() =>
+                                                        DeleteShiftMaterials(
+                                                            current,
+                                                            file.fileKey
+                                                        )
+                                                    }
+                                                >
+                                                    <CloseRounded fontSize='small'></CloseRounded>
+                                                </IconButton>
+                                            )}
+                                        </div>
+                                    ))}
+                                    {current.teacher._id === user._id && (
+                                        <FileUploader
+                                            name='file'
+                                            classes='file-uploader'
+                                            multiple={false}
+                                            maxSize={60}
+                                            handleChange={(file) =>
+                                                UploadShiftMaterials(
+                                                    current,
+                                                    file
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {/* Taking Shifts Handler */}
                                     {current.teacher._id !== user._id && (
                                         <Button
                                             sx={{ marginTop: '1rem' }}
