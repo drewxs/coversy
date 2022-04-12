@@ -126,21 +126,20 @@ const generateReport = async (res, query) => {
 
         // Add up totals for each timeframe.
         for (const payroll of payrolls) {
-            payroll.hours = payroll.shifts.reduce((acc, shift) => {
-                return acc + shift.hours;
-            }, 0);
-            payroll.pay = payroll.shifts.reduce((acc, shift) => {
-                return acc + shift.pay;
-            }, 0);
-            payroll.deductions = payroll.shifts.reduce((acc, shift) => {
-                return acc + shift.deductions;
-            }, 0);
-            payroll.netPay = payroll.shifts.reduce((acc, shift) => {
-                return acc + shift.netPay;
-            }, 0);
-        }
+            payroll.hours = 0;
+            payroll.pay = 0;
+            payroll.deductions = 0;
+            payroll.netPay = 0;
 
-        delete payrolls.shifts;
+            for (const shift of payroll.shifts) {
+                payroll.hours += shift.hours;
+                payroll.pay += shift.pay;
+                payroll.deductions += shift.deductions;
+                payroll.netPay += shift.netPay;
+            }
+
+            delete payroll.shifts;
+        }
 
         return res.status(200).json(payrolls);
     } catch (err) {
