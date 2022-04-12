@@ -24,11 +24,12 @@ const s3 = new aws.S3();
 exports.getUserById = async (req, res) => {
     const userId = escape(req.params.userId);
 
-    User.findById(userId)
-        .lean()
-        .populate('site')
-        .then((user) => res.status(200).json(user))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const user = await User.findById(userId).lean().populate('site');
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -40,10 +41,12 @@ exports.getUserById = async (req, res) => {
 exports.getUsersBySite = async (req, res) => {
     const siteId = escape(req.params.siteId);
 
-    User.find({ site: siteId, type: 2 })
-        .lean()
-        .then((users) => res.status(200).json(users))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const users = await User.find({ site: siteId, type: 2 }).lean();
+        return res.status(200).json(users);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -52,7 +55,7 @@ exports.getUsersBySite = async (req, res) => {
  * @route PUT /user/:userId
  * @access User
  */
-exports.updateUserById = (req, res) => {
+exports.updateUserById = async (req, res) => {
     const updateQuery = {};
     if (req.body.firstName) updateQuery.firstName = escape(req.body.firstName);
     if (req.body.lastName) updateQuery.lastName = escape(req.body.lastName);
@@ -65,15 +68,18 @@ exports.updateUserById = (req, res) => {
     const userId = escape(req.params.userId);
 
     const { error } = updateValidation(updateQuery);
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
-    User.findByIdAndUpdate(userId, updateQuery, { new: true })
-        .populate('site')
-        .then((user) => {
-            if (!user) res.status(404).json('Error: User ID does not exist.');
-            res.status(200).json(user);
-        })
-        .catch((err) => res.status(400).json(err));
+    try {
+        const user = await User.findByIdAndUpdate(userId, updateQuery, {
+            new: true,
+        }).populate('site');
+        if (!user)
+            return res.status(404).json('Error: User ID does not exist.');
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -92,13 +98,14 @@ exports.updateUserAsAdmin = async (req, res) => {
     if (req.body.taxRate) updateQuery.taxRate = escape(req.body.taxRate);
 
     const { error } = updateValidationAdmin(updateQuery);
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
     try {
         const user = await User.findByIdAndUpdate(userId, updateQuery, {
             new: true,
         });
-        if (!user) res.status(404).json('Error: User ID does not exist.');
+        if (!user)
+            return res.status(404).json('Error: User ID does not exist.');
 
         const rate = await Rate.findOne({ user: userId });
         if (!rate) {
@@ -128,9 +135,9 @@ exports.updateUserAsAdmin = async (req, res) => {
         }
         await rate.save();
 
-        res.status(200).json(user);
+        return res.status(200).json(user);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
@@ -147,20 +154,20 @@ exports.toggleUserActivatedById = async (req, res) => {
     try {
         user = await User.findById(userId);
     } catch (err) {
-        res.status(404).send('User not found.');
+        return res.status(404).send('User not found.');
     }
 
-    if (!user) res.status(404).json('Error: User ID does not exist.');
+    if (!user) return res.status(404).json('Error: User ID does not exist.');
     if (user.site != req.user.site)
-        res.status(404).json('User is not part of this site.');
+        return res.status(404).json('User is not part of this site.');
 
     try {
         user.activated = !user.activated;
 
         await user.save();
-        res.status(200).json(user);
+        return res.status(200).json(user);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
@@ -194,12 +201,14 @@ exports.findUserByPasswordResetCode = async (req, res) => {
         const user = await User.findOne({ passwordResetCode }).lean();
 
         if (!user) {
-            res.status(404).json('Error: Password reset code not exist.');
+            return res
+                .status(404)
+                .json('Error: Password reset code not exist.');
         }
 
-        res.status(200).json('Password reset code is valid.');
+        return res.status(200).json('Password reset code is valid.');
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
@@ -210,7 +219,7 @@ exports.findUserByPasswordResetCode = async (req, res) => {
  * @access User
  */
 exports.updateProfilePicture = async (req, res) => {
-    if (!req.file) res.status(400).send('No image uploaded');
+    if (!req.file) return res.status(400).send('No image uploaded');
     const userId = escape(req.params.userId);
 
     try {
@@ -226,8 +235,8 @@ exports.updateProfilePicture = async (req, res) => {
         user.avatar = 'user/images/' + req.file.key;
         await user.save();
 
-        res.status(200).json(user);
+        return res.status(200).json(user);
     } catch (err) {
-        res.status(404).json('Error: User does not exist.');
+        return res.status(404).json('Error: User does not exist.');
     }
 };

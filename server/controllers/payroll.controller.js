@@ -141,8 +141,8 @@ const generateReport = async (res, query) => {
             delete payroll.shifts;
         }
 
-        res.status(200).json(payrolls);
+        return res.status(200).json(payrolls);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };

@@ -8,7 +8,7 @@ const escape = require('escape-html');
  * @access User
  */
 exports.createTicket = async (req, res) => {
-    const ticket = {
+    const newTicket = {
         type: escape(req.body.type),
         message: escape(req.body.message),
         resolved: false,
@@ -16,9 +16,12 @@ exports.createTicket = async (req, res) => {
         site: req.user.site,
     };
 
-    Ticket.create(ticket)
-        .then((ticket) => res.status(200).json(ticket))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const ticket = await Ticket.create(newTicket);
+        return res.status(200).json(ticket);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -30,11 +33,14 @@ exports.createTicket = async (req, res) => {
 exports.getUnresolvedTickets = async (req, res) => {
     const site = req.user.site;
 
-    Ticket.find({ site, resolved: false })
-        .lean()
-        .populate('user', 'firstName lastName email phone')
-        .then((ticket) => res.status(200).json(ticket))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const tickets = await Ticket.find({ site, resolved: false })
+            .lean()
+            .populate('user', 'firstName lastName email phone');
+        return res.status(200).json(tickets);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -45,12 +51,14 @@ exports.getUnresolvedTickets = async (req, res) => {
  */
 exports.getResolvedTickets = async (req, res) => {
     const site = req.user.site;
-
-    Ticket.find({ site, resolved: true })
-        .lean()
-        .populate('user', 'firstName lastName email phone')
-        .then((ticket) => res.status(200).json(ticket))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const tickets = await Ticket.find({ site, resolved: true })
+            .lean()
+            .populate('user', 'firstName lastName email phone');
+        return res.status(200).json(tickets);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -59,16 +67,20 @@ exports.getResolvedTickets = async (req, res) => {
  * @route PUT /ticket/:ticketId/resolve
  * @access Admin
  */
-exports.resolveTicket = (req, res) => {
+exports.resolveTicket = async (req, res) => {
     const updateQuery = {
         resolved: true,
     };
     const ticketId = escape(req.params.ticketId);
 
-    Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
-        .populate('user', 'firstName lastName email phone')
-        .then((ticket) => res.status(200).json(ticket))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const ticket = await Ticket.findByIdAndUpdate(ticketId, updateQuery, {
+            new: true,
+        }).populate('user', 'firstName lastName email phone');
+        return res.status(200).json(ticket);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -77,14 +89,18 @@ exports.resolveTicket = (req, res) => {
  * @route PUT /ticket/:ticketId/unresolve
  * @access Admin
  */
-exports.unresolveTicket = (req, res) => {
+exports.unresolveTicket = async (req, res) => {
     const updateQuery = {
         resolved: false,
     };
     const ticketId = escape(req.params.ticketId);
 
-    Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
-        .populate('user', 'firstName lastName email phone')
-        .then((ticket) => res.status(200).json(ticket))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const ticket = await Ticket.findByIdAndUpdate(ticketId, updateQuery, {
+            new: true,
+        }).populate('user', 'firstName lastName email phone');
+        return res.status(200).json(ticket);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };

@@ -26,26 +26,28 @@ exports.login = async (req, res) => {
     const password = req.body.password;
 
     const { error } = loginValidation(req.body);
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
     try {
         const user = await User.findOne({ email: email });
-        if (!user) res.status(404).json('Email not found.');
+        if (!user) return res.status(404).json('Email not found.');
 
         const validPass = await bcrypt.compare(password, user.password);
-        if (!validPass) res.status(400).json('Invalid password.');
+        if (!validPass) return res.status(400).json('Invalid password.');
 
         if (!user.verified)
-            res.status(401).json('Pending account, please verify your email.');
+            return res
+                .status(401)
+                .json('Pending account, please verify your email.');
 
         const token = jwt.sign(
             { _id: user._id, type: user.type, site: user.site },
             process.env.TOKEN_SECRET
         );
 
-        res.status(200).json({ user, token });
+        return res.status(200).json({ user, token });
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
@@ -67,11 +69,11 @@ exports.registerUser = async (req, res) => {
         user.middleInitial = escape(req.body.middleInitial);
 
     const { error } = registerValidation(user);
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
     try {
         const userExists = await User.findOne({ email: user.email });
-        if (userExists) res.status(400).json('Email already exists.');
+        if (userExists) return res.status(400).json('Email already exists.');
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(user.password, salt);
@@ -103,9 +105,9 @@ exports.registerUser = async (req, res) => {
             ],
         });
 
-        res.status(201).json('Account successfully created.');
+        return res.status(201).json('Account successfully created.');
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
@@ -137,17 +139,17 @@ exports.registerSite = async (req, res) => {
         };
         try {
             const { error } = siteValidation(site);
-            if (error) res.status(400).json(error.details[0].message);
+            if (error) return res.status(400).json(error.details[0].message);
         } catch (err) {}
         try {
             const { error } = registerValidation(user);
-            if (error) res.status(400).json(error.details[0].message);
+            if (error) return res.status(400).json(error.details[0].message);
         } catch (err) {}
 
         const userExists = await User.findOne({
             email: escape(req.body.email),
         });
-        if (userExists) res.status(400).json('Email already exists.');
+        if (userExists) return res.status(400).json('Email already exists.');
 
         const siteRes = await Site.create(site);
         user.site = siteRes._id;
@@ -170,9 +172,9 @@ exports.registerSite = async (req, res) => {
             userRes.confirmationCode
         );
 
-        res.status(201).json('Site successfully created.');
+        return res.status(201).json('Site successfully created.');
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
@@ -187,15 +189,16 @@ exports.confirmUser = async (req, res) => {
         const user = await User.findOne({
             confirmationCode: req.params.code,
         });
-        if (!user) res.status(404).json('User Not found.');
-        if (user.verified) res.status(400).json('User already verified.');
+        if (!user) return res.status(404).json('User Not found.');
+        if (user.verified)
+            return res.status(400).json('User already verified.');
 
         user.verified = true;
         await user.save();
 
-        res.status(200).json('Email Successfully Verified');
+        return res.status(200).json('Email Successfully Verified');
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
@@ -211,7 +214,7 @@ exports.forgotPassword = async (req, res) => {
     try {
         const user = await User.findOne({ email });
 
-        if (!user) res.status(404).json('Email does not exist.');
+        if (!user) return res.status(404).json('Email does not exist.');
 
         const passwordResetCode = jwt.sign(
             { email: user.email },
@@ -227,9 +230,9 @@ exports.forgotPassword = async (req, res) => {
             user.passwordResetCode
         );
 
-        res.status(200).json('Password reset link sent.');
+        return res.status(200).json('Password reset link sent.');
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
@@ -245,18 +248,19 @@ exports.resetPassword = async (req, res) => {
     const passwordResetCode = escape(req.params.code);
 
     const { error } = passwordResetValidation({ password: newPassword });
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
     if (!passwordResetCode)
-        res.status(400).json('Invalid password reset code.');
+        return res.status(400).json('Invalid password reset code.');
 
     if (newPassword !== confirmNewPassword)
-        res.status(400).json('Passwords do not match.');
+        return res.status(400).json('Passwords do not match.');
 
     try {
         const user = await User.findOne({ passwordResetCode });
 
-        if (!user) res.status(404).json('Password reset code does not exist.');
+        if (!user)
+            return res.status(404).json('Password reset code does not exist.');
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(newPassword, salt);
@@ -265,8 +269,8 @@ exports.resetPassword = async (req, res) => {
         user.passwordResetCode = null;
         await user.save();
 
-        res.status(200).json('Password successfully reset.');
+        return res.status(200).json('Password successfully reset.');
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };

@@ -35,11 +35,15 @@ exports.createNotification = async (sender, receiver, title, msg) => {
  * @route GET /notification/
  * @access User
  */
-exports.getNotifications = (req, res) => {
-    Notification.find({ receiver: req.user._id })
-        .lean()
-        .then((notification) => res.status(200).json(notification))
-        .catch((err) => res.status(400).json(err));
+exports.getNotifications = async (req, res) => {
+    try {
+        const notifications = await Notification.find({
+            receiver: req.user._id,
+        }).lean();
+        return res.status(200).json(notifications);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -49,12 +53,15 @@ exports.getNotifications = (req, res) => {
  * @route PUT /notification/
  * @access User
  */
-exports.readNotifications = (req, res) => {
-    Notification.updateMany(
-        { receiver: req.user },
-        { read: true },
-        { new: true }
-    )
-        .then((notifications) => res.status(200).json(notifications))
-        .catch((err) => res.status(400).json(err));
+exports.readNotifications = async (req, res) => {
+    try {
+        const notifications = await Notification.updateMany(
+            { receiver: req.user },
+            { read: true },
+            { new: true }
+        );
+        return res.status(200).json(notifications);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };

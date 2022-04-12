@@ -9,10 +9,12 @@ const { siteValidation } = require('../util/validation');
  * @access Admin
  */
 exports.getAllSites = async (req, res) => {
-    Site.find()
-        .lean()
-        .then((site) => res.status(200).json(site))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const site = await Site.find().lean();
+        return res.status(200).json(site);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -33,14 +35,14 @@ exports.updateSite = async (req, res) => {
     };
 
     const { error } = siteValidation(updateQuery);
-    if (error) res.status(400).json(error.details[0].message);
+    if (error) return res.status(400).json(error.details[0].message);
 
     try {
         const site = await Site.findByIdAndUpdate(req.user.site, updateQuery, {
             new: true,
         });
-        res.status(200).json(site);
+        return res.status(200).json(site);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
