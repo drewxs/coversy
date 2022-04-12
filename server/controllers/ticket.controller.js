@@ -15,6 +15,7 @@ exports.createTicket = async (req, res) => {
         user: req.user,
         site: req.user.site,
     };
+
     Ticket.create(ticket)
         .then((ticket) => res.status(200).json(ticket))
         .catch((err) => res.status(400).json(err));
@@ -30,6 +31,7 @@ exports.getUnresolvedTickets = async (req, res) => {
     const site = req.user.site;
 
     Ticket.find({ site, resolved: false })
+        .lean()
         .populate('user', 'firstName lastName email phone')
         .then((ticket) => res.status(200).json(ticket))
         .catch((err) => res.status(400).json(err));
@@ -45,6 +47,7 @@ exports.getResolvedTickets = async (req, res) => {
     const site = req.user.site;
 
     Ticket.find({ site, resolved: true })
+        .lean()
         .populate('user', 'firstName lastName email phone')
         .then((ticket) => res.status(200).json(ticket))
         .catch((err) => res.status(400).json(err));
@@ -61,6 +64,7 @@ exports.resolveTicket = (req, res) => {
         resolved: true,
     };
     const ticketId = escape(req.params.ticketId);
+
     Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
         .populate('user', 'firstName lastName email phone')
         .then((ticket) => res.status(200).json(ticket))
@@ -78,6 +82,7 @@ exports.unresolveTicket = (req, res) => {
         resolved: false,
     };
     const ticketId = escape(req.params.ticketId);
+
     Ticket.findByIdAndUpdate(ticketId, updateQuery, { new: true })
         .populate('user', 'firstName lastName email phone')
         .then((ticket) => res.status(200).json(ticket))

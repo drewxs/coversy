@@ -10,6 +10,7 @@ const { siteValidation } = require('../util/validation');
  */
 exports.getAllSites = async (req, res) => {
     Site.find()
+        .lean()
         .then((site) => res.status(200).json(site))
         .catch((err) => res.status(400).json(err));
 };
@@ -32,13 +33,13 @@ exports.updateSite = async (req, res) => {
     };
 
     const { error } = siteValidation(updateQuery);
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) res.status(400).json(error.details[0].message);
 
     try {
         const site = await Site.findByIdAndUpdate(req.user.site, updateQuery, {
             new: true,
         });
-        return res.status(200).json(site);
+        res.status(200).json(site);
     } catch (err) {
         res.status(400).json(err.message);
     }

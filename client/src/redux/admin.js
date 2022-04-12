@@ -17,7 +17,7 @@ import {
     clearEditErrors,
     editSite,
 } from 'redux/userSlice';
-import { addShift } from './shiftSlice';
+import { addShift } from 'redux/shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
