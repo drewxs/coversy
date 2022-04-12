@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { GetShifts, TakeShift } from 'redux/shift';
+import { GetMyShifts, TakeShift } from 'redux/shift';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
 import {
@@ -18,6 +18,8 @@ const localizer = momentLocalizer(moment);
 export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
     const shifts = useSelector((state) => state.shift.shifts);
+    const myShifts = useSelector((state) => state.shift.myShifts);
+    const myPostedShifts = useSelector((state) => state.shift.myPostedShifts);
 
     const [description, setDescription] = useState(null);
     const [openbook, setOpenBook] = useState(false);
@@ -26,7 +28,7 @@ export const Shifts = () => {
     const [tab, setTab] = useState(0);
 
     useEffect(() => {
-        GetShifts();
+        GetMyShifts();
     }, []);
 
     return (
@@ -66,22 +68,15 @@ export const Shifts = () => {
                                     </Button>
                                 </div>
                                 <div className='shift-container'>
-                                    {shifts
-                                        .slice()
-                                        ?.filter(
-                                            (shift) =>
-                                                shift.teacher._id ===
-                                                    user._id && !shift.posted
-                                        )
-                                        .map((shift, k) => (
-                                            <UserShift
-                                                key={k}
-                                                shift={shift}
-                                                setCurrent={setCurrent}
-                                                setOpenView={setOpenView}
-                                                btnText={'Post'}
-                                            />
-                                        ))}
+                                    {myShifts.map((shift, k) => (
+                                        <UserShift
+                                            key={k}
+                                            shift={shift}
+                                            setCurrent={setCurrent}
+                                            setOpenView={setOpenView}
+                                            btnText={'Post'}
+                                        />
+                                    ))}
                                 </div>
                             </>
                         )}
@@ -89,21 +84,15 @@ export const Shifts = () => {
                         {/* Tab - Posted Shifts */}
                         {tab === 1 && (
                             <div className='shift-container'>
-                                {shifts
-                                    ?.filter(
-                                        (shift) =>
-                                            shift.teacher._id === user._id &&
-                                            shift.posted
-                                    )
-                                    .map((shift, k) => (
-                                        <UserShift
-                                            shift={shift}
-                                            key={k}
-                                            setCurrent={setCurrent}
-                                            setOpenView={setOpenView}
-                                            btnText={'Unpost'}
-                                        />
-                                    ))}
+                                {myPostedShifts.map((shift, k) => (
+                                    <UserShift
+                                        shift={shift}
+                                        key={k}
+                                        setCurrent={setCurrent}
+                                        setOpenView={setOpenView}
+                                        btnText={'Unpost'}
+                                    />
+                                ))}
                             </div>
                         )}
                     </div>

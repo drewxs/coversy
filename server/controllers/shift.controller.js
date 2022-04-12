@@ -25,11 +25,10 @@ exports.createShift = async (req, res) => {
 
     try {
         // Check if teacher exists
-        let teacher = await User.findOne({ email: email }).exec();
-        if (!teacher)
-            return res.status(404).json(`Teacher not found: ${email}`);
+        let teacher = await User.findOne({ email }).lean();
+        if (!teacher) res.status(404).json(`Teacher not found: ${email}`);
         if (teacher.site != req.user.site)
-            return res.status(400).json('Teacher does not belong to this site');
+            res.status(400).json('Teacher does not belong to this site');
 
         // Check if shift already exists
         let existingShift = await Shift.findOne({
@@ -37,7 +36,7 @@ exports.createShift = async (req, res) => {
             startTime,
             endTime,
         }).lean();
-        if (existingShift) return res.status(400).json('Shift already exists');
+        if (existingShift) res.status(400).json('Shift already exists');
 
         const shiftObj = {
             teacher: escape(teacher._id),
@@ -48,11 +47,14 @@ exports.createShift = async (req, res) => {
         };
         if (req.body.details) shiftObj.details = escape(req.body.details);
 
-        const shift = await Shift.create(shiftObj);
-        await shift.populate('teacher', 'firstName lastName email');
-        return res.status(201).json(shift);
+        const shift = await Shift.create(shiftObj).populate(
+            'teacher',
+            'firstName lastName email'
+        );
+
+        res.status(201).json(shift);
     } catch (err) {
-        return res.status(400).json(err.message);
+        res.status(400).json(err.message);
     }
 };
 
@@ -66,6 +68,7 @@ exports.getShiftById = (req, res) => {
     const shiftId = escape(req.params.shiftId);
 
     Shift.findById(shiftId)
+        .lean()
         .then((shift) => res.status(200).json(shift))
         .catch((err) => res.status(400).json(err));
 };
@@ -78,9 +81,31 @@ exports.getShiftById = (req, res) => {
  */
 exports.getShiftsBySite = (req, res) => {
     Shift.find({ site: req.user.site })
+        .lean()
         .populate('teacher', 'firstName lastName email')
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
+};
+
+/**
+ * This function returns shifts belonging to the user.
+ *
+ * @route GET /shift/
+ * @access Admin
+ */
+exports.getShiftsByUser = async (req, res) => {
+    try {
+        const shifts = await Shift.find({
+            site: req.user.site,
+            teacher: req.user._id,
+        })
+            .lean()
+            .populate('teacher', 'firstName lastName email');
+
+        res.status(200).json(shifts);
+    } catch (err) {
+        res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -91,6 +116,7 @@ exports.getShiftsBySite = (req, res) => {
  */
 exports.getPostedShiftsBySite = (req, res) => {
     Shift.find({ site: req.user.site, posted: true })
+        .lean()
         .populate('teacher', 'firstName lastName email')
         .then((shifts) => res.status(200).json(shifts))
         .catch((err) => res.status(400).json(err));
@@ -149,7 +175,7 @@ exports.getShiftMaterials = (req, res) => {
  */
 
 exports.updateShiftMaterials = async (req, res) => {
-    if (!req.files) return res.status(400).send('No files uploaded');
+    if (!req.files) res.status(400).send('No files uploaded');
     const shiftId = escape(req.params.shiftId);
     let updateQuery;
     try {
@@ -220,7 +246,8 @@ exports.postShift = async (req, res) => {
             escape(req.params.shiftId),
             { posted: true },
             { new: true }
-        );
+        ).populate('teacher', 'firstName lastName email');
+
         res.status(200).json(shift);
     } catch (err) {
         res.status(400).json(err.message);
@@ -239,7 +266,8 @@ exports.unpostShift = async (req, res) => {
             escape(req.params.shiftId),
             { posted: false },
             { new: true }
-        );
+        ).populate('teacher', 'firstName lastName email');
+
         res.status(200).json(shift);
     } catch (err) {
         res.status(400).json(err.message);
@@ -259,7 +287,8 @@ exports.takeShift = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        }).populate('teacher');
+        }).populate('teacher', 'firstName lastName email');
+
         createNotification(
             shift.sub,
             shift.teacher,
@@ -268,7 +297,8 @@ exports.takeShift = async (req, res) => {
                 shift.sub.firstName + ' ' + shift.sub.lastName
             }  has taken your shift on ${shift.startTime}`
         );
-        return res.status(200).json(shift);
+
+        res.status(200).json(shift);
     } catch (err) {
         res.status(400).json(err.message);
     }

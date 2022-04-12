@@ -3,6 +3,7 @@ const {
     createShift,
     getShiftById,
     getShiftsBySite,
+    getShiftsByUser,
     getPostedShiftsBySite,
     getShiftMaterials,
     updateShiftById,
@@ -23,7 +24,8 @@ router.post('/', verifyAdmin, createShift);
 // READ
 router.get('/id/:shiftId', verifyToken, getShiftById);
 router.get('/', verifyToken, getShiftsBySite);
-router.get('/posted/', verifyToken, getPostedShiftsBySite);
+router.get('/user', verifyToken, getShiftsByUser);
+router.get('/posted', verifyToken, getPostedShiftsBySite);
 router.get(
     '/:shiftId/files/:fileKey',
     verifyToken,
