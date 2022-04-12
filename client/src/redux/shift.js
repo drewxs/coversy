@@ -85,9 +85,12 @@ export const EditShift = (shift) => {
  *
  * @param {Object} shift
  */
-export const EditShiftMaterials = (shift) => {
+export const UploadShiftMaterials = (shift, file) => {
+    const formData = new FormData();
+    formData.append('materials', file);
+
     axios
-        .put(`${api}/shift/${shift._id}/files/upload`, shift, {
+        .put(`${api}/shift/${shift._id}/files/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'auth-token': localStorage.getItem('auth-token'),
@@ -105,7 +108,7 @@ export const EditShiftMaterials = (shift) => {
  */
 export const DeleteShiftMaterials = (shift, fileKey) => {
     axios
-        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, shift, {
+        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
             },
