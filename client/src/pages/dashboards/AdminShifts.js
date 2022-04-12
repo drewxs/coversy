@@ -142,12 +142,7 @@ export const AdminShifts = () => {
                 open={openShiftUpload}
                 onClose={() => SetOpenShiftUpload(false)}
             >
-                <Box
-                    className='modal-container'
-                    sx={{
-                        width: 400,
-                    }}
-                >
+                <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography variant='h6' sx={{ mb: '1rem' }}>
                         Upload Schedule
                     </Typography>

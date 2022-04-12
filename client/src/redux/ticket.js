@@ -6,7 +6,7 @@ import {
     setUnresolved,
     loadingTickets,
     loadingResolvedTickets,
-} from './ticketSlice';
+} from 'redux/ticketSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
