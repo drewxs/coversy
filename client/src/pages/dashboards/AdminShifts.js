@@ -21,18 +21,29 @@ import {
 import Papa from 'papaparse';
 import moment from 'moment';
 
+import { FetchUsers } from 'redux/admin';
+
 export const AdminShifts = () => {
+    const users = useSelector((state) => state.admin.users);
     const shifts = useSelector((state) => state.shift.shifts);
+    const admin = useSelector((state) => state.user.user);
     const [openShiftEdit, setOpenShiftEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
     const [teacher, setTeacher] = useState(null);
-    const [startTime, setStartTime] = useState(new Date());
-    const [endTime, setEndTime] = useState(new Date());
+    const [date, setDate] = useState(new Date());
+    const [startTime, setStartTime] = useState('10:00');
+    const [endTime, setEndTime] = useState('5:00');
+
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
      */
+
+    useEffect(() => {
+        if (admin.site._id) FetchUsers(admin.site._id);
+    }, [admin]);
+
     const handleUpload = () => {
         if (file) {
             Papa.parse(file, {
@@ -169,6 +180,7 @@ export const AdminShifts = () => {
                                             setSubject(e.target.value)
                                         }
                                     ></TextField>
+
                                     <InputLabel>Teacher</InputLabel>
                                     <Select
                                         sx={{ mb: '1rem' }}
@@ -179,52 +191,35 @@ export const AdminShifts = () => {
                                             setTeacher(e.target.value)
                                         }
                                     >
-                                        {/* How to add something to remove dupe teacher names?*/}
-                                        {shifts.map((shift) => (
-                                            <MenuItem
-                                                value={shift.teacher}
-                                                key={shift._id}
-                                            >
-                                                {shift.teacher.firstName}{' '}
-                                                {shift.teacher.lastName}
+                                        {users?.map((user, k) => (
+                                            <MenuItem value={user} key={k}>
+                                                {user.firstName} {user.lastName}
                                             </MenuItem>
                                         ))}
                                     </Select>
                                     <div>
+                                        {/* Date Picker */}
                                         <div>
-                                            <p>Date: </p>
+                                            <p>Date</p>
                                             <DatePicker
-                                                calendarAriaLabel='Toggle calendar'
-                                                clearAriaLabel='Clear value'
-                                                dayAriaLabel='Day'
-                                                monthAriaLabel='Month'
-                                                nativeInputAriaLabel='Date'
-                                                onChange={(e) =>
-                                                    setStartTime(e.target.value)
+                                                selected={date}
+                                                onChange={(date) =>
+                                                    setDate(date)
                                                 }
-                                                value={startTime}
-                                                yearAriaLabel='Year'
+                                                value={date}
                                             />
                                         </div>
                                         <hr
                                             style={{ visibility: 'hidden' }}
                                         ></hr>
+
+                                        {/* Time Pickers */}
                                         <div style={{ display: 'flex' }}>
                                             <div>
-                                                <p>Start Time: </p>
+                                                <p>Start Time</p>
                                                 <TimePicker
-                                                    amPmAriaLabel='Select AM/PM'
-                                                    clearAriaLabel='Clear value'
-                                                    clockAriaLabel='Toggle clock'
-                                                    hourAriaLabel='Hour'
-                                                    minuteAriaLabel='Minute'
-                                                    nativeInputAriaLabel='Time'
-                                                    onChange={(e) =>
-                                                        setStartTime(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    secondAriaLabel='Second'
+                                                    onChange={setStartTime}
+                                                    selected={startTime}
                                                     value={startTime}
                                                 />
                                             </div>
@@ -232,21 +227,11 @@ export const AdminShifts = () => {
                                                 style={{ visibility: 'hidden' }}
                                             ></hr>
                                             <div>
-                                                <p>End Time: </p>
+                                                <p>End Time</p>
                                                 <TimePicker
+                                                    onChange={setEndTime}
+                                                    selected={endTime}
                                                     style={{ ml: '1rem' }}
-                                                    amPmAriaLabel='Select AM/PM'
-                                                    clearAriaLabel='Clear value'
-                                                    clockAriaLabel='Toggle clock'
-                                                    hourAriaLabel='Hour'
-                                                    minuteAriaLabel='Minute'
-                                                    nativeInputAriaLabel='Time'
-                                                    onChange={(e) =>
-                                                        setStartTime(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    secondAriaLabel='Second'
                                                     value={endTime}
                                                 />
                                             </div>

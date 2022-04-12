@@ -17,11 +17,10 @@ const localizer = momentLocalizer(moment);
 
 export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
-    const shifts = useSelector((state) => state.shift.shifts);
-
+    const shift = useSelector((state) => state.shift.shifts);
     const [description, setDescription] = useState(null);
-    const [openbook, setOpenBook] = useState(false);
-    const [openview, setOpenView] = useState(false);
+    const [openBook, setOpenBook] = useState(false);
+    const [openView, setOpenView] = useState(false);
     const [current, setCurrent] = useState(null);
     const [tab, setTab] = useState(0);
 
@@ -62,11 +61,11 @@ export const Shifts = () => {
                                             setOpenBook(true);
                                         }}
                                     >
-                                        Book time off{' '}
+                                        Book time off
                                     </Button>
                                 </div>
                                 <div className='shift-container'>
-                                    {shifts
+                                    {shift
                                         .slice()
                                         ?.filter(
                                             (shift) =>
@@ -74,13 +73,15 @@ export const Shifts = () => {
                                                     user._id && !shift.posted
                                         )
                                         .map((shift, k) => (
-                                            <UserShift
-                                                key={k}
-                                                shift={shift}
-                                                setCurrent={setCurrent}
-                                                setOpenView={setOpenView}
-                                                btnText={'Post'}
-                                            />
+                                            <div>
+                                                <UserShift
+                                                    key={k}
+                                                    shift={shift}
+                                                    setCurrent={setCurrent}
+                                                    setOpenView={setOpenView}
+                                                    btnText={'Post'}
+                                                />
+                                            </div>
                                         ))}
                                 </div>
                             </>
@@ -89,29 +90,31 @@ export const Shifts = () => {
                         {/* Tab - Posted Shifts */}
                         {tab === 1 && (
                             <div className='shift-container'>
-                                {shifts
+                                {shift
                                     ?.filter(
                                         (shift) =>
                                             shift.teacher._id === user._id &&
                                             shift.posted
                                     )
                                     .map((shift, k) => (
-                                        <UserShift
-                                            shift={shift}
-                                            key={k}
-                                            setCurrent={setCurrent}
-                                            setOpenView={setOpenView}
-                                            btnText={'Unpost'}
-                                        />
+                                        <div>
+                                            <UserShift
+                                                shift={shift}
+                                                key={k}
+                                                setCurrent={setCurrent}
+                                                setOpenView={setOpenView}
+                                                btnText={'Unpost'}
+                                            />
+                                        </div>
                                     ))}
                             </div>
                         )}
                     </div>
 
                     {/* Modal - View Shift */}
-                    {openview && (
+                    {openView && (
                         <Modal
-                            open={openview}
+                            open={openView}
                             onClose={() => setOpenView(false)}
                         >
                             <Box
@@ -168,7 +171,7 @@ export const Shifts = () => {
                     )}
 
                     {/* Modal - Book Time Off */}
-                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
+                    <Modal open={openBook} onClose={() => setOpenBook(false)}>
                         <Box className='modal-container' sx={{ width: 400 }}>
                             <Typography variant='h5'>Book Time Off</Typography>
 
@@ -178,6 +181,8 @@ export const Shifts = () => {
                                 className='input-form'
                                 variant='outlined'
                                 label='Description'
+                                multiline
+                                rows={4}
                                 fullWidth
                                 sx={{ mt: '1rem' }}
                                 value={description}
@@ -208,7 +213,7 @@ export const Shifts = () => {
                 <div className='calendar card'>
                     <Calendar
                         localizer={localizer}
-                        events={shifts}
+                        events={shift}
                         titleAccessor='subject'
                         startAccessor='startTime'
                         endAccessor='endTime'

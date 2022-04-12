@@ -88,6 +88,8 @@ export const Payroll = () => {
                                 className='input-form'
                                 variant='outlined'
                                 label='Description'
+                                multiline
+                                rows={4}
                                 fullWidth
                                 sx={{ mt: '1rem' }}
                                 value={description}
