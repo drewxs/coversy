@@ -31,12 +31,15 @@ export const EditShift = async (shift) => {
 };
 
 /**
- * @description Updates a shifts materialsd
- * @params shift
+ * @description Updates a shifts materials
+ * @params shift, file
  */
-export const EditShiftMaterials = async (shift) => {
+export const UploadShiftMaterials = async (shift, file) => {
+    const formData = new FormData();
+    formData.append('materials', file);
+
     await axios
-        .put(`${api}/shift/${shift._id}/files/upload`, shift, {
+        .put(`${api}/shift/${shift._id}/files/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'auth-token': localStorage.getItem('auth-token'),
@@ -52,7 +55,7 @@ export const EditShiftMaterials = async (shift) => {
  */
 export const DeleteShiftMaterials = async (shift, fileKey) => {
     await axios
-        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, shift, {
+        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
             },
