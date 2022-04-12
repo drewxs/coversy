@@ -3,6 +3,8 @@ import {
     setMyShifts,
     setMyPostedShifts,
     editShift,
+    editMyShift,
+    editMyPostedShift,
     loadingShifts,
     postShift,
     unpostShift,
@@ -98,7 +100,13 @@ export const UploadShiftMaterials = (shift, file) => {
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
-        .then((res) => store.dispatch(editShift(res.data)))
+        .then((res) => {
+            if (res.data.posted) {
+                store.dispatch(editMyPostedShift(res.data));
+            } else {
+                store.dispatch(editMyShift(res.data));
+            }
+        })
         .catch((err) => console.error(err));
 };
 
@@ -115,7 +123,13 @@ export const DeleteShiftMaterials = (shift, fileKey) => {
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
-        .then((res) => store.dispatch(editShift(res.data)))
+        .then((res) => {
+            if (res.data.posted) {
+                store.dispatch(editMyPostedShift(res.data));
+            } else {
+                store.dispatch(editMyShift(res.data));
+            }
+        })
         .catch((err) => console.error(err));
 };
 
