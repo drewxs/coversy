@@ -48,6 +48,30 @@ export const shiftSlice = createSlice({
                 shifts: [...newArr],
             };
         },
+        editMyShift: (state, action) => {
+            const index = state.myShifts.findIndex(
+                (shift) => shift._id === action.payload._id
+            );
+            const newArr = [...state.myShifts];
+            newArr[index] = action.payload;
+
+            return {
+                ...state,
+                myShifts: [...newArr],
+            };
+        },
+        editMyPostedShift: (state, action) => {
+            const index = state.myPostedShifts.findIndex(
+                (shift) => shift._id === action.payload._id
+            );
+            const newArr = [...state.myPostedShifts];
+            newArr[index] = action.payload;
+
+            return {
+                ...state,
+                myPostedShifts: [...newArr],
+            };
+        },
         loadingShifts: (state) => {
             return {
                 ...state,
@@ -107,6 +131,8 @@ export const {
     setMyPostedShifts,
     addShift,
     editShift,
+    editMyShift,
+    editMyPostedShift,
     loadingShifts,
     postShift,
     unpostShift,
