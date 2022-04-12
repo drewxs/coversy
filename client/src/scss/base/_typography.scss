@@ -1,13 +1,17 @@
 @use '../abstract' as *;
 
 html {
-    font-size: 14px;
+    font-size: 0.8vw;
     font-family: $fontBody, $fontBodyFallback;
     color: $black;
     font-smooth: always;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @include respond-to('desktop') {
+        font-size: 14px !important;
+    }
 }
 
 @include headings {
