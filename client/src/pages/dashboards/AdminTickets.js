@@ -70,8 +70,8 @@ export const AdminTickets = () => {
                                             <TableCell>Name</TableCell>
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
-                                            <TableCell>Issue Type</TableCell>
-                                            <TableCell>View Issue</TableCell>
+                                            <TableCell>Type</TableCell>
+                                            <TableCell>View</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -125,7 +125,7 @@ export const AdminTickets = () => {
                                             <TableCell>Email</TableCell>
                                             <TableCell>Phone</TableCell>
                                             <TableCell>Type</TableCell>
-                                            <TableCell>View Issue</TableCell>
+                                            <TableCell>View</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -186,8 +186,9 @@ export const AdminTickets = () => {
                                 {tickets[current]?.type === 2 &&
                                     'Time-off Issue'}
                             </p>
-                            <Divider></Divider>
-                            <br />
+                            <Divider
+                                sx={{ marginTop: '1rem', marginBottom: '1rem' }}
+                            ></Divider>
                             <p>{tickets[current]?.message}</p>
                             <br />
                             <Button
@@ -225,8 +226,9 @@ export const AdminTickets = () => {
                                 {resolvedTickets[current]?.type === 2 &&
                                     'Time-off Issue'}
                             </p>
-                            <Divider></Divider>
-                            <br />
+                            <Divider
+                                sx={{ marginTop: '1rem', marginBottom: '1rem' }}
+                            ></Divider>
                             <p>{resolvedTickets[current]?.message}</p>
                             <br />
                             <Button

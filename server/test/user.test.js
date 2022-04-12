@@ -43,9 +43,9 @@ describe('Endpoint testing [users]', () => {
             .set('content-type', 'application/json')
             .set('auth-token', process.env.TEST_TOKEN)
             .send({
-                firstName: 'SITE',
-                lastName: 'ADMIN',
-                phone: '1111111111',
+                firstName: 'John',
+                lastName: 'Doe',
+                phone: '1234567890',
             })
             .end((err, res) => {
                 res.should.have.status(200);
