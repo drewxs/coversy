@@ -21,6 +21,7 @@ export const adminSlice = createSlice({
         },
         activateUser: (state, action) => {
             return {
+                ...state,
                 users: state.users.map((user) =>
                     user._id === action.payload._id
                         ? { ...user, ...action.payload }
