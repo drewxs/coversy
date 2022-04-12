@@ -245,7 +245,6 @@ exports.deleteShiftMaterial = async (req, res) => {
                 (material) => material.fileKey != fileKey
             ),
         };
-        console.log(updateQuery);
         await s3.deleteObject(deleteParams).promise();
     } catch (err) {
         console.error(err);
