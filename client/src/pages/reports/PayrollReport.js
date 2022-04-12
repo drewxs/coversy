@@ -81,8 +81,8 @@ export const PayrollReport = () => {
                             </p>
                             <hr />
                         </div>
-                    </>
-                )}
+                    </div>
+                </div>
             </div>
         </section>
     );

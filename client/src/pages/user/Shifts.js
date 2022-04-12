@@ -27,14 +27,7 @@ const localizer = momentLocalizer(moment);
 
 export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
-<<<<<<< HEAD
     const shift = useSelector((state) => state.shift.shifts);
-=======
-    const shifts = useSelector((state) => state.shift.shifts);
-    const myShifts = useSelector((state) => state.shift.myShifts);
-    const myPostedShifts = useSelector((state) => state.shift.myPostedShifts);
-
->>>>>>> 4d37a2bb010f20f394759c3c199f3cf86e53437a
     const [description, setDescription] = useState(null);
     const [openBook, setOpenBook] = useState(false);
     const [openView, setOpenView] = useState(false);
@@ -107,7 +100,6 @@ export const Shifts = () => {
                                     </Button>
                                 </div>
                                 <div className='shift-container'>
-<<<<<<< HEAD
                                     {shift
                                         .slice()
                                         ?.filter(
@@ -126,17 +118,6 @@ export const Shifts = () => {
                                                 />
                                             </div>
                                         ))}
-=======
-                                    {myShifts.map((shift, k) => (
-                                        <UserShift
-                                            key={k}
-                                            shift={shift}
-                                            setCurrent={setCurrent}
-                                            setOpenView={setOpenView}
-                                            btnText={'Post'}
-                                        />
-                                    ))}
->>>>>>> 4d37a2bb010f20f394759c3c199f3cf86e53437a
                                 </div>
                             </>
                         )}
@@ -144,7 +125,6 @@ export const Shifts = () => {
                         {/* Tab - Posted Shifts */}
                         {tab === 1 && (
                             <div className='shift-container'>
-<<<<<<< HEAD
                                 {shift
                                     ?.filter(
                                         (shift) =>
@@ -162,32 +142,6 @@ export const Shifts = () => {
                                             />
                                         </div>
                                     ))}
-=======
-                                {myPostedShifts.map((shift, k) => (
-                                    <UserShift
-                                        shift={shift}
-                                        key={k}
-                                        setCurrent={setCurrent}
-                                        setOpenView={setOpenView}
-                                        btnText={'Unpost'}
-                                    />
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Tab - Take Shifts */}
-                        {tab === 2 && (
-                            <div className='shift-container'>
-                                {shifts.map((shift, k) => (
-                                    <UserShift
-                                        shift={shift}
-                                        key={k}
-                                        setCurrent={setCurrent}
-                                        setOpenView={setOpenView}
-                                        btnText={'Take'}
-                                    />
-                                ))}
->>>>>>> 4d37a2bb010f20f394759c3c199f3cf86e53437a
                             </div>
                         )}
                     </div>
@@ -228,57 +182,12 @@ export const Shifts = () => {
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
-<<<<<<< HEAD
                                     <br></br>
                                     {/* Upload Docments*/}
                                     <p>
                                         <strong>Add Documents</strong>
                                     </p>
                                     <input type='file' accept='.docx' />
-=======
-                                    {/* Shift Materials Upload/Download/Delete */}
-                                    <p>Class Materials</p>
-                                    {current.materials.map((file, k) => (
-                                        <div key={k}>
-                                            <button
-                                                onClick={() =>
-                                                    getFile(current, file)
-                                                }
-                                            >
-                                                {file.fileName}
-                                            </button>
-                                            {current.teacher._id ===
-                                                user._id && (
-                                                <IconButton
-                                                    color='primary'
-                                                    onClick={() =>
-                                                        DeleteShiftMaterials(
-                                                            current,
-                                                            file.fileKey
-                                                        )
-                                                    }
-                                                >
-                                                    <CloseRounded fontSize='small'></CloseRounded>
-                                                </IconButton>
-                                            )}
-                                        </div>
-                                    ))}
-                                    {current.teacher._id === user._id && (
-                                        <FileUploader
-                                            name='file'
-                                            classes='file-uploader'
-                                            multiple={false}
-                                            maxSize={60}
-                                            handleChange={(file) =>
-                                                UploadShiftMaterials(
-                                                    current,
-                                                    file
-                                                )
-                                            }
-                                        />
-                                    )}
-                                    {/* Taking Shifts Handler */}
->>>>>>> 4d37a2bb010f20f394759c3c199f3cf86e53437a
                                     {current.teacher._id !== user._id && (
                                         <Button
                                             sx={{ marginTop: '1rem' }}
@@ -339,17 +248,7 @@ export const Shifts = () => {
                 <div className='calendar card'>
                     <Calendar
                         localizer={localizer}
-<<<<<<< HEAD
                         events={shift}
-=======
-                        events={
-                            tab === 0
-                                ? myShifts
-                                : tab === 1
-                                ? myPostedShifts
-                                : shifts
-                        }
->>>>>>> 4d37a2bb010f20f394759c3c199f3cf86e53437a
                         titleAccessor='subject'
                         startAccessor='startTime'
                         endAccessor='endTime'
