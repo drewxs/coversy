@@ -37,9 +37,7 @@ export const Shifts = () => {
     const [current, setCurrent] = useState(null);
     const [tab, setTab] = useState(0);
 
-    {
-        /* Fetches specified file from shift and has user download it  */
-    }
+    /* Fetches specified file from shift and has user download it  */
     const getFile = (shift, file) => {
         let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
         axios({

@@ -23,7 +23,7 @@ export const Nav = () => {
         if (authenticated) {
             GetNotifications();
         }
-    }, []);
+    }, [authenticated]);
 
     const hasUnread = () => {
         let total = 0;
