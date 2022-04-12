@@ -117,14 +117,20 @@ exports.updateShiftById = (req, res) => {
         .catch((err) => res.status(400).json(err));
 };
 
+/**
+ * This function retrives a single material from a shift via S3.
+ *
+ * @route GET /shift/:shiftId/files/:fileKey
+ * @access User
+ */
 exports.getShiftMaterials = (req, res) => {
     const shiftId = escape(req.params.shiftId);
-    const fileName = escape(req.params.fileName);
+    const fileKey = escape(req.params.fileKey);
 
     Shift.findById(shiftId)
         .then((shift) => {
             shift.materials.forEach((material) => {
-                if (material.fileName === fileName) {
+                if (material.fileKey === fileKey) {
                     const downloadParams = {
                         Key: material.fileKey,
                         Bucket: process.env.S3_SHIFT_BUCKET,
@@ -142,9 +148,9 @@ exports.getShiftMaterials = (req, res) => {
 };
 
 /**
- * This function updates shift materials by ID.
+ * This function updates shift materials, to be used after s3 upload middleware.
  *
- * @route PUT /shift/:shiftId/uploadfiles
+ * @route PUT /shift/:shiftId/files/upload
  * @access User
  */
 
@@ -171,25 +177,33 @@ exports.updateShiftMaterials = async (req, res) => {
         .catch((err) => res.status(400).json(err));
 };
 
+/**
+ * This function deletes a single material from a shift via S3.
+ *
+ * @route DELETE /shift/:shiftId/files/:fileKey
+ * @access User
+ */
 exports.deleteShiftMaterial = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
     const fileKey = escape(req.params.fileKey);
-
-    const updateQuery = {};
     const deleteParams = {
         Key: fileKey,
-        Bucket: process.env.S3_PROFILE_BUCKET,
+        Bucket: process.env.S3_SHIFT_BUCKET,
     };
 
+    let updateQuery = {};
     try {
         let shift = await Shift.findById(shiftId).lean();
-        updateParams = {
-            materials: shift.material.filter(
+        updateQuery = {
+            materials: shift.materials.filter(
                 (material) => material.fileKey != fileKey
             ),
         };
+        console.log(updateQuery);
         await s3.deleteObject(deleteParams).promise();
-    } catch (err) {}
+    } catch (err) {
+        console.error(err);
+    }
 
     Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
         .then((shift) => res.status(200).json(shift))
