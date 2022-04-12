@@ -25,6 +25,7 @@ exports.getUserById = async (req, res) => {
     const userId = escape(req.params.userId);
 
     User.findById(userId)
+        .lean()
         .populate('site')
         .then((user) => res.status(200).json(user))
         .catch((err) => res.status(400).json(err));
@@ -40,6 +41,7 @@ exports.getUsersBySite = async (req, res) => {
     const siteId = escape(req.params.siteId);
 
     User.find({ site: siteId, type: 2 })
+        .lean()
         .then((users) => res.status(200).json(users))
         .catch((err) => res.status(400).json(err));
 };
@@ -63,7 +65,7 @@ exports.updateUserById = (req, res) => {
     const userId = escape(req.params.userId);
 
     const { error } = updateValidation(updateQuery);
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) res.status(400).json(error.details[0].message);
 
     User.findByIdAndUpdate(userId, updateQuery, { new: true })
         .populate('site')
@@ -90,7 +92,7 @@ exports.updateUserAsAdmin = async (req, res) => {
     if (req.body.taxRate) updateQuery.taxRate = escape(req.body.taxRate);
 
     const { error } = updateValidationAdmin(updateQuery);
-    if (error) return res.status(400).json(error.details[0].message);
+    if (error) res.status(400).json(error.details[0].message);
 
     try {
         const user = await User.findByIdAndUpdate(userId, updateQuery, {
@@ -126,9 +128,9 @@ exports.updateUserAsAdmin = async (req, res) => {
         }
         await rate.save();
 
-        return res.status(200).json(user);
+        res.status(200).json(user);
     } catch (err) {
-        return res.status(400).json(err.message);
+        res.status(400).json(err.message);
     }
 };
 
@@ -141,21 +143,25 @@ exports.updateUserAsAdmin = async (req, res) => {
 exports.toggleUserActivatedById = async (req, res) => {
     const userId = escape(req.params.userId);
     let user;
+
     try {
         user = await User.findById(userId);
     } catch (err) {
-        return res.status(404).send('User not found.');
+        res.status(404).send('User not found.');
     }
 
-    if (!user) return res.status(404).json('Error: User ID does not exist.');
+    if (!user) res.status(404).json('Error: User ID does not exist.');
     if (user.site != req.user.site)
-        return res.status(404).json('User is not part of this site.');
+        res.status(404).json('User is not part of this site.');
 
-    const updateQuery = { activated: !user.activated };
+    try {
+        user.activated = !user.activated;
 
-    User.findByIdAndUpdate(userId, updateQuery, { new: true })
-        .then((user) => res.status(200).json(user))
-        .catch((err) => res.status(400).json(err));
+        await user.save();
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(400).json(err.message);
+    }
 };
 
 /**
@@ -185,17 +191,15 @@ exports.findUserByPasswordResetCode = async (req, res) => {
     const passwordResetCode = escape(req.params.code);
 
     try {
-        const user = await User.findOne({ passwordResetCode });
+        const user = await User.findOne({ passwordResetCode }).lean();
 
         if (!user) {
-            return res
-                .status(404)
-                .json('Error: Password reset code not exist.');
+            res.status(404).json('Error: Password reset code not exist.');
         }
 
-        return res.status(200).json('Password reset code is valid.');
+        res.status(200).json('Password reset code is valid.');
     } catch (err) {
-        return res.status(400).json(err.message);
+        res.status(400).json(err.message);
     }
 };
 
@@ -206,12 +210,11 @@ exports.findUserByPasswordResetCode = async (req, res) => {
  * @access User
  */
 exports.updateProfilePicture = async (req, res) => {
-    if (!req.file) return res.status(400).send('No image uploaded');
+    if (!req.file) res.status(400).send('No image uploaded');
     const userId = escape(req.params.userId);
-    const updateQuery = { avatar: 'user/images/' + req.file.key };
 
     try {
-        let user = await User.findById(userId).lean();
+        let user = await User.findById(userId).populate('site');
         if (user.avatar) {
             const deleteParams = {
                 Key: user.avatar.split('/')[2],
@@ -219,12 +222,12 @@ exports.updateProfilePicture = async (req, res) => {
             };
             await s3.deleteObject(deleteParams).promise();
         }
-    } catch (err) {
-        return res.status(404).json('Error: User does not exist.');
-    }
 
-    User.findByIdAndUpdate(userId, updateQuery, { new: true })
-        .populate('site')
-        .then((user) => res.status(200).json(user))
-        .catch((err) => res.status(400).json(err));
+        user.avatar = 'user/images/' + req.file.key;
+        await user.save();
+
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(404).json('Error: User does not exist.');
+    }
 };
