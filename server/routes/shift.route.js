@@ -3,6 +3,7 @@ const {
     createShift,
     getShiftById,
     getShiftsBySite,
+    getShiftsByUser,
     getPostedShiftsBySite,
     getShiftMaterials,
     updateShiftById,
@@ -23,9 +24,10 @@ router.post('/', verifyAdmin, createShift);
 // READ
 router.get('/id/:shiftId', verifyToken, getShiftById);
 router.get('/', verifyToken, getShiftsBySite);
-router.get('/posted/', verifyToken, getPostedShiftsBySite);
+router.get('/user', verifyToken, getShiftsByUser);
+router.get('/posted', verifyToken, getPostedShiftsBySite);
 router.get(
-    '/:shiftId/files/:fileName',
+    '/:shiftId/files/:fileKey',
     verifyToken,
     verifyShift,
     getShiftMaterials
@@ -37,7 +39,7 @@ router.put('/:shiftId/post', verifyToken, verifyShift, postShift);
 router.put('/:shiftId/unpost', verifyToken, verifyShift, unpostShift);
 router.put('/:shiftId/take', verifyToken, verifyShift, takeShift);
 router.put(
-    '/:shiftId/uploadfiles',
+    '/:shiftId/files/upload',
     verifyToken,
     uploadMaterials.array('materials', 10),
     updateShiftMaterials
@@ -46,7 +48,7 @@ router.put(
 // DELETE
 router.delete('/', verifyAdmin, deleteShiftsBySite);
 router.delete(
-    '/:shiftId/:fileKey',
+    '/:shiftId/files/:fileKey',
     verifyToken,
     verifyShift,
     deleteShiftMaterial

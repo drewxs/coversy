@@ -14,18 +14,6 @@ export const notifSlice = createSlice({
                 loading: false,
             };
         },
-        readNotification: (state, action) => {
-            const index = state.notifications.findIndex(
-                (notif) => notif._id === action.payload._id
-            );
-            const newArr = [...state.notifications];
-            newArr[index] = action.payload;
-            return {
-                ...state,
-                shifts: [...newArr],
-                loading: false,
-            };
-        },
         loadingNotifications: (state) => {
             return {
                 ...state,
@@ -35,7 +23,6 @@ export const notifSlice = createSlice({
     },
 });
 
-export const { setNotifications, readNotification, loadingNotifications } =
-    notifSlice.actions;
+export const { setNotifications, loadingNotifications } = notifSlice.actions;
 
 export default notifSlice.reducer;

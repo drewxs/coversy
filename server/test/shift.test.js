@@ -1,16 +1,6 @@
-const dotenv = require('dotenv').config();
+const { chai, server } = require('./test.config');
 
-process.env.NODE_ENV = 'test';
-process.env.PORT = 5001;
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../index');
-let should = chai.should();
-
-chai.use(chaiHttp);
-
-describe('Performing pre-test cleaning', () => {
+describe('Performing pre-test cleaning [shift]', () => {
     it('Delete all test shifts', (done) => {
         chai.request(server)
             .delete(`/api/shift`)
@@ -22,7 +12,7 @@ describe('Performing pre-test cleaning', () => {
     });
 });
 
-describe('Endpoint testing [shifts]', () => {
+describe('Endpoint testing [shift]', () => {
     let shiftId;
 
     it('Create shift', (done) => {

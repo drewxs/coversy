@@ -7,6 +7,9 @@ export const adminSlice = createSlice({
         loadingUsers: true,
         errors: null,
         openEditUser: false,
+        openShiftUpload: false,
+        shiftCount: 0,
+        shiftErrorCount: 0,
     },
     reducers: {
         setUsers: (state, action) => {
@@ -18,6 +21,7 @@ export const adminSlice = createSlice({
         },
         activateUser: (state, action) => {
             return {
+                ...state,
                 users: state.users.map((user) =>
                     user._id === action.payload._id
                         ? { ...user, ...action.payload }
@@ -61,6 +65,31 @@ export const adminSlice = createSlice({
                 openEditUser: action.payload,
             };
         },
+        openShiftUpload: (state, action) => {
+            return {
+                ...state,
+                openShiftUpload: action.payload,
+            };
+        },
+        incrementShiftCount: (state) => {
+            return {
+                ...state,
+                shiftCount: state.shiftCount + 1,
+            };
+        },
+        incrementShiftErrorCount: (state) => {
+            return {
+                ...state,
+                shiftErrorCount: state.shiftErrorCount + 1,
+            };
+        },
+        clearShiftUpload: (state) => {
+            return {
+                ...state,
+                shiftCount: 0,
+                shiftErrorCount: 0,
+            };
+        },
     },
 });
 
@@ -72,6 +101,10 @@ export const {
     setErrors,
     clearErrors,
     openEditUser,
+    openShiftUpload,
+    incrementShiftCount,
+    incrementShiftErrorCount,
+    clearShiftUpload,
 } = adminSlice.actions;
 
 export default adminSlice.reducer;

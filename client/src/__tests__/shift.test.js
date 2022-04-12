@@ -8,6 +8,8 @@ import reducer, {
 
 const initialState = {
     shifts: [],
+    myShifts: [],
+    myPostedShifts: [],
     loading: false,
 };
 
@@ -18,17 +20,37 @@ const loadingState = {
 
 describe('Shift state tests', () => {
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual({
-            shifts: [],
-            loading: false,
-        });
+        expect(reducer(undefined, {})).toEqual(initialState);
     });
 
     // setShifts
     it('handles state set shifts test', () => {
-        expect(reducer(initialState, setShifts([{hours:1, pay:100, deductions:10,netPay:110,startTime:'9:30 AM',endTime:'11:00 PM'}]))).toEqual({
+        expect(
+            reducer(
+                initialState,
+                setShifts([
+                    {
+                        hours: 1,
+                        pay: 100,
+                        deductions: 10,
+                        netPay: 110,
+                        startTime: '9:30 AM',
+                        endTime: '11:00 PM',
+                    },
+                ])
+            )
+        ).toEqual({
             ...initialState,
-            shifts: [{hours:1, pay:100, deductions:10,netPay:110,startTime:'9:30 AM',endTime:'11:00 PM'}],
+            shifts: [
+                {
+                    hours: 1,
+                    pay: 100,
+                    deductions: 10,
+                    netPay: 110,
+                    startTime: '9:30 AM',
+                    endTime: '11:00 PM',
+                },
+            ],
             loading: false,
         });
     });
@@ -39,9 +61,30 @@ describe('Shift state tests', () => {
         const initialShifts = {
             shifts: [],
         };
-        expect(reducer(initialShifts, addShift({hours:1, pay:100, deductions:10,netPay:110,startTime:'9:30 AM',endTime:'11:00 PM'}))).toEqual({
+        expect(
+            reducer(
+                initialShifts,
+                addShift({
+                    hours: 1,
+                    pay: 100,
+                    deductions: 10,
+                    netPay: 110,
+                    startTime: '9:30 AM',
+                    endTime: '11:00 PM',
+                })
+            )
+        ).toEqual({
             ...initialShifts,
-            shifts: [{hours:1, pay:100, deductions:10,netPay:110,startTime:'9:30 AM',endTime:'11:00 PM'}]
+            shifts: [
+                {
+                    hours: 1,
+                    pay: 100,
+                    deductions: 10,
+                    netPay: 110,
+                    startTime: '9:30 AM',
+                    endTime: '11:00 PM',
+                },
+            ],
         });
     });
 
@@ -50,8 +93,22 @@ describe('Shift state tests', () => {
         const editShifts = {
             shifts: [],
         };
-        expect(reducer(editShifts, editShift([{hours:1, pay:100, deductions:10,netPay:110,startTime:'9:30 AM',endTime:'11:00 PM'}]))).toEqual({
-            ...editShifts
+        expect(
+            reducer(
+                editShifts,
+                editShift([
+                    {
+                        hours: 1,
+                        pay: 100,
+                        deductions: 10,
+                        netPay: 110,
+                        startTime: '9:30 AM',
+                        endTime: '11:00 PM',
+                    },
+                ])
+            )
+        ).toEqual({
+            ...editShifts,
         });
     });
 

@@ -11,7 +11,8 @@ export const Login = () => {
     const success = useSelector((state) => state.user.success);
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         await LoginUser({ email, password });
     };
 
@@ -26,7 +27,7 @@ export const Login = () => {
                 <div className='h-cont'>
                     <h1>Login</h1>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <TextField
                         className='input'
                         variant='outlined'
@@ -50,7 +51,7 @@ export const Login = () => {
                         variant='contained'
                         color='primary'
                         size='large'
-                        onClick={handleSubmit}
+                        type='submit'
                     >
                         Login
                     </Button>

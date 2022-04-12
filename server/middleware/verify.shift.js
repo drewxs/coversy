@@ -6,12 +6,13 @@ const Shift = require('../models/shift.model');
  * Parameters required: teacher
  */
 exports.verifyShift = async (req, res, next) => {
-	try {
-		const shift = await Shift.findById(req.params.shiftId);
+    try {
+        const shift = await Shift.findById(req.params.shiftId).lean();
 
-		if (req.user && req.user._id == shift.teacher) next();
-		else return res.status(401).send('Access Denied');
-	} catch (err) {
-		return res.status(401).send(err);
-	}
+        if (req.user && req.user._id == shift.teacher) next();
+        else if (req.user.type === 1 && req.user.site == shift.site) next();
+        else return res.status(401).send('Access Denied');
+    } catch (err) {
+        return res.status(401).send(err);
+    }
 };

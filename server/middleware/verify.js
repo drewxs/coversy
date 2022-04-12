@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
-const escape = require('escape-html');
 
 /**
  * Verifies that the user requesting the route is authenticated.

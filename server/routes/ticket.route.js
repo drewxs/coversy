@@ -1,22 +1,22 @@
 const router = require('express').Router();
 const {
-	createTicket,
-	getUnresolvedTickets,
-	getResolvedTickets,
-	resolveTicket,
-	unresolveTicket,
+    createTicket,
+    getUnresolvedTickets,
+    getResolvedTickets,
+    resolveTicket,
+    unresolveTicket,
 } = require('../controllers/ticket.controller');
-const { verifyToken } = require('../middleware/verify');
+const { verifyToken, verifyAdmin } = require('../middleware/verify');
 
 // CREATE
 router.post('/', verifyToken, createTicket);
 
 // READ
-router.get('/unresolved', verifyToken, getUnresolvedTickets);
-router.get('/resolved', verifyToken, getResolvedTickets);
+router.get('/unresolved', verifyAdmin, getUnresolvedTickets);
+router.get('/resolved', verifyAdmin, getResolvedTickets);
 
 // UPDATE
-router.put('/:ticketId/resolve', verifyToken, resolveTicket);
-router.put('/:ticketId/unresolve', verifyToken, unresolveTicket);
+router.put('/:ticketId/resolve', verifyAdmin, resolveTicket);
+router.put('/:ticketId/unresolve', verifyAdmin, unresolveTicket);
 
 module.exports = router;

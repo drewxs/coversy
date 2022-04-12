@@ -127,6 +127,7 @@ export const UpdateUser = async (updateQuery) => {
 
 export const SetEditOpen = async (open) => {
     store.dispatch(setEditOpen(open));
+    store.dispatch(clearEditErrors());
 };
 
 const setAuthorizationHeader = (token, id) => {

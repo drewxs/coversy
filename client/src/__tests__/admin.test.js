@@ -1,4 +1,3 @@
-// import store from '../redux//store';
 import reducer, {
     setUsers,
     activateUser,
@@ -14,12 +13,12 @@ const initialState = {
     loadingUsers: true,
     errors: null,
     openEditUser: false,
+    openShiftUpload: false,
+    shiftCount: 0,
+    shiftErrorCount: 0,
 };
 
-
-const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA4YjgxZmRjMWEyMWUxMjc2MzFkNGUiLCJ0eXBlIjoxLCJzaXRlIjoiNjIwOGI4MWVkYzFhMjFlMTI3NjMxZDRjIiwiaWF0IjoxNjQ2NzU4MDUzfQ.UE2F4eGybDngdJdcuQXxTgb7fCPnXmLvxvAAHiJjK4Y';
-const userUpdate = {
+const user = {
     id: '620cab00e05ecc64bcdf98f6',
     _id: '620cab00e05ecc64bcdf98f6',
     firstName: 'Test',
@@ -40,94 +39,71 @@ const userUpdate = {
         },
         _id: '6208b81edc1a21e127631d4c',
     },
-};    
-const loadingUser = {
-    user: userUpdate,
-    errors: null,
-    openEditUser: false,
-    token: token,
 };
+
+const users = [user];
 
 describe('Admin state tests', () => {
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual({
-            users: [],
-            loadingUsers: true,
-            errors: null,
-            openEditUser: false,
-        });
+        expect(reducer(undefined, {})).toEqual(initialState);
     });
 
     //setUsers
-    it('handles state set setUsers', () => {       
-        expect(reducer(initialState, setUsers( [userUpdate]))).toEqual({
+    it('handles state setUsers', () => {
+        expect(reducer(undefined, setUsers([user]))).toEqual({
             ...initialState,
-             loadingUsers:false,           
-             users: [userUpdate]
+            loadingUsers: false,
+            users: [user],
         });
     });
 
-    
     //activateUser
-    it('handles state active Users', () => {
+    it('handles state activateUser', () => {
         const editUsers = {
             users: [],
         };
-        expect(reducer(editUsers, activateUser([userUpdate]))).toEqual({
-            ...editUsers,                        
+        expect(reducer(editUsers, activateUser([user]))).toEqual({
+            ...editUsers,
         });
-    });   
-   
+    });
 
     //loadingUsers
-    it('handles state loading Users', () => {
-        expect(reducer(loadingUser, loadingUsers())).toEqual({
-            ...loadingUser,                                
-            loading: true
+    it('handles state loadingUsers', () => {
+        expect(reducer(undefined, loadingUsers())).toEqual({
+            ...initialState,
+            loading: true,
         });
     });
 
     //updateUser
-    it('handles state update Users', () => {
-        const editUsers = {
-            users: [],
-        };
-        expect(reducer(editUsers, updateUser([userUpdate]))).toEqual({
-            ...editUsers            
-        });              
+    it('handles state updateUsers', () => {
+        expect(reducer({ ...initialState, users }, updateUser(user))).toEqual({
+            ...initialState,
+            users,
+        });
     });
 
     //setErrors
     it('handles state setErrors', () => {
-        const initError = {
-            errors:{} ,
-            loadingUsers: true,
-            openEditUser: false,
-            users: []
-        };
-        expect(reducer(initError, setErrors({error:'error 112'}))).toEqual({
-            ...initialState,                        
-            errors:{error:'error 112'}            
+        expect(reducer(undefined, setErrors({ error: 'error 112' }))).toEqual({
+            ...initialState,
+            errors: { error: 'error 112' },
         });
     });
+
     //clearErrors
-    it('handles state clear Errors', () => {
-        const initError = {
-            errors:{} ,
-            loadingUsers: true,
-            openEditUser: false,
-            users: []
-        };
-        expect(reducer(initError, clearErrors())).toEqual({
+    it('handles state clearErrors', () => {
+        expect(reducer(undefined, clearErrors())).toEqual({
             ...initialState,
-            errors:null          
+            errors: null,
         });
     });
+
     //openEditUser
-    it('handles state open Edit User', () => {
-        expect(reducer(initialState, openEditUser(true))).toEqual({
+    it('handles state openEditUser', () => {
+        expect(reducer(undefined, openEditUser(true))).toEqual({
             ...initialState,
-            openEditUser :true
+            openEditUser: true,
         });
     });
 });

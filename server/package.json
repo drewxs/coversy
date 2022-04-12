@@ -12,23 +12,23 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"aws-sdk": "^2.1088.0",
+		"aws-sdk": "^2.1111.0",
 		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",
-		"dotenv": "^14.3.2",
-		"express": "^4.17.2",
+		"dotenv": "^16.0.0",
+		"express": "^4.17.3",
 		"joi": "^17.6.0",
 		"joi-objectid": "^4.0.2",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^6.1.8",
+		"mongoose": "^6.2.10",
 		"multer": "^1.4.4",
 		"multer-s3": "^2.10.0",
-		"nodemailer": "^6.7.2"
+		"nodemailer": "^6.7.3"
 	},
 	"devDependencies": {
 		"chai": "^4.3.6",
 		"chai-http": "^4.3.0",
-		"mocha": "^9.2.1",
+		"mocha": "^9.2.2",
 		"nodemon": "^2.0.15"
 	}
 }

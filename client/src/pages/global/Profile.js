@@ -261,15 +261,16 @@ export const Profile = () => {
                                                 </MenuItem>
                                             ))}
                                         </Select>
+                                        <br />
                                     </FormControl>
                                 </div>
-                                {errors && <p className='error'>{errors}</p>}
-                                <div
-                                    className='edit-btn'
-                                    style={{
-                                        marginTop: '1.5em',
-                                    }}
-                                >
+                                {errors && (
+                                    <>
+                                        <p className='error'>{errors}</p>
+                                        <br />
+                                    </>
+                                )}
+                                <div className='edit-btn'>
                                     <Button type='submit' variant='contained'>
                                         Save
                                     </Button>

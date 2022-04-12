@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const Site = require('../models/site.model');
+const Rate = require('../models/rate.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const escape = require('escape-html');
@@ -15,9 +16,10 @@ const {
 } = require('../util/validation');
 
 /**
- * @desc This endpoint logins a user
+ * This endpoint logins a user
+ *
  * @route POST /auth/login
- * @access PUBLIC
+ * @access Public
  */
 exports.login = async (req, res) => {
     const email = escape(req.body.email);
@@ -45,14 +47,15 @@ exports.login = async (req, res) => {
 
         return res.status(200).json({ user, token });
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
 /**
- * @desc This endpoint registers a user
+ * This endpoint registers a user
+ *
  * @route POST /auth/register/user
- * @access PUBLIC
+ * @access Public
  */
 exports.registerUser = async (req, res) => {
     const user = {
@@ -90,16 +93,29 @@ exports.registerUser = async (req, res) => {
             userRes.confirmationCode
         );
 
+        await Rate.create({
+            user: userRes._id,
+            site: userRes.site,
+            ratelog: [
+                {
+                    date: new Date(),
+                    hourlyRate: userRes.hourlyRate,
+                    taxRate: userRes.taxRate,
+                },
+            ],
+        });
+
         return res.status(201).json('Account successfully created.');
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
 /**
- * @desc This endpoint registers a user
+ * This endpoint registers a user
+ *
  * @route POST /auth/register/site
- * @access PUBLIC
+ * @access Public
  */
 exports.registerSite = async (req, res) => {
     try {
@@ -158,14 +174,15 @@ exports.registerSite = async (req, res) => {
 
         return res.status(201).json('Site successfully created.');
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
 /**
- * @desc This endpoint verifies a user acocunt
+ * This endpoint verifies a user acocunt
+ *
  * @route GET /auth/confirm/:confirmationCode
- * @access PUBLIC
+ * @access Public
  */
 exports.confirmUser = async (req, res) => {
     try {
@@ -186,9 +203,10 @@ exports.confirmUser = async (req, res) => {
 };
 
 /**
- * @desc This endpoint sends a password reset verification code to an email
+ * This endpoint sends a password reset verification code to an email
+ *
  * @route GET /auth/forgot
- * @access PUBLIC
+ * @access Public
  */
 exports.forgotPassword = async (req, res) => {
     const email = escape(req.body.email);
@@ -219,9 +237,10 @@ exports.forgotPassword = async (req, res) => {
 };
 
 /**
- * @desc This endpoint resets a user password
+ * This endpoint resets a user password
+ *
  * @route PUT /auth/resetpassword/:code
- * @access PUBLIC
+ * @access Public
  */
 exports.resetPassword = async (req, res) => {
     const newPassword = escape(req.body.newPassword);
@@ -250,7 +269,7 @@ exports.resetPassword = async (req, res) => {
         user.passwordResetCode = null;
         await user.save();
 
-        res.status(200).json('Password successfully reset.');
+        return res.status(200).json('Password successfully reset.');
     } catch (err) {
         return res.status(400).json(err.message);
     }

@@ -52,3 +52,7 @@ ul:not([class]),
 li:not([class]) {
     max-width: 60ch;
 }
+
+.error {
+    color: $error;
+}

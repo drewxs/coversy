@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux';
 import { GetUserPayroll } from 'redux/payroll';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import { Box, CircularProgress } from '@mui/material';
 
 export const PayrollReport = () => {
     const params = useParams();
 
     const user = useSelector((state) => state.user.user);
     const payroll = useSelector((state) => state.payroll.payroll);
+    const loading = useSelector((state) => state.payroll.loading);
 
     useEffect(() => {
         GetUserPayroll(params.date);
@@ -40,37 +42,47 @@ export const PayrollReport = () => {
                             <p className='bold'>Pay Period:</p>
                             <p>{moment(payroll?.period).format('MMMM Y')}</p>
                         </div>
-                    </div>
-                </div>
-                <div className='earnings'>
-                    <p className='bold'>Earnings</p>
-                    <p className='amount-header'>Amount: CAD</p>
-                    <hr />
-                    <p>
-                        {user.firstName} {user.lastName}'s Salary - Hourly ( $
-                        {user.hourlyRate} )
-                    </p>
-                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
-                    <hr />
-                    <p className='bold'>Total Earnings</p>
-                    <p className='amount'>${payroll?.pay?.toFixed(2)}</p>
-                </div>
-                <div className='deductions'>
-                    <p className='bold'>Deductions</p>
-                    <p className='amount-header'>Amount: CAD</p>
-                    <hr />
-                    <p>Employee Taxes</p>
-                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
-                    <hr />
-                    <p className='bold'>Total Deductions</p>
-                    <p className='amount'>${payroll?.deductions?.toFixed(2)}</p>
-                </div>
-                <div className='payout'>
-                    <hr />
-                    <p>Take Home Pay</p>
-                    <p className='amount'>${payroll?.netPay?.toFixed(2)}</p>
-                    <hr />
-                </div>
+                        <div className='earnings'>
+                            <p className='bold'>Earnings</p>
+                            <p className='amount-header'>Amount: CAD</p>
+                            <hr />
+                            <p>
+                                {user.firstName} {user.lastName}'s Salary -
+                                Hourly ( ${user.hourlyRate} )
+                            </p>
+                            <p className='amount'>
+                                ${payroll?.pay?.toFixed(2)}
+                            </p>
+                            <hr />
+                            <p className='bold'>Total Earnings</p>
+                            <p className='amount'>
+                                ${payroll?.pay?.toFixed(2)}
+                            </p>
+                        </div>
+                        <div className='deductions'>
+                            <p className='bold'>Deductions</p>
+                            <p className='amount-header'>Amount: CAD</p>
+                            <hr />
+                            <p>Employee Taxes</p>
+                            <p className='amount'>
+                                ${payroll?.deductions?.toFixed(2)}
+                            </p>
+                            <hr />
+                            <p className='bold'>Total Deductions</p>
+                            <p className='amount'>
+                                ${payroll?.deductions?.toFixed(2)}
+                            </p>
+                        </div>
+                        <div className='payout'>
+                            <hr />
+                            <p>Take Home Pay</p>
+                            <p className='amount'>
+                                ${payroll?.netPay?.toFixed(2)}
+                            </p>
+                            <hr />
+                        </div>
+                    </>
+                )}
             </div>
         </section>
     );

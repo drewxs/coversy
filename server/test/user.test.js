@@ -1,14 +1,4 @@
-const dotenv = require('dotenv').config();
-
-process.env.NODE_ENV = 'test';
-process.env.PORT = 5001;
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../index');
-let should = chai.should();
-
-chai.use(chaiHttp);
+const { chai, server } = require('./test.config');
 
 describe('Endpoint testing [users]', () => {
     let BAD_REQUEST = '555555';
@@ -22,10 +12,9 @@ describe('Endpoint testing [users]', () => {
                 done();
             });
     });
-    it('Get user by id bad request', (done) => {
+    it('Get user by id unauthorized request', (done) => {
         chai.request(server)
-            .get(`/api/user/${BAD_REQUEST}`)
-            .set('auth-token', process.env.TEST_TOKEN)
+            .get(`/api/user/${process.env.TEST_TEACHER}`)
             .end((err, res) => {
                 res.should.have.status(401);
                 done();
@@ -40,12 +29,11 @@ describe('Endpoint testing [users]', () => {
                 done();
             });
     });
-    it('Get users by site bad request', (done) => {
+    it('Get users by site unauthorized request', (done) => {
         chai.request(server)
-            .get(`/api/user/site/${BAD_REQUEST}`)
-            .set('auth-token', process.env.TEST_TOKEN)
+            .get(`/api/user/site/${process.env.TEST_SITE}`)
             .end((err, res) => {
-                res.should.have.status(400);
+                res.should.have.status(401);
                 done();
             });
     });
@@ -92,18 +80,17 @@ describe('Endpoint testing [users]', () => {
                 done();
             });
     });
-    it('Update user as admin bad request', (done) => {
+    it('Update user as admin unauthorized request', (done) => {
         chai.request(server)
-            .put(`/api/user/${BAD_REQUEST}/admin`)
+            .put(`/api/user/${process.env.TEST_TEACHER}/admin`)
             .set('content-type', 'application/json')
-            .set('auth-token', process.env.TEST_TOKEN)
             .send({
                 firstName: 'SITE',
                 lastName: 'ADMIN',
                 phone: '1111111111',
             })
             .end((err, res) => {
-                res.should.have.status(400);
+                res.should.have.status(401);
                 done();
             });
     });

@@ -12,7 +12,8 @@ aws.config.update({
 const s3 = new aws.S3();
 
 /**
- * @desc This function creates a shift.
+ * This function creates a shift.
+ *
  * @route POST /shift
  * @access Admin
  */
@@ -24,7 +25,7 @@ exports.createShift = async (req, res) => {
 
     try {
         // Check if teacher exists
-        let teacher = await User.findOne({ email: email }).exec();
+        let teacher = await User.findOne({ email }).lean();
         if (!teacher)
             return res.status(404).json(`Teacher not found: ${email}`);
         if (teacher.site != req.user.site)
@@ -49,6 +50,7 @@ exports.createShift = async (req, res) => {
 
         const shift = await Shift.create(shiftObj);
         await shift.populate('teacher', 'firstName lastName email');
+
         return res.status(201).json(shift);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -56,48 +58,88 @@ exports.createShift = async (req, res) => {
 };
 
 /**
- * @desc This function returns shift by shift Id.
+ * This function returns shift by shift Id.
+ *
  * @route GET /shift/id/:shiftId
  * @access Admin
  */
-exports.getShiftById = (req, res) => {
+exports.getShiftById = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
 
-    Shift.findById(shiftId)
-        .then((shift) => res.status(200).json(shift))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const shift = await Shift.findById(shiftId).lean();
+        return res.status(200).json(shift);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
- * @desc This function returns shifts by site.
+ * This function returns shifts by site.
+ *
  * @route GET /shift/
  * @access Admin
  */
-exports.getShiftsBySite = (req, res) => {
-    Shift.find({ site: req.user.site })
-        .populate('teacher', 'firstName lastName email')
-        .then((shifts) => res.status(200).json(shifts))
-        .catch((err) => res.status(400).json(err));
+exports.getShiftsBySite = async (req, res) => {
+    try {
+        const shifts = await Shift.find({ site: req.user.site })
+            .lean()
+            .populate('teacher', 'firstName lastName email');
+        return res.status(200).json(shifts);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
- * @desc This function returns posted shifts by site.
+ * This function returns shifts belonging to the user.
+ *
+ * @route GET /shift/
+ * @access Admin
+ */
+exports.getShiftsByUser = async (req, res) => {
+    try {
+        const shifts = await Shift.find({
+            site: req.user.site,
+            teacher: req.user._id,
+        })
+            .lean()
+            .populate('teacher', 'firstName lastName email');
+
+        return res.status(200).json(shifts);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+};
+
+/**
+ * This function returns posted shifts by site.
+ *
  * @route GET /shift/posted
  * @access Admin
  */
-exports.getPostedShiftsBySite = (req, res) => {
-    Shift.find({ site: req.user.site, posted: true })
-        .populate('teacher', 'firstName lastName email')
-        .then((shifts) => res.status(200).json(shifts))
-        .catch((err) => res.status(400).json(err));
+exports.getPostedShiftsBySite = async (req, res) => {
+    try {
+        const shifts = await Shift.find({
+            site: req.user.site,
+            posted: true,
+            teacher: { $ne: req.user._id },
+        })
+            .lean()
+            .populate('teacher', 'firstName lastName email');
+        return res.status(200).json(shifts);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
- * @desc This function updates shifts by shift id.
+ * This function updates shifts by shift id.
+ *
  * @route PUT /shift/:shiftId
  * @access Admin
  */
-exports.updateShiftById = (req, res) => {
+exports.updateShiftById = async (req, res) => {
     const updateQuery = {};
     if (req.body.sub) updateQuery.sub = escape(req.body.sub);
     if (req.body.details) updateQuery.details = escape(req.body.details);
@@ -107,38 +149,49 @@ exports.updateShiftById = (req, res) => {
 
     const shiftId = escape(req.params.shiftId);
 
-    Shift.findByIdAndUpdate(shiftId, updateQuery)
-        .then((shift) => res.status(200).json(shift))
-        .catch((err) => res.status(400).json(err));
-};
-
-exports.getShiftMaterials = (req, res) => {
-    const shiftId = escape(req.params.shiftId);
-    const fileName = escape(req.params.fileName);
-
-    Shift.findById(shiftId)
-        .then((shift) => {
-            shift.materials.forEach((material) => {
-                if (material.fileName === fileName) {
-                    const downloadParams = {
-                        Key: material.fileKey,
-                        Bucket: process.env.S3_SHIFT_BUCKET,
-                    };
-                    const readStream = s3
-                        .getObject(downloadParams)
-                        .createReadStream();
-                    readStream.pipe(res.attachment(material.fileName));
-                }
-            });
-        })
-        .catch((err) => {
-            res.status(400).json(err);
+    try {
+        const shfit = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
+            new: true,
         });
+        return res.status(200).json(shfit);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
- * @desc This function updates shift materials by ID.
- * @route PUT /shift/:shiftId/uploadfiles
+ * This function retrieves a single material from a shift via S3.
+ *
+ * @route GET /shift/:shiftId/files/:fileKey
+ * @access User
+ */
+exports.getShiftMaterials = async (req, res) => {
+    const shiftId = escape(req.params.shiftId);
+    const fileKey = escape(req.params.fileKey);
+
+    try {
+        const shift = await Shift.findById(shiftId).lean();
+        shift.materials.forEach((material) => {
+            if (material.fileKey === fileKey) {
+                const downloadParams = {
+                    Key: material.fileKey,
+                    Bucket: process.env.S3_SHIFT_BUCKET,
+                };
+                const readStream = s3
+                    .getObject(downloadParams)
+                    .createReadStream();
+                readStream.pipe(res.attachment(material.fileName));
+            }
+        });
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+};
+
+/**
+ * This function updates shift materials, to be used after s3 upload middleware.
+ *
+ * @route PUT /shift/:shiftId/files/upload
  * @access User
  */
 
@@ -150,7 +203,7 @@ exports.updateShiftMaterials = async (req, res) => {
         let shift = await Shift.findById(shiftId).lean();
         updateQuery = { materials: shift.materials };
     } catch (err) {
-        res.status(400).send('Failed to get Current Files');
+        return res.status(400).send('Failed to get Current Files');
     }
 
     req.files.forEach((file) => {
@@ -160,49 +213,72 @@ exports.updateShiftMaterials = async (req, res) => {
         });
     });
 
-    Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
-        .then((shift) => res.status(200).json(shift))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
+            new: true,
+        });
+        return res.status(200).json(shift);
+    } catch (err) {
+        return res.status(400).send(err.message);
+    }
 };
 
+/**
+ * This function deletes a single material from a shift via S3.
+ *
+ * @route DELETE /shift/:shiftId/files/:fileKey
+ * @access User
+ */
 exports.deleteShiftMaterial = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
     const fileKey = escape(req.params.fileKey);
-
-    const updateQuery = {};
     const deleteParams = {
         Key: fileKey,
-        Bucket: process.env.S3_PROFILE_BUCKET,
+        Bucket: process.env.S3_SHIFT_BUCKET,
     };
 
+    let updateQuery = {};
     try {
         let shift = await Shift.findById(shiftId).lean();
-        updateParams = {
-            materials: shift.material.filter(
+        updateQuery = {
+            materials: shift.materials.filter(
                 (material) => material.fileKey != fileKey
             ),
         };
+        console.log(updateQuery);
         await s3.deleteObject(deleteParams).promise();
-    } catch (err) {}
+    } catch (err) {
+        console.error(err);
+    }
 
-    Shift.findByIdAndUpdate(shiftId, updateQuery, { new: true })
-        .then((shift) => res.status(200).json(shift))
-        .catch((err) => res.status(400).json(err));
+    try {
+        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
+            new: true,
+        });
+        return res.status(200).json(shift);
+    } catch (err) {
+        return res.status(400).send(err.message);
+    }
 };
 
 /**
- * @desc This function deletes all shifts from a site
+ * This function deletes all shifts from a site
+ *
  * @route DELETE /site/:siteId
  * @access Admin
  */
-exports.deleteShiftsBySite = (req, res) => {
-    Shift.deleteMany({ site: req.user.site })
-        .then(() => res.status(200).json('Shifts successfully deleted'))
-        .catch((err) => res.status(400).send(err));
+exports.deleteShiftsBySite = async (req, res) => {
+    try {
+        await Shift.deleteMany({ site: req.user.site });
+        return res.status(200).json('Shifts successfully deleted');
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
- * @desc This function posts a shift
+ * This function posts a shift
+ *
  * @route PUT /:shiftId/post
  * @access User
  */
@@ -212,15 +288,17 @@ exports.postShift = async (req, res) => {
             escape(req.params.shiftId),
             { posted: true },
             { new: true }
-        );
-        res.status(200).json(shift);
+        ).populate('teacher', 'firstName lastName email');
+
+        return res.status(200).json(shift);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
 /**
- * @desc This function posts a shift
+ * This function posts a shift
+ *
  * @route PUT /:shiftId/unpost
  * @access User
  */
@@ -230,15 +308,17 @@ exports.unpostShift = async (req, res) => {
             escape(req.params.shiftId),
             { posted: false },
             { new: true }
-        );
-        res.status(200).json(shift);
+        ).populate('teacher', 'firstName lastName email');
+
+        return res.status(200).json(shift);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };
 
 /**
- * @desc This function takes a shift
+ * This function takes a shift
+ *
  * @route PUT /:shiftId/take
  * @access User
  */
@@ -249,15 +329,19 @@ exports.takeShift = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        }).populate('teacher');
+        }).populate('teacher', 'firstName lastName email');
+
         createNotification(
             shift.sub,
             shift.teacher,
             `Shift was taken`,
-            `${shift.sub} has taken your shift on ${shift.startTime}`
+            `${
+                shift.sub.firstName + ' ' + shift.sub.lastName
+            }  has taken your shift on ${shift.startTime}`
         );
+
         return res.status(200).json(shift);
     } catch (err) {
-        res.status(400).json(err.message);
+        return res.status(400).json(err.message);
     }
 };

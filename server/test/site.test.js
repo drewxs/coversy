@@ -1,14 +1,4 @@
-const dotenv = require('dotenv').config();
-
-process.env.NODE_ENV = 'test';
-process.env.PORT = 5001;
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../index');
-let should = chai.should();
-
-chai.use(chaiHttp);
+const { chai, server } = require('./test.config');
 
 describe('Endpoint testing [site]', () => {
     it('Get all sites', (done) => {
@@ -20,7 +10,7 @@ describe('Endpoint testing [site]', () => {
                 done();
             });
     });
-    it('Update site by id', (done) => {
+    it('Update site', (done) => {
         chai.request(server)
             .put(`/api/site`)
             .set('auth-token', process.env.TEST_TOKEN)
@@ -38,13 +28,11 @@ describe('Endpoint testing [site]', () => {
                 done();
             });
     });
-    it('Update site by id address validation fail', (done) => {
+    it('Update site address validation fail', (done) => {
         chai.request(server)
             .put(`/api/site`)
             .set('auth-token', process.env.TEST_TOKEN)
-            .send({
-                address: 'Test Site',
-            })
+            .send({ address: 'Test Site' })
             .end((err, res) => {
                 res.should.have.status(400);
                 done();
