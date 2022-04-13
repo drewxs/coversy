@@ -27,14 +27,19 @@ const localizer = momentLocalizer(moment);
 
 export const Shifts = () => {
     const user = useSelector((state) => state.user.user);
-    const shift = useSelector((state) => state.shift.shifts);
+    const shifts = useSelector((state) => state.shift.shifts);
+    const myShifts = useSelector((state) => state.shift.myShifts);
+    const myPostedShifts = useSelector((state) => state.shift.myPostedShifts);
+
     const [description, setDescription] = useState(null);
-    const [openBook, setOpenBook] = useState(false);
-    const [openView, setOpenView] = useState(false);
+    const [openbook, setOpenBook] = useState(false);
+    const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(null);
     const [tab, setTab] = useState(0);
 
-    /* Fetches specified file from shift and has user download it  */
+    {
+        /* Fetches specified file from shift and has user download it  */
+    }
     const getFile = (shift, file) => {
         let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
         axios({
@@ -96,28 +101,19 @@ export const Shifts = () => {
                                             setOpenBook(true);
                                         }}
                                     >
-                                        Book time off
+                                        Book time off{' '}
                                     </Button>
                                 </div>
                                 <div className='shift-container'>
-                                    {shift
-                                        .slice()
-                                        ?.filter(
-                                            (shift) =>
-                                                shift.teacher._id ===
-                                                    user._id && !shift.posted
-                                        )
-                                        .map((shift, k) => (
-                                            <div>
-                                                <UserShift
-                                                    key={k}
-                                                    shift={shift}
-                                                    setCurrent={setCurrent}
-                                                    setOpenView={setOpenView}
-                                                    btnText={'Post'}
-                                                />
-                                            </div>
-                                        ))}
+                                    {myShifts.map((shift, k) => (
+                                        <UserShift
+                                            key={k}
+                                            shift={shift}
+                                            setCurrent={setCurrent}
+                                            setOpenView={setOpenView}
+                                            btnText={'Post'}
+                                        />
+                                    ))}
                                 </div>
                             </>
                         )}
@@ -125,31 +121,38 @@ export const Shifts = () => {
                         {/* Tab - Posted Shifts */}
                         {tab === 1 && (
                             <div className='shift-container'>
-                                {shift
-                                    ?.filter(
-                                        (shift) =>
-                                            shift.teacher._id === user._id &&
-                                            shift.posted
-                                    )
-                                    .map((shift, k) => (
-                                        <div>
-                                            <UserShift
-                                                shift={shift}
-                                                key={k}
-                                                setCurrent={setCurrent}
-                                                setOpenView={setOpenView}
-                                                btnText={'Unpost'}
-                                            />
-                                        </div>
-                                    ))}
+                                {myPostedShifts.map((shift, k) => (
+                                    <UserShift
+                                        shift={shift}
+                                        key={k}
+                                        setCurrent={setCurrent}
+                                        setOpenView={setOpenView}
+                                        btnText={'Unpost'}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Tab - Take Shifts */}
+                        {tab === 2 && (
+                            <div className='shift-container'>
+                                {shifts.map((shift, k) => (
+                                    <UserShift
+                                        shift={shift}
+                                        key={k}
+                                        setCurrent={setCurrent}
+                                        setOpenView={setOpenView}
+                                        btnText={'Take'}
+                                    />
+                                ))}
                             </div>
                         )}
                     </div>
 
                     {/* Modal - View Shift */}
-                    {openView && (
+                    {openview && (
                         <Modal
-                            open={openView}
+                            open={openview}
                             onClose={() => setOpenView(false)}
                         >
                             <Box
@@ -158,6 +161,8 @@ export const Shifts = () => {
                             >
                                 <Typography sx={{ mb: '1rem' }} variant='h5'>
                                     {current.subject}
+                                    {' - '}
+                                    {current.teacher.firstName}
                                 </Typography>
 
                                 {/* Shift Info */}
@@ -182,12 +187,48 @@ export const Shifts = () => {
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
-                                    <br></br>
-                                    {/* Upload Docments*/}
-                                    <p>
-                                        <strong>Add Documents</strong>
-                                    </p>
-                                    <input type='file' accept='.docx' />
+                                    {/* Shift Materials Upload/Download/Delete */}
+                                    <p>Class Materials</p>
+                                    {current.materials.map((file, k) => (
+                                        <div key={k}>
+                                            <button
+                                                onClick={() =>
+                                                    getFile(current, file)
+                                                }
+                                            >
+                                                {file.fileName}
+                                            </button>
+                                            {current.teacher._id ===
+                                                user._id && (
+                                                <IconButton
+                                                    color='primary'
+                                                    onClick={() =>
+                                                        DeleteShiftMaterials(
+                                                            current,
+                                                            file.fileKey
+                                                        )
+                                                    }
+                                                >
+                                                    <CloseRounded fontSize='small'></CloseRounded>
+                                                </IconButton>
+                                            )}
+                                        </div>
+                                    ))}
+                                    {current.teacher._id === user._id && (
+                                        <FileUploader
+                                            name='file'
+                                            classes='file-uploader'
+                                            multiple={false}
+                                            maxSize={60}
+                                            handleChange={(file) =>
+                                                UploadShiftMaterials(
+                                                    current,
+                                                    file
+                                                )
+                                            }
+                                        />
+                                    )}
+                                    {/* Taking Shifts Handler */}
                                     {current.teacher._id !== user._id && (
                                         <Button
                                             sx={{ marginTop: '1rem' }}
@@ -206,7 +247,7 @@ export const Shifts = () => {
                     )}
 
                     {/* Modal - Book Time Off */}
-                    <Modal open={openBook} onClose={() => setOpenBook(false)}>
+                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
                         <Box className='modal-container' sx={{ width: 400 }}>
                             <Typography variant='h5'>Book Time Off</Typography>
 
@@ -216,8 +257,6 @@ export const Shifts = () => {
                                 className='input-form'
                                 variant='outlined'
                                 label='Description'
-                                multiline
-                                rows={4}
                                 fullWidth
                                 sx={{ mt: '1rem' }}
                                 value={description}
@@ -248,7 +287,13 @@ export const Shifts = () => {
                 <div className='calendar card'>
                     <Calendar
                         localizer={localizer}
-                        events={shift}
+                        events={
+                            tab === 0
+                                ? myShifts
+                                : tab === 1
+                                ? myPostedShifts
+                                : shifts
+                        }
                         titleAccessor='subject'
                         startAccessor='startTime'
                         endAccessor='endTime'

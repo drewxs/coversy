@@ -8,7 +8,8 @@ const escape = require('escape-html');
  */
 exports.verifyUser = async (req, res, next) => {
     const token = req.header('auth-token');
-    if (!token) return res.status(401).send('Access Denied');
+    if (!token)
+        return res.status(401).send('Unauthenticated. Must be logged in.');
 
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);

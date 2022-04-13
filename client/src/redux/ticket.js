@@ -32,7 +32,7 @@ export const GetResolvedTickets = () => {
         .catch((err) => console.error(err));
 };
 
-export const AddTicket = (ticket) => {
+export const CreateTicket = (ticket) => {
     store.dispatch(loadingTickets());
     axios
         .post(`${api}/ticket`, ticket, {

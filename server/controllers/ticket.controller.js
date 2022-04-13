@@ -51,6 +51,7 @@ exports.getUnresolvedTickets = async (req, res) => {
  */
 exports.getResolvedTickets = async (req, res) => {
     const site = req.user.site;
+
     try {
         const tickets = await Ticket.find({ site, resolved: true })
             .lean()
