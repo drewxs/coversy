@@ -6,31 +6,26 @@ export const ConfirmationModal = ({
     title,
     description,
     btnText,
-    openConfirm,
-    close,
     setOpenConfirm,
+    openConfirm,
 }) => {
-    close = () => openConfirm(false);
-    setOpenConfirm = () => openConfirm(true);
-
     return (
-        <Modal>
-            <Box
-                open={openConfirm}
-                onClose={close}
-                className='modal-container'
-                sx={{ width: 350 }}
-            >
+        <Modal open={openConfirm} onClose={() => setOpenConfirm(false)}>
+            <Box className='modal-container' sx={{ width: 350 }}>
                 <Typography variant='h6'>{title}</Typography>
                 <p>{description}</p>
                 <Button
                     variant='contained'
                     sx={{ mr: '1rem', mt: '1rem' }}
-                    onClick={close}
+                    onClick={() => setOpenConfirm(false)}
                 >
                     {btnText}
                 </Button>
-                <Button variant='outlined' sx={{ mt: '1rem' }} onClick={close}>
+                <Button
+                    variant='outlined'
+                    sx={{ mt: '1rem' }}
+                    onClick={() => setOpenConfirm(false)}
+                >
                     Cancel
                 </Button>
             </Box>

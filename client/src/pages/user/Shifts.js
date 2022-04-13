@@ -37,9 +37,6 @@ export const Shifts = () => {
     const [current, setCurrent] = useState(null);
     const [tab, setTab] = useState(0);
 
-    {
-        /* Fetches specified file from shift and has user download it  */
-    }
     const getFile = (shift, file) => {
         let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
         axios({
@@ -84,7 +81,6 @@ export const Shifts = () => {
                             <Tab value={1} label='Posted Shifts' />
                             <Tab value={2} label='Take Shifts' />
                         </Tabs>
-
                         {/* Tab - My Shifts */}
                         {tab === 0 && (
                             <>
@@ -117,7 +113,6 @@ export const Shifts = () => {
                                 </div>
                             </>
                         )}
-
                         {/* Tab - Posted Shifts */}
                         {tab === 1 && (
                             <div className='shift-container'>
@@ -132,7 +127,6 @@ export const Shifts = () => {
                                 ))}
                             </div>
                         )}
-
                         {/* Tab - Take Shifts */}
                         {tab === 2 && (
                             <div className='shift-container'>
