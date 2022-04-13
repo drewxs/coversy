@@ -72,7 +72,7 @@
     }
 
     @include respond-to('mobile') {
-       .nav-links {
+            .nav-links {
                 align-items: center;
                  
                 .desktop-nav {
@@ -85,12 +85,17 @@
                     padding: 1em;
                     display: flex;
                     right: 15% ;
+                    justify-content: center;
                     flex-direction: column;
                     background-color: $primary;
                     align-items: center;
                     position: fixed;
                     top: 12%;
                     border-radius: 0.5em;
+
+                    .button {
+                        margin-left: 0;
+                    }
                 }
             }
         .logout-btn {
