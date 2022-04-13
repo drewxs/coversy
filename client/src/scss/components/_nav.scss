@@ -1,4 +1,5 @@
 @use '../abstract' as *;
+@import '../abstract/mixins';
 
 .nav {
     background-color: rgba($color: $black, $alpha: 0.9);
@@ -9,6 +10,9 @@
     top: 0;
     box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
 
+    .hamburger-icon {
+        display: none;
+    }
     .logo-cont {
         display: flex;
         align-items: center;
@@ -20,6 +24,13 @@
 
     .nav-links {
         display: flex;
+
+        .links-user {
+            display: none;
+        }
+        .links-admin {
+            display: none;
+        }
     }
 
     .container {
@@ -61,5 +72,43 @@
     }
     @media print {
         display: none;
+    }
+
+    @include respond-to('mobile') {
+       .nav-links {
+                align-items: center;
+                 
+                .desktop-nav {
+                    display: none;
+                }
+                 .hamburger-icon {
+                    display: flex;
+                }
+                .user { 
+                    padding: 1em;
+                    display: flex;
+                    right: 15% ;
+                    flex-direction: column;
+                    background-color: $primary;
+                    align-items: center;
+                    position: fixed;
+                    top: 12%;
+                    border-radius: 0.5em;
+                }
+                .admin { 
+                    padding: 1em;
+                    display: flex;
+                    right: 15% ;
+                    flex-direction: column;
+                    background-color: $primary;
+                    align-items: center;
+                    position: fixed;
+                    top: 12%;
+                    border-radius: 0.5em;
+                 }
+        }
+        .logout-btn {
+            display: none;
+        }
     }
 }
