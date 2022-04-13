@@ -17,11 +17,9 @@ export const Nav = () => {
     const notifications = useSelector(
         (state) => state.notification.notifications
     );
-
     const handleOpenNav = () => {
         setOpenNav(!openNav);
     };
-
     const handleOpen = () => {
         ReadNotifications();
         setOpen(!open);
