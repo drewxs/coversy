@@ -20,25 +20,46 @@ export const CombinedPayrollReport = () => {
     return (
         <section className='report'>
             <div className='container'>
-                <div className='top-info'>
-                    <div className='titles'>
-                        <h1>REPORT</h1>
-                    </div>
-                    <div className='site'>
-                        <p className='bold'>Location: {user?.site.name}</p>
-                        <p>{user?.site.address.street}</p>
-                        <p>
-                            {user?.site.address.city},{' '}
-                            {user?.site.address.province}
-                            {', '}
-                            {user?.site.address.zip}
-                        </p>
-                        <p>Canada</p>
-                    </div>
-                    <div className='pay-info'>
-                        <div className='period'>
-                            <p className='bold'>Pay Period:</p>
-                            <p>{moment(payroll?.period).format('MMMM Y')}</p>
+                {loading ? (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '30vh',
+                        }}
+                    >
+                        <CircularProgress size={'5rem'} />
+                    </Box>
+                ) : (
+                    <>
+                        <div className='top-info'>
+                            <div className='titles'>
+                                <h1>REPORT</h1>
+                            </div>
+                            <div className='site'>
+                                <p className='bold'>
+                                    Location: {user?.site.name}
+                                </p>
+                                <p>{user?.site.address.street}</p>
+                                <p>
+                                    {user?.site.address.city},{' '}
+                                    {user?.site.address.province}
+                                    {', '}
+                                    {user?.site.address.zip}
+                                </p>
+                                <p>Canada</p>
+                            </div>
+                            <div className='pay-info'>
+                                <div className='period'>
+                                    <p className='bold'>Pay Period:</p>
+                                    <p>
+                                        {moment(payroll?.period).format(
+                                            'MMMM Y'
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div className='earnings'>
                             <p className='bold'>Earnings</p>
@@ -76,8 +97,8 @@ export const CombinedPayrollReport = () => {
                             </p>
                             <hr />
                         </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </section>
     );
