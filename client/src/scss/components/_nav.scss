@@ -25,10 +25,7 @@
     .nav-links {
         display: flex;
 
-        .links-user {
-            display: none;
-        }
-        .links-admin {
+        .links {
             display: none;
         }
     }
@@ -84,7 +81,7 @@
                  .hamburger-icon {
                     display: flex;
                 }
-                .user { 
+                .links { 
                     padding: 1em;
                     display: flex;
                     right: 15% ;
@@ -95,18 +92,7 @@
                     top: 12%;
                     border-radius: 0.5em;
                 }
-                .admin { 
-                    padding: 1em;
-                    display: flex;
-                    right: 15% ;
-                    flex-direction: column;
-                    background-color: $primary;
-                    align-items: center;
-                    position: fixed;
-                    top: 12%;
-                    border-radius: 0.5em;
-                 }
-        }
+            }
         .logout-btn {
             display: none;
         }
