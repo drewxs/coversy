@@ -6,18 +6,25 @@ import { LogoutUser } from 'redux/user';
 import { NotificationsNone } from '@mui/icons-material';
 import { GetNotifications, ReadNotifications } from 'redux/notif';
 import logo from 'assets/logo.svg';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+    const [openNav, setOpenNav] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const notifications = useSelector(
         (state) => state.notification.notifications
     );
-    const [open, setOpen] = useState(false);
+
+    const handleOpenNav = () => {
+        setOpenNav(!openNav);
+    };
+
     const handleOpen = () => {
         ReadNotifications();
-        setOpen(true);
+        setOpen(!open);
     };
     useEffect(() => {
         if (authenticated) {
@@ -87,96 +94,227 @@ export const Nav = () => {
                     {/* Admin links */}
                     {authenticated && user.type === 1 && (
                         <>
-                            <Button
-                                href='/dashboard/shifts'
-                                className={`button ${
-                                    window.location.pathname ===
-                                    '/dashboard/shifts'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Shifts
-                            </Button>
-                            <Button
-                                href='/dashboard/payroll'
-                                className={`button ${
-                                    window.location.pathname ===
-                                    '/dashboard/payroll'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Payroll
-                            </Button>
-                            <Button
-                                href='/dashboard/users'
-                                className={`button ${
-                                    window.location.pathname ===
-                                    '/dashboard/users'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Users
-                            </Button>
-                            <Button
-                                href='/dashboard/tickets'
-                                className={`button ${
-                                    window.location.pathname ===
-                                    '/dashboard/tickets'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Tickets
-                            </Button>
-                            <Button
-                                href='/profile'
-                                className={`button ${
-                                    window.location.pathname === '/profile'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Profile
-                            </Button>
+                            <MenuIcon
+                                className='hamburger-icon'
+                                fontSize='large'
+                                onClick={() => handleOpenNav()}
+                            ></MenuIcon>
+                            <div className='desktop-nav'>
+                                <Button
+                                    href='/dashboard/shifts'
+                                    className={`button ${
+                                        window.location.pathname ===
+                                        '/dashboard/shifts'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Shifts
+                                </Button>
+                                <Button
+                                    href='/dashboard/payroll'
+                                    className={`button ${
+                                        window.location.pathname ===
+                                        '/dashboard/payroll'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Payroll
+                                </Button>
+                                <Button
+                                    href='/dashboard/users'
+                                    className={`button ${
+                                        window.location.pathname ===
+                                        '/dashboard/users'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Users
+                                </Button>
+                                <Button
+                                    href='/dashboard/tickets'
+                                    className={`button ${
+                                        window.location.pathname ===
+                                        '/dashboard/tickets'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Tickets
+                                </Button>
+                                <Button
+                                    href='/profile'
+                                    className={`button ${
+                                        window.location.pathname === '/profile'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Profile
+                                </Button>
+                            </div>
+                            {openNav && (
+                                <div className='links admin' open={openNav}>
+                                    <Button
+                                        href='/dashboard/shifts'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/dashboard/shifts'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Shifts
+                                    </Button>
+                                    <Button
+                                        href='/dashboard/payroll'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/dashboard/payroll'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Payroll
+                                    </Button>
+                                    <Button
+                                        href='/dashboard/users'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/dashboard/users'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Users
+                                    </Button>
+                                    <Button
+                                        href='/dashboard/tickets'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/dashboard/tickets'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Tickets
+                                    </Button>
+                                    <Button
+                                        href='/profile'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/profile'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Profile
+                                    </Button>
+                                    <Button
+                                        color='primary'
+                                        className='button'
+                                        onClick={() => {
+                                            <Navigate to='/login' />;
+                                            LogoutUser();
+                                        }}
+                                    >
+                                        Logout
+                                    </Button>
+                                </div>
+                            )}
                         </>
                     )}
 
                     {/* User links */}
                     {authenticated && user.type === 2 && (
                         <>
-                            <Button
-                                href='/shifts'
-                                className={`button ${
-                                    window.location.pathname === '/shifts'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Shifts
-                            </Button>
-                            <Button
-                                href='/payroll'
-                                className={`button ${
-                                    window.location.pathname === '/payroll'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Payroll
-                            </Button>
-                            <Button
-                                href='/profile'
-                                className={`button ${
-                                    window.location.pathname === '/profile'
-                                        ? 'active'
-                                        : ''
-                                }`}
-                            >
-                                Profile
-                            </Button>
+                            <MenuIcon
+                                className='hamburger-icon'
+                                fontSize='large'
+                                onClick={() => handleOpenNav()}
+                            ></MenuIcon>
+                            <div className='desktop-nav'>
+                                <Button
+                                    href='/shifts'
+                                    className={`button ${
+                                        window.location.pathname === '/shifts'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Shifts
+                                </Button>
+                                <Button
+                                    href='/payroll'
+                                    className={`button ${
+                                        window.location.pathname === '/payroll'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Payroll
+                                </Button>
+                                <Button
+                                    href='/profile'
+                                    className={`button ${
+                                        window.location.pathname === '/profile'
+                                            ? 'active'
+                                            : ''
+                                    }`}
+                                >
+                                    Profile
+                                </Button>
+                            </div>
+
+                            {openNav && (
+                                <div className='links user'>
+                                    <Button
+                                        href='/shifts'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/shifts'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Shifts
+                                    </Button>
+                                    <Button
+                                        href='/payroll'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/payroll'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Payroll
+                                    </Button>
+                                    <Button
+                                        href='/profile'
+                                        className={`button ${
+                                            window.location.pathname ===
+                                            '/profile'
+                                                ? 'active'
+                                                : ''
+                                        }`}
+                                    >
+                                        Profile
+                                    </Button>
+                                    <Button
+                                        color='primary'
+                                        className='button'
+                                        onClick={() => {
+                                            <Navigate to='/login' />;
+                                            LogoutUser();
+                                        }}
+                                    >
+                                        Logout
+                                    </Button>
+                                </div>
+                            )}
                         </>
                     )}
 
