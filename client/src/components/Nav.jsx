@@ -69,7 +69,7 @@ export const Nav = () => {
                                         : ''
                                 }`}
                             >
-                                Register
+                                User Registration
                             </Button>
                             <Button
                                 href='/login'

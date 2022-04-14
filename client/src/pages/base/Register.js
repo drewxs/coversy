@@ -42,7 +42,7 @@ export const Register = () => {
             <div className='card'>
                 <Button href='/'>{`< Back`}</Button>
                 <div className='h-cont'>
-                    <h1>Registration</h1>
+                    <h1>User Registration</h1>
                 </div>
                 {!success ? (
                     <form onSubmit={handleSubmit}>

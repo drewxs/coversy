@@ -9,6 +9,9 @@
     top: 0;
     box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
 
+    .hamburger-icon {
+        display: none;
+    }
     .logo-cont {
         display: flex;
         align-items: center;
@@ -61,5 +64,31 @@
     }
     @media print {
         display: none;
+    }
+
+    @media only screen and (min-width: 380px) and (max-width: 768px) {
+        .nav-links {
+            .links {
+                display: flex;
+                flex-direction: column;
+                right: 15%;
+
+                .hamburger-icon {
+                    display: flex;
+                    z-index: 10;
+                }
+
+                .nav-btn {
+                    position: fixed;
+                    top: 10%;
+
+                    background-color: $primary;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
     }
 }

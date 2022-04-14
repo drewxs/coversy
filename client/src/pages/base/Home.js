@@ -14,7 +14,7 @@ export const Home = () => {
                     href='/register/site'
                     size='large'
                 >
-                    Register New Site
+                    Site Registration
                 </Button>
             </div>
         </section>

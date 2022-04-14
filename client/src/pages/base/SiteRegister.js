@@ -59,7 +59,7 @@ export const SiteRegister = () => {
             <div className='card'>
                 <Button href='/'>{`< Back`}</Button>
                 <div className='h-cont'>
-                    <h1>Registration</h1>
+                    <h1>Site Registration</h1>
                 </div>
                 {!success ? (
                     <form onSubmit={handleSubmit}>
