@@ -196,12 +196,13 @@ export const Shifts = () => {
                                                 user._id && (
                                                 <IconButton
                                                     color='primary'
-                                                    onClick={() =>
+                                                    onClick={() => {
                                                         DeleteShiftMaterials(
                                                             current,
                                                             file.fileKey
-                                                        )
-                                                    }
+                                                        );
+                                                        setOpenView(false);
+                                                    }}
                                                 >
                                                     <CloseRounded fontSize='small'></CloseRounded>
                                                 </IconButton>
@@ -214,12 +215,13 @@ export const Shifts = () => {
                                             classes='file-uploader'
                                             multiple={false}
                                             maxSize={60}
-                                            handleChange={(file) =>
+                                            handleChange={(file) => {
                                                 UploadShiftMaterials(
                                                     current,
                                                     file
-                                                )
-                                            }
+                                                );
+                                                setOpenView(false);
+                                            }}
                                         />
                                     )}
                                     {/* Taking Shifts Handler */}

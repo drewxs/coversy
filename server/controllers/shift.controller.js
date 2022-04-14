@@ -224,7 +224,7 @@ exports.updateShiftMaterials = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        });
+        }).populate('teacher', 'firstName lastName email');
         return res.status(200).json(shift);
     } catch (err) {
         return res.status(400).send(err.message);
@@ -253,7 +253,6 @@ exports.deleteShiftMaterial = async (req, res) => {
                 (material) => material.fileKey != fileKey
             ),
         };
-        console.log(updateQuery);
         await s3.deleteObject(deleteParams).promise();
     } catch (err) {
         console.error(err);
@@ -262,7 +261,7 @@ exports.deleteShiftMaterial = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        });
+        }).populate('teacher', 'firstName lastName email');
         return res.status(200).json(shift);
     } catch (err) {
         return res.status(400).send(err.message);
