@@ -76,6 +76,28 @@ export const shiftSlice = createSlice({
                 ],
             };
         },
+        takeShift: (state, action) => {
+            return {
+                ...state,
+                myShifts: [...state.myShifts, action.payload],
+                shifts: [
+                    ...state.shifts.filter(
+                        (shift) => shift._id !== action.payload._id
+                    ),
+                ],
+            };
+        },
+        returnShift: (state, action) => {
+            return {
+                ...state,
+                myShifts: [
+                    ...state.myShifts.filter(
+                        (shift) => shift._id !== action.payload._id
+                    ),
+                ],
+                shifts: [...state.shifts, action.payload],
+            };
+        },
     },
 });
 
@@ -88,6 +110,8 @@ export const {
     loadingShifts,
     postShift,
     unpostShift,
+    takeShift,
+    returnShift,
 } = shiftSlice.actions;
 
 export default shiftSlice.reducer;

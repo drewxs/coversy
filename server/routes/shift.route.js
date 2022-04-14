@@ -10,11 +10,12 @@ const {
     postShift,
     unpostShift,
     takeShift,
+    returnShift,
     updateShiftMaterials,
     deleteShiftsBySite,
     deleteShiftMaterial,
 } = require('../controllers/shift.controller');
-const { verifyShift } = require('../middleware/verify.shift');
+const { verifyShift, verifyShiftSub } = require('../middleware/verify.shift');
 const { uploadMaterials } = require('../middleware/s3.uploader');
 const { verifyToken, verifyAdmin } = require('../middleware/verify');
 
@@ -37,7 +38,8 @@ router.get(
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put('/:shiftId/post', verifyToken, verifyShift, postShift);
 router.put('/:shiftId/unpost', verifyToken, verifyShift, unpostShift);
-router.put('/:shiftId/take', verifyToken, verifyShift, takeShift);
+router.put('/:shiftId/take', verifyToken, takeShift);
+router.put('/:shiftId/return', verifyToken, verifyShiftSub, returnShift);
 router.put(
     '/:shiftId/files/upload',
     verifyToken,

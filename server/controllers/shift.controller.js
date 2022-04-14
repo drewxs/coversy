@@ -101,7 +101,15 @@ exports.getShiftsByUser = async (req, res) => {
     try {
         const shifts = await Shift.find({
             site: req.user.site,
-            teacher: req.user._id,
+            $or: [
+                { teacher: req.user._id },
+                {
+                    $and: [
+                        { $not: { teacher: req.user._id } },
+                        { sub: req.user._id },
+                    ],
+                },
+            ],
         })
             .lean()
             .populate('teacher', 'firstName lastName email');
@@ -303,12 +311,16 @@ exports.postShift = async (req, res) => {
  * @access User
  */
 exports.unpostShift = async (req, res) => {
+    const shiftId = escape(req.params.shiftId);
     try {
-        const shift = await Shift.findByIdAndUpdate(
-            escape(req.params.shiftId),
-            { posted: false },
-            { new: true }
-        ).populate('teacher', 'firstName lastName email');
+        const shift = await Shift.findById(shiftId);
+
+        if (shift.sub) return res.status(400).json('Shift has been taken.');
+
+        shift.posted = false;
+        shift.populate('teacher', 'firstName lastName email');
+
+        await shift.save();
 
         return res.status(200).json(shift);
     } catch (err) {
@@ -338,6 +350,36 @@ exports.takeShift = async (req, res) => {
             `${
                 shift.sub.firstName + ' ' + shift.sub.lastName
             }  has taken your shift on ${shift.startTime}`
+        );
+
+        return res.status(200).json(shift);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+};
+
+/**
+ * This function untakes a shift
+ *
+ * @route PUT /:shiftId/take
+ * @access User
+ */
+exports.returnShift = async (req, res) => {
+    const shiftId = escape(req.params.shiftId);
+    const updateQuery = { posted: true, sub: null };
+
+    try {
+        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
+            new: true,
+        }).populate('teacher', 'firstName lastName email');
+
+        createNotification(
+            shift.sub,
+            shift.teacher,
+            `Shift was taken`,
+            `${
+                shift.sub.firstName + ' ' + shift.sub.lastName
+            }  has returned your shift on ${shift.startTime}`
         );
 
         return res.status(200).json(shift);
