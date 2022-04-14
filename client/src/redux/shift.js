@@ -6,6 +6,8 @@ import {
     loadingShifts,
     postShift,
     unpostShift,
+    takeShift,
+    returnShift,
 } from 'redux/shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
@@ -159,7 +161,23 @@ export const TakeShift = async (shiftId) => {
         const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
-        store.dispatch(editShift(shift.data));
+        store.dispatch(takeShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+/**
+ * Takes a shift
+ *
+ * @param {ObjectId} shiftId
+ */
+export const ReturnShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/return`, null, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(returnShift(shift.data));
     } catch (err) {
         console.error(err);
     }
