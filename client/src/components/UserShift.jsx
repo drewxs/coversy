@@ -38,9 +38,6 @@ export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
                     size='small'
                     onClick={() => {
                         setOpenConfirm(true);
-                        btnText === 'Post' && PostShift(shift._id);
-                        btnText === 'Unpost' && UnpostShift(shift._id);
-                        btnText === 'Take' && TakeShift(shift._id);
                     }}
                     variant='contained'
                 >
@@ -49,41 +46,38 @@ export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
 
                 {/* Confirmation Modal for Post Shift */}
                 {btnText === 'Post' && (
-                    <div>
-                        <ConfirmationModal
-                            openConfirm={openConfirm}
-                            setOpenConfirm={setOpenConfirm}
-                            title='Post Shift'
-                            description='Are you sure you want to post this shift?'
-                            btnText='Post'
-                        ></ConfirmationModal>
-                    </div>
+                    <ConfirmationModal
+                        modalFunction={() => PostShift(shift._id)}
+                        openConfirm={openConfirm}
+                        setOpenConfirm={setOpenConfirm}
+                        title='Post Shift'
+                        description='Are you sure you want to post this shift?'
+                        btnText='Post'
+                    ></ConfirmationModal>
                 )}
 
                 {/* Confirmation Modal for Unpost Shift */}
                 {btnText === 'Unpost' && (
-                    <div>
-                        <ConfirmationModal
-                            openConfirm={openConfirm}
-                            setOpenConfirm={setOpenConfirm}
-                            title='Unpost Shift'
-                            description='Are you sure you want to unpost this shift?'
-                            btnText='Unpost'
-                        ></ConfirmationModal>
-                    </div>
+                    <ConfirmationModal
+                        modalFunction={() => UnpostShift(shift._id)}
+                        openConfirm={openConfirm}
+                        setOpenConfirm={setOpenConfirm}
+                        title='Unpost Shift'
+                        description='Are you sure you want to unpost this shift?'
+                        btnText='Unpost'
+                    ></ConfirmationModal>
                 )}
 
                 {/* Confirmation Modal for Take Shift */}
                 {btnText === 'Take' && (
-                    <div>
-                        <ConfirmationModal
-                            openConfirm={openConfirm}
-                            setOpenConfirm={setOpenConfirm}
-                            title='Take Shift'
-                            description='Are you sure you want to take this shift?'
-                            btnText='Take'
-                        ></ConfirmationModal>
-                    </div>
+                    <ConfirmationModal
+                        modalFunction={() => TakeShift(shift._id)}
+                        openConfirm={openConfirm}
+                        setOpenConfirm={setOpenConfirm}
+                        title='Take Shift'
+                        description='Are you sure you want to take this shift?'
+                        btnText='Take'
+                    ></ConfirmationModal>
                 )}
             </div>
         </div>

@@ -297,7 +297,7 @@ exports.postShift = async (req, res) => {
 };
 
 /**
- * This function posts a shift
+ * This function unposts a shift
  *
  * @route PUT /:shiftId/unpost
  * @access User

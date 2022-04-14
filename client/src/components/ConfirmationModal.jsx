@@ -8,6 +8,7 @@ export const ConfirmationModal = ({
     btnText,
     setOpenConfirm,
     openConfirm,
+    modalFunction,
 }) => {
     return (
         <Modal open={openConfirm} onClose={() => setOpenConfirm(false)}>
@@ -17,7 +18,10 @@ export const ConfirmationModal = ({
                 <Button
                     variant='contained'
                     sx={{ mr: '1rem', mt: '1rem' }}
-                    onClick={() => setOpenConfirm(false)}
+                    onClick={() => {
+                        modalFunction();
+                        setOpenConfirm(false);
+                    }}
                 >
                     {btnText}
                 </Button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts } from 'redux/shift';
-import { AddShift, SetOpenShiftUpload } from 'redux/admin';
+import { AddShift, SetOpenShiftUpload, FetchUsers } from 'redux/admin';
 import {
     Table,
     TableBody,
@@ -13,6 +13,9 @@ import {
     Typography,
     Modal,
     TextField,
+    Select,
+    InputLabel,
+    MenuItem,
 } from '@mui/material';
 import { FileUploader } from 'react-drag-drop-files';
 import Papa from 'papaparse';
@@ -20,6 +23,8 @@ import moment from 'moment';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
+    const users = useSelector((state) => state.admin.users);
+    const admin = useSelector((state) => state.user.user);
     const openShiftUpload = useSelector((state) => state.admin.openShiftUpload);
     const shiftCount = useSelector((state) => state.admin.shiftCount);
     const shiftErrorCount = useSelector((state) => state.admin.shiftErrorCount);
@@ -28,9 +33,14 @@ export const AdminShifts = () => {
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
     const [teacher, setTeacher] = useState(null);
+    const [value, onChange] = useState(new Date());
     //const [date, setDate] = useState(new Date());
-    const [startTime, setStartTime] = useState(null);
+    //const [startTime, setStartTime] = useState(null);
     //const [endTime, setEndTime] = useState(null);
+
+    useEffect(() => {
+        if (admin.site._id) FetchUsers(admin.site._id);
+    }, [admin]);
 
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
@@ -100,7 +110,7 @@ export const AdminShifts = () => {
                                                 setTeacher(
                                                     shift.teacher.firstName
                                                 );
-                                                setStartTime(shift.startTime);
+                                                //setStartTime(shift.startTime);
                                                 setOpen(true);
                                             }}
                                         >
@@ -177,41 +187,22 @@ export const AdminShifts = () => {
                             placeholder='Subject'
                             fullWidth
                         ></TextField>
-                        <TextField
-                            value={teacher}
-                            onChange={(e) => setTeacher(e.target.value)}
-                            label='Teacher'
+                        <InputLabel>Teacher</InputLabel>
+                        <Select
+                            sx={{ mb: '1rem' }}
                             placeholder='Teacher'
                             fullWidth
-                        ></TextField>
-                        <TextField
-                            value={startTime}
-                            onChange={(e) =>
-                                setStartTime(
-                                    moment(e.target.value).format(
-                                        'MMMM d, YYYY'
-                                    )
-                                )
-                            }
-                            label='Shift Date'
-                            placeholder='Shift Date'
-                            fullWidth
-                        ></TextField>
-                        <TextField
-                            value={startTime}
-                            onChange={(e) => {
-                                moment(
-                                    setStartTime(
-                                        moment(shifts?.startTime).format(
-                                            'MMM D, Y'
-                                        )
-                                    )
-                                );
-                            }}
-                            label='Shift Time'
-                            placeholder='Shift Time'
-                            fullWidth
-                        ></TextField>
+                            value={teacher}
+                            onChange={(e) => setTeacher(e.target.value)}
+                        >
+                            {users?.map((user, k) => (
+                                <MenuItem value={user} key={k}>
+                                    {user.firstName} {user.lastName}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        {/* DateTimePicker */}
+
                         <Button
                             sx={{ mr: '1rem' }}
                             variant='contained'
