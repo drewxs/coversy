@@ -36,7 +36,9 @@ export const AdminTickets = () => {
     const [tab, setTab] = useState(0);
 
     const handleResolve = (ticket) => {
-        ticket.resolved ? UnresolveTicket(ticket) : ResolveTicket(ticket);
+        ticket.resolved
+            ? UnresolveTicket(ticket._id)
+            : ResolveTicket(ticket._id);
     };
 
     useEffect(() => {

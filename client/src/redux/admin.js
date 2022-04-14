@@ -24,8 +24,9 @@ import store from 'redux/store';
 const api = process.env.REACT_APP_API_URL;
 
 /**
- * @description Fetches all users
- * @params siteId
+ * Fetches all users.
+ *
+ * @param {ObjectId} siteId
  */
 export const FetchUsers = async (siteId) => {
     store.dispatch(loadingUsers());
@@ -38,8 +39,9 @@ export const FetchUsers = async (siteId) => {
 };
 
 /**
- * @description Toggle user active status
- * @params userId
+ * Toggle user active status.
+ *
+ * @param {ObjectId} userId
  */
 export const ToggleUserActivatedById = async (userId) => {
     await axios
@@ -51,8 +53,10 @@ export const ToggleUserActivatedById = async (userId) => {
 };
 
 /**
- * @description Updates a user
- * @params userId, updateQuery
+ * Updates a user.
+ *
+ * @param {ObjectId} userId,
+ * @param {Object} updateQuery used to update the user
  */
 export const UpdateUserAsAdmin = async (userId, updateQuery) => {
     try {
@@ -70,8 +74,9 @@ export const UpdateUserAsAdmin = async (userId, updateQuery) => {
 };
 
 /**
- * @description Updates site details
- * @params updateQuery
+ * Updates site details.
+ *
+ * @param {Object} updateQuery used to update the site
  */
 export const UpdateSite = async (updateQuery) => {
     try {
@@ -87,8 +92,9 @@ export const UpdateSite = async (updateQuery) => {
 };
 
 /**
- * @description Adds a shift
- * @params shift
+ * Adds a shift.
+ *
+ * @param {Object} shift
  */
 export const AddShift = async (shift) => {
     try {
@@ -102,11 +108,21 @@ export const AddShift = async (shift) => {
     }
 };
 
+/**
+ * Sets open/close state of the edit user modal.
+ *
+ * @param {boolean} open
+ */
 export const SetOpenEditUser = (open) => {
     store.dispatch(openEditUser(open));
     store.dispatch(clearErrors());
 };
 
+/**
+ * Sets open/close state of the shift upload modal.
+ *
+ * @param {boolean} open
+ */
 export const SetOpenShiftUpload = (open) => {
     !open && store.dispatch(clearShiftUpload());
     store.dispatch(openShiftUpload(open));

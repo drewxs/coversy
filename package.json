@@ -1,0 +1,24 @@
+{
+    "name": "coversy",
+    "version": "1.0.0",
+    "description": "Instructor shift scheduling, shift exchange, and payroll management system. For internal use only.",
+    "main": "index.js",
+    "scripts": {
+        "doc": "jsdoc -c ./jsdoc.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kito0/capstone.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kito0/capstone/issues"
+    },
+    "homepage": "https://github.com/kito0/capstone#readme",
+    "devDependencies": {
+        "clean-jsdoc-theme": "^3.3.4",
+        "jsdoc": "^3.6.10"
+    }
+}

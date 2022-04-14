@@ -15,7 +15,7 @@ import store from 'redux/store';
 const api = process.env.REACT_APP_API_URL;
 
 /**
- * Fetches all shifts
+ * Fetches all shifts.
  */
 export const GetShifts = () => {
     store.dispatch(loadingShifts);
@@ -29,7 +29,7 @@ export const GetShifts = () => {
 };
 
 /**
- * Fetches all posted shifts (excluding user's own shifts)
+ * Fetches all posted shifts (excluding user's own shifts).
  */
 export const GetPostedShifts = () => {
     store.dispatch(loadingShifts);
@@ -43,7 +43,7 @@ export const GetPostedShifts = () => {
 };
 
 /**
- * Fetches all user's shifts
+ * Fetches all user's shifts.
  */
 export const GetMyShifts = () => {
     store.dispatch(loadingShifts);
@@ -64,12 +64,7 @@ export const GetMyShifts = () => {
 };
 
 /**
- * @description Updates a shift
- * @param {*} shift
- */
-
-/**
- * Edits a shift
+ * Edits a shift.
  *
  * @param {Object} shift
  */
@@ -83,7 +78,7 @@ export const EditShift = (shift) => {
 };
 
 /**
- * Updates a shifts materials
+ * Updates a shifts materials.
  *
  * @param {Object} shift
  */
@@ -103,7 +98,7 @@ export const UploadShiftMaterials = (shift, file) => {
 };
 
 /**
- * Deletes a single shift material
+ * Deletes a single shift material.
  *
  * @param {Object} shift
  * @param {string} fileKey
@@ -120,7 +115,7 @@ export const DeleteShiftMaterials = (shift, fileKey) => {
 };
 
 /**
- * Posts a shift
+ * Posts a shift.
  *
  * @param {ObjectId} shiftId
  */
@@ -136,7 +131,7 @@ export const PostShift = async (shiftId) => {
 };
 
 /**
- * Unposts a shift
+ * Unposts a shift.
  *
  * @param {ObjectId} shiftId
  */
@@ -152,7 +147,7 @@ export const UnpostShift = async (shiftId) => {
 };
 
 /**
- * Takes a shift
+ * Takes a shift.
  *
  * @param {ObjectId} shiftId
  */
@@ -168,7 +163,7 @@ export const TakeShift = async (shiftId) => {
 };
 
 /**
- * Takes a shift
+ * Takes a shift.
  *
  * @param {ObjectId} shiftId
  */
