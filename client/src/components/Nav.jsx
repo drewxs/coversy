@@ -1,39 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Button, IconButton, Badge } from '@mui/material';
+import { Button } from '@mui/material';
 import { LogoutUser } from 'redux/user';
-import { NotificationsNone } from '@mui/icons-material';
-import { GetNotifications, ReadNotifications } from 'redux/notif';
 import logo from 'assets/logo.svg';
+import { NotificationDropdown } from './NotificationDropdown';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
 
-    const notifications = useSelector(
-        (state) => state.notification.notifications
-    );
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-        if (!open) {
-            ReadNotifications();
-        }
-        setOpen(!open);
-    };
-    useEffect(() => {
-        if (authenticated) {
-            GetNotifications();
-        }
-    }, [authenticated]);
-
-    const hasUnread = () => {
-        let total = 0;
-        notifications.forEach((notif) => {
-            total += notif.read;
-        });
-        return total === notifications.length;
-    };
     const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
@@ -185,32 +161,7 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
-                            <Badge
-                                variant='dot'
-                                color='primary'
-                                overlap='circular'
-                                invisible={hasUnread()}
-                            >
-                                <IconButton
-                                    color='primary'
-                                    className='button notif-btn'
-                                    onClick={() => {
-                                        handleOpen();
-                                    }}
-                                >
-                                    <NotificationsNone />
-                                </IconButton>
-                            </Badge>
-                            {open && (
-                                <div className='notif-dropdown card'>
-                                    {notifications.map((notif, k) => (
-                                        <div className='notif-item' key={k}>
-                                            <p>{notif.title}</p>
-                                            <p>{notif.message}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                            <NotificationDropdown />
                             <Button
                                 color='primary'
                                 className='button logout-btn'
