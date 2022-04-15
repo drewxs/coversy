@@ -225,19 +225,18 @@ export const Shifts = () => {
                                         />
                                     )}
                                     {/* Taking Shifts Handler */}
-                                    {current.teacher._id !== user._id ||
-                                        (current.sub._id !== user._id && (
-                                            <Button
-                                                sx={{ marginTop: '1rem' }}
-                                                variant='contained'
-                                                onClick={() => {
-                                                    TakeShift(current._id);
-                                                    setOpenView(false);
-                                                }}
-                                            >
-                                                Take Shift
-                                            </Button>
-                                        ))}
+                                    {current.teacher._id !== user._id && (
+                                        <Button
+                                            sx={{ marginTop: '1rem' }}
+                                            variant='contained'
+                                            onClick={() => {
+                                                TakeShift(current._id);
+                                                setOpenView(false);
+                                            }}
+                                        >
+                                            Take Shift
+                                        </Button>
+                                    )}
                                 </div>
                             </Box>
                         </Modal>
