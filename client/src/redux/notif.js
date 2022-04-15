@@ -1,4 +1,8 @@
-import { setNotifications, loadingNotifications } from 'redux/notifSlice';
+import {
+    setNotifications,
+    readNotifications,
+    loadingNotifications,
+} from 'redux/notifSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -9,7 +13,6 @@ export const GetNotifications = async () => {
     await axios
         .get(`${api}/notification`, {
             headers: {
-                'content-type': 'application/json',
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
@@ -19,12 +22,11 @@ export const GetNotifications = async () => {
 export const ReadNotifications = async () => {
     store.dispatch(loadingNotifications);
     await axios
-        .put(`${api}/notification`, {
+        .put(`${api}/notification`, null, {
             headers: {
-                'content-type': 'application/json',
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
-        .then((res) => store.dispatch(setNotifications(res.data)))
+        .then((res) => store.dispatch(readNotifications(res.data)))
         .catch((err) => console.error(err));
 };
