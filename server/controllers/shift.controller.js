@@ -340,16 +340,11 @@ exports.takeShift = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        }).populate('teacher', 'firstName lastName email');
+        })
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
 
-        createNotification(
-            shift.sub,
-            shift.teacher,
-            `Shift was taken`,
-            `${
-                shift.sub.firstName + ' ' + shift.sub.lastName
-            }  has taken your shift on ${shift.startTime}`
-        );
+        createNotification(shift.sub, shift.teacher, `Shift`, shift);
 
         return res.status(200).json(shift);
     } catch (err) {
