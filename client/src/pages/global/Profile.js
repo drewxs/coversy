@@ -28,7 +28,7 @@ export const Profile = () => {
     const [siteName, setSiteName] = useState(null);
     const [street, setStreet] = useState(null);
     const [city, setCity] = useState('');
-    const [zip, setZip] = useState(null);
+    const [postalCode, setPostalCode] = useState(null);
     const [province, setProvince] = useState(null);
 
     const [firstName, setFirstname] = useState(null);
@@ -61,7 +61,7 @@ export const Profile = () => {
         e.preventDefault();
         UpdateSite({
             name: siteName,
-            address: { street, city, zip, province },
+            address: { street, city, postalCode, province },
         });
     };
 
@@ -113,7 +113,9 @@ export const Profile = () => {
                                                 user?.site?.address?.street
                                             );
                                             setCity(user?.site?.address.city);
-                                            setZip(user?.site?.address?.zip);
+                                            setPostalCode(
+                                                user?.site?.address?.postalCode
+                                            );
                                             setProvince(
                                                 user?.site?.address?.province
                                             );
@@ -160,7 +162,7 @@ export const Profile = () => {
                                 {', '}
                                 {user?.site?.address.province}
                                 {', '}
-                                {user?.site?.address?.zip}
+                                {user?.site?.address?.postalCode}
                             </div>
                         </div>
                         {user?.phone && (
@@ -220,12 +222,10 @@ export const Profile = () => {
                                         }}
                                     >
                                         <TextField
-                                            sx={{
-                                                mr: '0.9rem',
-                                            }}
-                                            value={zip}
+                                            sx={{ mr: '0.9rem' }}
+                                            value={postalCode}
                                             onChange={(e) =>
-                                                setZip(e.target.value)
+                                                setPostalCode(e.target.value)
                                             }
                                             fullWidth
                                             label='Postal Code'
@@ -278,9 +278,7 @@ export const Profile = () => {
                                         onClick={() => {
                                             SetEditOpen(false);
                                         }}
-                                        style={{
-                                            marginLeft: '1.5em',
-                                        }}
+                                        style={{ marginLeft: '1.5em' }}
                                         variant='outlined'
                                     >
                                         Cancel
