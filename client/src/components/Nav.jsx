@@ -16,8 +16,10 @@ export const Nav = () => {
     );
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
-        ReadNotifications();
-        setOpen(true);
+        if (!open) {
+            ReadNotifications();
+        }
+        setOpen(!open);
     };
     useEffect(() => {
         if (authenticated) {
@@ -183,34 +185,32 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
-                            <div>
-                                <Badge
-                                    variant='dot'
+                            <Badge
+                                variant='dot'
+                                color='primary'
+                                overlap='circular'
+                                invisible={hasUnread()}
+                            >
+                                <IconButton
                                     color='primary'
-                                    overlap='circular'
-                                    invisible={hasUnread()}
+                                    className='button notif-btn'
+                                    onClick={() => {
+                                        handleOpen();
+                                    }}
                                 >
-                                    <IconButton
-                                        color='primary'
-                                        className='button notif-btn'
-                                        onClick={() => {
-                                            handleOpen();
-                                        }}
-                                    >
-                                        <NotificationsNone />
-                                    </IconButton>
-                                </Badge>
-                                {open && (
-                                    <div className='notif-dropdown card'>
-                                        {notifications.map((notif, k) => (
-                                            <div className='notif-item' key={k}>
-                                                <h4>{notif.title}</h4>
-                                                <p>{notif.message}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                                    <NotificationsNone />
+                                </IconButton>
+                            </Badge>
+                            {open && (
+                                <div className='notif-dropdown card'>
+                                    {notifications.map((notif, k) => (
+                                        <div className='notif-item' key={k}>
+                                            <p>{notif.title}</p>
+                                            <p>{notif.message}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                             <Button
                                 color='primary'
                                 className='button logout-btn'
