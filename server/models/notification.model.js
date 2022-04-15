@@ -12,15 +12,14 @@ const NotificationSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        title: {
+        type: {
             type: String,
+            enum: ['Shift', 'Payroll', 'TimeOff'],
             required: true,
-            max: 50,
         },
-        message: {
-            type: String,
+        referenceObject: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
-            max: 256,
         },
         read: {
             type: Boolean,
