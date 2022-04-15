@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Notifications Redux slice. Contains initial state and reducers for notifications.
+ */
 export const notifSlice = createSlice({
     name: 'notification',
     initialState: {

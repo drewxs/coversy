@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-/** @module ticketSlice */
-
 /**
  * Ticket Redux slice. Contains initial state and reducers for ticket.
  */
@@ -14,14 +12,6 @@ export const ticketSlice = createSlice({
         loadingResolved: false,
     },
     reducers: {
-        /**
-         * Sets the unresolved tickets.
-         *
-         * @function setTickets
-         * @param {Object} state - The Redux state.
-         * @param {Object} action - The Redux action.
-         * @returns Updated state with unresolved tickets.
-         */
         setTickets: (state, action) => {
             return {
                 ...state,
@@ -29,14 +19,6 @@ export const ticketSlice = createSlice({
                 loading: false,
             };
         },
-        /**
-         * Sets the resolved tickets.
-         *
-         * @function setResolvedTickets
-         * @param {Object} state - The Redux state.
-         * @param {Object} action - The Redux action.
-         * @returns Updated state with resolved tickets.
-         */
         setResolvedTickets: (state, action) => {
             return {
                 ...state,
@@ -44,14 +26,6 @@ export const ticketSlice = createSlice({
                 loadingResolved: false,
             };
         },
-        /**
-         * Sets a ticket as resolved.
-         *
-         * @function setResolved
-         * @param {Object} state - The Redux state.
-         * @param {Object} action - The Redux action.
-         * @returns Updated state with the ticket moved to the resolved tickets.
-         */
         setResolved: (state, action) => {
             return {
                 ...state,
@@ -65,14 +39,6 @@ export const ticketSlice = createSlice({
                 loadingResolved: false,
             };
         },
-        /**
-         * Sets a ticket as unresolved.
-         *
-         * @function setUnresolved
-         * @param {Object} state - The Redux state.
-         * @param {Object} action - The Redux action.
-         * @returns Updated state with the ticket moved to the unresolved tickets.
-         */
         setUnresolved: (state, action) => {
             return {
                 ...state,
@@ -86,26 +52,12 @@ export const ticketSlice = createSlice({
                 loadingResolved: false,
             };
         },
-        /**
-         * Sets the loading state to true.
-         *
-         * @function loadingTickets
-         * @param {Object} state - The Redux state.
-         * @returns Updated state with the loading flag set to true.
-         */
         loadingTickets: (state) => {
             return {
                 ...state,
                 loading: true,
             };
         },
-        /**
-         * Sets the loadingResolved state to true.
-         *
-         * @function loadingResolvedTickets
-         * @param {Object} state - The Redux state.
-         * @returns Updated state with the loadingResolved flag set to true.
-         */
         loadingResolvedTickets: (state) => {
             return {
                 ...state,

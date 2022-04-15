@@ -11,7 +11,7 @@ import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
-/** @module ticket */
+/** @module ticket_data */
 
 /**
  * Fetches unresolved tickets.

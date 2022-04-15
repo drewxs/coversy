@@ -16,12 +16,15 @@ import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/** @module shift_data */
+
 /**
- * Fetches all shifts.
+ * Fetches shifts.
+ *
+ * @function GetShifts
  */
 export const GetShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -32,10 +35,11 @@ export const GetShifts = () => {
 
 /**
  * Fetches all posted shifts (excluding user's own shifts).
+ *
+ * @function GetPostedShifts
  */
 export const GetPostedShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift/posted`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -46,10 +50,11 @@ export const GetPostedShifts = () => {
 
 /**
  * Fetches all user's shifts.
+ *
+ * @function GetMyShifts
  */
 export const GetMyShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift/user`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -68,7 +73,8 @@ export const GetMyShifts = () => {
 /**
  * Edits a shift.
  *
- * @param {Object} shift
+ * @function EditShift
+ * @param {Object} shift - Object containing shift fields to be updated.
  */
 export const EditShift = (shift) => {
     axios
@@ -82,25 +88,25 @@ export const EditShift = (shift) => {
 /**
  * Updates a shifts materials.
  *
- * @param {Object} shift
+ * @function UploadShiftMaterials
+ * @param {string} shiftId - The object id of the shift.
+ * @param {string} file - The file to be uploaded.
  */
-export const UploadShiftMaterials = (shift, file) => {
+export const UploadShiftMaterials = (shiftId, file) => {
     const formData = new FormData();
     formData.append('materials', file);
 
     axios
-        .put(`${api}/shift/${shift._id}/files/upload`, formData, {
+        .put(`${api}/shift/${shiftId}/files/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
         .then((res) => {
-            if (res.data.posted) {
-                store.dispatch(editMyPostedShift(res.data));
-            } else {
-                store.dispatch(editMyShift(res.data));
-            }
+            res.data.posted
+                ? store.dispatch(editMyPostedShift(res.data))
+                : store.dispatch(editMyShift(res.data));
         })
         .catch((err) => console.error(err));
 };
@@ -108,12 +114,13 @@ export const UploadShiftMaterials = (shift, file) => {
 /**
  * Deletes a single shift material.
  *
- * @param {Object} shift
- * @param {string} fileKey
+ * @function DeleteShiftMaterials
+ * @param {Object} shiftId - The parent shift object of the file to be deleted.
+ * @param {string} fileKey - The key of the file to be deleted.
  */
-export const DeleteShiftMaterials = (shift, fileKey) => {
+export const DeleteShiftMaterials = (shiftId, fileKey) => {
     axios
-        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, {
+        .delete(`${api}/shift/${shiftId}/files/${fileKey}`, {
             headers: {
                 'auth-token': localStorage.getItem('auth-token'),
             },
@@ -131,7 +138,9 @@ export const DeleteShiftMaterials = (shift, fileKey) => {
 /**
  * Posts a shift.
  *
- * @param {ObjectId} shiftId
+ * @function PostShift
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const PostShift = async (shiftId) => {
     try {
@@ -147,7 +156,9 @@ export const PostShift = async (shiftId) => {
 /**
  * Unposts a shift.
  *
- * @param {ObjectId} shiftId
+ * @function UnpostShift
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const UnpostShift = async (shiftId) => {
     try {
@@ -163,7 +174,9 @@ export const UnpostShift = async (shiftId) => {
 /**
  * Takes a shift.
  *
- * @param {ObjectId} shiftId
+ * @function TakeShift
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const TakeShift = async (shiftId) => {
     try {
@@ -179,7 +192,9 @@ export const TakeShift = async (shiftId) => {
 /**
  * Takes a shift.
  *
- * @param {ObjectId} shiftId
+ * @function ReturnShift
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const ReturnShift = async (shiftId) => {
     try {

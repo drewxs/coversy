@@ -31,7 +31,7 @@
 
 
     <title>
-      ticket
+      admin_routes
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        ticket
+        admin_routes
       </h1>
       
 
@@ -146,9 +146,9 @@
 
     
 
-    <h4 class="name" id="~CreateTicket">
-        <a href="#~CreateTicket">#</a>
-        <span class="type-signature">(inner) </span>CreateTicket<span class="signature">(ticket)</span><span class="type-signature"></span>
+    <h4 class="name" id="~AddShift">
+        <a href="#~AddShift">#</a>
+        <span class="type-signature">(async, inner) </span>AddShift<span class="signature">(shift)</span><span class="type-signature"></span>
     </h4>
 
     
@@ -156,7 +156,7 @@
 
 
     <div class="description">
-        <p>Creates a ticket.</p>
+        <p>Adds a shift.</p>
     </div>
 
 
@@ -193,7 +193,7 @@
 
         <tr>
             
-                <td class="name"><code>ticket</code></td>
+                <td class="name"><code>shift</code></td>
             
 
             <td class="type">
@@ -209,7 +209,7 @@
 
             
 
-            <td class="description last"><p>The ticket to be created.</p>
+            <td class="description last">
                 <h6>Properties</h6>
                 
 
@@ -235,30 +235,7 @@
 
         <tr>
             
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The type of the ticket (1: Payroll issue, 2: Time-off request).</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
+                <td class="name"><code>teacher</code></td>
             
 
             <td class="type">
@@ -274,7 +251,76 @@
 
             
 
-            <td class="description last"><p>The message of the ticket.</p></td>
+            <td class="description last"><p>The email of the user assigned to the shift.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The start time of the shift.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The end time of the shift.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subject</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The subject of the shift.</p></td>
         </tr>
 
     
@@ -326,7 +372,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_src_redux_ticket.js.html">client/src/redux/ticket.js</a>, <a href="client_src_redux_ticket.js.html#line46">line 46</a>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line112">line 112</a>
             </li></ul></dd>
         </div>
     
@@ -360,9 +406,9 @@
 
     
 
-    <h4 class="name" id="~GetResolvedTickets">
-        <a href="#~GetResolvedTickets">#</a>
-        <span class="type-signature">(inner) </span>GetResolvedTickets<span class="signature">()</span><span class="type-signature"></span>
+    <h4 class="name" id="~FetchUsers">
+        <a href="#~FetchUsers">#</a>
+        <span class="type-signature">(async, inner) </span>FetchUsers<span class="signature">(siteId)</span><span class="type-signature"></span>
     </h4>
 
     
@@ -370,189 +416,7 @@
 
 
     <div class="description">
-        <p>Fetches resolved tickets.</p>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_src_redux_ticket.js.html">client/src/redux/ticket.js</a>, <a href="client_src_redux_ticket.js.html#line31">line 31</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~GetUnresolvedTickets">
-        <a href="#~GetUnresolvedTickets">#</a>
-        <span class="type-signature">(inner) </span>GetUnresolvedTickets<span class="signature">()</span><span class="type-signature"></span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>Fetches unresolved tickets.</p>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_src_redux_ticket.js.html">client/src/redux/ticket.js</a>, <a href="client_src_redux_ticket.js.html#line16">line 16</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~ResolveTicket">
-        <a href="#~ResolveTicket">#</a>
-        <span class="type-signature">(inner) </span>ResolveTicket<span class="signature">(ticketId)</span><span class="type-signature"></span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>Resolves a Ticket.</p>
+        <p>Fetches all users.</p>
     </div>
 
 
@@ -589,13 +453,13 @@
 
         <tr>
             
-                <td class="name"><code>ticketId</code></td>
+                <td class="name"><code>siteId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
             
@@ -605,7 +469,7 @@
 
             
 
-            <td class="description last"><p>The id of the ticket to be resolved.</p></td>
+            <td class="description last"><p>The object id of the site to fetch users for.</p></td>
         </tr>
 
     
@@ -650,7 +514,7 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_src_redux_ticket.js.html">client/src/redux/ticket.js</a>, <a href="client_src_redux_ticket.js.html#line63">line 63</a>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line28">line 28</a>
             </li></ul></dd>
         </div>
     
@@ -684,9 +548,9 @@
 
     
 
-    <h4 class="name" id="~UnresolveTicket">
-        <a href="#~UnresolveTicket">#</a>
-        <span class="type-signature">(inner) </span>UnresolveTicket<span class="signature">(ticketId)</span><span class="type-signature"></span>
+    <h4 class="name" id="~SetOpenEditUser">
+        <a href="#~SetOpenEditUser">#</a>
+        <span class="type-signature">(inner) </span>SetOpenEditUser<span class="signature">(open)</span><span class="type-signature"></span>
     </h4>
 
     
@@ -694,7 +558,7 @@
 
 
     <div class="description">
-        <p>Unresolves a Ticket.</p>
+        <p>Sets open/close state of the edit user modal.</p>
     </div>
 
 
@@ -731,13 +595,13 @@
 
         <tr>
             
-                <td class="name"><code>ticketId</code></td>
+                <td class="name"><code>open</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -747,7 +611,7 @@
 
             
 
-            <td class="description last"><p>The id of the ticket to be unresolved.</p></td>
+            <td class="description last"><p>Whether to set the edit user modal to open or closed.</p></td>
         </tr>
 
     
@@ -792,7 +656,906 @@
         <div class="details-item-container">
             <dt class="tag-source">Source:</dt>
             <dd class="tag-source"><ul class="dummy"><li>
-                <a href="client_src_redux_ticket.js.html">client/src/redux/ticket.js</a>, <a href="client_src_redux_ticket.js.html#line78">line 78</a>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line135">line 135</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~SetOpenShiftUpload">
+        <a href="#~SetOpenShiftUpload">#</a>
+        <span class="type-signature">(inner) </span>SetOpenShiftUpload<span class="signature">(open)</span><span class="type-signature"></span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Sets open/close state of the shift upload modal.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>open</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Whether to set the shift upload modal to open or closed.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line146">line 146</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~ToggleUserActivatedById">
+        <a href="#~ToggleUserActivatedById">#</a>
+        <span class="type-signature">(async, inner) </span>ToggleUserActivatedById<span class="signature">(userId)</span><span class="type-signature"></span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Toggle user active status.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The object id of the user.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line45">line 45</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~UpdateSite">
+        <a href="#~UpdateSite">#</a>
+        <span class="type-signature">(async, inner) </span>UpdateSite<span class="signature">(site)</span><span class="type-signature"></span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Updates site details.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>site</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Object containing site fields to be updated.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the site.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The address of the site.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>street</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The street address of the site.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>city</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The city of the site address.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postalCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The postal code of the site address.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>province</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The province of the site address.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line86">line 86</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~UpdateUserAsAdmin">
+        <a href="#~UpdateUserAsAdmin">#</a>
+        <span class="type-signature">(async, inner) </span>UpdateUserAsAdmin<span class="signature">(userId,, user)</span><span class="type-signature"></span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Updates a user.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userId,</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Object containing user field to be updated.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>firstName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The first name of the user.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The last name of the user.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hourlyRate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The hourly rate of the user.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>taxRate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The tax rate of the user.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="client_src_redux_admin.js.html">client/src/redux/admin.js</a>, <a href="client_src_redux_admin.js.html#line61">line 61</a>
             </li></ul></dd>
         </div>
     

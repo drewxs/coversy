@@ -22,7 +22,7 @@
         "template": "node_modules/clean-jsdoc-theme",
         "theme_opts": {
             "theme": "dark",
-            "title": "Coversy Client Documentation",
+            "title": "Coversy Documentation",
             "menu": [
                 {
                     "title": "Application",

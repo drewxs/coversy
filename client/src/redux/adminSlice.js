@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Admin Redux slice. Contains initial state and reducers for admin.
+ */
 export const adminSlice = createSlice({
     name: 'admin',
     initialState: {

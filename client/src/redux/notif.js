@@ -4,6 +4,14 @@ import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/** @module notifications_data */
+
+/**
+ * Fetches notifications.
+ *
+ * @function GetNotifications
+ * @async
+ */
 export const GetNotifications = async () => {
     store.dispatch(loadingNotifications);
     await axios
@@ -16,6 +24,13 @@ export const GetNotifications = async () => {
         .then((res) => store.dispatch(setNotifications(res.data)))
         .catch((err) => console.error(err));
 };
+
+/**
+ * Marks all notification as read.
+ *
+ * @function ReadNotifications
+ * @async
+ */
 export const ReadNotifications = async () => {
     store.dispatch(loadingNotifications);
     await axios

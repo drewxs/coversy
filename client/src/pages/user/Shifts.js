@@ -198,7 +198,7 @@ export const Shifts = () => {
                                                     color='primary'
                                                     onClick={() => {
                                                         DeleteShiftMaterials(
-                                                            current,
+                                                            current._id,
                                                             file.fileKey
                                                         );
                                                         setOpenView(false);
@@ -217,7 +217,7 @@ export const Shifts = () => {
                                             maxSize={60}
                                             handleChange={(file) => {
                                                 UploadShiftMaterials(
-                                                    current,
+                                                    current._id,
                                                     file
                                                 );
                                                 setOpenView(false);
