@@ -66,16 +66,51 @@ export const NotificationDropdown = () => {
                                             notif.referenceObject.startTime
                                         ).format(`h:mm`)}
                                     </p>
-                                    <IconButton
-                                        color='primary'
-                                        onClick={() => {
-                                            DeleteNotification(notif._id);
-                                        }}
-                                    >
-                                        <CloseRounded fontSize='small'></CloseRounded>
-                                    </IconButton>
+                                    <small>
+                                        {moment(notif.createdAt).format(
+                                            `MMM D`
+                                        )}
+                                        {` - `}
+                                        {moment(notif.createdAt).format(`h:mm`)}
+                                    </small>
                                 </>
                             )}
+                            {notif.type === 'Payroll' && (
+                                <>
+                                    <p>
+                                        {`Your payroll issue has been marked as resolved`}
+                                    </p>
+                                    <small>
+                                        {moment(notif.createdAt).format(
+                                            `MMM D`
+                                        )}
+                                        {` - `}
+                                        {moment(notif.createdAt).format(`h:mm`)}
+                                    </small>
+                                </>
+                            )}
+                            {notif.type === 'TimeOff' && (
+                                <>
+                                    <p>
+                                        {`Your Time-off request has been marked as resolved`}
+                                    </p>
+                                    <small>
+                                        {moment(notif.createdAt).format(
+                                            `MMM D`
+                                        )}
+                                        {` - `}
+                                        {moment(notif.createdAt).format(`h:mm`)}
+                                    </small>
+                                </>
+                            )}
+                            <IconButton
+                                color='primary'
+                                onClick={() => {
+                                    DeleteNotification(notif._id);
+                                }}
+                            >
+                                <CloseRounded fontSize='small'></CloseRounded>
+                            </IconButton>
                         </div>
                     ))}
                     {notifications.length === 0 && (
