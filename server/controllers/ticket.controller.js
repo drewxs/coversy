@@ -77,6 +77,13 @@ exports.resolveTicket = async (req, res) => {
             { resolved: true },
             { new: true }
         ).populate('user', 'firstName lastName email phone');
+
+        if (ticket.type == 1) {
+            createNotification(ticket.user, null, `Payroll`, ticket);
+        } else {
+            createNotification(ticket.user, null, `TimeOff`, ticket);
+        }
+
         return res.status(200).json(ticket);
     } catch (err) {
         return res.status(400).json(err.message);
