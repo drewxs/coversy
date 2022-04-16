@@ -1,6 +1,7 @@
 import {
     setNotifications,
     readNotifications,
+    removeNotification,
     loadingNotifications,
 } from 'redux/notifSlice';
 import axios from 'axios';
@@ -28,5 +29,16 @@ export const ReadNotifications = async () => {
             },
         })
         .then((res) => store.dispatch(readNotifications(res.data)))
+        .catch((err) => console.error(err));
+};
+export const DeleteNotification = async (notifId) => {
+    store.dispatch(loadingNotifications);
+    await axios
+        .delete(`${api}/notification/${notifId}`, {
+            headers: {
+                'auth-token': localStorage.getItem('auth-token'),
+            },
+        })
+        .then((res) => store.dispatch(removeNotification(res.data)))
         .catch((err) => console.error(err));
 };

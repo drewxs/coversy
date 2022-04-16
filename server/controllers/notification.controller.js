@@ -1,4 +1,5 @@
 const Notification = require('../models/notification.model');
+const escape = require('escape-html');
 
 /**
  * This function creates a notification.
@@ -62,6 +63,16 @@ exports.readNotifications = async (req, res) => {
             { new: true }
         );
         return res.status(200).json('Sucessfully read notifications.');
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
+};
+
+exports.deleteNotification = async (req, res) => {
+    const notifId = escape(req.params.notifId);
+    try {
+        const notifications = await Notification.findByIdAndRemove(notifId);
+        return res.status(200).json(notifications);
     } catch (err) {
         return res.status(400).json(err.message);
     }

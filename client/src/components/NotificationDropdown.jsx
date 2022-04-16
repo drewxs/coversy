@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { GetNotifications, ReadNotifications } from 'redux/notif';
+import {
+    DeleteNotification,
+    GetNotifications,
+    ReadNotifications,
+} from 'redux/notif';
 import { IconButton, Badge } from '@mui/material';
-import { NotificationsNone } from '@mui/icons-material';
+import { NotificationsNone, CloseRounded } from '@mui/icons-material';
 
 export const NotificationDropdown = () => {
     const notifications = useSelector(
@@ -51,16 +55,26 @@ export const NotificationDropdown = () => {
                     {notifications.map((notif, k) => (
                         <div className='notif-item' key={k}>
                             {notif.type === 'Shift' && (
-                                <p>
-                                    {`${notif.sender.firstName} has taken your shift on `}
-                                    {moment(
-                                        notif.referenceObject.startTime
-                                    ).format(`MMM D`)}
-                                    {` at `}
-                                    {moment(
-                                        notif.referenceObject.startTime
-                                    ).format(`h:mm`)}
-                                </p>
+                                <>
+                                    <p>
+                                        {`${notif.sender.firstName} has taken your shift on `}
+                                        {moment(
+                                            notif.referenceObject.startTime
+                                        ).format(`MMM D`)}
+                                        {` at `}
+                                        {moment(
+                                            notif.referenceObject.startTime
+                                        ).format(`h:mm`)}
+                                    </p>
+                                    <IconButton
+                                        color='primary'
+                                        onClick={() => {
+                                            DeleteNotification(notif._id);
+                                        }}
+                                    >
+                                        <CloseRounded fontSize='small'></CloseRounded>
+                                    </IconButton>
+                                </>
                             )}
                         </div>
                     ))}
