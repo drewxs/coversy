@@ -31,7 +31,7 @@
 
 
     <title>
-      client/src/redux/ticketSlice.js
+      verification_data
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        client/src/redux/ticketSlice.js
+        verification_data
       </h1>
       
 
@@ -106,91 +106,192 @@
 
 
 
+
+<section>
+
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit';
+        
+    
+</header>
 
-/**
- * Ticket Redux slice. Contains initial state and reducers for ticket.
- */
-export const ticketSlice = createSlice({
-    name: 'ticket',
-    initialState: {
-        tickets: [],
-        resolvedTickets: [],
-        loading: false,
-        loadingResolved: false,
-    },
-    reducers: {
-        setTickets: (state, action) => {
-            return {
-                ...state,
-                tickets: [...action.payload],
-                loading: false,
-            };
-        },
-        setResolvedTickets: (state, action) => {
-            return {
-                ...state,
-                resolvedTickets: [...action.payload],
-                loadingResolved: false,
-            };
-        },
-        setResolved: (state, action) => {
-            return {
-                ...state,
-                tickets: [
-                    ...state.tickets.filter(
-                        (ticket) => ticket._id !== action.payload._id
-                    ),
-                ],
-                resolvedTickets: [...state.resolvedTickets, action.payload],
-                loading: false,
-                loadingResolved: false,
-            };
-        },
-        setUnresolved: (state, action) => {
-            return {
-                ...state,
-                tickets: [...state.tickets, action.payload],
-                resolvedTickets: [
-                    ...state.resolvedTickets.filter(
-                        (ticket) => ticket._id !== action.payload._id
-                    ),
-                ],
-                loading: false,
-                loadingResolved: false,
-            };
-        },
-        loadingTickets: (state) => {
-            return {
-                ...state,
-                loading: true,
-            };
-        },
-        loadingResolvedTickets: (state) => {
-            return {
-                ...state,
-                loadingResolved: true,
-            };
-        },
-    },
-});
 
-export const {
-    setTickets,
-    setResolvedTickets,
-    setResolved,
-    setUnresolved,
-    loadingTickets,
-    loadingResolvedTickets,
-} = ticketSlice.actions;
+<article>
+    <div class="container-overview">
+    
+        
 
-export default ticketSlice.reducer;
-</code></pre>
-        </article>
-    </section>
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~ConfirmUser">
+        <a href="#~ConfirmUser">#</a>
+        <span class="type-signature">(async, inner) </span>ConfirmUser<span class="signature">(code)</span><span class="type-signature"></span>
+    </h4>
+
+    
+
+
+
+    <div class="description">
+        <p>Confirms a user's email address.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The code sent to the user's email address.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="client_src_redux_verification.js.html">client/src/redux/verification.js</a>, <a href="client_src_redux_verification.js.html#line9">line 9</a>
+            </li></ul></dd>
+        </div>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

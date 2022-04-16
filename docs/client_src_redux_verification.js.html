@@ -31,7 +31,7 @@
 
 
     <title>
-      client/src/redux/ticketSlice.js
+      client/src/redux/verification.js
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        client/src/redux/ticketSlice.js
+        client/src/redux/verification.js
       </h1>
       
 
@@ -109,85 +109,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit';
+            <pre class="prettyprint source linenums"><code>import { loading, setErrors, success } from 'redux/verificationSlice';
+import axios from 'axios';
+import store from 'redux/store';
+
+const api = process.env.REACT_APP_API_URL;
+
+/** @module verification_data */
 
 /**
- * Ticket Redux slice. Contains initial state and reducers for ticket.
+ * Confirms a user's email address.
+ *
+ * @function ConfirmUser
+ * @async
+ * @param {string} code - The code sent to the user's email address.
  */
-export const ticketSlice = createSlice({
-    name: 'ticket',
-    initialState: {
-        tickets: [],
-        resolvedTickets: [],
-        loading: false,
-        loadingResolved: false,
-    },
-    reducers: {
-        setTickets: (state, action) => {
-            return {
-                ...state,
-                tickets: [...action.payload],
-                loading: false,
-            };
-        },
-        setResolvedTickets: (state, action) => {
-            return {
-                ...state,
-                resolvedTickets: [...action.payload],
-                loadingResolved: false,
-            };
-        },
-        setResolved: (state, action) => {
-            return {
-                ...state,
-                tickets: [
-                    ...state.tickets.filter(
-                        (ticket) => ticket._id !== action.payload._id
-                    ),
-                ],
-                resolvedTickets: [...state.resolvedTickets, action.payload],
-                loading: false,
-                loadingResolved: false,
-            };
-        },
-        setUnresolved: (state, action) => {
-            return {
-                ...state,
-                tickets: [...state.tickets, action.payload],
-                resolvedTickets: [
-                    ...state.resolvedTickets.filter(
-                        (ticket) => ticket._id !== action.payload._id
-                    ),
-                ],
-                loading: false,
-                loadingResolved: false,
-            };
-        },
-        loadingTickets: (state) => {
-            return {
-                ...state,
-                loading: true,
-            };
-        },
-        loadingResolvedTickets: (state) => {
-            return {
-                ...state,
-                loadingResolved: true,
-            };
-        },
-    },
-});
-
-export const {
-    setTickets,
-    setResolvedTickets,
-    setResolved,
-    setUnresolved,
-    loadingTickets,
-    loadingResolvedTickets,
-} = ticketSlice.actions;
-
-export default ticketSlice.reducer;
+export const ConfirmUser = async (code) => {
+    store.dispatch(loading());
+    try {
+        await axios.get(`${api}/auth/confirm/${code}`);
+        store.dispatch(success());
+    } catch (err) {
+        store.dispatch(setErrors(err.response.data));
+    }
+};
 </code></pre>
         </article>
     </section>
