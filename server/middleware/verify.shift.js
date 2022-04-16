@@ -1,9 +1,17 @@
 const jwt = require('jsonwebtoken');
 const Shift = require('../models/shift.model');
 
+/** @module middleware */
+
 /**
- * Verifys that the user requesting a shift owns that shift.
- * Parameters required: shiftId
+ * Verifies that the user requesting a shift owns that shift.
+ * Route parameters required: shiftId
+ *
+ * @function verifyShift
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {function} next - Express next function.
  */
 exports.verifyShift = async (req, res, next) => {
     try {
@@ -18,8 +26,14 @@ exports.verifyShift = async (req, res, next) => {
 };
 
 /**
- * Verifys that the user requesting a shift is a sub for that shift.
- * Parameters required: shiftId
+ * Verifies that the user requesting a shift is a sub for that shift.
+ * Route parameters required: shiftId
+ *
+ * @function verifyShiftSub
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {function} next - Express next function.
  */
 exports.verifyShiftSub = async (req, res, next) => {
     try {
