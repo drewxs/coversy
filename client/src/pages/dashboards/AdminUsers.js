@@ -169,7 +169,6 @@ export const AdminUsers = () => {
                             {errors && <p className='error'>{errors}</p>}
                             <Button
                                 sx={{
-                                    mt: '1rem',
                                     mr: '1rem',
                                 }}
                                 variant='contained'
@@ -178,7 +177,6 @@ export const AdminUsers = () => {
                                 Save
                             </Button>
                             <Button
-                                sx={{ mt: '1rem' }}
                                 variant='outlined'
                                 onClick={() => SetOpenEditUser(false)}
                             >

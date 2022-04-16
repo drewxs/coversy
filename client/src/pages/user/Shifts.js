@@ -167,7 +167,6 @@ export const Shifts = () => {
                                             'MMMM DD, YYYY'
                                         )}
                                     </p>
-
                                     <p>
                                         <strong>Time: </strong>
                                         {moment(current.startTime).format(
@@ -182,7 +181,11 @@ export const Shifts = () => {
                                         {current.details}
                                     </p>
                                     {/* Shift Materials Upload/Download/Delete */}
-                                    <p>Class Materials</p>
+                                    <div sx={{ mt: '1rem' }}>
+                                        <strong>
+                                            <p>Class Materials</p>
+                                        </strong>
+                                    </div>
                                     {current.materials.map((file, k) => (
                                         <div key={k}>
                                             <button
@@ -254,6 +257,8 @@ export const Shifts = () => {
                                 variant='outlined'
                                 label='Description'
                                 fullWidth
+                                multiline
+                                rows={4}
                                 sx={{ mt: '1rem' }}
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
