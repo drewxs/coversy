@@ -220,52 +220,6 @@ export const Shifts = () => {
                         )}
                     </Typography>
 
-<<<<<<< HEAD
-                    {/* Modal - View Shift */}
-                    {openview && (
-                        <Modal
-                            open={openview}
-                            onClose={() => setOpenView(false)}
-                        >
-                            <Box
-                                className='modal-container'
-                                sx={{ width: 400 }}
-                            >
-                                <Typography sx={{ mb: '1rem' }} variant='h5'>
-                                    {current.subject}
-                                    {' - '}
-                                    {current.teacher.firstName}
-                                </Typography>
-
-                                {/* Shift Info */}
-                                <div className='shift-info'>
-                                    <p>
-                                        <strong>Date: </strong>
-                                        {moment(current.startTime).format(
-                                            'MMMM DD, YYYY'
-                                        )}
-                                    </p>
-                                    <p>
-                                        <strong>Time: </strong>
-                                        {moment(current.startTime).format(
-                                            'h:mm a'
-                                        )}{' '}
-                                        -{' '}
-                                        {moment(current.endTime).format(
-                                            'h:mm a'
-                                        )}
-                                    </p>
-                                    <p className='shift-description'>
-                                        {current.details}
-                                    </p>
-                                    {/* Shift Materials Upload/Download/Delete */}
-                                    <div sx={{ mt: '1rem' }}>
-                                        <strong>
-                                            <p>Class Materials</p>
-                                        </strong>
-                                    </div>
-                                    {current.materials.map((file, k) => (
-=======
                     {/* Shift Info */}
                     <div className='shift-info'>
                         <p>
@@ -354,7 +308,6 @@ export const Shifts = () => {
                             <>
                                 {myPostedShifts[current]?.materials.map(
                                     (file, k) => (
->>>>>>> 56737855ee0fed8c0678154daa72516d031b6a9e
                                         <div key={k}>
                                             <button
                                                 onClick={() =>
@@ -443,41 +396,6 @@ export const Shifts = () => {
                             </>
                         )}
 
-<<<<<<< HEAD
-                            {/* Select Shift for Time Off - Book Time Off Modal */}
-                            {/* Description Box - Book Time Off Modal */}
-                            <TextField
-                                className='input-form'
-                                variant='outlined'
-                                label='Description'
-                                fullWidth
-                                multiline
-                                rows={4}
-                                sx={{ mt: '1rem' }}
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                            {/* Book and Cancel Buttons - Book Time Off Modal */}
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: '1rem' }}
-                                onClick={() => setOpenBook(false)}
-                            >
-                                Book
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                sx={{ mt: '1rem', ml: '1rem' }}
-                                onClick={() => setOpenBook(false)}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
-                    </Modal>
-                </div>
-=======
                         {/* Taking Shifts Handler */}
                         {tab === 0 && (
                             <>
@@ -534,7 +452,6 @@ export const Shifts = () => {
                     </div>
                 </Box>
             </Modal>
->>>>>>> 56737855ee0fed8c0678154daa72516d031b6a9e
 
             {/* Modal - Book Time Off */}
             <Modal open={openbook} onClose={() => setOpenBook(false)}>
