@@ -139,6 +139,7 @@ export const AdminShifts = () => {
                         Upload Schedule
                     </Typography>
                     <FileUploader
+                        classes='file-uploader'
                         handleChange={(e) => setFile(e)}
                         name='file'
                         types={['CSV']}

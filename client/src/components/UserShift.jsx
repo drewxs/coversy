@@ -4,19 +4,19 @@ import { PostShift, UnpostShift, TakeShift } from 'redux/shift';
 import { Button } from '@mui/material';
 import { ConfirmationModal } from 'components';
 
-export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
+export const UserShift = ({ idx, shift, setCurrent, setOpenView, btnText }) => {
     const [openConfirm, setOpenConfirm] = useState(false);
 
     return (
         <div className='shift-data card'>
             <div className='shift-info'>
-                <h3>{shift.subject}</h3>
+                <h3>{shift?.subject}</h3>
                 <p>
-                    {moment(shift.startTime).format('MMM D')}
+                    {moment(shift?.startTime).format('MMM D')}
                     {'\u00a0\u00a0\u00a0'}
-                    {moment(shift.startTime).format('h:mm')}
+                    {moment(shift?.startTime).format('h:mm')}
                     {' - '}
-                    {moment(shift.endTime).format('h:mm A')}
+                    {moment(shift?.endTime).format('h:mm A')}
                 </p>
             </div>
 
@@ -25,7 +25,7 @@ export const UserShift = ({ shift, setCurrent, setOpenView, btnText }) => {
                 <Button
                     size='small'
                     onClick={() => {
-                        setCurrent(shift);
+                        setCurrent(idx);
                         setOpenView(true);
                     }}
                     variant='contained'

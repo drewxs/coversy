@@ -1,7 +1,6 @@
 @use '../abstract' as *;
 
 html {
-    font-size: 0.8vw;
     font-family: $fontBody, $fontBodyFallback;
     color: $black;
     font-smooth: always;
@@ -9,8 +8,9 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    @include fluid-type($min_width, $max_width, $min_font, $max_font);
     @include respond-to('desktop') {
-        font-size: 14px !important;
+        font-size: $pref_font;
     }
 }
 

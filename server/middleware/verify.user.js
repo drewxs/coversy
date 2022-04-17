@@ -2,9 +2,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const escape = require('escape-html');
 
+/** @module middleware */
+
 /**
  * Verifies that the user requesting update of a resource is the same as the user that owns the resource.
- * Parameters required: userId
+ * Route parameters required: userId
+ *
+ * @function verifyUser
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {function} next - Express next function.
  */
 exports.verifyUser = async (req, res, next) => {
     const token = req.header('auth-token');
