@@ -42,9 +42,7 @@ export const Shifts = () => {
         axios({
             url: createURL,
             method: 'GET',
-            headers: {
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
             responseType: 'blob',
         })
             .then((res) => {
@@ -181,6 +179,7 @@ export const Shifts = () => {
                                     <p className='shift-description'>
                                         {current.details}
                                     </p>
+
                                     {/* Shift Materials Upload/Download/Delete */}
                                     <p>Class Materials</p>
                                     {current.materials.map((file, k) => (
@@ -201,7 +200,6 @@ export const Shifts = () => {
                                                             current._id,
                                                             file.fileKey
                                                         );
-                                                        setOpenView(false);
                                                     }}
                                                 >
                                                     <CloseRounded fontSize='small'></CloseRounded>
@@ -211,8 +209,8 @@ export const Shifts = () => {
                                     ))}
                                     {current.teacher._id === user._id && (
                                         <FileUploader
-                                            name='file'
                                             classes='file-uploader'
+                                            name='file'
                                             multiple={false}
                                             maxSize={60}
                                             handleChange={(file) => {
@@ -220,10 +218,10 @@ export const Shifts = () => {
                                                     current._id,
                                                     file
                                                 );
-                                                setOpenView(false);
                                             }}
                                         />
                                     )}
+
                                     {/* Taking Shifts Handler */}
                                     {current.teacher._id !== user._id && (
                                         <Button
