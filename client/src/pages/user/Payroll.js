@@ -14,12 +14,18 @@ import {
     Typography,
 } from '@mui/material';
 import { GetUserPayrolls } from 'redux/payroll';
+import { CreateTicket } from 'redux/ticket';
 
 export const Payroll = () => {
     const payrolls = useSelector((state) => state.payroll.payrolls);
     const loading = useSelector((state) => state.payroll.loading);
     const [openReport, setOpenReport] = useState(false);
-    const [description, setDescription] = useState(null);
+    const [description, setDescription] = useState('');
+
+    const handleCreateTicket = () => {
+        CreateTicket({ type: 1, message: description });
+        setOpenReport(false);
+    };
 
     useEffect(() => {
         GetUserPayrolls();
@@ -90,38 +96,41 @@ export const Payroll = () => {
                         onClose={() => setOpenReport(false)}
                     >
                         <Box className='modal-container' sx={{ width: 400 }}>
-                            <Typography variant='h5'>
-                                Report Payroll Issue
-                            </Typography>
-
-                            <TextField
-                                className='input-form'
-                                variant='outlined'
-                                label='Description'
-                                multiline
-                                rows={4}
-                                fullWidth
-                                sx={{ mt: '1rem' }}
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                            {/* Book and Cancel Buttons - Book Time Off Modal */}
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                sx={{ mt: '1rem' }}
-                                onClick={() => setOpenReport(false)}
-                            >
-                                Report
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                sx={{ mt: '1rem', ml: '1rem' }}
-                                onClick={() => setOpenReport(false)}
-                            >
-                                Cancel
-                            </Button>
+                            <form onSubmit={handleCreateTicket}>
+                                <Typography variant='h5'>
+                                    Report Payroll Issue
+                                </Typography>
+                                <TextField
+                                    className='input-form'
+                                    variant='outlined'
+                                    label='Description'
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    sx={{ mt: '1rem' }}
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
+                                />
+                                {/* Book and Cancel Buttons - Book Time Off Modal */}
+                                <Button
+                                    variant='contained'
+                                    color='primary'
+                                    sx={{ mt: '1rem' }}
+                                    type='submit'
+                                >
+                                    Report
+                                </Button>
+                                <Button
+                                    variant='outlined'
+                                    color='primary'
+                                    sx={{ mt: '1rem', ml: '1rem' }}
+                                    onClick={() => setOpenReport(false)}
+                                >
+                                    Cancel
+                                </Button>
+                            </form>
                         </Box>
                     </Modal>
                 </div>
