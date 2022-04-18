@@ -1,6 +1,18 @@
+$mobile: 480px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1440px;
+
 $breakpoints: (
-	mobile: 480px,
-	tablet: 768px,
-	laptop: 1024px,
-	desktop: 1440px,
+    mobile: $mobile,
+    tablet: $tablet,
+    laptop: $laptop,
+    desktop: $desktop,
 );
+
+:export {
+    mobile: $mobile;
+    tablet: $tablet;
+    laptop: $laptop;
+    desktop: $desktop;
+}
