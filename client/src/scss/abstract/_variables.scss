@@ -11,6 +11,13 @@ $fontBodyFallback: 'sans-serif';
 $fontHeading: 'Montserrat';
 $fontFaceUrl: 'scss/font/Montserrat-Thin.ttf';
 
+// Fluid typography
+$min_width: 480px;
+$max_width: 1440px;
+$min_font: 12px;
+$max_font: 16px;
+$pref_font: 14px;
+
 // Exporting for use in JS
 :export {
     primary: $primary;

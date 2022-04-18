@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Button, IconButton, Badge } from '@mui/material';
+import { Button } from '@mui/material';
 import { LogoutUser } from 'redux/user';
-import { NotificationsNone } from '@mui/icons-material';
-import { GetNotifications, ReadNotifications } from 'redux/notif';
 import logo from 'assets/logo.svg';
 import MenuIcon from '@mui/icons-material/Menu';
+import { NotificationDropdown } from './NotificationDropdown';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
@@ -35,7 +34,6 @@ export const Nav = () => {
         });
         return total === notifications.length;
     };
-    const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
         <section className='nav'>
@@ -51,12 +49,7 @@ export const Nav = () => {
 
                     {authenticated && (
                         <p className='hello'>
-                            {
-                                greetings[
-                                    Math.floor(Math.random() * greetings.length)
-                                ]
-                            }
-                            , {user.firstName} {user.lastName}
+                            Hi, {user.firstName} {user.lastName}
                         </p>
                     )}
                 </div>
@@ -78,7 +71,7 @@ export const Nav = () => {
                                         : ''
                                 }`}
                             >
-                                Register
+                                User Registration
                             </Button>
                             <Button
                                 href='/login'
@@ -219,6 +212,7 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
+                            <NotificationDropdown />
                             <Button
                                 color='primary'
                                 className='button logout-btn'

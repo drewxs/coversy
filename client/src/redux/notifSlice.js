@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Notifications Redux slice. Contains initial state and reducers for notifications.
+ */
 export const notifSlice = createSlice({
     name: 'notification',
     initialState: {
@@ -14,6 +17,27 @@ export const notifSlice = createSlice({
                 loading: false,
             };
         },
+        readNotifications: (state) => {
+            return {
+                ...state,
+                notifications: state.notifications.map((notification) => ({
+                    ...notification,
+                    read: true,
+                })),
+                loading: false,
+            };
+        },
+        removeNotification: (state, action) => {
+            return {
+                ...state,
+                notifications: [
+                    ...state.notifications.filter(
+                        (notificaion) => notificaion._id !== action.payload._id
+                    ),
+                ],
+                loading: false,
+            };
+        },
         loadingNotifications: (state) => {
             return {
                 ...state,
@@ -23,6 +47,11 @@ export const notifSlice = createSlice({
     },
 });
 
-export const { setNotifications, loadingNotifications } = notifSlice.actions;
+export const {
+    setNotifications,
+    readNotifications,
+    removeNotification,
+    loadingNotifications,
+} = notifSlice.actions;
 
 export default notifSlice.reducer;

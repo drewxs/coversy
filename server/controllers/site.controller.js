@@ -28,7 +28,7 @@ exports.updateSite = async (req, res) => {
         name: escape(req.body.name),
         address: {
             street: escape(req.body.address.street),
-            zip: escape(req.body.address.zip),
+            postalCode: escape(req.body.address.postalCode),
             city: escape(req.body.address.city),
             province: escape(req.body.address.province),
         },

@@ -9,7 +9,6 @@ import {
     UploadShiftMaterials,
     DeleteShiftMaterials,
 } from 'redux/shift';
-import { CreateTicket } from 'redux/ticket';
 import { FileUploader } from 'react-drag-drop-files';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
@@ -35,10 +34,9 @@ export const Shifts = () => {
     const [description, setDescription] = useState(null);
     const [openbook, setOpenBook] = useState(false);
     const [openview, setOpenView] = useState(false);
-    const [current, setCurrent] = useState(null);
+    const [current, setCurrent] = useState(0);
     const [tab, setTab] = useState(0);
 
-    /* Fetches specified file from shift and has user download it  */
     const getFile = (shift, file) => {
         let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
         axios({
@@ -59,139 +57,257 @@ export const Shifts = () => {
             .catch((err) => console.error(err));
     };
 
-    const handleCreateTicket = () => {
-        CreateTicket({ type: 2, message: description });
-        setOpenBook(false);
-    };
-
     useEffect(() => {
         GetPostedShifts();
         GetMyShifts();
     }, []);
 
     return (
-        <section className='dashboard shifts'>
-            <div className='container'>
-                <div className='shift-col card'>
-                    <div className='tab-container'>
-                        {/*{/* My Shift / Posted Shift Tabs */}
-                        <Tabs
-                            value={tab}
-                            onChange={(e, v) => setTab(v)}
-                            textColor='primary'
-                            indicatorColor='primary'
-                            className='tab-header'
-                        >
-                            <Tab value={0} label='My Shifts' />
-                            <Tab value={1} label='Posted Shifts' />
-                            <Tab value={2} label='Take Shifts' />
-                        </Tabs>
+        <>
+            <section className='dashboard shifts'>
+                <div className='container'>
+                    <div className='shift-col card'>
+                        <div className='tab-container'>
+                            <Tabs
+                                value={tab}
+                                onChange={(e, v) => setTab(v)}
+                                textColor='primary'
+                                indicatorColor='primary'
+                                className='tab-header'
+                            >
+                                <Tab value={0} label='My Shifts' />
+                                <Tab value={1} label='Posted Shifts' />
+                                <Tab value={2} label='Take Shifts' />
+                            </Tabs>
 
-                        {/* Tab - My Shifts */}
-                        {tab === 0 && (
-                            <>
-                                {/* Book Time Off Button */}
-                                <div className='timeoff-button'>
-                                    <Button
-                                        sx={{
-                                            marginLeft: '1rem',
-                                            marginTop: '1rem',
-                                        }}
-                                        variant='contained'
-                                        onClick={() => {
-                                            setDescription(user.description);
-                                            setOpenBook(true);
-                                        }}
-                                    >
-                                        Book time off{' '}
-                                    </Button>
-                                </div>
+                            {/* Tab - My Shifts */}
+                            {tab === 0 && (
+                                <>
+                                    {/* Book Time Off Button */}
+                                    <div className='timeoff-button'>
+                                        <Button
+                                            sx={{
+                                                marginLeft: '1rem',
+                                                marginTop: '1rem',
+                                            }}
+                                            variant='contained'
+                                            onClick={() => {
+                                                setDescription(
+                                                    user.description
+                                                );
+                                                setOpenBook(true);
+                                            }}
+                                        >
+                                            Book time off{' '}
+                                        </Button>
+                                    </div>
+                                    <div className='shift-container'>
+                                        {myShifts.map((shift, k) => (
+                                            <UserShift
+                                                key={k}
+                                                idx={k}
+                                                shift={shift}
+                                                setCurrent={setCurrent}
+                                                setOpenView={setOpenView}
+                                                btnText={'Post'}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Tab - Posted Shifts */}
+                            {tab === 1 && (
                                 <div className='shift-container'>
-                                    {myShifts.map((shift, k) => (
+                                    {myPostedShifts.map((shift, k) => (
                                         <UserShift
                                             key={k}
+                                            idx={k}
                                             shift={shift}
                                             setCurrent={setCurrent}
                                             setOpenView={setOpenView}
-                                            btnText={'Post'}
+                                            btnText={'Unpost'}
                                         />
                                     ))}
                                 </div>
-                            </>
-                        )}
+                            )}
 
-                        {/* Tab - Posted Shifts */}
-                        {tab === 1 && (
-                            <div className='shift-container'>
-                                {myPostedShifts.map((shift, k) => (
-                                    <UserShift
-                                        shift={shift}
-                                        key={k}
-                                        setCurrent={setCurrent}
-                                        setOpenView={setOpenView}
-                                        btnText={'Unpost'}
-                                    />
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Tab - Take Shifts */}
-                        {tab === 2 && (
-                            <div className='shift-container'>
-                                {shifts.map((shift, k) => (
-                                    <UserShift
-                                        shift={shift}
-                                        key={k}
-                                        setCurrent={setCurrent}
-                                        setOpenView={setOpenView}
-                                        btnText={'Take'}
-                                    />
-                                ))}
-                            </div>
-                        )}
+                            {/* Tab - Take Shifts */}
+                            {tab === 2 && (
+                                <div className='shift-container'>
+                                    {shifts.map((shift, k) => (
+                                        <UserShift
+                                            key={k}
+                                            idx={k}
+                                            shift={shift}
+                                            setCurrent={setCurrent}
+                                            setOpenView={setOpenView}
+                                            btnText={'Take'}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    {/* Modal - View Shift */}
-                    {openview && (
-                        <Modal
-                            open={openview}
-                            onClose={() => setOpenView(false)}
-                        >
-                            <Box
-                                className='modal-container'
-                                sx={{ width: 400 }}
-                            >
-                                <Typography sx={{ mb: '1rem' }} variant='h5'>
-                                    {current.subject}
-                                    {' - '}
-                                    {current.teacher.firstName}
-                                </Typography>
+                    {/* Calendar View */}
+                    <div className='calendar card'>
+                        <Calendar
+                            localizer={localizer}
+                            events={
+                                tab === 0
+                                    ? myShifts
+                                    : tab === 1
+                                    ? myPostedShifts
+                                    : shifts
+                            }
+                            titleAccessor='subject'
+                            startAccessor='startTime'
+                            endAccessor='endTime'
+                            views={['month', 'agenda']}
+                            onSelectEvent={(event) => {
+                                tab === 0
+                                    ? setCurrent(
+                                          myShifts.findIndex(
+                                              (e) => e._id === event._id
+                                          )
+                                      )
+                                    : tab === 1
+                                    ? setCurrent(
+                                          myPostedShifts.findIndex(
+                                              (e) => e._id === event._id
+                                          )
+                                      )
+                                    : setCurrent(
+                                          shifts.findIndex(
+                                              (e) => e._id === event._id
+                                          )
+                                      );
+                                console.log(event);
+                                setDescription(user.description);
+                                setOpenView(true);
+                            }}
+                            style={{ height: '100%', width: '100%' }}
+                        />
+                    </div>
+                </div>
+            </section>
 
-                                {/* Shift Info */}
-                                <div className='shift-info'>
-                                    <p>
-                                        <strong>Date: </strong>
-                                        {moment(current.startTime).format(
-                                            'MMMM DD, YYYY'
-                                        )}
-                                    </p>
+            {/* Modal - View Shift */}
+            <Modal open={openview} onClose={() => setOpenView(false)}>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <Typography sx={{ mb: '1rem' }} variant='h5'>
+                        {tab === 0 && (
+                            <>
+                                {myShifts[current]?.subject}
+                                {' - '}
+                                {myShifts[current]?.teacher.firstName}
+                            </>
+                        )}
+                        {tab === 1 && (
+                            <>
+                                {myPostedShifts[current]?.subject}
+                                {' - '}
+                                {myPostedShifts[current]?.teacher.firstName}
+                            </>
+                        )}
+                        {tab === 2 && (
+                            <>
+                                {shifts[current]?.subject}
+                                {' - '}
+                                {shifts[current]?.teacher.firstName}
+                            </>
+                        )}
+                    </Typography>
 
-                                    <p>
-                                        <strong>Time: </strong>
-                                        {moment(current.startTime).format(
-                                            'h:mm a'
-                                        )}{' '}
-                                        -{' '}
-                                        {moment(current.endTime).format(
-                                            'h:mm a'
+                    {/* Shift Info */}
+                    <div className='shift-info'>
+                        <p>
+                            <strong>Date: </strong>
+                            {moment(
+                                tab === 0
+                                    ? myShifts[current]?.startTime
+                                    : tab === 1
+                                    ? myPostedShifts[current]?.startTime
+                                    : shifts[current]?.startTime
+                            ).format('MMMM DD, YYYY')}
+                        </p>
+                        <p>
+                            <strong>Time: </strong>
+                            {moment(
+                                tab === 0
+                                    ? myShifts[current]?.startTime
+                                    : tab === 1
+                                    ? myPostedShifts[current]?.startTime
+                                    : shifts[current]?.startTime
+                            ).format('h:mm a')}{' '}
+                            -{' '}
+                            {moment(
+                                tab === 0
+                                    ? myShifts[current]?.endTime
+                                    : tab === 1
+                                    ? myPostedShifts[current]?.endTime
+                                    : shifts[current]?.endTime
+                            ).format('h:mm a')}
+                        </p>
+                        <p className='shift-description'>
+                            {tab === 0
+                                ? myShifts[current]?.details
+                                : tab === 1
+                                ? myPostedShifts[current]?.details
+                                : shifts[current]?.details}
+                        </p>
+
+                        {/* Shift Materials Upload/Download/Delete */}
+                        <p>Class Materials</p>
+                        {tab === 0 && (
+                            <>
+                                {myShifts[current]?.materials.map((file, k) => (
+                                    <div key={k}>
+                                        <button
+                                            onClick={() =>
+                                                getFile(current, file)
+                                            }
+                                        >
+                                            {file.fileName}
+                                        </button>
+                                        {myShifts[current]?.teacher._id ===
+                                            user._id && (
+                                            <IconButton
+                                                color='primary'
+                                                onClick={() => {
+                                                    DeleteShiftMaterials(
+                                                        myShifts[current]?._id,
+                                                        file.fileKey
+                                                    );
+                                                }}
+                                            >
+                                                <CloseRounded fontSize='small'></CloseRounded>
+                                            </IconButton>
                                         )}
-                                    </p>
-                                    <p className='shift-description'>
-                                        {current.details}
-                                    </p>
-                                    {/* Shift Materials Upload/Download/Delete */}
-                                    <p>Class Materials</p>
-                                    {current.materials.map((file, k) => (
+                                    </div>
+                                ))}
+                                {myShifts[current]?.teacher._id ===
+                                    user._id && (
+                                    <FileUploader
+                                        classes='file-uploader'
+                                        name='file'
+                                        multiple={false}
+                                        maxSize={60}
+                                        handleChange={(file) => {
+                                            UploadShiftMaterials(
+                                                myShifts[current]?._id,
+                                                file
+                                            );
+                                        }}
+                                    />
+                                )}
+                            </>
+                        )}
+                        {tab === 1 && (
+                            <>
+                                {myPostedShifts[current]?.materials.map(
+                                    (file, k) => (
                                         <div key={k}>
                                             <button
                                                 onClick={() =>
@@ -200,122 +316,176 @@ export const Shifts = () => {
                                             >
                                                 {file.fileName}
                                             </button>
-                                            {current.teacher._id ===
-                                                user._id && (
+                                            {myPostedShifts[current]?.teacher
+                                                ._id === user._id && (
                                                 <IconButton
                                                     color='primary'
-                                                    onClick={() =>
+                                                    onClick={() => {
                                                         DeleteShiftMaterials(
-                                                            current,
+                                                            myPostedShifts[
+                                                                current
+                                                            ]?._id,
                                                             file.fileKey
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                 >
                                                     <CloseRounded fontSize='small'></CloseRounded>
                                                 </IconButton>
                                             )}
                                         </div>
-                                    ))}
-                                    {current.teacher._id === user._id && (
-                                        <FileUploader
-                                            name='file'
-                                            classes='file-uploader'
-                                            multiple={false}
-                                            maxSize={60}
-                                            handleChange={(file) =>
-                                                UploadShiftMaterials(
-                                                    current,
-                                                    file
-                                                )
+                                    )
+                                )}
+                                {myPostedShifts[current]?.teacher._id ===
+                                    user._id && (
+                                    <FileUploader
+                                        classes='file-uploader'
+                                        name='file'
+                                        multiple={false}
+                                        maxSize={60}
+                                        handleChange={(file) => {
+                                            UploadShiftMaterials(
+                                                myPostedShifts[current]?._id,
+                                                file
+                                            );
+                                        }}
+                                    />
+                                )}
+                            </>
+                        )}
+                        {tab === 2 && (
+                            <>
+                                {shifts[current]?.materials.map((file, k) => (
+                                    <div key={k}>
+                                        <button
+                                            onClick={() =>
+                                                getFile(current, file)
                                             }
-                                        />
-                                    )}
-                                    {/* Taking Shifts Handler */}
-                                    {current.teacher._id !== user._id && (
-                                        <Button
-                                            sx={{ marginTop: '1rem' }}
-                                            variant='contained'
-                                            onClick={() => {
-                                                TakeShift(current._id);
-                                                setOpenView(false);
-                                            }}
                                         >
-                                            Take Shift
-                                        </Button>
-                                    )}
-                                </div>
-                            </Box>
-                        </Modal>
-                    )}
+                                            {file.fileName}
+                                        </button>
+                                        {shifts[current]?.teacher._id ===
+                                            user._id && (
+                                            <IconButton
+                                                color='primary'
+                                                onClick={() => {
+                                                    DeleteShiftMaterials(
+                                                        shifts[current]?._id,
+                                                        file.fileKey
+                                                    );
+                                                }}
+                                            >
+                                                <CloseRounded fontSize='small'></CloseRounded>
+                                            </IconButton>
+                                        )}
+                                    </div>
+                                ))}
+                                {shifts[current]?.teacher._id === user._id && (
+                                    <FileUploader
+                                        classes='file-uploader'
+                                        name='file'
+                                        multiple={false}
+                                        maxSize={60}
+                                        handleChange={(file) => {
+                                            UploadShiftMaterials(
+                                                shifts[current]?._id,
+                                                file
+                                            );
+                                        }}
+                                    />
+                                )}
+                            </>
+                        )}
 
-                    {/* Modal - Book Time Off */}
-                    <Modal open={openbook} onClose={() => setOpenBook(false)}>
-                        <Box className='modal-container' sx={{ width: 400 }}>
-                            <form onSubmit={handleCreateTicket}>
-                                <Typography variant='h5'>
-                                    Book Time Off
-                                </Typography>
+                        {/* Taking Shifts Handler */}
+                        {tab === 0 && (
+                            <>
+                                {myShifts[current]?.teacher._id !==
+                                    user._id && (
+                                    <Button
+                                        sx={{ marginTop: '1rem' }}
+                                        variant='contained'
+                                        onClick={() => {
+                                            TakeShift(myShifts[current]?._id);
+                                            setOpenView(false);
+                                        }}
+                                    >
+                                        Take Shift
+                                    </Button>
+                                )}
+                            </>
+                        )}
+                        {tab === 1 && (
+                            <>
+                                {myPostedShifts[current]?.teacher._id !==
+                                    user._id && (
+                                    <Button
+                                        sx={{ marginTop: '1rem' }}
+                                        variant='contained'
+                                        onClick={() => {
+                                            TakeShift(
+                                                myPostedShifts[current]?._id
+                                            );
+                                            setOpenView(false);
+                                        }}
+                                    >
+                                        Take Shift
+                                    </Button>
+                                )}
+                            </>
+                        )}
+                        {tab === 2 && (
+                            <>
+                                {shifts[current]?.teacher._id !== user._id && (
+                                    <Button
+                                        sx={{ marginTop: '1rem' }}
+                                        variant='contained'
+                                        onClick={() => {
+                                            TakeShift(shifts[current]?._id);
+                                            setOpenView(false);
+                                        }}
+                                    >
+                                        Take Shift
+                                    </Button>
+                                )}
+                            </>
+                        )}
+                    </div>
+                </Box>
+            </Modal>
 
-                                {/* Select Shift for Time Off - Book Time Off Modal */}
-                                {/* Description Box - Book Time Off Modal */}
-                                <TextField
-                                    className='input-form'
-                                    variant='outlined'
-                                    label='Description'
-                                    fullWidth
-                                    sx={{ mt: '1rem' }}
-                                    value={description}
-                                    onChange={(e) =>
-                                        setDescription(e.target.value)
-                                    }
-                                />
-
-                                {/* Book and Cancel Buttons - Book Time Off Modal */}
-                                <Button
-                                    variant='contained'
-                                    color='primary'
-                                    sx={{ mt: '1rem' }}
-                                    type='submit'
-                                >
-                                    Book
-                                </Button>
-                                <Button
-                                    variant='outlined'
-                                    color='primary'
-                                    sx={{ mt: '1rem', ml: '1rem' }}
-                                    onClick={() => setOpenBook(false)}
-                                >
-                                    Cancel
-                                </Button>
-                            </form>
-                        </Box>
-                    </Modal>
-                </div>
-
-                {/* Calendar View */}
-                <div className='calendar card'>
-                    <Calendar
-                        localizer={localizer}
-                        events={
-                            tab === 0
-                                ? myShifts
-                                : tab === 1
-                                ? myPostedShifts
-                                : shifts
-                        }
-                        titleAccessor='subject'
-                        startAccessor='startTime'
-                        endAccessor='endTime'
-                        views={['month', 'agenda']}
-                        onSelectEvent={(event) => {
-                            setCurrent(event);
-                            setDescription(user.description);
-                            setOpenView(true);
-                        }}
-                        style={{ height: '100%', width: '100%' }}
+            {/* Modal - Book Time Off */}
+            <Modal open={openbook} onClose={() => setOpenBook(false)}>
+                <Box className='modal-container' sx={{ width: 400 }}>
+                    <Typography variant='h5'>Book Time Off</Typography>
+                    <TextField
+                        className='input-form'
+                        variant='outlined'
+                        label='Description'
+                        fullWidth
+                        multiline
+                        rows={4}
+                        sx={{ mt: '1rem' }}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
-                </div>
-            </div>
-        </section>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        sx={{ mt: '1rem' }}
+                        onClick={() => setOpenBook(false)}
+                    >
+                        Book
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        color='primary'
+                        sx={{ mt: '1rem', ml: '1rem' }}
+                        onClick={() => setOpenBook(false)}
+                    >
+                        Cancel
+                    </Button>
+                </Box>
+            </Modal>
+        </>
     );
 };

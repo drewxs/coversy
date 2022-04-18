@@ -3,21 +3,28 @@ import {
     setMyShifts,
     setMyPostedShifts,
     editShift,
+    editMyShift,
+    editMyPostedShift,
     loadingShifts,
     postShift,
     unpostShift,
+    takeShift,
+    returnShift,
 } from 'redux/shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/** @module shift_data */
+
 /**
- * Fetches all shifts
+ * Fetches shifts.
+ *
+ * @function
  */
 export const GetShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -27,11 +34,12 @@ export const GetShifts = () => {
 };
 
 /**
- * Fetches all posted shifts (excluding user's own shifts)
+ * Fetches all posted shifts (excluding user's own shifts).
+ *
+ * @function
  */
 export const GetPostedShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift/posted`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -41,11 +49,12 @@ export const GetPostedShifts = () => {
 };
 
 /**
- * Fetches all user's shifts
+ * Fetches all user's shifts.
+ *
+ * @function
  */
 export const GetMyShifts = () => {
     store.dispatch(loadingShifts);
-
     axios
         .get(`${api}/shift/user`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -62,14 +71,10 @@ export const GetMyShifts = () => {
 };
 
 /**
- * @description Updates a shift
- * @param {*} shift
- */
-
-/**
- * Edits a shift
+ * Edits a shift.
  *
- * @param {Object} shift
+ * @function
+ * @param {Object} shift - Object containing shift fields to be updated.
  */
 export const EditShift = (shift) => {
     axios
@@ -81,46 +86,56 @@ export const EditShift = (shift) => {
 };
 
 /**
- * Updates a shifts materials
+ * Uploads a single shift material.
  *
- * @param {Object} shift
+ * @function
+ * @param {string} shiftId - The object id of the shift.
+ * @param {string} file - The file to be uploaded.
  */
-export const UploadShiftMaterials = (shift, file) => {
+export const UploadShiftMaterials = (shiftId, file) => {
     const formData = new FormData();
     formData.append('materials', file);
 
     axios
-        .put(`${api}/shift/${shift._id}/files/upload`, formData, {
+        .put(`${api}/shift/${shiftId}/files/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'auth-token': localStorage.getItem('auth-token'),
             },
         })
-        .then((res) => store.dispatch(editShift(res.data)))
-        .catch((err) => console.error(err));
-};
-
-/**
- * Deletes a single shift material
- *
- * @param {Object} shift
- * @param {string} fileKey
- */
-export const DeleteShiftMaterials = (shift, fileKey) => {
-    axios
-        .delete(`${api}/shift/${shift._id}/files/${fileKey}`, {
-            headers: {
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+        .then((res) => {
+            res.data.posted
+                ? store.dispatch(editMyPostedShift(res.data))
+                : store.dispatch(editMyShift(res.data));
         })
-        .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
 
 /**
- * Posts a shift
+ * Deletes a single shift material.
  *
- * @param {ObjectId} shiftId
+ * @function
+ * @param {Object} shiftId - The parent shift object of the file to be deleted.
+ * @param {string} fileKey - The key of the file to be deleted.
+ */
+export const DeleteShiftMaterials = (shiftId, fileKey) => {
+    axios
+        .delete(`${api}/shift/${shiftId}/files/${fileKey}`, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        })
+        .then((res) => {
+            res.data.posted
+                ? store.dispatch(editMyPostedShift(res.data))
+                : store.dispatch(editMyShift(res.data));
+        })
+        .catch((err) => console.error(err));
+};
+
+/**
+ * Posts a shift.
+ *
+ * @function* @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const PostShift = async (shiftId) => {
     try {
@@ -134,9 +149,11 @@ export const PostShift = async (shiftId) => {
 };
 
 /**
- * Unposts a shift
+ * Unposts a shift.
  *
- * @param {ObjectId} shiftId
+ * @function
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const UnpostShift = async (shiftId) => {
     try {
@@ -150,16 +167,36 @@ export const UnpostShift = async (shiftId) => {
 };
 
 /**
- * Takes a shift
+ * Takes a shift.
  *
- * @param {ObjectId} shiftId
+ * @function
+ * @async
+ * @param {string} shiftId - The object id of the shift.
  */
 export const TakeShift = async (shiftId) => {
     try {
         const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
-        store.dispatch(editShift(shift.data));
+        store.dispatch(takeShift(shift.data));
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+/**
+ * Returns a shift.
+ *
+ * @function
+ * @async
+ * @param {string} shiftId - The object id of the shift.
+ */
+export const ReturnShift = async (shiftId) => {
+    try {
+        const shift = await axios.put(`${api}/shift/${shiftId}/return`, null, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(returnShift(shift.data));
     } catch (err) {
         console.error(err);
     }

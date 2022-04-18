@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Payroll Redux slice. Contains initial state and reducers for payroll.
+ */
 export const payrollSlice = createSlice({
     name: 'payroll',
     initialState: {

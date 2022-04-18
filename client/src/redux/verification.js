@@ -4,6 +4,15 @@ import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/** @module verification_data */
+
+/**
+ * Confirms a user's email address.
+ *
+ * @function
+ * @async
+ * @param {string} code - The code sent to the user's email address.
+ */
 export const ConfirmUser = async (code) => {
     store.dispatch(loading());
     try {

@@ -8,6 +8,9 @@ import notifSlice from './notifSlice';
 import userSlice from './userSlice';
 import verificationSlice from './verificationSlice';
 
+/**
+ * Redux store configuration.
+ */
 export default configureStore({
     reducer: {
         admin: adminSlice,

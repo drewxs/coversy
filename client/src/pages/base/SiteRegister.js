@@ -14,7 +14,7 @@ export const SiteRegister = () => {
     const [name, setName] = useState('');
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
-    const [zip, setZip] = useState('');
+    const [postalCode, setPostalCode] = useState('');
     const [province, setProvince] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +30,7 @@ export const SiteRegister = () => {
             address: {
                 street,
                 city,
-                zip,
+                postalCode,
                 province,
             },
             email,
@@ -59,7 +59,7 @@ export const SiteRegister = () => {
             <div className='card'>
                 <Button href='/'>{`< Back`}</Button>
                 <div className='h-cont'>
-                    <h1>Registration</h1>
+                    <h1>Site Registration</h1>
                 </div>
                 {!success ? (
                     <form onSubmit={handleSubmit}>
@@ -96,8 +96,8 @@ export const SiteRegister = () => {
                                 className='input'
                                 variant='outlined'
                                 label='Postal Code'
-                                value={zip}
-                                onChange={(e) => setZip(e.target.value)}
+                                value={postalCode}
+                                onChange={(e) => setPostalCode(e.target.value)}
                             />
 
                             <FormControl fullWidth>

@@ -1,5 +1,8 @@
 const Ticket = require('../models/ticket.model');
 const escape = require('escape-html');
+const {
+    createNotification,
+} = require('../controllers/notification.controller');
 
 /**
  * This function creates a ticket.
@@ -69,15 +72,21 @@ exports.getResolvedTickets = async (req, res) => {
  * @access Admin
  */
 exports.resolveTicket = async (req, res) => {
-    const updateQuery = {
-        resolved: true,
-    };
     const ticketId = escape(req.params.ticketId);
 
     try {
-        const ticket = await Ticket.findByIdAndUpdate(ticketId, updateQuery, {
-            new: true,
-        }).populate('user', 'firstName lastName email phone');
+        const ticket = await Ticket.findByIdAndUpdate(
+            ticketId,
+            { resolved: true },
+            { new: true }
+        ).populate('user', 'firstName lastName email phone');
+
+        if (ticket.type == 1) {
+            createNotification(ticket.user, null, `Payroll`, ticket);
+        } else {
+            createNotification(ticket.user, null, `TimeOff`, ticket);
+        }
+
         return res.status(200).json(ticket);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -91,15 +100,14 @@ exports.resolveTicket = async (req, res) => {
  * @access Admin
  */
 exports.unresolveTicket = async (req, res) => {
-    const updateQuery = {
-        resolved: false,
-    };
     const ticketId = escape(req.params.ticketId);
 
     try {
-        const ticket = await Ticket.findByIdAndUpdate(ticketId, updateQuery, {
-            new: true,
-        }).populate('user', 'firstName lastName email phone');
+        const ticket = await Ticket.findByIdAndUpdate(
+            ticketId,
+            { resolved: false },
+            { new: true }
+        ).populate('user', 'firstName lastName email phone');
         return res.status(200).json(ticket);
     } catch (err) {
         return res.status(400).json(err.message);

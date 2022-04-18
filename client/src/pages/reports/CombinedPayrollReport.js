@@ -38,13 +38,15 @@ export const CombinedPayrollReport = () => {
                                 <h1>REPORT</h1>
                             </div>
                             <div className='site'>
-                                <p className='bold'>{user?.site.name}</p>
+                                <p className='bold'>
+                                    Location: {user?.site.name}
+                                </p>
                                 <p>{user?.site.address.street}</p>
                                 <p>
                                     {user?.site.address.city},{' '}
                                     {user?.site.address.province}
                                     {', '}
-                                    {user?.site.address.zip}
+                                    {user?.site.address.postalCode}
                                 </p>
                                 <p>Canada</p>
                             </div>

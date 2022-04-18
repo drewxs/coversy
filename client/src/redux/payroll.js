@@ -4,6 +4,14 @@ import store from 'redux/store';
 
 const api = process.env.REACT_APP_API_URL;
 
+/** @module payroll_data */
+
+/**
+ * Fetches site payrolls.
+ *
+ * @function
+ * @async
+ */
 export const GetSitePayrolls = async () => {
     store.dispatch(loadingPayrolls());
     try {
@@ -16,6 +24,12 @@ export const GetSitePayrolls = async () => {
     }
 };
 
+/**
+ * Fetches user payrolls.
+ *
+ * @function
+ * @async
+ */
 export const GetUserPayrolls = async () => {
     store.dispatch(loadingPayrolls());
     try {
@@ -28,6 +42,11 @@ export const GetUserPayrolls = async () => {
     }
 };
 
+/**
+ * Fetches a single site payroll.
+ *
+ * @param {string} date  - The period of the payroll (e.g. 2020-01).
+ */
 export const GetSitePayroll = async (date) => {
     store.dispatch(loadingPayrolls());
     try {
@@ -40,6 +59,11 @@ export const GetSitePayroll = async (date) => {
     }
 };
 
+/**
+ * Fetches a single user payroll.
+ *
+ * @param {string} date  - The period of the payroll (e.g. 2020-01).
+ */
 export const GetUserPayroll = async (date) => {
     store.dispatch(loadingPayrolls());
     try {

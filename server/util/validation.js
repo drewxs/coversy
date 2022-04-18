@@ -82,7 +82,7 @@ exports.siteValidation = (data) => {
                 .regex(alphanumericPattern)
                 .message('No special characters allowed street name.')
                 .required(),
-            zip: Joi.string()
+            postalCode: Joi.string()
                 .regex(postalCodePattern)
                 .message('Invalid postal code.')
                 .required(),

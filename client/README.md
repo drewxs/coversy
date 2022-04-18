@@ -1,5 +1,7 @@
 # Coversy - Client
 
+Client application for Coversy.
+
 ### Tools
 
 -   [React](https://reactjs.org/)
@@ -8,7 +10,7 @@
 
 ### Requirements
 
-This project requires NodeJS (version 8 or later) and NPM.
+This project requires NodeJS (version 16 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/).
 To make sure you have them available on your machine,
 try running the following command.
@@ -42,5 +44,3 @@ Run the following for missing modules:
 ```sh
 $ npm i
 ```
-
-For missing environment variables, reach out for a copy of the .env file.

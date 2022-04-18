@@ -33,7 +33,7 @@ const user = {
     site: {
         address: {
             street: '123 Main St',
-            zip: 'A1A1A1',
+            postalCode: 'A1A1A1',
             city: 'Anytown',
             province: 'AB',
         },

@@ -1,12 +1,10 @@
 # Coversy
 
-### Introduction
-
 Instructor shift scheduling, shift exchange, and payroll management system. For internal use only.
 
 ### Prerequisites
 
-This project requires NodeJS (version 8 or later) and NPM.
+This project requires NodeJS (version 16 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/).
 To make sure you have them available on your machine,
 try running the following command.
@@ -17,10 +15,16 @@ $ npm -v && node -v
 
 ### Installation
 
-Run this in both the server and client folders:
+Install base dependencies:
 
 ```sh
-$ npm i
+$  npm i
+```
+
+Install server/client dependencies:
+
+```sh
+$  npm run i-all
 ```
 
 ### Configuration
@@ -30,19 +34,37 @@ Include the client .env file in /client.
 
 ### Development
 
-Run this in the server folder:
+To run the server and client in parallel:
 
 ```sh
-$ npm run dev
+$ npm run s-all
 ```
 
-Run this in the client folder:
+To start the server:
 
 ```sh
-$ npm start
+$ npm run dev --prefix ./server
+```
+
+To start the client:
+
+```sh
+$ npm start --prefix ./client
+```
+
+### Documentation
+
+To generate jsdocs:
+
+```sh
+$ npm run doc
 ```
 
 ### Troubleshooting
 
-Make sure you have the latest version of NodeJS and NPM. <br>
-Check if you are in the right folder when running scripts.
+Check that you have the latest version of NodeJS and NPM. <br>
+Check if your environment variables are set correctly.
+
+```
+
+```

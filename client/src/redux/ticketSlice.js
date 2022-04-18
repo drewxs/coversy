@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Ticket Redux slice. Contains initial state and reducers for ticket.
+ */
 export const ticketSlice = createSlice({
     name: 'ticket',
     initialState: {
@@ -21,13 +24,6 @@ export const ticketSlice = createSlice({
                 ...state,
                 resolvedTickets: [...action.payload],
                 loadingResolved: false,
-            };
-        },
-        addTicket: (state, action) => {
-            return {
-                ...state,
-                tickets: [...state.payload, action.payload],
-                loading: false,
             };
         },
         setResolved: (state, action) => {
@@ -74,7 +70,6 @@ export const ticketSlice = createSlice({
 export const {
     setTickets,
     setResolvedTickets,
-    addTicket,
     setResolved,
     setUnresolved,
     loadingTickets,
