@@ -1,5 +1,4 @@
 @use '../abstract' as *;
-@import '../abstract/mixins';
 
 .nav {
     background-color: rgba($color: $black, $alpha: 0.9);
@@ -24,10 +23,6 @@
 
     .nav-links {
         display: flex;
-
-        .links {
-            display: none;
-        }
     }
 
     .container {
@@ -72,34 +67,39 @@
     }
 
     @include respond-to('mobile') {
-            .nav-links {
-                align-items: center;
-                 
-                .desktop-nav {
-                    display: none;
-                }
-                 .hamburger-icon {
-                    display: flex;
-                }
-                .links { 
-                    padding: 1em;
-                    display: flex;
-                    right: 15% ;
-                    justify-content: center;
-                    flex-direction: column;
-                    background-color: $primary;
-                    align-items: center;
-                    position: fixed;
-                    top: 12%;
-                    border-radius: 0.5em;
-
-                    .button {
-                        margin-left: 0;
-                    }
-                }
-            }
-        .logout-btn {
-            display: none;
+        .hamburger-icon {
+            display: flex;
         }
+
+        .nav-links {
+            border-radius: 0.5em;
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            background-color: $black;
+            display: flex;
+            flex-direction: column;
+            max-height: 20em;
+            opacity: 1;
+            transition: max-height 400ms ease, opacity 400ms ease;
+            
+            .button {
+                display: flex;
+                margin: 0;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .notif-container {
+                position: fixed;
+                top: 7%;
+                right: 15%;
+            }
+            &.closed {
+                max-height: 0em;
+                opacity: 0;
+            }
+        }
+      
     }
 }
