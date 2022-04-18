@@ -9,6 +9,7 @@ import {
     UploadShiftMaterials,
     DeleteShiftMaterials,
 } from 'redux/shift';
+import { CreateTicket } from 'redux/ticket';
 import { FileUploader } from 'react-drag-drop-files';
 import { useSelector } from 'react-redux';
 import { UserShift } from 'components';
@@ -23,6 +24,7 @@ import {
     Tab,
     IconButton,
 } from '@mui/material';
+
 const localizer = momentLocalizer(moment);
 
 export const Shifts = () => {
@@ -31,11 +33,16 @@ export const Shifts = () => {
     const myShifts = useSelector((state) => state.shift.myShifts);
     const myPostedShifts = useSelector((state) => state.shift.myPostedShifts);
 
-    const [description, setDescription] = useState(null);
+    const [description, setDescription] = useState('');
     const [openbook, setOpenBook] = useState(false);
     const [openview, setOpenView] = useState(false);
     const [current, setCurrent] = useState(0);
     const [tab, setTab] = useState(0);
+
+    const handleCreateTicket = () => {
+        CreateTicket({ type: 2, message: description });
+        setOpenBook(false);
+    };
 
     const getFile = (shift, file) => {
         let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
@@ -456,34 +463,41 @@ export const Shifts = () => {
             {/* Modal - Book Time Off */}
             <Modal open={openbook} onClose={() => setOpenBook(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
-                    <Typography variant='h5'>Book Time Off</Typography>
-                    <TextField
-                        className='input-form'
-                        variant='outlined'
-                        label='Description'
-                        fullWidth
-                        multiline
-                        rows={4}
-                        sx={{ mt: '1rem' }}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <Button
-                        variant='contained'
-                        color='primary'
-                        sx={{ mt: '1rem' }}
-                        onClick={() => setOpenBook(false)}
-                    >
-                        Book
-                    </Button>
-                    <Button
-                        variant='outlined'
-                        color='primary'
-                        sx={{ mt: '1rem', ml: '1rem' }}
-                        onClick={() => setOpenBook(false)}
-                    >
-                        Cancel
-                    </Button>
+                    <form onSubmit={handleCreateTicket}>
+                        <Typography variant='h5'>Book Time Off</Typography>
+
+                        {/* Select Shift for Time Off - Book Time Off Modal */}
+                        {/* Description Box - Book Time Off Modal */}
+                        <TextField
+                            className='input-form'
+                            variant='outlined'
+                            label='Description'
+                            fullWidth
+                            multiline
+                            rows={4}
+                            sx={{ mt: '1rem' }}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+
+                        {/* Book and Cancel Buttons - Book Time Off Modal */}
+                        <Button
+                            variant='contained'
+                            color='primary'
+                            sx={{ mt: '1rem' }}
+                            type='submit'
+                        >
+                            Book
+                        </Button>
+                        <Button
+                            variant='outlined'
+                            color='primary'
+                            sx={{ mt: '1rem', ml: '1rem' }}
+                            onClick={() => setOpenBook(false)}
+                        >
+                            Cancel
+                        </Button>
+                    </form>
                 </Box>
             </Modal>
         </>

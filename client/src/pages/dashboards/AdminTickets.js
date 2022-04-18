@@ -94,7 +94,7 @@ export const AdminTickets = () => {
                                                     {ticket.type === 1 &&
                                                         'Payroll Issue'}
                                                     {ticket.type === 2 &&
-                                                        'Time-off Issue'}
+                                                        'Time-off Request'}
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
@@ -148,7 +148,7 @@ export const AdminTickets = () => {
                                                     {ticket.type === 1 &&
                                                         'Payroll Issue'}
                                                     {ticket.type === 2 &&
-                                                        'Time-off Issue'}
+                                                        'Time-off Request'}
                                                 </TableCell>
                                                 <TableCell>
                                                     <Button
@@ -197,7 +197,7 @@ export const AdminTickets = () => {
                                 {tickets[current]?.type === 1 &&
                                     'Payroll Issue'}
                                 {tickets[current]?.type === 2 &&
-                                    'Time-off Issue'}
+                                    'Time-off Request'}
                             </p>
                             <Divider
                                 sx={{ marginTop: '1rem', marginBottom: '1rem' }}
@@ -247,7 +247,7 @@ export const AdminTickets = () => {
                                 {resolvedTickets[current]?.type === 1 &&
                                     'Payroll Issue'}
                                 {resolvedTickets[current]?.type === 2 &&
-                                    'Time-off Issue'}
+                                    'Time-off Request'}
                             </p>
                             <Divider
                                 sx={{ marginTop: '1rem', marginBottom: '1rem' }}
