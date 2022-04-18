@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts } from 'redux/shift';
 import { AddShift, SetOpenShiftUpload, FetchUsers } from 'redux/admin';
+import { EditShift } from 'redux/shift';
 import {
     Table,
     TableBody,
@@ -17,6 +18,7 @@ import {
     InputLabel,
     MenuItem,
 } from '@mui/material';
+import DateTimePicker from 'react-datetime-picker';
 import { FileUploader } from 'react-drag-drop-files';
 import Papa from 'papaparse';
 import moment from 'moment';
@@ -32,11 +34,22 @@ export const AdminShifts = () => {
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
     const [subject, setSubject] = useState(null);
+    const [value, onChange] = useState(new Date());
+    const [shiftId, setShiftId] = useState(null);
     const [teacher, setTeacher] = useState(null);
-    //const [value, onChange] = useState(new Date());
-    //const [date, setDate] = useState(new Date());
-    //const [startTime, setStartTime] = useState(null);
-    //const [endTime, setEndTime] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+
+    const handleSave = (e) => {
+        e.preventDefault();
+
+        EditShift(shiftId, {
+            subject,
+            teacher,
+            startTime,
+            endTime,
+        });
+    };
 
     useEffect(() => {
         if (admin.site._id) FetchUsers(admin.site._id);
@@ -106,11 +119,11 @@ export const AdminShifts = () => {
                                         <Button
                                             variant='contained'
                                             onClick={() => {
+                                                setShiftId(shiftId);
                                                 setSubject(shift.subject);
-                                                setTeacher(
-                                                    shift.teacher.firstName
-                                                );
-                                                //setStartTime(shift.startTime);
+                                                setTeacher(shift.teacher);
+                                                setStartTime(shift.startTime);
+                                                setEndTime(shift.endTime);
                                                 setOpen(true);
                                             }}
                                         >
@@ -139,7 +152,6 @@ export const AdminShifts = () => {
                         Upload Schedule
                     </Typography>
                     <FileUploader
-                        classes='file-uploader'
                         handleChange={(e) => setFile(e)}
                         name='file'
                         types={['CSV']}
@@ -181,42 +193,62 @@ export const AdminShifts = () => {
                             },
                         }}
                     >
-                        <TextField
-                            value={subject}
-                            onChange={(e) => setSubject(e.target.value)}
-                            label='Subject'
-                            placeholder='Subject'
-                            fullWidth
-                        ></TextField>
-                        <InputLabel>Teacher</InputLabel>
-                        <Select
-                            sx={{ mb: '1rem' }}
-                            placeholder='Teacher'
-                            fullWidth
-                            value={teacher}
-                            onChange={(e) => setTeacher(e.target.value)}
-                        >
-                            {users?.map((user, k) => (
-                                <MenuItem value={user} key={k}>
-                                    {user.firstName} {user.lastName}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        {/* DateTimePicker */}
+                        <form onSubmit={handleSave}>
+                            {/* Subject Field */}
+                            <TextField
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
+                                label='Subject'
+                                placeholder='Subject'
+                                fullWidth
+                            ></TextField>
 
-                        <Button
-                            sx={{ mr: '1rem' }}
-                            variant='contained'
-                            onClick={() => setOpen(false)}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            variant='outlined'
-                            onClick={() => setOpen(false)}
-                        >
-                            Cancel
-                        </Button>
+                            {/* Teacher Field */}
+                            <InputLabel>Teacher</InputLabel>
+                            <Select
+                                sx={{ mb: '1rem' }}
+                                placeholder='Teacher'
+                                fullWidth
+                                value={teacher}
+                                onChange={(e) => setTeacher(e.target.value)}
+                            >
+                                {users?.map((user, k) => (
+                                    <MenuItem value={user} key={k}>
+                                        {user.firstName} {user.lastName}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+
+                            {/* DateTimePicker */}
+                            <InputLabel>Date and Time</InputLabel>
+                            <DateTimePicker
+                                monthPlaceholder='mm'
+                                dayPlaceholder='dd'
+                                yearPlaceholder='yyyy'
+                                hourPlaceholder='hh'
+                                minutePlaceholder='mm'
+                                value={value}
+                                onChange={onChange}
+                            />
+
+                            {/* Save/Cancel Buttons */}
+                            <div>
+                                <Button
+                                    sx={{ mr: '1rem', mt: '1rem' }}
+                                    variant='contained'
+                                    onClick={() => setOpen(false)}
+                                >
+                                    Save
+                                </Button>
+                                <Button
+                                    sx={{ mt: '1rem' }}
+                                    variant='outlined'
+                                    onClick={() => setOpen(false)}
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        </form>
                     </Box>
                 </Box>
             </Modal>

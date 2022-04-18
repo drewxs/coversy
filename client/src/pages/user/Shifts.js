@@ -462,6 +462,8 @@ export const Shifts = () => {
                         variant='outlined'
                         label='Description'
                         fullWidth
+                        multiline
+                        rows={4}
                         sx={{ mt: '1rem' }}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
