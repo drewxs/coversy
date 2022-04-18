@@ -1,6 +1,10 @@
 @use '../abstract' as *;
 @use 'react-big-calendar/lib/sass/styles';
 
+.rbc-toolbar {
+    font-size: 1em;
+}
+
 .rbc-event {
     background-color: $primary;
 
