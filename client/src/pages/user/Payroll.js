@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
+    Box,
     Button,
+    LinearProgress,
+    Modal,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Modal,
-    Box,
-    Typography,
     TextField,
+    Typography,
 } from '@mui/material';
 import { GetUserPayrolls } from 'redux/payroll';
 
 export const Payroll = () => {
     const payrolls = useSelector((state) => state.payroll.payrolls);
+    const loading = useSelector((state) => state.payroll.loading);
     const [openReport, setOpenReport] = useState(false);
     const [description, setDescription] = useState(null);
 
@@ -27,52 +29,60 @@ export const Payroll = () => {
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Table stickyHeader>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Period</TableCell>
-                                <TableCell>Pay</TableCell>
-                                <TableCell>Deductions</TableCell>
-                                <TableCell>Net Pay</TableCell>
-                                <TableCell>View</TableCell>
-                                <TableCell>Report Issue</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {payrolls?.map((payroll, k) => (
-                                <TableRow key={k}>
-                                    <TableCell>{payroll.period}</TableCell>
-                                    <TableCell>
-                                        ${payroll.pay?.toFixed(2)}
-                                    </TableCell>
-                                    <TableCell>
-                                        ${payroll.deductions?.toFixed(2)}
-                                    </TableCell>
-                                    <TableCell>
-                                        ${payroll.netPay?.toFixed(2)}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant='outlined'
-                                            href={`/payroll/report/${payroll.period}`}
-                                        >
-                                            View
-                                        </Button>
-                                    </TableCell>
-
-                                    {/* Report Button */}
-                                    <TableCell>
-                                        <Button
-                                            variant='contained'
-                                            onClick={() => setOpenReport(true)}
-                                        >
-                                            Report
-                                        </Button>
-                                    </TableCell>
+                    {loading ? (
+                        <Box sx={{ width: '100%' }}>
+                            <LinearProgress />
+                        </Box>
+                    ) : (
+                        <Table stickyHeader>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Period</TableCell>
+                                    <TableCell>Pay</TableCell>
+                                    <TableCell>Deductions</TableCell>
+                                    <TableCell>Net Pay</TableCell>
+                                    <TableCell>View</TableCell>
+                                    <TableCell>Report Issue</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHead>
+                            <TableBody>
+                                {payrolls?.map((payroll, k) => (
+                                    <TableRow key={k}>
+                                        <TableCell>{payroll.period}</TableCell>
+                                        <TableCell>
+                                            ${payroll.pay?.toFixed(2)}
+                                        </TableCell>
+                                        <TableCell>
+                                            ${payroll.deductions?.toFixed(2)}
+                                        </TableCell>
+                                        <TableCell>
+                                            ${payroll.netPay?.toFixed(2)}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant='outlined'
+                                                href={`/payroll/report/${payroll.period}`}
+                                            >
+                                                View
+                                            </Button>
+                                        </TableCell>
+
+                                        {/* Report Button */}
+                                        <TableCell>
+                                            <Button
+                                                variant='contained'
+                                                onClick={() =>
+                                                    setOpenReport(true)
+                                                }
+                                            >
+                                                Report
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
 
                     {/* Modal - Report Payroll Issue */}
                     <Modal
