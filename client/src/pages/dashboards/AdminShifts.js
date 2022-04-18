@@ -115,7 +115,6 @@ export const AdminShifts = () => {
                                         {moment(shift.endTime).format('h:mm A')}
                                     </TableCell>
                                     <TableCell>
-                                        {/* Edit Shift Modal */}
                                         <Button
                                             variant='contained'
                                             onClick={() => {
@@ -142,16 +141,12 @@ export const AdminShifts = () => {
                 open={openShiftUpload}
                 onClose={() => SetOpenShiftUpload(false)}
             >
-                <Box
-                    className='modal-container'
-                    sx={{
-                        width: 400,
-                    }}
-                >
+                <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography variant='h6' sx={{ mb: '1rem' }}>
                         Upload Schedule
                     </Typography>
                     <FileUploader
+                        classes='file-uploader'
                         handleChange={(e) => setFile(e)}
                         name='file'
                         types={['CSV']}
@@ -172,7 +167,7 @@ export const AdminShifts = () => {
                     <Button
                         variant='contained'
                         color='primary'
-                        sx={{ mt: 3 }}
+                        sx={{ mt: '1.5rem' }}
                         onClick={() => handleUpload()}
                     >
                         Upload
