@@ -9,7 +9,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Fetches site payrolls.
  *
- * @function GetSitePayrolls
+ * @function
  * @async
  */
 export const GetSitePayrolls = async () => {
@@ -27,7 +27,7 @@ export const GetSitePayrolls = async () => {
 /**
  * Fetches user payrolls.
  *
- * @function GetUserPayrolls
+ * @function
  * @async
  */
 export const GetUserPayrolls = async () => {

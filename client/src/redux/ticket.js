@@ -16,7 +16,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Fetches unresolved tickets.
  *
- * @function GetUnresolvedTickets
+ * @function
  */
 export const GetUnresolvedTickets = () => {
     store.dispatch(loadingTickets());
@@ -31,7 +31,7 @@ export const GetUnresolvedTickets = () => {
 /**
  * Fetches resolved tickets.
  *
- * @function GetResolvedTickets
+ * @function
  */
 export const GetResolvedTickets = () => {
     store.dispatch(loadingResolvedTickets());
@@ -46,7 +46,7 @@ export const GetResolvedTickets = () => {
 /**
  * Creates a ticket.
  *
- * @function CreateTicket
+ * @function
  * @param {Object} ticket - The ticket to be created.
  * @param {number} ticket.type - The type of the ticket (1: Payroll issue, 2: Time-off request).
  * @param {string} ticket.message - The message of the ticket.
@@ -63,7 +63,7 @@ export const CreateTicket = (ticket) => {
 /**
  * Resolves a Ticket.
  *
- * @function ResolveTicket
+ * @function
  * @param {number} ticketId - The id of the ticket to be resolved.
  */
 export const ResolveTicket = (ticketId) => {
@@ -78,7 +78,7 @@ export const ResolveTicket = (ticketId) => {
 /**
  * Unresolves a Ticket.
  *
- * @function UnresolveTicket
+ * @function
  * @param {number} ticketId - The id of the ticket to be unresolved.
  */
 export const UnresolveTicket = (ticketId) => {

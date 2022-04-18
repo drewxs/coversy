@@ -21,7 +21,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Fetches shifts.
  *
- * @function GetShifts
+ * @function
  */
 export const GetShifts = () => {
     store.dispatch(loadingShifts);
@@ -36,7 +36,7 @@ export const GetShifts = () => {
 /**
  * Fetches all posted shifts (excluding user's own shifts).
  *
- * @function GetPostedShifts
+ * @function
  */
 export const GetPostedShifts = () => {
     store.dispatch(loadingShifts);
@@ -51,7 +51,7 @@ export const GetPostedShifts = () => {
 /**
  * Fetches all user's shifts.
  *
- * @function GetMyShifts
+ * @function
  */
 export const GetMyShifts = () => {
     store.dispatch(loadingShifts);
@@ -73,7 +73,7 @@ export const GetMyShifts = () => {
 /**
  * Edits a shift.
  *
- * @function EditShift
+ * @function
  * @param {Object} shift - Object containing shift fields to be updated.
  */
 export const EditShift = (shift) => {
@@ -86,9 +86,9 @@ export const EditShift = (shift) => {
 };
 
 /**
- * Updates a shifts materials.
+ * Uploads a single shift material.
  *
- * @function UploadShiftMaterials
+ * @function
  * @param {string} shiftId - The object id of the shift.
  * @param {string} file - The file to be uploaded.
  */
@@ -114,23 +114,19 @@ export const UploadShiftMaterials = (shiftId, file) => {
 /**
  * Deletes a single shift material.
  *
- * @function DeleteShiftMaterials
+ * @function
  * @param {Object} shiftId - The parent shift object of the file to be deleted.
  * @param {string} fileKey - The key of the file to be deleted.
  */
 export const DeleteShiftMaterials = (shiftId, fileKey) => {
     axios
         .delete(`${api}/shift/${shiftId}/files/${fileKey}`, {
-            headers: {
-                'auth-token': localStorage.getItem('auth-token'),
-            },
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
         })
         .then((res) => {
-            if (res.data.posted) {
-                store.dispatch(editMyPostedShift(res.data));
-            } else {
-                store.dispatch(editMyShift(res.data));
-            }
+            res.data.posted
+                ? store.dispatch(editMyPostedShift(res.data))
+                : store.dispatch(editMyShift(res.data));
         })
         .catch((err) => console.error(err));
 };
@@ -138,8 +134,7 @@ export const DeleteShiftMaterials = (shiftId, fileKey) => {
 /**
  * Posts a shift.
  *
- * @function PostShift
- * @async
+ * @function* @async
  * @param {string} shiftId - The object id of the shift.
  */
 export const PostShift = async (shiftId) => {
@@ -156,7 +151,7 @@ export const PostShift = async (shiftId) => {
 /**
  * Unposts a shift.
  *
- * @function UnpostShift
+ * @function
  * @async
  * @param {string} shiftId - The object id of the shift.
  */
@@ -174,7 +169,7 @@ export const UnpostShift = async (shiftId) => {
 /**
  * Takes a shift.
  *
- * @function TakeShift
+ * @function
  * @async
  * @param {string} shiftId - The object id of the shift.
  */
@@ -190,9 +185,9 @@ export const TakeShift = async (shiftId) => {
 };
 
 /**
- * Takes a shift.
+ * Returns a shift.
  *
- * @function ReturnShift
+ * @function
  * @async
  * @param {string} shiftId - The object id of the shift.
  */

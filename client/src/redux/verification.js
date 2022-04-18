@@ -9,7 +9,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Confirms a user's email address.
  *
- * @function ConfirmUser
+ * @function
  * @async
  * @param {string} code - The code sent to the user's email address.
  */
