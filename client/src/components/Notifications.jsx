@@ -9,23 +9,14 @@ import {
 import { IconButton, Badge } from '@mui/material';
 import { NotificationsNone, CloseRounded } from '@mui/icons-material';
 
-export const NotificationDropdown = () => {
+export const Notifications = () => {
     const notifications = useSelector(
         (state) => state.notification.notifications
     );
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
-        if (!open) {
-            ReadNotifications();
-        }
+        if (!open) ReadNotifications();
         setOpen(!open);
-    };
-    const hasUnread = () => {
-        let total = 0;
-        notifications.forEach((notif) => {
-            total += notif.read;
-        });
-        return total === notifications.length;
     };
 
     useEffect(() => {
@@ -35,10 +26,9 @@ export const NotificationDropdown = () => {
     return (
         <>
             <Badge
-                variant='dot'
                 color='primary'
                 overlap='circular'
-                invisible={hasUnread()}
+                badgeContent={notifications?.length}
             >
                 <IconButton
                     color='primary'
@@ -50,6 +40,7 @@ export const NotificationDropdown = () => {
                     <NotificationsNone />
                 </IconButton>
             </Badge>
+
             {open && (
                 <div className='notif-dropdown card'>
                     {notifications.map((notif, k) => (
@@ -113,6 +104,7 @@ export const NotificationDropdown = () => {
                             </IconButton>
                         </div>
                     ))}
+
                     {notifications.length === 0 && (
                         <div className='notif-item'>
                             <p>No Notifications</p>

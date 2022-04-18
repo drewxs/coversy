@@ -4,13 +4,11 @@ import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { LogoutUser } from 'redux/user';
 import logo from 'assets/logo.svg';
-import { NotificationDropdown } from './NotificationDropdown';
+import { Notifications } from 'components/Notifications';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
-
-    const greetings = ['Hello', 'Hi', 'Welcome'];
 
     return (
         <section className='nav'>
@@ -26,12 +24,7 @@ export const Nav = () => {
 
                     {authenticated && (
                         <p className='hello'>
-                            {
-                                greetings[
-                                    Math.floor(Math.random() * greetings.length)
-                                ]
-                            }
-                            , {user.firstName} {user.lastName}
+                            Hi, {user.firstName} {user.lastName}
                         </p>
                     )}
                 </div>
@@ -161,7 +154,7 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
-                            <NotificationDropdown />
+                            <Notifications />
                             <Button
                                 color='primary'
                                 className='button logout-btn'
