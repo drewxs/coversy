@@ -29,7 +29,7 @@ export const Notifications = () => {
                 className='button notif-btn'
                 color='primary'
                 overlap='circular'
-                badgeContent={notifications?.length}
+                badgeContent={notifications.filter((n) => !n.read).length}
             >
                 <IconButton
                     className='notif-icon'
