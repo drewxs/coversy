@@ -1,7 +1,5 @@
 # Coversy
 
-### Introduction
-
 Instructor shift scheduling, shift exchange, and payroll management system. For internal use only.
 
 ### Prerequisites
@@ -17,10 +15,8 @@ $ npm -v && node -v
 
 ### Installation
 
-Run this in both the server and client folders:
-
 ```sh
-$ npm i
+$ npm i && npm i --prefix server && npm i --prefix client
 ```
 
 ### Configuration
@@ -30,19 +26,31 @@ Include the client .env file in /client.
 
 ### Development
 
-Run this in the server folder:
+To start the server:
 
 ```sh
-$ npm run dev
+$ npm --prefix ./server run dev
 ```
 
-Run this in the client folder:
+To start the client:
 
 ```sh
-$ npm start
+$ npm --prefix ./client start
+```
+
+### Documentation
+
+To generate jsdocs:
+
+```sh
+$ npm run doc
 ```
 
 ### Troubleshooting
 
-Make sure you have the latest version of NodeJS and NPM. <br>
-Check if you are in the right folder when running scripts.
+Check that you have the latest version of NodeJS and NPM. <br>
+Check if your environment variables are set correctly.
+
+```
+
+```

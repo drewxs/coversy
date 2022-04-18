@@ -1,12 +1,14 @@
 # Coversy - Server
 
+REST API server for Coversy.
+
 ### Tools
 
 -   [Express](https://www.npmjs.com/package/express)
 -   [MongoDB](https://www.mongodb.com)
 -   [AWS S3](https://aws.amazon.com/s3/)
 
-### Requirements
+### Prerequisites
 
 This project requires NodeJS (version 8 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/).
@@ -48,5 +50,3 @@ If the dev script is still throwing errors, run the following before trying agai
 ```sh
 $ npm i -D nodemon
 ```
-
-For missing environment variables, reach out for a copy of the .env file.

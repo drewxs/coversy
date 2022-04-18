@@ -1,5 +1,7 @@
 # Coversy - Client
 
+Client application for Coversy.
+
 ### Tools
 
 -   [React](https://reactjs.org/)
@@ -42,5 +44,3 @@ Run the following for missing modules:
 ```sh
 $ npm i
 ```
-
-For missing environment variables, reach out for a copy of the .env file.
