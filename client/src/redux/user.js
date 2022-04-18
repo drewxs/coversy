@@ -24,8 +24,8 @@ const api = process.env.REACT_APP_API_URL;
 
 /**
  * Logs in an existing user.
- * 
- * @function LoginUser
+ *
+ * @function
  * @async
  * @param {Object} user - User object with fields used to login.
  * @param {string} user.email - The user's email.
@@ -47,8 +47,8 @@ export const LoginUser = async (user) => {
 
 /**
  * Registers a new user.
- * 
- * @function RegisterUser
+ *
+ * @function
  * @async
  * @param {Object} data - Object with fields used to register a user.
  * @param {string} data.firstName - The user's first name.
@@ -72,8 +72,8 @@ export const RegisterUser = async (data) => {
 
 /**
  * Registers a new site.
- * 
- * @function RegisterUser
+ *
+ * @function
  * @async
  * @param {Object} data - Object with fields used to register a site.
  * @param {string} data.name - The name of the site.
@@ -100,8 +100,8 @@ export const RegisterSite = async (data) => {
 
 /**
  * Fetches site data used for registration.
- * 
- * @function FetchSites
+ *
+ * @function
  * @async
  */
 export const FetchSites = async () => {
@@ -115,8 +115,8 @@ export const FetchSites = async () => {
 
 /**
  * Fetches the user's data.
- * 
- * @function LoadUser
+ *
+ * @function
  * @async
  */
 export const LoadUser = async () => {
@@ -134,8 +134,8 @@ export const LoadUser = async () => {
 
 /**
  * Logs out the user of their session.
- * 
- * @function LogoutUser
+ *
+ * @function
  */
 export const LogoutUser = () => {
     localStorage.removeItem('auth-token');
@@ -145,8 +145,8 @@ export const LogoutUser = () => {
 
 /**
  * Updates the user's profile picture.
- * 
- * @function UpdateProfilePicture
+ *
+ * @function
  * @async
  * @param {Object} image - The image to be uploaded.
  */
@@ -173,8 +173,8 @@ export const UpdateProfilePicture = async (image) => {
 
 /**
  * Updates the user's profile information.
- * 
- * @function UpdateUser
+ *
+ * @function
  * @async
  * @param {Object} updateQuery - Object containing the fields to be updated.
  * @param {string} updateQuery.firstName - The user's first name.
@@ -199,8 +199,8 @@ export const UpdateUser = async (updateQuery) => {
 /**
  * Sets the open/close state of the edit user details modal.
  *
- * @function SetEditOpen 
- * @param {boolean} open - The open/close state of the modal. 
+ * @function
+ * @param {boolean} open - The open/close state of the modal.
  */
 export const SetEditOpen = (open) => {
     store.dispatch(setEditOpen(open));
@@ -209,7 +209,7 @@ export const SetEditOpen = (open) => {
 
 /**
  * Sets the default authorization headers for axios.
- * 
+ *
  * @param {string} token - The user's authorization token.
  * @param {string} id - The user's id.
  */

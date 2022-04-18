@@ -16,7 +16,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Finds a user by their password reset code.
  *
- * @function FindUserByPasswordResetCode
+ * @function
  * @async
  * @param {string} passwordResetCode - The password reset code.
  */
@@ -35,7 +35,7 @@ export const FindUserByPasswordResetCode = async (passwordResetCode) => {
 /**
  * Sends a password reset email to a user.
  *
- * @function RequestPasswordReset
+ * @function
  * @async
  * @param {string} email - The email of the user.
  */
@@ -53,7 +53,7 @@ export const RequestPasswordReset = async (email) => {
 /**
  * Resets a user's password.
  *
- * @function PasswordReset
+ * @function
  * @async
  * @param {string} passwordResetCode - The password reset code.
  * @param {string} newPassword - The new password.

@@ -14,7 +14,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Fetches notifications.
  *
- * @function GetNotifications
+ * @function
  * @async
  */
 export const GetNotifications = async () => {
@@ -32,7 +32,7 @@ export const GetNotifications = async () => {
 /**
  * Marks all notification as read.
  *
- * @function ReadNotifications
+ * @function
  * @async
  */
 export const ReadNotifications = async () => {

@@ -28,7 +28,7 @@ const api = process.env.REACT_APP_API_URL;
 /**
  * Fetches all users.
  *
- * @function FetchUsers
+ * @function
  * @async
  * @param {string} siteId - The object id of the site to fetch users for.
  */
@@ -45,7 +45,7 @@ export const FetchUsers = async (siteId) => {
 /**
  * Toggle user active status.
  *
- * @function ToggleUserActivatedById
+ * @function
  * @async
  * @param {string} userId - The object id of the user.
  */
@@ -61,9 +61,9 @@ export const ToggleUserActivatedById = async (userId) => {
 /**
  * Updates a user.
  *
- * @function UpdateUserAsAdmin
+ * @function
  * @async
- * @param {string} userId,
+ * @param {string} userId - The object id of the user.
  * @param {Object} user - Object containing user field to be updated.
  * @param {string} user.firstName - The first name of the user.
  * @param {string} user.lastName - The last name of the user.
@@ -86,7 +86,7 @@ export const UpdateUserAsAdmin = async (userId, user) => {
 /**
  * Updates site details.
  *
- * @function UpdateSite
+ * @function
  * @async
  * @param {Object} site - Object containing site fields to be updated.
  * @param {string} site.name - The name of the site.
@@ -112,7 +112,7 @@ export const UpdateSite = async (site) => {
 /**
  * Adds a shift.
  *
- * @function AddShift
+ * @function
  * @async
  * @param {Object} shift
  * @param {string} shift.teacher - The email of the user assigned to the shift.
@@ -135,7 +135,7 @@ export const AddShift = async (shift) => {
 /**
  * Sets open/close state of the edit user modal.
  *
- * @function SetOpenEditUser
+ * @function
  * @param {boolean} open - Whether to set the edit user modal to open or closed.
  */
 export const SetOpenEditUser = (open) => {
@@ -146,7 +146,7 @@ export const SetOpenEditUser = (open) => {
 /**
  * Sets open/close state of the shift upload modal.
  *
- * @function SetOpenShiftUpload
+ * @function
  * @param {boolean} open - Whether to set the shift upload modal to open or closed.
  */
 export const SetOpenShiftUpload = (open) => {
