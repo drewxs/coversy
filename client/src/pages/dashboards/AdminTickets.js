@@ -12,6 +12,7 @@ import {
     TableRow,
     Tab,
     Tabs,
+    Typography,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import {
@@ -175,14 +176,24 @@ export const AdminTickets = () => {
                 <Box className='modal-container' sx={{ width: 400 }}>
                     {tab === 0 && (
                         <>
+                            <Typography sx={{ mb: '1rem' }} variant='h6'>
+                                Review Issue
+                            </Typography>
                             <p>
-                                Name: {tickets[current]?.user.firstName}{' '}
+                                <strong>Name:</strong>{' '}
+                                {tickets[current]?.user.firstName}{' '}
                                 {tickets[current]?.user.lastName}
                             </p>
-                            <p>Email: {tickets[current]?.user.email}</p>
-                            <p>Phone: {tickets[current]?.user.phone}</p>
                             <p>
-                                Type:{' '}
+                                <strong>Email:</strong>{' '}
+                                {tickets[current]?.user.email}
+                            </p>
+                            <p>
+                                <strong>Phone:</strong>{' '}
+                                {tickets[current]?.user.phone}
+                            </p>
+                            <p>
+                                <strong>Type:</strong>{' '}
                                 {tickets[current]?.type === 1 &&
                                     'Payroll Issue'}
                                 {tickets[current]?.type === 2 &&
@@ -191,6 +202,9 @@ export const AdminTickets = () => {
                             <Divider
                                 sx={{ marginTop: '1rem', marginBottom: '1rem' }}
                             ></Divider>
+                            <p>
+                                <strong>Description:</strong>
+                            </p>
                             <p>{tickets[current]?.message}</p>
                             <br />
                             <Button
@@ -207,7 +221,6 @@ export const AdminTickets = () => {
                             <Button
                                 onClick={() => setOpen(false)}
                                 variant='outlined'
-                                sx={{ ml: '1rem' }}
                             >
                                 Cancel
                             </Button>
@@ -215,14 +228,22 @@ export const AdminTickets = () => {
                     )}
                     {tab === 1 && (
                         <>
+                            <Typography variant='h6'>Review</Typography>
                             <p>
-                                Name: {resolvedTickets[current]?.user.firstName}{' '}
+                                <strong>Name:</strong>
+                                {resolvedTickets[current]?.user.firstName}{' '}
                                 {resolvedTickets[current]?.user.lastName}
                             </p>
-                            <p>Email: {resolvedTickets[current]?.user.email}</p>
-                            <p>Phone: {resolvedTickets[current]?.user.phone}</p>
                             <p>
-                                Type:{' '}
+                                <strong>Email:</strong>{' '}
+                                {resolvedTickets[current]?.user.email}
+                            </p>
+                            <p>
+                                <strong>Phone:</strong>{' '}
+                                {resolvedTickets[current]?.user.phone}
+                            </p>
+                            <p>
+                                <strong>Type:</strong>{' '}
                                 {resolvedTickets[current]?.type === 1 &&
                                     'Payroll Issue'}
                                 {resolvedTickets[current]?.type === 2 &&
@@ -231,6 +252,9 @@ export const AdminTickets = () => {
                             <Divider
                                 sx={{ marginTop: '1rem', marginBottom: '1rem' }}
                             ></Divider>
+                            <p>
+                                <strong>Description:</strong>
+                            </p>
                             <p>{resolvedTickets[current]?.message}</p>
                             <br />
                             <Button
