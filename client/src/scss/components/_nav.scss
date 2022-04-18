@@ -9,6 +9,11 @@
     top: 0;
     box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
 
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     .hamburger-icon {
         display: none;
     }
@@ -20,15 +25,8 @@
         margin-top: 0.1em;
         margin-left: 2em;
     }
-
     .nav-links {
         display: flex;
-    }
-
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
     .logo {
         width: auto;
@@ -57,37 +55,39 @@
     .logout-btn {
         color: rgba($color: $white, $alpha: 0.5);
     }
-    .notif-btn {
-        padding: 0;
-        margin-left: 0.5em;
-        border-bottom: 0px;
-    }
+
     @media print {
         display: none;
     }
 
-    @media only screen and (min-width: 380px) and (max-width: 768px) {
+    @include respond-to('tablet') {
+        .hamburger-icon {
+            display: flex;
+        }
+
         .nav-links {
-            .links {
+            border-radius: 0.5em;
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            background-color: rgba($color: $black, $alpha: 0.8);
+            display: flex;
+            flex-direction: column;
+            max-height: 20em;
+            opacity: 1;
+            transition: max-height 400ms ease, opacity 400ms ease;
+
+            .button {
                 display: flex;
-                flex-direction: column;
-                right: 15%;
+                margin: 0;
+                padding: 1rem 3rem;
+                justify-content: center;
+                align-items: center;
+            }
 
-                .hamburger-icon {
-                    display: flex;
-                    z-index: 10;
-                }
-
-                .nav-btn {
-                    position: fixed;
-                    top: 10%;
-
-                    background-color: $primary;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
+            &.closed {
+                max-height: 0em;
+                opacity: 0;
             }
         }
     }

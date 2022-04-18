@@ -24,15 +24,16 @@ export const Notifications = () => {
     }, []);
 
     return (
-        <>
+        <div className='notifications'>
             <Badge
+                className='button notif-btn'
                 color='primary'
                 overlap='circular'
                 badgeContent={notifications?.length}
             >
                 <IconButton
-                    color='primary'
-                    className='button notif-btn'
+                    className='notif-icon'
+                    color='white'
                     onClick={() => {
                         handleOpen();
                     }}
@@ -112,6 +113,6 @@ export const Notifications = () => {
                     )}
                 </div>
             )}
-        </>
+        </div>
     );
 };

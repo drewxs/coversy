@@ -1,14 +1,18 @@
-import React from 'react';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
 import { LogoutUser } from 'redux/user';
-import logo from 'assets/logo.svg';
 import { Notifications } from 'components/Notifications';
+import logo from 'assets/logo.svg';
+import { Button, IconButton, useMediaQuery } from '@mui/material';
+import { Menu } from '@mui/icons-material';
+import breakpoints from 'scss/abstract/_breakpoints.scss';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);
     const user = useSelector((state) => state.user.user);
+    const [openNav, setOpenNav] = useState(false);
+    const tablet = useMediaQuery(`(max-width: ${breakpoints.tablet})`);
 
     return (
         <section className='nav'>
@@ -21,14 +25,20 @@ export const Nav = () => {
                             alt='Coversy logo'
                         ></img>
                     </a>
-
                     {authenticated && (
                         <p className='hello'>
                             Hi, {user.firstName} {user.lastName}
                         </p>
                     )}
                 </div>
-                <div className='nav-links'>
+                {tablet && <Notifications />}
+                <IconButton
+                    className='hamburger-icon'
+                    onClick={() => setOpenNav(!openNav)}
+                >
+                    <Menu fontSize='large' color='white'></Menu>
+                </IconButton>
+                <div className={`nav-links ${openNav ? '' : 'closed'}`}>
                     {/* Unauthenticated links */}
                     {!authenticated && (
                         <>
@@ -154,7 +164,7 @@ export const Nav = () => {
                     {/* Authenticated links */}
                     {authenticated && (
                         <>
-                            <Notifications />
+                            {!tablet && <Notifications />}
                             <Button
                                 color='primary'
                                 className='button logout-btn'
