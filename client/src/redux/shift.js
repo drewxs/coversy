@@ -86,7 +86,7 @@ export const EditShift = (shift) => {
 };
 
 /**
- * Updates a shifts materials.
+ * Uploads a single shift material.
  *
  * @function
  * @param {string} shiftId - The object id of the shift.
@@ -124,11 +124,9 @@ export const DeleteShiftMaterials = (shiftId, fileKey) => {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
         })
         .then((res) => {
-            if (res.data.posted) {
-                store.dispatch(editMyPostedShift(res.data));
-            } else {
-                store.dispatch(editMyShift(res.data));
-            }
+            res.data.posted
+                ? store.dispatch(editMyPostedShift(res.data))
+                : store.dispatch(editMyShift(res.data));
         })
         .catch((err) => console.error(err));
 };
@@ -187,7 +185,7 @@ export const TakeShift = async (shiftId) => {
 };
 
 /**
- * Takes a shift.
+ * Returns a shift.
  *
  * @function
  * @async
