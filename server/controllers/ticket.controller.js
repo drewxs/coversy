@@ -1,5 +1,8 @@
 const Ticket = require('../models/ticket.model');
 const escape = require('escape-html');
+const {
+    createNotification,
+} = require('../controllers/notification.controller');
 
 /**
  * This function creates a ticket.

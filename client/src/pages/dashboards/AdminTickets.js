@@ -230,7 +230,7 @@ export const AdminTickets = () => {
                         <>
                             <Typography variant='h6'>Review</Typography>
                             <p>
-                                <strong>Name:</strong>
+                                <strong>Name:</strong>{' '}
                                 {resolvedTickets[current]?.user.firstName}{' '}
                                 {resolvedTickets[current]?.user.lastName}
                             </p>
