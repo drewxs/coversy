@@ -10,7 +10,7 @@ Client application for Coversy.
 
 ### Requirements
 
-This project requires NodeJS (version 8 or later) and NPM.
+This project requires NodeJS (version 16 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/).
 To make sure you have them available on your machine,
 try running the following command.
