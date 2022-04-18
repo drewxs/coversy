@@ -46,55 +46,63 @@ export const Notifications = () => {
                 <div className='notif-dropdown card'>
                     {notifications.map((notif, k) => (
                         <div className='notif-item' key={k}>
-                            {notif.type === 'Shift' && (
-                                <>
-                                    <p>
-                                        {`${notif.sender.firstName} has taken your shift on `}
-                                        {moment(
-                                            notif.referenceObject.startTime
-                                        ).format(`MMM D`)}
-                                        {` at `}
-                                        {moment(
-                                            notif.referenceObject.startTime
-                                        ).format(`h:mm`)}
-                                    </p>
-                                    <small>
-                                        {moment(notif.createdAt).format(
-                                            `MMM D`
-                                        )}
-                                        {` - `}
-                                        {moment(notif.createdAt).format(`h:mm`)}
-                                    </small>
-                                </>
-                            )}
-                            {notif.type === 'Payroll' && (
-                                <>
-                                    <p>
-                                        {`Your payroll issue has been marked as resolved`}
-                                    </p>
-                                    <small>
-                                        {moment(notif.createdAt).format(
-                                            `MMM D`
-                                        )}
-                                        {` - `}
-                                        {moment(notif.createdAt).format(`h:mm`)}
-                                    </small>
-                                </>
-                            )}
-                            {notif.type === 'TimeOff' && (
-                                <>
-                                    <p>
-                                        {`Your Time-off request has been marked as resolved`}
-                                    </p>
-                                    <small>
-                                        {moment(notif.createdAt).format(
-                                            `MMM D`
-                                        )}
-                                        {` - `}
-                                        {moment(notif.createdAt).format(`h:mm`)}
-                                    </small>
-                                </>
-                            )}
+                            <div className='notif-content'>
+                                {notif.type === 'Shift' && (
+                                    <>
+                                        <p>
+                                            {`${notif.sender.firstName} has taken your shift on `}
+                                            {moment(
+                                                notif.referenceObject.startTime
+                                            ).format(`MMM D`)}
+                                            {` at `}
+                                            {moment(
+                                                notif.referenceObject.startTime
+                                            ).format(`h:mm`)}
+                                        </p>
+                                        <small>
+                                            {moment(notif.createdAt).format(
+                                                `MMM D`
+                                            )}
+                                            {` - `}
+                                            {moment(notif.createdAt).format(
+                                                `h:mm`
+                                            )}
+                                        </small>
+                                    </>
+                                )}
+                                {notif.type === 'Payroll' && (
+                                    <>
+                                        <p>
+                                            {`Your payroll issue has been marked as resolved`}
+                                        </p>
+                                        <small>
+                                            {moment(notif.createdAt).format(
+                                                `MMM D`
+                                            )}
+                                            {` - `}
+                                            {moment(notif.createdAt).format(
+                                                `h:mm`
+                                            )}
+                                        </small>
+                                    </>
+                                )}
+                                {notif.type === 'TimeOff' && (
+                                    <>
+                                        <p>
+                                            {`Your Time-off request has been marked as resolved`}
+                                        </p>
+                                        <small>
+                                            {moment(notif.createdAt).format(
+                                                `MMM D`
+                                            )}
+                                            {` - `}
+                                            {moment(notif.createdAt).format(
+                                                `h:mm`
+                                            )}
+                                        </small>
+                                    </>
+                                )}
+                            </div>
                             <IconButton
                                 color='primary'
                                 onClick={() => {

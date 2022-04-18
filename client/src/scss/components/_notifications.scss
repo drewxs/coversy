@@ -30,7 +30,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: stretch;
+        align-items: start;
         padding: 0.75em 1em;
         margin-bottom: 1em;
         border-radius: 0.5em;
@@ -44,6 +44,10 @@
         h3 {
             font-size: 0.8em;
         }
+    }
+
+    .notif-content {
+        padding-right: 1em;
     }
 }
 
