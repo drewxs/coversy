@@ -44,8 +44,8 @@ export const Shifts = () => {
         setOpenBook(false);
     };
 
-    const getFile = (shift, file) => {
-        let createURL = `${process.env.REACT_APP_API_URL}/shift/${shift._id}/files/${file.fileKey}`;
+    const getFile = (shiftId, file) => {
+        let createURL = `${process.env.REACT_APP_API_URL}/shift/${shiftId}/files/${file.fileKey}`;
         axios({
             url: createURL,
             method: 'GET',
@@ -273,7 +273,10 @@ export const Shifts = () => {
                                     <div key={k}>
                                         <button
                                             onClick={() =>
-                                                getFile(current, file)
+                                                getFile(
+                                                    myShifts[current]._id,
+                                                    file
+                                                )
                                             }
                                         >
                                             {file.fileName}
@@ -318,7 +321,11 @@ export const Shifts = () => {
                                         <div key={k}>
                                             <button
                                                 onClick={() =>
-                                                    getFile(current, file)
+                                                    getFile(
+                                                        myPostedShifts[current]
+                                                            ._id,
+                                                        file
+                                                    )
                                                 }
                                             >
                                                 {file.fileName}
@@ -365,7 +372,10 @@ export const Shifts = () => {
                                     <div key={k}>
                                         <button
                                             onClick={() =>
-                                                getFile(current, file)
+                                                getFile(
+                                                    shifts[current]._id,
+                                                    file
+                                                )
                                             }
                                         >
                                             {file.fileName}
@@ -465,9 +475,6 @@ export const Shifts = () => {
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <form onSubmit={handleCreateTicket}>
                         <Typography variant='h5'>Book Time Off</Typography>
-
-                        {/* Select Shift for Time Off - Book Time Off Modal */}
-                        {/* Description Box - Book Time Off Modal */}
                         <TextField
                             className='input-form'
                             variant='outlined'
@@ -479,8 +486,6 @@ export const Shifts = () => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
-
-                        {/* Book and Cancel Buttons - Book Time Off Modal */}
                         <Button
                             variant='contained'
                             color='primary'
