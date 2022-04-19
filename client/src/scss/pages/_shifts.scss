@@ -93,9 +93,6 @@
                 .shift-col {
                     width: 100%;
                     height: 50vh;
-                    margin-right: 4%;
-                    overflow-y: scroll;
-                    background-color: $white;
                 }
     
                 .calendar {
@@ -104,8 +101,7 @@
                     width: 100%;
                     display: flex;
                     flex: 1;
-                    padding: 3rem 1rem;
-                    background-color: $white;
+                    
                 }
         }
     }
