@@ -2,7 +2,6 @@ import {
     setShifts,
     setMyShifts,
     setMyPostedShifts,
-    editShift,
     editMyShift,
     editMyPostedShift,
     loadingShifts,
@@ -67,21 +66,6 @@ export const GetMyShifts = () => {
                 setMyPostedShifts(res.data.filter((shift) => shift.posted))
             );
         })
-        .catch((err) => console.error(err));
-};
-
-/**
- * Edits a shift.
- *
- * @function
- * @param {Object} shift - Object containing shift fields to be updated.
- */
-export const EditShift = (shift) => {
-    axios
-        .put(`${api}/shift/${shift._id}`, shift, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => store.dispatch(editShift(res.data)))
         .catch((err) => console.error(err));
 };
 

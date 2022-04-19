@@ -11,6 +11,7 @@ export const adminSlice = createSlice({
         errors: null,
         openEditUser: false,
         openShiftUpload: false,
+        openEditShift: false,
         shiftCount: 0,
         shiftErrorCount: 0,
     },
@@ -66,12 +67,21 @@ export const adminSlice = createSlice({
             return {
                 ...state,
                 openEditUser: action.payload,
+                errors: null,
+            };
+        },
+        openEditShift: (state, action) => {
+            return {
+                ...state,
+                openEditShift: action.payload,
+                errors: null,
             };
         },
         openShiftUpload: (state, action) => {
             return {
                 ...state,
                 openShiftUpload: action.payload,
+                errors: null,
             };
         },
         incrementShiftCount: (state) => {
@@ -104,6 +114,7 @@ export const {
     setErrors,
     clearErrors,
     openEditUser,
+    openEditShift,
     openShiftUpload,
     incrementShiftCount,
     incrementShiftErrorCount,

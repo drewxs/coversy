@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts } from 'redux/shift';
-import { AddShift, SetOpenShiftUpload, FetchUsers } from 'redux/admin';
-import { EditShift } from 'redux/shift';
+import {
+    AddShift,
+    EditShift,
+    FetchUsers,
+    SetOpenShiftUpload,
+    SetOpenEditShift,
+} from 'redux/admin';
 import {
     Table,
     TableBody,
@@ -27,28 +32,24 @@ export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
+
+    const openEditShift = useSelector((state) => state.admin.openEditShift);
     const openShiftUpload = useSelector((state) => state.admin.openShiftUpload);
+
     const shiftCount = useSelector((state) => state.admin.shiftCount);
     const shiftErrorCount = useSelector((state) => state.admin.shiftErrorCount);
 
-    const [open, setOpen] = useState(false);
     const [file, setFile] = useState();
-    const [subject, setSubject] = useState(null);
-    const [value, onChange] = useState(new Date());
-    const [shiftId, setShiftId] = useState(null);
-    const [teacher, setTeacher] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
+
+    const [shiftId, setShiftId] = useState('');
+    const [subject, setSubject] = useState('');
+    const [teacher, setTeacher] = useState('');
+    const [startTime, setStartTime] = useState(new Date());
+    const [endTime, setEndTime] = useState(new Date());
 
     const handleSave = (e) => {
         e.preventDefault();
-
-        EditShift(shiftId, {
-            subject,
-            teacher,
-            startTime,
-            endTime,
-        });
+        EditShift({ _id: shiftId, subject, teacher, startTime, endTime });
     };
 
     useEffect(() => {
@@ -59,16 +60,15 @@ export const AdminShifts = () => {
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
      */
     const handleUpload = () => {
-        if (file) {
-            Papa.parse(file, {
-                header: true,
-                complete: (res) => {
-                    for (let i = 0; i < res.data.length - 1; i++) {
-                        AddShift(res.data[i]);
-                    }
-                },
-            });
-        }
+        if (!file) return;
+        Papa.parse(file, {
+            header: true,
+            complete: (res) => {
+                for (let i = 0; i < res.data.length - 1; i++) {
+                    AddShift(res.data[i]);
+                }
+            },
+        });
     };
 
     useEffect(() => {
@@ -97,7 +97,7 @@ export const AdminShifts = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {shifts.map((shift) => (
+                            {shifts?.map((shift) => (
                                 <TableRow key={shift._id}>
                                     <TableCell>{shift.subject}</TableCell>
                                     <TableCell>
@@ -118,12 +118,16 @@ export const AdminShifts = () => {
                                         <Button
                                             variant='contained'
                                             onClick={() => {
-                                                setShiftId(shiftId);
+                                                setShiftId(shift._id);
                                                 setSubject(shift.subject);
-                                                setTeacher(shift.teacher);
-                                                setStartTime(shift.startTime);
-                                                setEndTime(shift.endTime);
-                                                setOpen(true);
+                                                setTeacher(shift.teacher._id);
+                                                setStartTime(
+                                                    new Date(shift.startTime)
+                                                );
+                                                setEndTime(
+                                                    new Date(shift.endTime)
+                                                );
+                                                SetOpenEditShift(true);
                                             }}
                                         >
                                             Edit
@@ -176,18 +180,12 @@ export const AdminShifts = () => {
             </Modal>
 
             {/* Edit Shift Modal */}
-            <Modal open={open} onClose={() => setOpen(false)}>
+            <Modal open={openEditShift} onClose={() => SetOpenEditShift(false)}>
                 <Box className='modal-container' sx={{ width: 400 }}>
                     <Typography variant='h6' sx={{ mb: '1rem' }}>
                         Edit User Shifts
                     </Typography>
-                    <Box
-                        sx={{
-                            '& .MuiTextField-root': {
-                                mb: '1rem',
-                            },
-                        }}
-                    >
+                    <Box sx={{ '& .MuiTextField-root': { mb: '1rem' } }}>
                         <form onSubmit={handleSave}>
                             {/* Subject Field */}
                             <TextField
@@ -208,37 +206,49 @@ export const AdminShifts = () => {
                                 onChange={(e) => setTeacher(e.target.value)}
                             >
                                 {users?.map((user, k) => (
-                                    <MenuItem value={user} key={k}>
+                                    <MenuItem value={user._id} key={k}>
                                         {user.firstName} {user.lastName}
                                     </MenuItem>
                                 ))}
                             </Select>
 
-                            {/* DateTimePicker */}
-                            <InputLabel>Date and Time</InputLabel>
+                            {/* Date Time Pickers */}
+                            <InputLabel>Start Time</InputLabel>
                             <DateTimePicker
                                 monthPlaceholder='mm'
                                 dayPlaceholder='dd'
                                 yearPlaceholder='yyyy'
                                 hourPlaceholder='hh'
                                 minutePlaceholder='mm'
-                                value={value}
-                                onChange={onChange}
+                                value={startTime}
+                                onChange={setStartTime}
+                            />
+                            <InputLabel sx={{ mt: '1rem' }}>
+                                End Time
+                            </InputLabel>
+                            <DateTimePicker
+                                monthPlaceholder='mm'
+                                dayPlaceholder='dd'
+                                yearPlaceholder='yyyy'
+                                hourPlaceholder='hh'
+                                minutePlaceholder='mm'
+                                value={endTime}
+                                onChange={setEndTime}
                             />
 
                             {/* Save/Cancel Buttons */}
                             <div>
                                 <Button
-                                    sx={{ mr: '1rem', mt: '1rem' }}
+                                    sx={{ mr: '1rem', mt: '1.5rem' }}
                                     variant='contained'
-                                    onClick={() => setOpen(false)}
+                                    type='submit'
                                 >
                                     Save
                                 </Button>
                                 <Button
-                                    sx={{ mt: '1rem' }}
+                                    sx={{ mt: '1.5rem' }}
                                     variant='outlined'
-                                    onClick={() => setOpen(false)}
+                                    onClick={() => SetOpenEditShift(false)}
                                 >
                                     Cancel
                                 </Button>

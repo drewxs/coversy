@@ -149,7 +149,9 @@ exports.getPostedShiftsBySite = async (req, res) => {
  */
 exports.updateShiftById = async (req, res) => {
     const updateQuery = {};
+    if (req.body.teacher) updateQuery.teacher = escape(req.body.teacher);
     if (req.body.sub) updateQuery.sub = escape(req.body.sub);
+    if (req.body.subject) updateQuery.subject = escape(req.body.subject);
     if (req.body.details) updateQuery.details = escape(req.body.details);
     if (req.body.startTime) updateQuery.startTime = escape(req.body.startTime);
     if (req.body.endTime) updateQuery.endTime = escape(req.body.endTime);
@@ -158,10 +160,11 @@ exports.updateShiftById = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
 
     try {
-        const shfit = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
+        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
         });
-        return res.status(200).json(shfit);
+        await shift.populate('teacher', 'firstName lastName email');
+        return res.status(200).json(shift);
     } catch (err) {
         return res.status(400).json(err.message);
     }

@@ -6,11 +6,13 @@ import {
     setErrors,
     clearErrors,
     openEditUser,
+    openEditShift,
     openShiftUpload,
     incrementShiftCount,
     incrementShiftErrorCount,
     clearShiftUpload,
 } from 'redux/adminSlice';
+import { editShift } from 'redux/shiftSlice';
 import {
     setEditOpen,
     setEditErrors,
@@ -133,10 +135,34 @@ export const AddShift = async (shift) => {
 };
 
 /**
+ * Edits a shift.
+ *
+ * @function
+ * @async
+ * @param {Object} shift - Object containing shift fields to be updated.
+ * @param {string} shift.subject  - Subject of the shift.
+ * @param {string} shift.teacher - Object id of the teacher.
+ * @param {Date} shift.startTime - Start time of the shift.
+ * @param {Date} shift.endTime - End time of the shift.
+ */
+export const EditShift = async (shift) => {
+    try {
+        const res = await axios.put(`${api}/shift/${shift._id}`, shift, {
+            headers: { 'auth-token': localStorage.getItem('auth-token') },
+        });
+        store.dispatch(clearErrors());
+        store.dispatch(editShift(res.data));
+        store.dispatch(openEditShift(false));
+    } catch (err) {
+        store.dispatch(setErrors(err.response.data));
+    }
+};
+
+/**
  * Sets open/close state of the edit user modal.
  *
  * @function
- * @param {boolean} open - Whether to set the edit user modal to open or closed.
+ * @param {boolean} open - Whether to set the modal to open or closed.
  */
 export const SetOpenEditUser = (open) => {
     store.dispatch(openEditUser(open));
@@ -144,10 +170,21 @@ export const SetOpenEditUser = (open) => {
 };
 
 /**
+ * Sets open/close state of the edit shift modal.
+ *
+ * @function
+ * @param {boolean} open - Whether to set the modal to open or closed.
+ */
+export const SetOpenEditShift = (open) => {
+    store.dispatch(openEditShift(open));
+    store.dispatch(clearErrors());
+};
+
+/**
  * Sets open/close state of the shift upload modal.
  *
  * @function
- * @param {boolean} open - Whether to set the shift upload modal to open or closed.
+ * @param {boolean} open - Whether to set the modal to open or closed.
  */
 export const SetOpenShiftUpload = (open) => {
     !open && store.dispatch(clearShiftUpload());
