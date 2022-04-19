@@ -373,7 +373,7 @@ exports.takeShift = async (req, res) => {
 /**
  * This function untakes a shift
  *
- * @route PUT /:shiftId/take
+ * @route PUT /:shiftId/return
  * @access User
  */
 exports.returnShift = async (req, res) => {
@@ -383,9 +383,11 @@ exports.returnShift = async (req, res) => {
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,
-        }).populate('teacher', 'firstName lastName email');
+        })
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
 
-        if (shift._id !== shift.teacher._id) {
+        if (shift.sub._id !== shift.teacher._id) {
             createNotification(shift.sub, shift.teacher, `Shift2`, shift);
         }
 
