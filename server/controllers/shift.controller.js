@@ -84,7 +84,8 @@ exports.getShiftsBySite = async (req, res) => {
     try {
         const shifts = await Shift.find({ site: req.user.site })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
         return res.status(200).json(shifts);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -112,7 +113,8 @@ exports.getShiftsByUser = async (req, res) => {
             ],
         })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
 
         return res.status(200).json(shifts);
     } catch (err) {
@@ -134,7 +136,8 @@ exports.getPostedShiftsBySite = async (req, res) => {
             teacher: { $ne: req.user._id },
         })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
         return res.status(200).json(shifts);
     } catch (err) {
         return res.status(400).json(err.message);
