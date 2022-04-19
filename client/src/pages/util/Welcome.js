@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Errors } from 'components';
 import { ConfirmUser } from 'redux/verification';
 
-export const Welcome = (props) => {
+export const Welcome = () => {
     const success = useSelector((state) => state.verification.success);
     const errors = useSelector((state) => state.verification.errors);
 
