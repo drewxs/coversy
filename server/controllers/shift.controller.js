@@ -357,7 +357,9 @@ exports.takeShift = async (req, res) => {
             .populate('teacher', 'firstName lastName email')
             .populate('sub', 'firstName lastName email');
 
-        createNotification(shift.sub, shift.teacher, `Shift`, shift);
+        if (shift.sub._id !== shift.teacher._id) {
+            createNotification(shift.sub, shift.teacher, `Shift`, shift);
+        }
 
         return res.status(200).json(shift);
     } catch (err) {
@@ -380,14 +382,9 @@ exports.returnShift = async (req, res) => {
             new: true,
         }).populate('teacher', 'firstName lastName email');
 
-        createNotification(
-            shift.sub,
-            shift.teacher,
-            `Shift was taken`,
-            `${
-                shift.sub.firstName + ' ' + shift.sub.lastName
-            }  has returned your shift on ${shift.startTime}`
-        );
+        if (shift._id !== shift.teacher._id) {
+            createNotification(shift.sub, shift.teacher, `Shift2`, shift);
+        }
 
         return res.status(200).json(shift);
     } catch (err) {
