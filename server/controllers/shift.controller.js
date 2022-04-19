@@ -84,7 +84,8 @@ exports.getShiftsBySite = async (req, res) => {
     try {
         const shifts = await Shift.find({ site: req.user.site })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
         return res.status(200).json(shifts);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -112,7 +113,8 @@ exports.getShiftsByUser = async (req, res) => {
             ],
         })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
 
         return res.status(200).json(shifts);
     } catch (err) {
@@ -134,7 +136,8 @@ exports.getPostedShiftsBySite = async (req, res) => {
             teacher: { $ne: req.user._id },
         })
             .lean()
-            .populate('teacher', 'firstName lastName email');
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
         return res.status(200).json(shifts);
     } catch (err) {
         return res.status(400).json(err.message);
@@ -357,7 +360,9 @@ exports.takeShift = async (req, res) => {
             .populate('teacher', 'firstName lastName email')
             .populate('sub', 'firstName lastName email');
 
-        createNotification(shift.sub, shift.teacher, `Shift`, shift);
+        if (req.user._id !== shift.teacher._id) {
+            createNotification(shift.sub, shift.teacher, `Shift`, shift);
+        }
 
         return res.status(200).json(shift);
     } catch (err) {
@@ -368,26 +373,28 @@ exports.takeShift = async (req, res) => {
 /**
  * This function untakes a shift
  *
- * @route PUT /:shiftId/take
+ * @route PUT /:shiftId/return
  * @access User
  */
 exports.returnShift = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
-    const updateQuery = { posted: true, sub: null };
 
     try {
-        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
-            new: true,
-        }).populate('teacher', 'firstName lastName email');
+        let shift = await Shift.findById(shiftId)
+            .populate('teacher', 'firstName lastName email')
+            .populate('sub', 'firstName lastName email');
 
-        createNotification(
-            shift.sub,
-            shift.teacher,
-            `Shift was taken`,
-            `${
-                shift.sub.firstName + ' ' + shift.sub.lastName
-            }  has returned your shift on ${shift.startTime}`
-        );
+        if (req.user._id != shift.sub._id) {
+            return res.status(400).json('Must be substitute to return shift.');
+        }
+
+        const shiftSub = shift.sub;
+
+        shift.posted = true;
+        shift.sub = null;
+        await shift.save();
+
+        createNotification(shiftSub, shift.teacher, `Shift_Return`, shift);
 
         return res.status(200).json(shift);
     } catch (err) {

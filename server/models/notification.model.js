@@ -14,7 +14,7 @@ const NotificationSchema = new mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['Shift', 'Payroll', 'TimeOff'],
+            enum: ['Shift', 'Shift_Return', 'Payroll', 'TimeOff'],
             required: true,
         },
         referenceObject: {

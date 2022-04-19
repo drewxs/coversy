@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import moment from 'moment';
+import { PostShift, UnpostShift, TakeShift, ReturnShift } from 'redux/shift';
 import { Button } from '@mui/material';
 
 import { ConfirmationModal } from 'components';
-import { PostShift, UnpostShift, TakeShift } from 'redux/shift';
 
 export const UserShift = ({ idx, shift, setCurrent, setOpenView, btnText }) => {
     const [openConfirm, setOpenConfirm] = useState(false);
@@ -78,6 +78,17 @@ export const UserShift = ({ idx, shift, setCurrent, setOpenView, btnText }) => {
                         title='Take Shift'
                         description='Are you sure you want to take this shift?'
                         btnText='Take'
+                    ></ConfirmationModal>
+                )}
+                {/* Confirmation Modal for Return Shift */}
+                {btnText === 'Return' && (
+                    <ConfirmationModal
+                        modalFunction={() => ReturnShift(shift._id)}
+                        openConfirm={openConfirm}
+                        setOpenConfirm={setOpenConfirm}
+                        title='Return Shift'
+                        description='Are you sure you want to return this shift?'
+                        btnText='Return'
                     ></ConfirmationModal>
                 )}
             </div>

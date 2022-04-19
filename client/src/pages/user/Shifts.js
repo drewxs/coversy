@@ -21,6 +21,7 @@ import {
     GetMyShifts,
     GetPostedShifts,
     TakeShift,
+    ReturnShift,
     UploadShiftMaterials,
     DeleteShiftMaterials,
 } from 'redux/shift';
@@ -111,14 +112,36 @@ export const Shifts = () => {
                                     </div>
                                     <div className='shift-container'>
                                         {myShifts.map((shift, k) => (
-                                            <UserShift
-                                                key={k}
-                                                idx={k}
-                                                shift={shift}
-                                                setCurrent={setCurrent}
-                                                setOpenView={setOpenView}
-                                                btnText={'Post'}
-                                            />
+                                            <>
+                                                {user._id === shift.sub?._id ? (
+                                                    <UserShift
+                                                        key={k}
+                                                        idx={k}
+                                                        shift={shift}
+                                                        setCurrent={setCurrent}
+                                                        setOpenView={
+                                                            setOpenView
+                                                        }
+                                                        btnText={'Return'}
+                                                    />
+                                                ) : (
+                                                    user._id ===
+                                                        shift.teacher._id && (
+                                                        <UserShift
+                                                            key={k}
+                                                            idx={k}
+                                                            shift={shift}
+                                                            setCurrent={
+                                                                setCurrent
+                                                            }
+                                                            setOpenView={
+                                                                setOpenView
+                                                            }
+                                                            btnText={'Post'}
+                                                        />
+                                                    )
+                                                )}
+                                            </>
                                         ))}
                                     </div>
                                 </>
@@ -417,19 +440,36 @@ export const Shifts = () => {
                         {/* Taking Shifts Handler */}
                         {tab === 0 && (
                             <>
-                                {myShifts[current]?.teacher._id !==
-                                    user._id && (
-                                    <Button
-                                        sx={{ marginTop: '1rem' }}
-                                        variant='contained'
-                                        onClick={() => {
-                                            TakeShift(myShifts[current]?._id);
-                                            setOpenView(false);
-                                        }}
-                                    >
-                                        Take Shift
-                                    </Button>
-                                )}
+                                {myShifts[current]?.teacher._id !== user._id &&
+                                    user._id !== myShifts[current]?.sub._id && (
+                                        <Button
+                                            sx={{ marginTop: '1rem' }}
+                                            variant='contained'
+                                            onClick={() => {
+                                                TakeShift(
+                                                    myShifts[current]?._id
+                                                );
+                                                setOpenView(false);
+                                            }}
+                                        >
+                                            Take Shift
+                                        </Button>
+                                    )}
+                                {myShifts[current]?.teacher._id !== user._id &&
+                                    user._id === myShifts[current]?.sub._id && (
+                                        <Button
+                                            sx={{ marginTop: '1rem' }}
+                                            variant='contained'
+                                            onClick={() => {
+                                                ReturnShift(
+                                                    myShifts[current]?._id
+                                                );
+                                                setOpenView(false);
+                                            }}
+                                        >
+                                            Return Shift
+                                        </Button>
+                                    )}
                             </>
                         )}
                         {tab === 1 && (
