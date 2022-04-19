@@ -360,7 +360,7 @@ exports.takeShift = async (req, res) => {
             .populate('teacher', 'firstName lastName email')
             .populate('sub', 'firstName lastName email');
 
-        if (shift.sub._id !== shift.teacher._id) {
+        if (req.user._id !== shift.teacher._id) {
             createNotification(shift.sub, shift.teacher, `Shift`, shift);
         }
 
@@ -378,18 +378,23 @@ exports.takeShift = async (req, res) => {
  */
 exports.returnShift = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
-    const updateQuery = { posted: true, sub: null };
 
     try {
-        const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
-            new: true,
-        })
+        let shift = await Shift.findById(shiftId)
             .populate('teacher', 'firstName lastName email')
             .populate('sub', 'firstName lastName email');
 
-        if (shift.sub._id !== shift.teacher._id) {
-            createNotification(shift.sub, shift.teacher, `Shift2`, shift);
+        if (req.user._id != shift.sub._id) {
+            return res.status(400).json('Must be substitute to return shift.');
         }
+
+        const shiftSub = shift.sub;
+
+        shift.posted = true;
+        shift.sub = null;
+        await shift.save();
+
+        createNotification(shiftSub, shift.teacher, `Shift_Return`, shift);
 
         return res.status(200).json(shift);
     } catch (err) {

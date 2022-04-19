@@ -71,7 +71,7 @@ export const Notifications = () => {
                                         </small>
                                     </>
                                 )}
-                                {notif.type === 'Shift2' && (
+                                {notif.type === 'Shift_Return' && (
                                     <>
                                         <p>
                                             {`${notif.sender.firstName} has returned your shift on `}
