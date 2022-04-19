@@ -21,6 +21,7 @@ import {
     GetMyShifts,
     GetPostedShifts,
     TakeShift,
+    ReturnShift,
     UploadShiftMaterials,
     DeleteShiftMaterials,
 } from 'redux/shift';
