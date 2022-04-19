@@ -159,7 +159,7 @@ exports.updateShiftById = async (req, res) => {
 
     const shiftId = escape(req.params.shiftId);
 
-    if (updateQuery.subject.length > 20) {
+    if (updateQuery.subject?.length > 20) {
         return res
             .status(400)
             .json('Subject cannot be more than 20 characters');

@@ -13,6 +13,7 @@ const initialState = {
     loadingUsers: true,
     errors: null,
     openEditUser: false,
+    openEditShift: false,
     openShiftUpload: false,
     shiftCount: 0,
     shiftErrorCount: 0,
