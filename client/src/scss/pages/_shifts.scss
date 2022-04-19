@@ -83,4 +83,26 @@
         display: flex;
         flex-direction: column;
     }
+    @include respond-to('tablet') {
+        height: auto;
+            .container {
+               height: 120vh;
+                display: flex;
+                flex-direction: column;
+             
+                .shift-col {
+                    width: 100%;
+                    height: 50vh;
+                }
+    
+                .calendar {
+                    margin-top: 5em;
+                    height: 80vh;
+                    width: 100%;
+                    display: flex;
+                    flex: 1;
+                    
+                }
+        }
+    }
 }
