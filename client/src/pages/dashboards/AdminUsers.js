@@ -20,6 +20,7 @@ import {
     UpdateUserAsAdmin,
     SetOpenEditUser,
 } from 'redux/admin';
+import { Errors } from 'components';
 
 export const AdminUsers = () => {
     const users = useSelector((state) => state.admin.users);
@@ -166,7 +167,7 @@ export const AdminUsers = () => {
                                     fullWidth
                                 />
                             </div>
-                            {errors && <p className='error'>{errors}</p>}
+                            <Errors errors={errors} />
                             <Button
                                 sx={{
                                     mr: '1rem',

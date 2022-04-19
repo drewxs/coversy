@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ConfirmUser } from 'redux/verification';
+import { Errors } from 'components';
 
 export const Welcome = (props) => {
     const success = useSelector((state) => state.verification.success);
@@ -24,7 +25,7 @@ export const Welcome = (props) => {
                 ) : (
                     <>
                         <h1>Error</h1>
-                        {errors && <p className='error'>{errors}</p>}
+                        <Errors errors={errors} />
                         <br />
                         <Link to={'/login'}>Please Login</Link>
                     </>

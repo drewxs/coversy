@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import { RequestPasswordReset } from 'redux/password';
-import { CircularProgress } from '@mui/material';
+import { Errors } from 'components';
 
 export const ForgotPassword = () => {
     const loading = useSelector((state) => state.password.loading);
@@ -42,7 +42,7 @@ export const ForgotPassword = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                {errors && <p className='error'>{errors}</p>}
+                                <Errors errors={errors} />
                                 <Button
                                     className='submit-btn'
                                     variant='contained'

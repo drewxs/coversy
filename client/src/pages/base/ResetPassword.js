@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Button, TextField, CircularProgress } from '@mui/material';
 import { FindUserByPasswordResetCode, PasswordReset } from 'redux/password';
+import { Errors } from 'components';
 
 export const ResetPassword = () => {
     const loading = useSelector((state) => state.password.loading);
@@ -66,7 +67,7 @@ export const ResetPassword = () => {
                                         setConfirmNewPassword(e.target.value)
                                     }
                                 />
-                                {errors && <p className='error'>{errors}</p>}
+                                <Errors errors={errors} />
                                 <Button
                                     className='submit-btn'
                                     variant='contained'

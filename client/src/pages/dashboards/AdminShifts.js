@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GetShifts } from 'redux/shift';
+import { Errors } from 'components';
 import {
     AddShift,
     EditShift,
@@ -32,6 +33,7 @@ export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
+    const errors = useSelector((state) => state.admin.errors);
 
     const openEditShift = useSelector((state) => state.admin.openEditShift);
     const openShiftUpload = useSelector((state) => state.admin.openShiftUpload);
@@ -235,6 +237,8 @@ export const AdminShifts = () => {
                                 value={endTime}
                                 onChange={setEndTime}
                             />
+                            <Box sx={{ mb: '1rem' }} />
+                            <Errors errors={errors} />
 
                             {/* Save/Cancel Buttons */}
                             <div>

@@ -9,6 +9,7 @@ import {
     MenuItem,
 } from '@mui/material';
 import { RegisterSite } from 'redux/user';
+import { Errors } from 'components';
 
 export const SiteRegister = () => {
     const [name, setName] = useState('');
@@ -149,7 +150,7 @@ export const SiteRegister = () => {
                         >
                             Register
                         </Button>
-                        {errors && <p className='error'>{errors}</p>}
+                        <Errors errors={errors} />
                         <p>
                             Already registered?{' '}
                             <a href='/login'> Sign in here</a>

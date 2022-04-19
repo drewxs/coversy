@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { LoginUser } from 'redux/user';
 import { Button, TextField } from '@mui/material';
+import { LoginUser } from 'redux/user';
+import { Errors } from 'components';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -55,7 +56,7 @@ export const Login = () => {
                     >
                         Login
                     </Button>
-                    {errors && <p className='error'>{errors}</p>}
+                    <Errors errors={errors} />
                     <p>
                         New User? <a href='/register'>Register Here</a>
                     </p>

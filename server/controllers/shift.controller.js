@@ -159,6 +159,16 @@ exports.updateShiftById = async (req, res) => {
 
     const shiftId = escape(req.params.shiftId);
 
+    if (updateQuery.subject.length > 20) {
+        return res
+            .status(400)
+            .json('Subject cannot be more than 20 characters');
+    }
+
+    if (new Date(updateQuery.startTime) >= new Date(updateQuery.endTime)) {
+        return res.status(400).json('Start time must be before end time');
+    }
+
     try {
         const shift = await Shift.findByIdAndUpdate(shiftId, updateQuery, {
             new: true,

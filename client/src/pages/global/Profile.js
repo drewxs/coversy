@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Avatar } from '@mui/material';
-import { LocationOn, Phone, Email } from '@mui/icons-material';
 import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/user';
 import { UpdateSite } from 'redux/admin';
-
+import { Errors } from 'components';
 import {
+    Avatar,
     Box,
-    Modal,
     Button,
-    Typography,
-    TextField,
+    FormControl,
     IconButton,
     InputLabel,
     MenuItem,
-    FormControl,
+    Modal,
     Select,
+    TextField,
+    Typography,
 } from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { Edit, Email, LocationOn, Phone } from '@mui/icons-material';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);
@@ -264,12 +263,7 @@ export const Profile = () => {
                                         <br />
                                     </FormControl>
                                 </div>
-                                {errors && (
-                                    <>
-                                        <p className='error'>{errors}</p>
-                                        <br />
-                                    </>
-                                )}
+                                <Errors errors={errors} />
                                 <div className='edit-btn'>
                                     <Button type='submit' variant='contained'>
                                         Save
@@ -320,7 +314,7 @@ export const Profile = () => {
                                     placeholder='Last Name'
                                 />
                             </div>
-                            {errors && <p className='error'>{errors}</p>}
+                            <Errors errors={errors} />
                             <div>
                                 <Button
                                     type='submit'
