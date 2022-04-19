@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Button, TextField, CircularProgress } from '@mui/material';
-import { FindUserByPasswordResetCode, PasswordReset } from 'redux/password';
+
 import { Errors } from 'components';
+import { FindUserByPasswordResetCode, PasswordReset } from 'redux/password';
 
 export const ResetPassword = () => {
     const loading = useSelector((state) => state.password.loading);

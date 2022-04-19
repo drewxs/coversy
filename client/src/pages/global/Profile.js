@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/user';
-import { UpdateSite } from 'redux/admin';
-import { Errors } from 'components';
 import {
     Avatar,
     Box,
@@ -17,6 +14,10 @@ import {
     Typography,
 } from '@mui/material';
 import { Edit, Email, LocationOn, Phone } from '@mui/icons-material';
+
+import { Errors } from 'components';
+import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/user';
+import { UpdateSite } from 'redux/admin';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);

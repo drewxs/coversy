@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { LogoutUser } from 'redux/user';
-import { Notifications } from 'components/Notifications';
-import logo from 'assets/logo.svg';
 import { Button, IconButton, useMediaQuery } from '@mui/material';
 import { Menu } from '@mui/icons-material';
+
+import logo from 'assets/logo.svg';
 import breakpoints from 'scss/abstract/_breakpoints.scss';
+import { LogoutUser } from 'redux/user';
+import { Notifications } from 'components/Notifications';
 
 export const Nav = () => {
     const authenticated = useSelector((state) => state.user.authenticated);

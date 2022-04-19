@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
     Button,
@@ -8,8 +8,9 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import { RegisterSite } from 'redux/user';
+
 import { Errors } from 'components';
+import { RegisterSite } from 'redux/user';
 
 export const SiteRegister = () => {
     const [name, setName] = useState('');

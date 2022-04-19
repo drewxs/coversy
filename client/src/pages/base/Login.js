@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button, TextField } from '@mui/material';
-import { LoginUser } from 'redux/user';
+
 import { Errors } from 'components';
+import { LoginUser } from 'redux/user';
 
 export const Login = () => {
     const [email, setEmail] = useState('');

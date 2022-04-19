@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     Box,
     Button,
@@ -14,7 +15,7 @@ import {
     Tabs,
     Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+
 import {
     GetUnresolvedTickets,
     GetResolvedTickets,

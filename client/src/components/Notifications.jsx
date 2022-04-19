@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { IconButton, Badge } from '@mui/material';
+import { NotificationsNone, CloseRounded } from '@mui/icons-material';
+
 import {
     DeleteNotification,
     GetNotifications,
     ReadNotifications,
 } from 'redux/notif';
-import { IconButton, Badge } from '@mui/material';
-import { NotificationsNone, CloseRounded } from '@mui/icons-material';
 
 export const Notifications = () => {
     const notifications = useSelector(

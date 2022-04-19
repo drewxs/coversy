@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ConfirmUser } from 'redux/verification';
+import { useSelector } from 'react-redux';
+
 import { Errors } from 'components';
+import { ConfirmUser } from 'redux/verification';
 
 export const Welcome = (props) => {
     const success = useSelector((state) => state.verification.success);

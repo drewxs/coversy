@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { GetShifts } from 'redux/shift';
-import { Errors } from 'components';
-import {
-    AddShift,
-    EditShift,
-    FetchUsers,
-    SetOpenShiftUpload,
-    SetOpenEditShift,
-} from 'redux/admin';
+import DateTimePicker from 'react-datetime-picker';
+import { FileUploader } from 'react-drag-drop-files';
+import Papa from 'papaparse';
+import moment from 'moment';
 import {
     Table,
     TableBody,
@@ -24,10 +19,16 @@ import {
     InputLabel,
     MenuItem,
 } from '@mui/material';
-import DateTimePicker from 'react-datetime-picker';
-import { FileUploader } from 'react-drag-drop-files';
-import Papa from 'papaparse';
-import moment from 'moment';
+
+import { Errors } from 'components';
+import { GetShifts } from 'redux/shift';
+import {
+    AddShift,
+    EditShift,
+    FetchUsers,
+    SetOpenShiftUpload,
+    SetOpenEditShift,
+} from 'redux/admin';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);

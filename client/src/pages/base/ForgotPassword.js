@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import { RequestPasswordReset } from 'redux/password';
+
 import { Errors } from 'components';
+import { RequestPasswordReset } from 'redux/password';
 
 export const ForgotPassword = () => {
     const loading = useSelector((state) => state.password.loading);

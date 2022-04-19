@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { GetUserPayroll } from 'redux/payroll';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { Box, CircularProgress } from '@mui/material';
+
+import { GetUserPayroll } from 'redux/payroll';
 
 export const PayrollReport = () => {
     const params = useParams();

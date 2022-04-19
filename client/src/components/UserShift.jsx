@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
-import { PostShift, UnpostShift, TakeShift } from 'redux/shift';
 import { Button } from '@mui/material';
+
 import { ConfirmationModal } from 'components';
+import { PostShift, UnpostShift, TakeShift } from 'redux/shift';
 
 export const UserShift = ({ idx, shift, setCurrent, setOpenView, btnText }) => {
     const [openConfirm, setOpenConfirm] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
     Box,
@@ -10,6 +10,7 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
+
 import { GetSitePayrolls } from 'redux/payroll';
 
 export const AdminPayroll = () => {

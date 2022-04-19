@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Typography, Modal, Button } from '@mui/material';
 
 export const ConfirmationModal = ({

@@ -1,19 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { FileUploader } from 'react-drag-drop-files';
 import axios from 'axios';
 import moment from 'moment';
-import {
-    GetMyShifts,
-    GetPostedShifts,
-    TakeShift,
-    UploadShiftMaterials,
-    DeleteShiftMaterials,
-} from 'redux/shift';
-import { CreateTicket } from 'redux/ticket';
-import { FileUploader } from 'react-drag-drop-files';
-import { useSelector } from 'react-redux';
-import { UserShift } from 'components';
-import { CloseRounded } from '@mui/icons-material';
 import {
     Box,
     Typography,
@@ -24,6 +14,17 @@ import {
     Tab,
     IconButton,
 } from '@mui/material';
+import { CloseRounded } from '@mui/icons-material';
+
+import { UserShift } from 'components';
+import {
+    GetMyShifts,
+    GetPostedShifts,
+    TakeShift,
+    UploadShiftMaterials,
+    DeleteShiftMaterials,
+} from 'redux/shift';
+import { CreateTicket } from 'redux/ticket';
 
 const localizer = momentLocalizer(moment);
 
