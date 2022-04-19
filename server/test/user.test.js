@@ -71,8 +71,8 @@ describe('Endpoint testing [users]', () => {
             .set('content-type', 'application/json')
             .set('auth-token', process.env.TEST_TOKEN)
             .send({
-                firstName: 'SITE',
-                lastName: 'ADMIN',
+                firstName: 'John',
+                lastName: 'Doe',
                 phone: '1111111111',
             })
             .end((err, res) => {
@@ -85,8 +85,8 @@ describe('Endpoint testing [users]', () => {
             .put(`/api/user/${process.env.TEST_TEACHER}/admin`)
             .set('content-type', 'application/json')
             .send({
-                firstName: 'SITE',
-                lastName: 'ADMIN',
+                firstName: 'Jane',
+                lastName: 'Doe',
                 phone: '1111111111',
             })
             .end((err, res) => {
