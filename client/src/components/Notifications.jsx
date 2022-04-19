@@ -71,6 +71,29 @@ export const Notifications = () => {
                                         </small>
                                     </>
                                 )}
+                                {notif.type === 'Shift2' && (
+                                    <>
+                                        <p>
+                                            {`${notif.sender.firstName} has returned your shift on `}
+                                            {moment(
+                                                notif.referenceObject.startTime
+                                            ).format(`MMM D`)}
+                                            {` at `}
+                                            {moment(
+                                                notif.referenceObject.startTime
+                                            ).format(`h:mm`)}
+                                        </p>
+                                        <small>
+                                            {moment(notif.createdAt).format(
+                                                `MMM D`
+                                            )}
+                                            {` - `}
+                                            {moment(notif.createdAt).format(
+                                                `h:mm`
+                                            )}
+                                        </small>
+                                    </>
+                                )}
                                 {notif.type === 'Payroll' && (
                                     <>
                                         <p>
