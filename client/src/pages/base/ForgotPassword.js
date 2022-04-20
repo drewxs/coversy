@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Button, CircularProgress, TextField } from '@mui/material';
 
 import { Errors } from 'components';
-import { RequestPasswordReset } from 'redux/password';
+import { RequestPasswordReset } from 'redux/data/password';
 
 export const ForgotPassword = () => {
     const loading = useSelector((state) => state.password.loading);

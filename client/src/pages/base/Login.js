@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Button, TextField } from '@mui/material';
 
 import { Errors } from 'components';
-import { LoginUser } from 'redux/user';
+import { LoginUser } from 'redux/data/user';
 
 export const Login = () => {
     const [email, setEmail] = useState('');

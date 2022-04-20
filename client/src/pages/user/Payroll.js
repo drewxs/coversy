@@ -14,8 +14,8 @@ import {
     Typography,
 } from '@mui/material';
 
-import { GetUserPayrolls } from 'redux/payroll';
-import { CreateTicket } from 'redux/ticket';
+import { GetUserPayrolls } from 'redux/data/payroll';
+import { CreateTicket } from 'redux/data/ticket';
 
 export const Payroll = () => {
     const payrolls = useSelector((state) => state.payroll.payrolls);

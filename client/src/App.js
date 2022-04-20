@@ -25,7 +25,7 @@ import {
     ResetPassword,
 } from 'pages';
 import { Nav } from 'components';
-import { LoadUser } from 'redux/user';
+import { LoadUser } from 'redux/data/user';
 
 export const App = () => {
     const authenticated = useSelector((state) => state.user.authenticated);

@@ -16,8 +16,8 @@ import {
 import { Edit, Email, LocationOn, Phone } from '@mui/icons-material';
 
 import { Errors } from 'components';
-import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/user';
-import { UpdateSite } from 'redux/admin';
+import { UpdateUser, UpdateProfilePicture, SetEditOpen } from 'redux/data/user';
+import { UpdateSite } from 'redux/data/admin';
 
 export const Profile = () => {
     const user = useSelector((state) => state.user.user);

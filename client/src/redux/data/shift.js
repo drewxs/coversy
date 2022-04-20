@@ -9,7 +9,7 @@ import {
     unpostShift,
     takeShift,
     returnShift,
-} from 'redux/shiftSlice';
+} from 'redux/slices/shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -23,7 +23,7 @@ const api = process.env.REACT_APP_API_URL;
  * @function
  */
 export const GetShifts = () => {
-    store.dispatch(loadingShifts);
+    store.dispatch(loadingShifts());
     axios
         .get(`${api}/shift`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -38,7 +38,7 @@ export const GetShifts = () => {
  * @function
  */
 export const GetPostedShifts = () => {
-    store.dispatch(loadingShifts);
+    store.dispatch(loadingShifts());
     axios
         .get(`${api}/shift/posted`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },
@@ -53,7 +53,7 @@ export const GetPostedShifts = () => {
  * @function
  */
 export const GetMyShifts = () => {
-    store.dispatch(loadingShifts);
+    store.dispatch(loadingShifts());
     axios
         .get(`${api}/shift/user`, {
             headers: { 'auth-token': localStorage.getItem('auth-token') },

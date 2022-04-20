@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import moment from 'moment';
-import { PostShift, UnpostShift, TakeShift, ReturnShift } from 'redux/shift';
+import {
+    PostShift,
+    UnpostShift,
+    TakeShift,
+    ReturnShift,
+} from 'redux/data/shift';
 import { Button } from '@mui/material';
 
 import { ConfirmationModal } from 'components';

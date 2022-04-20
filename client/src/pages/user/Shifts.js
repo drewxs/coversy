@@ -24,8 +24,8 @@ import {
     ReturnShift,
     UploadShiftMaterials,
     DeleteShiftMaterials,
-} from 'redux/shift';
-import { CreateTicket } from 'redux/ticket';
+} from 'redux/data/shift';
+import { CreateTicket } from 'redux/data/ticket';
 
 const localizer = momentLocalizer(moment);
 

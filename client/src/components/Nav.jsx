@@ -6,7 +6,7 @@ import { Menu } from '@mui/icons-material';
 
 import logo from 'assets/logo.svg';
 import breakpoints from 'scss/abstract/_breakpoints.scss';
-import { LogoutUser } from 'redux/user';
+import { LogoutUser } from 'redux/data/user';
 import { Notifications } from 'components/Notifications';
 
 export const Nav = () => {

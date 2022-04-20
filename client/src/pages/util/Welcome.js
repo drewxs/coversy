@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Errors } from 'components';
-import { ConfirmUser } from 'redux/verification';
+import { ConfirmUser } from 'redux/data/verification';
 
 export const Welcome = () => {
     const success = useSelector((state) => state.verification.success);

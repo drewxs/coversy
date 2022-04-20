@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import adminSlice from './adminSlice';
-import passwordSlice from './passwordSlice';
-import payrollSlice from './payrollSlice';
-import shiftSlice from './shiftSlice';
-import ticketSlice from './ticketSlice';
-import notifSlice from './notifSlice';
-import userSlice from './userSlice';
-import verificationSlice from './verificationSlice';
+import adminSlice from './slices/adminSlice';
+import passwordSlice from './slices/passwordSlice';
+import payrollSlice from './slices/payrollSlice';
+import shiftSlice from './slices/shiftSlice';
+import ticketSlice from './slices/ticketSlice';
+import notifSlice from './slices/notifSlice';
+import userSlice from './slices/userSlice';
+import verificationSlice from './slices/verificationSlice';
 
 /**
  * Redux store configuration.

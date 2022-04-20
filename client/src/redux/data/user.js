@@ -14,7 +14,7 @@ import {
     setEditOpen,
     setEditErrors,
     clearEditErrors,
-} from 'redux/userSlice';
+} from 'redux/slices/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

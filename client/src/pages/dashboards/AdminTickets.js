@@ -21,7 +21,7 @@ import {
     GetResolvedTickets,
     ResolveTicket,
     UnresolveTicket,
-} from 'redux/ticket';
+} from 'redux/data/ticket';
 
 export const AdminTickets = () => {
     const tickets = useSelector((state) => state.ticket.tickets);

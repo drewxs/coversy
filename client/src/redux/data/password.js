@@ -5,7 +5,7 @@ import {
     success,
     setReset,
     setResetFalse,
-} from 'redux/passwordSlice';
+} from 'redux/slices/passwordSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

@@ -4,7 +4,10 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Button, TextField, CircularProgress } from '@mui/material';
 
 import { Errors } from 'components';
-import { FindUserByPasswordResetCode, PasswordReset } from 'redux/password';
+import {
+    FindUserByPasswordResetCode,
+    PasswordReset,
+} from 'redux/data/password';
 
 export const ResetPassword = () => {
     const loading = useSelector((state) => state.password.loading);

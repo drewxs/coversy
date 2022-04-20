@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { Box, CircularProgress } from '@mui/material';
 
-import { GetSitePayroll } from 'redux/payroll';
+import { GetSitePayroll } from 'redux/data/payroll';
 
 export const CombinedPayrollReport = () => {
     const params = useParams();

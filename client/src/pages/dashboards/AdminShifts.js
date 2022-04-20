@@ -5,33 +5,35 @@ import { FileUploader } from 'react-drag-drop-files';
 import Papa from 'papaparse';
 import moment from 'moment';
 import {
+    Box,
+    Button,
+    InputLabel,
+    LinearProgress,
+    MenuItem,
+    Modal,
+    Select,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Button,
-    Box,
     Typography,
-    Modal,
     TextField,
-    Select,
-    InputLabel,
-    MenuItem,
 } from '@mui/material';
 
 import { Errors } from 'components';
-import { GetShifts } from 'redux/shift';
+import { GetShifts } from 'redux/data/shift';
 import {
     AddShift,
     EditShift,
     FetchUsers,
     SetOpenShiftUpload,
     SetOpenEditShift,
-} from 'redux/admin';
+} from 'redux/data/admin';
 
 export const AdminShifts = () => {
     const shifts = useSelector((state) => state.shift.shifts);
+    const loading = useSelector((state) => state.shift.loading);
     const users = useSelector((state) => state.admin.users);
     const admin = useSelector((state) => state.user.user);
     const errors = useSelector((state) => state.admin.errors);
@@ -61,6 +63,8 @@ export const AdminShifts = () => {
 
     /**
      * Handles CSV file upload, parses CSV file, and adds all parsed shifts
+     *
+     * @function
      */
     const handleUpload = () => {
         if (!file) return;
@@ -82,64 +86,99 @@ export const AdminShifts = () => {
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Button
-                        sx={{ mb: 2 }}
-                        variant='contained'
-                        onClick={() => SetOpenShiftUpload(true)}
-                    >
-                        Upload Schedule
-                    </Button>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Subject</TableCell>
-                                <TableCell>Teacher</TableCell>
-                                <TableCell>Shift Date</TableCell>
-                                <TableCell>Shift Time</TableCell>
-                                <TableCell>Edit Shift</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {shifts?.map((shift) => (
-                                <TableRow key={shift._id}>
-                                    <TableCell>{shift.subject}</TableCell>
-                                    <TableCell>
-                                        {shift.teacher.firstName}{' '}
-                                        {shift.teacher.lastName}
-                                    </TableCell>
-                                    <TableCell>
-                                        {moment(shift.startTime).format(
-                                            'MMM D, Y'
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {moment(shift.startTime).format('h:mm')}
-                                        {' - '}
-                                        {moment(shift.endTime).format('h:mm A')}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant='contained'
-                                            onClick={() => {
-                                                setShiftId(shift._id);
-                                                setSubject(shift.subject);
-                                                setTeacher(shift.teacher._id);
-                                                setStartTime(
-                                                    new Date(shift.startTime)
-                                                );
-                                                setEndTime(
-                                                    new Date(shift.endTime)
-                                                );
-                                                SetOpenEditShift(true);
-                                            }}
-                                        >
-                                            Edit
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {loading ? (
+                        <Box sx={{ width: '100%' }}>
+                            <LinearProgress />
+                        </Box>
+                    ) : (
+                        <>
+                            <Button
+                                sx={{ mb: '1rem' }}
+                                variant='contained'
+                                size={shifts?.length === 0 ? 'large' : 'small'}
+                                onClick={() => SetOpenShiftUpload(true)}
+                            >
+                                Upload Schedule
+                            </Button>
+                            {shifts?.length > 0 ? (
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Subject</TableCell>
+                                            <TableCell>Teacher</TableCell>
+                                            <TableCell>Shift Date</TableCell>
+                                            <TableCell>Shift Time</TableCell>
+                                            <TableCell>Edit Shift</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {shifts?.map((shift) => (
+                                            <TableRow key={shift._id}>
+                                                <TableCell>
+                                                    {shift.subject}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {shift.teacher.firstName}{' '}
+                                                    {shift.teacher.lastName}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {moment(
+                                                        shift.startTime
+                                                    ).format('MMM D, Y')}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {moment(
+                                                        shift.startTime
+                                                    ).format('h:mm')}
+                                                    {' - '}
+                                                    {moment(
+                                                        shift.endTime
+                                                    ).format('h:mm A')}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Button
+                                                        variant='contained'
+                                                        onClick={() => {
+                                                            setShiftId(
+                                                                shift._id
+                                                            );
+                                                            setSubject(
+                                                                shift.subject
+                                                            );
+                                                            setTeacher(
+                                                                shift.teacher
+                                                                    ._id
+                                                            );
+                                                            setStartTime(
+                                                                new Date(
+                                                                    shift.startTime
+                                                                )
+                                                            );
+                                                            setEndTime(
+                                                                new Date(
+                                                                    shift.endTime
+                                                                )
+                                                            );
+                                                            SetOpenEditShift(
+                                                                true
+                                                            );
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            ) : (
+                                <p>
+                                    No shifts currently exist, please upload a
+                                    schedule.
+                                </p>
+                            )}
+                        </>
+                    )}
                 </div>
             </section>
 

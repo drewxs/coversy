@@ -11,15 +11,15 @@ import {
     incrementShiftCount,
     incrementShiftErrorCount,
     clearShiftUpload,
-} from 'redux/adminSlice';
-import { editShift } from 'redux/shiftSlice';
+} from 'redux/slices/adminSlice';
+import { editShift } from 'redux/slices/shiftSlice';
 import {
     setEditOpen,
     setEditErrors,
     clearEditErrors,
     editSite,
-} from 'redux/userSlice';
-import { addShift } from 'redux/shiftSlice';
+} from 'redux/slices/userSlice';
+import { addShift } from 'redux/slices/shiftSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

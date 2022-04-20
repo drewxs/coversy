@@ -8,7 +8,7 @@ import {
     DeleteNotification,
     GetNotifications,
     ReadNotifications,
-} from 'redux/notif';
+} from 'redux/data/notif';
 
 export const Notifications = () => {
     const notifications = useSelector(

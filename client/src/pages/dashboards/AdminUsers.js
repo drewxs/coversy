@@ -19,7 +19,7 @@ import {
     ToggleUserActivatedById,
     UpdateUserAsAdmin,
     SetOpenEditUser,
-} from 'redux/admin';
+} from 'redux/data/admin';
 import { Errors } from 'components';
 
 export const AdminUsers = () => {

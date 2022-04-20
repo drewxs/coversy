@@ -1,4 +1,8 @@
-import { setPayrolls, setPayroll, loadingPayrolls } from 'redux/payrollSlice';
+import {
+    setPayrolls,
+    setPayroll,
+    loadingPayrolls,
+} from 'redux/slices/payrollSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

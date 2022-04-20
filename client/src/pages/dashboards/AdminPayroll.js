@@ -11,7 +11,7 @@ import {
     TableRow,
 } from '@mui/material';
 
-import { GetSitePayrolls } from 'redux/payroll';
+import { GetSitePayrolls } from 'redux/data/payroll';
 
 export const AdminPayroll = () => {
     const payrolls = useSelector((state) => state.payroll.payrolls);

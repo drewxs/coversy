@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 import { Errors } from 'components';
-import { FetchSites, RegisterUser } from 'redux/user';
+import { FetchSites, RegisterUser } from 'redux/data/user';
 
 export const Register = () => {
     const [firstName, setFirstName] = useState('');
