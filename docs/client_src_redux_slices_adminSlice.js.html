@@ -31,7 +31,7 @@
 
 
     <title>
-      server/middleware/verify.user.js
+      client/src/redux/slices/adminSlice.js
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        server/middleware/verify.user.js
+        client/src/redux/slices/adminSlice.js
       </h1>
       
 
@@ -109,38 +109,130 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
-const escape = require('escape-html');
-
-/** @module middleware */
+            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit';
 
 /**
- * Verifies that the user requesting update of a resource is the same as the user that owns the resource.
- * Route parameters required: userId
- *
- * @function verifyUser
- * @async
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @param {function} next - Express next function.
+ * Admin Redux slice. Contains initial state and reducers for admin.
  */
-exports.verifyUser = async (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token)
-        return res.status(401).send('Unauthenticated. Must be logged in.');
+export const adminSlice = createSlice({
+    name: 'admin',
+    initialState: {
+        users: [],
+        loadingUsers: true,
+        errors: null,
+        openEditUser: false,
+        openShiftUpload: false,
+        openEditShift: false,
+        shiftCount: 0,
+        shiftErrorCount: 0,
+    },
+    reducers: {
+        setUsers: (state, action) => {
+            return {
+                ...state,
+                users: action.payload,
+                loadingUsers: false,
+            };
+        },
+        activateUser: (state, action) => {
+            return {
+                ...state,
+                users: state.users.map((user) =>
+                    user._id === action.payload._id
+                        ? { ...user, ...action.payload }
+                        : user
+                ),
+            };
+        },
+        loadingUsers: (state) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+        updateUser: (state, action) => {
+            const index = state.users.findIndex(
+                (user) => user._id === action.payload._id
+            );
+            const newArr = [...state.users];
+            newArr[index] = action.payload;
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+            return {
+                ...state,
+                users: [...newArr],
+            };
+        },
+        setErrors: (state, action) => {
+            return {
+                ...state,
+                errors: action.payload,
+            };
+        },
+        clearErrors: (state) => {
+            return {
+                ...state,
+                errors: null,
+            };
+        },
+        openEditUser: (state, action) => {
+            return {
+                ...state,
+                openEditUser: action.payload,
+                errors: null,
+            };
+        },
+        openEditShift: (state, action) => {
+            return {
+                ...state,
+                openEditShift: action.payload,
+                errors: null,
+            };
+        },
+        openShiftUpload: (state, action) => {
+            return {
+                ...state,
+                openShiftUpload: action.payload,
+                errors: null,
+            };
+        },
+        incrementShiftCount: (state) => {
+            return {
+                ...state,
+                shiftCount: state.shiftCount + 1,
+            };
+        },
+        incrementShiftErrorCount: (state) => {
+            return {
+                ...state,
+                shiftErrorCount: state.shiftErrorCount + 1,
+            };
+        },
+        clearShiftUpload: (state) => {
+            return {
+                ...state,
+                shiftCount: 0,
+                shiftErrorCount: 0,
+            };
+        },
+    },
+});
 
-        if (req.user &amp;&amp; req.user._id === req.params.userId) next();
-        else if (req.user.type === 1) next();
-        else return res.status(401).send('Access Denied');
-    } catch (err) {
-        return res.status(401).send(err);
-    }
-};
+export const {
+    setUsers,
+    activateUser,
+    loadingUsers,
+    updateUser,
+    setErrors,
+    clearErrors,
+    openEditUser,
+    openEditShift,
+    openShiftUpload,
+    incrementShiftCount,
+    incrementShiftErrorCount,
+    clearShiftUpload,
+} = adminSlice.actions;
+
+export default adminSlice.reducer;
 </code></pre>
         </article>
     </section>

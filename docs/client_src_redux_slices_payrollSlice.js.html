@@ -31,7 +31,7 @@
 
 
     <title>
-      server/middleware/verify.user.js
+      client/src/redux/slices/payrollSlice.js
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        server/middleware/verify.user.js
+        client/src/redux/slices/payrollSlice.js
       </h1>
       
 
@@ -109,38 +109,46 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
-const escape = require('escape-html');
-
-/** @module middleware */
+            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit';
 
 /**
- * Verifies that the user requesting update of a resource is the same as the user that owns the resource.
- * Route parameters required: userId
- *
- * @function verifyUser
- * @async
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @param {function} next - Express next function.
+ * Payroll Redux slice. Contains initial state and reducers for payroll.
  */
-exports.verifyUser = async (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token)
-        return res.status(401).send('Unauthenticated. Must be logged in.');
+export const payrollSlice = createSlice({
+    name: 'payroll',
+    initialState: {
+        payrolls: [],
+        payroll: {},
+        loading: false,
+    },
+    reducers: {
+        setPayrolls: (state, action) => {
+            return {
+                ...state,
+                payrolls: action.payload,
+                loading: false,
+            };
+        },
+        setPayroll: (state, action) => {
+            return {
+                ...state,
+                payroll: action.payload,
+                loading: false,
+            };
+        },
+        loadingPayrolls: (state) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+    },
+});
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+export const { setPayrolls, setPayroll, loadingPayrolls } =
+    payrollSlice.actions;
 
-        if (req.user &amp;&amp; req.user._id === req.params.userId) next();
-        else if (req.user.type === 1) next();
-        else return res.status(401).send('Access Denied');
-    } catch (err) {
-        return res.status(401).send(err);
-    }
-};
+export default payrollSlice.reducer;
 </code></pre>
         </article>
     </section>

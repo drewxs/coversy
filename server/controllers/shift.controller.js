@@ -11,11 +11,16 @@ aws.config.update({
 });
 const s3 = new aws.S3();
 
+/** @module shift_controller */
+
 /**
  * This function creates a shift.
  *
- * @route POST /shift
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Created shift
  */
 exports.createShift = async (req, res) => {
     const email = escape(req.body.teacher);
@@ -60,8 +65,11 @@ exports.createShift = async (req, res) => {
 /**
  * This function returns shift by shift Id.
  *
- * @route GET /shift/id/:shiftId
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Shift corresponding to the id
  */
 exports.getShiftById = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
@@ -77,8 +85,11 @@ exports.getShiftById = async (req, res) => {
 /**
  * This function returns shifts by site.
  *
- * @route GET /shift/
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Shifts belonging to the user's site
  */
 exports.getShiftsBySite = async (req, res) => {
     try {
@@ -95,8 +106,11 @@ exports.getShiftsBySite = async (req, res) => {
 /**
  * This function returns shifts belonging to the user.
  *
- * @route GET /shift/
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Shifts belonging to the user
  */
 exports.getShiftsByUser = async (req, res) => {
     try {
@@ -125,8 +139,11 @@ exports.getShiftsByUser = async (req, res) => {
 /**
  * This function returns posted shifts by site.
  *
- * @route GET /shift/posted
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Posted shifts belonging to the user's site
  */
 exports.getPostedShiftsBySite = async (req, res) => {
     try {
@@ -147,8 +164,11 @@ exports.getPostedShiftsBySite = async (req, res) => {
 /**
  * This function updates shifts by shift id.
  *
- * @route PUT /shift/:shiftId
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated shift
  */
 exports.updateShiftById = async (req, res) => {
     const updateQuery = {};
@@ -184,10 +204,13 @@ exports.updateShiftById = async (req, res) => {
 };
 
 /**
- * This function retrieves a single material from a shift via S3.
+ * This function retrieves materials from a shift via S3.
  *
- * @route GET /shift/:shiftId/files/:fileKey
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Materials from the shift
  */
 exports.getShiftMaterials = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
@@ -215,8 +238,11 @@ exports.getShiftMaterials = async (req, res) => {
 /**
  * This function updates shift materials, to be used after s3 upload middleware.
  *
- * @route PUT /shift/:shiftId/files/upload
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated shift with the uploaded materials
  */
 
 exports.updateShiftMaterials = async (req, res) => {
@@ -250,8 +276,11 @@ exports.updateShiftMaterials = async (req, res) => {
 /**
  * This function deletes a single material from a shift via S3.
  *
- * @route DELETE /shift/:shiftId/files/:fileKey
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated shift without the deleted material
  */
 exports.deleteShiftMaterial = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
@@ -287,8 +316,11 @@ exports.deleteShiftMaterial = async (req, res) => {
 /**
  * This function deletes all shifts from a site
  *
- * @route DELETE /site/:siteId
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Message confirming deletion
  */
 exports.deleteShiftsBySite = async (req, res) => {
     try {
@@ -302,8 +334,11 @@ exports.deleteShiftsBySite = async (req, res) => {
 /**
  * This function posts a shift
  *
- * @route PUT /:shiftId/post
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Shift posted
  */
 exports.postShift = async (req, res) => {
     try {
@@ -322,8 +357,11 @@ exports.postShift = async (req, res) => {
 /**
  * This function unposts a shift
  *
- * @route PUT /:shiftId/unpost
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Shift unposted
  */
 exports.unpostShift = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
@@ -346,8 +384,11 @@ exports.unpostShift = async (req, res) => {
 /**
  * This function takes a shift
  *
- * @route PUT /:shiftId/take
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Shift taken
  */
 exports.takeShift = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
@@ -371,10 +412,13 @@ exports.takeShift = async (req, res) => {
 };
 
 /**
- * This function untakes a shift
+ * This function returns a shift
  *
- * @route PUT /:shiftId/return
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Shift returned
  */
 exports.returnShift = async (req, res) => {
     const shiftId = escape(req.params.shiftId);
