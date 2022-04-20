@@ -76,7 +76,7 @@ export const Shifts = () => {
             <section className='dashboard shifts'>
                 <div className='container'>
                     <div className='shift-col card'>
-                        <div className='tab-container'>
+                        <div>
                             <Tabs
                                 value={tab}
                                 onChange={(e, v) => setTab(v)}

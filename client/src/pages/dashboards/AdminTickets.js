@@ -55,7 +55,13 @@ export const AdminTickets = () => {
         <>
             <section className='dashboard'>
                 <div className='container'>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Box
+                        sx={{
+                            borderBottom: 1,
+                            borderColor: 'divider',
+                            width: '100%',
+                        }}
+                    >
                         <Tabs value={tab} onChange={(__e, v) => setTab(v)}>
                             <Tab label='Unresolved' value={0} />
                             <Tab label='Resolved' value={1} />
@@ -68,50 +74,71 @@ export const AdminTickets = () => {
                                     <LinearProgress />
                                 </Box>
                             ) : (
-                                <Table stickyHeader>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Name</TableCell>
-                                            <TableCell>Email</TableCell>
-                                            <TableCell>Phone</TableCell>
-                                            <TableCell>Type</TableCell>
-                                            <TableCell>View</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {tickets.map((ticket, k) => (
-                                            <TableRow key={k}>
-                                                <TableCell>
-                                                    {ticket.user.firstName}{' '}
-                                                    {ticket.user.lastName}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.user.email}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.user.phone}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.type === 1 &&
-                                                        'Payroll Issue'}
-                                                    {ticket.type === 2 &&
-                                                        'Time-off Request'}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        variant='contained'
-                                                        onClick={() => {
-                                                            setOpen(true);
-                                                            setCurrent(k);
-                                                        }}
-                                                    >
-                                                        Review
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
+                                <>
+                                    {tickets.length > 0 ? (
+                                        <Table stickyHeader>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Name</TableCell>
+                                                    <TableCell>Email</TableCell>
+                                                    <TableCell>Phone</TableCell>
+                                                    <TableCell>Type</TableCell>
+                                                    <TableCell>View</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {tickets.map((ticket, k) => (
+                                                    <TableRow key={k}>
+                                                        <TableCell>
+                                                            {
+                                                                ticket.user
+                                                                    .firstName
+                                                            }{' '}
+                                                            {
+                                                                ticket.user
+                                                                    .lastName
+                                                            }
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            {ticket.user.email}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            {ticket.user.phone}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            {ticket.type ===
+                                                                1 &&
+                                                                'Payroll Issue'}
+                                                            {ticket.type ===
+                                                                2 &&
+                                                                'Time-off Request'}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <Button
+                                                                variant='contained'
+                                                                onClick={() => {
+                                                                    setOpen(
+                                                                        true
+                                                                    );
+                                                                    setCurrent(
+                                                                        k
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Review
+                                                            </Button>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    ) : (
+                                        <p style={{ marginTop: '1rem' }}>
+                                            There are currently no unresolved
+                                            tickets.
+                                        </p>
+                                    )}
+                                </>
                             )}
                         </>
                     )}
@@ -122,50 +149,79 @@ export const AdminTickets = () => {
                                     <LinearProgress />
                                 </Box>
                             ) : (
-                                <Table stickyHeader>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Name</TableCell>
-                                            <TableCell>Email</TableCell>
-                                            <TableCell>Phone</TableCell>
-                                            <TableCell>Type</TableCell>
-                                            <TableCell>View</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {resolvedTickets.map((ticket, k) => (
-                                            <TableRow key={k}>
-                                                <TableCell>
-                                                    {ticket.user.firstName}{' '}
-                                                    {ticket.user.lastName}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.user.email}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.user.phone}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {ticket.type === 1 &&
-                                                        'Payroll Issue'}
-                                                    {ticket.type === 2 &&
-                                                        'Time-off Request'}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        variant='contained'
-                                                        onClick={() => {
-                                                            setOpen(true);
-                                                            setCurrent(k);
-                                                        }}
-                                                    >
-                                                        Review
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
+                                <>
+                                    {resolvedTickets.length > 0 ? (
+                                        <Table stickyHeader>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Name</TableCell>
+                                                    <TableCell>Email</TableCell>
+                                                    <TableCell>Phone</TableCell>
+                                                    <TableCell>Type</TableCell>
+                                                    <TableCell>View</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {resolvedTickets.map(
+                                                    (ticket, k) => (
+                                                        <TableRow key={k}>
+                                                            <TableCell>
+                                                                {
+                                                                    ticket.user
+                                                                        .firstName
+                                                                }{' '}
+                                                                {
+                                                                    ticket.user
+                                                                        .lastName
+                                                                }
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {
+                                                                    ticket.user
+                                                                        .email
+                                                                }
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {
+                                                                    ticket.user
+                                                                        .phone
+                                                                }
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {ticket.type ===
+                                                                    1 &&
+                                                                    'Payroll Issue'}
+                                                                {ticket.type ===
+                                                                    2 &&
+                                                                    'Time-off Request'}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Button
+                                                                    variant='contained'
+                                                                    onClick={() => {
+                                                                        setOpen(
+                                                                            true
+                                                                        );
+                                                                        setCurrent(
+                                                                            k
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    Review
+                                                                </Button>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    )
+                                                )}
+                                            </TableBody>
+                                        </Table>
+                                    ) : (
+                                        <p style={{ marginTop: '1rem' }}>
+                                            There are currently no resolved
+                                            tickets.
+                                        </p>
+                                    )}
+                                </>
                             )}
                         </>
                     )}

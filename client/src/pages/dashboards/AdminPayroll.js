@@ -30,41 +30,53 @@ export const AdminPayroll = () => {
                             <LinearProgress />
                         </Box>
                     ) : (
-                        <Table stickyHeader>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Period</TableCell>
-                                    <TableCell>Pay</TableCell>
-                                    <TableCell>Deductions</TableCell>
-                                    <TableCell>Net Pay</TableCell>
-                                    <TableCell>View</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {payrolls?.map((payroll, k) => (
-                                    <TableRow key={k}>
-                                        <TableCell>{payroll.period}</TableCell>
-                                        <TableCell>
-                                            ${payroll.pay?.toFixed(2)}
-                                        </TableCell>
-                                        <TableCell>
-                                            ${payroll.deductions?.toFixed(2)}
-                                        </TableCell>
-                                        <TableCell>
-                                            ${payroll.netPay?.toFixed(2)}
-                                        </TableCell>
-                                        <TableCell>
-                                            <Button
-                                                variant='contained'
-                                                href={`/payroll/report/${payroll.period}`}
-                                            >
-                                                View
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <>
+                            {payrolls?.length > 0 ? (
+                                <Table stickyHeader>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Period</TableCell>
+                                            <TableCell>Pay</TableCell>
+                                            <TableCell>Deductions</TableCell>
+                                            <TableCell>Net Pay</TableCell>
+                                            <TableCell>View</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {payrolls?.map((payroll, k) => (
+                                            <TableRow key={k}>
+                                                <TableCell>
+                                                    {payroll.period}
+                                                </TableCell>
+                                                <TableCell>
+                                                    ${payroll.pay?.toFixed(2)}
+                                                </TableCell>
+                                                <TableCell>
+                                                    $
+                                                    {payroll.deductions?.toFixed(
+                                                        2
+                                                    )}
+                                                </TableCell>
+                                                <TableCell>
+                                                    $
+                                                    {payroll.netPay?.toFixed(2)}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Button
+                                                        variant='contained'
+                                                        href={`/payroll/report/${payroll.period}`}
+                                                    >
+                                                        View
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            ) : (
+                                <p>No payroll data is available.</p>
+                            )}
+                        </>
                     )}
                 </div>
             </section>

@@ -59,62 +59,81 @@ export const AdminUsers = () => {
                             <LinearProgress />
                         </Box>
                     ) : (
-                        <Table stickyHeader>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell> </TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Hourly Rate</TableCell>
-                                    <TableCell>Tax Rate (%)</TableCell>
-                                    <TableCell>Activation</TableCell>
-                                    <TableCell>Edit User</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {users?.map((user, k) => (
-                                    <TableRow key={k}>
-                                        <TableCell>{k + 1}</TableCell>
-                                        <TableCell>
-                                            {user.firstName} {user.lastName}
-                                        </TableCell>
-                                        <TableCell>{user.email}</TableCell>
-                                        <TableCell>{user.hourlyRate}</TableCell>
-                                        <TableCell>{user.taxRate}</TableCell>
-                                        <TableCell>
-                                            <Switch
-                                                checked={user.activated}
-                                                onClick={() =>
-                                                    ToggleUserActivatedById(
-                                                        user._id
-                                                    )
-                                                }
-                                            />
-                                        </TableCell>
-                                        {/*Edit Button For Edit User*/}
-                                        <TableCell>
-                                            <Button
-                                                variant='contained'
-                                                onClick={() => {
-                                                    setFirstname(
-                                                        user.firstName
-                                                    );
-                                                    setLastname(user.lastName);
-                                                    setHourlyRate(
-                                                        user.hourlyRate
-                                                    );
-                                                    setTaxRate(user.taxRate);
-                                                    setUserId(user._id);
-                                                    SetOpenEditUser(true);
-                                                }}
-                                            >
-                                                Edit
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <>
+                            {users.length > 0 ? (
+                                <Table stickyHeader>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell> </TableCell>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Email</TableCell>
+                                            <TableCell>Hourly Rate</TableCell>
+                                            <TableCell>Tax Rate (%)</TableCell>
+                                            <TableCell>Activation</TableCell>
+                                            <TableCell>Edit User</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {users?.map((user, k) => (
+                                            <TableRow key={k}>
+                                                <TableCell>{k + 1}</TableCell>
+                                                <TableCell>
+                                                    {user.firstName}{' '}
+                                                    {user.lastName}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {user.email}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {user.hourlyRate}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {user.taxRate}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Switch
+                                                        checked={user.activated}
+                                                        onClick={() =>
+                                                            ToggleUserActivatedById(
+                                                                user._id
+                                                            )
+                                                        }
+                                                    />
+                                                </TableCell>
+                                                {/*Edit Button For Edit User*/}
+                                                <TableCell>
+                                                    <Button
+                                                        variant='contained'
+                                                        onClick={() => {
+                                                            setFirstname(
+                                                                user.firstName
+                                                            );
+                                                            setLastname(
+                                                                user.lastName
+                                                            );
+                                                            setHourlyRate(
+                                                                user.hourlyRate
+                                                            );
+                                                            setTaxRate(
+                                                                user.taxRate
+                                                            );
+                                                            setUserId(user._id);
+                                                            SetOpenEditUser(
+                                                                true
+                                                            );
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            ) : (
+                                <p>No user data is available.</p>
+                            )}
+                        </>
                     )}
                 </div>
             </section>
@@ -126,9 +145,7 @@ export const AdminUsers = () => {
                     <Box
                         sx={{
                             mt: '1.5rem',
-                            '& .MuiTextField-root': {
-                                mb: '1rem',
-                            },
+                            '& .MuiTextField-root': { mb: '1rem' },
                         }}
                     >
                         <form onSubmit={handleSave}>
@@ -169,9 +186,7 @@ export const AdminUsers = () => {
                             </div>
                             <Errors errors={errors} />
                             <Button
-                                sx={{
-                                    mr: '1rem',
-                                }}
+                                sx={{ mr: '1rem' }}
                                 variant='contained'
                                 type='submit'
                             >
