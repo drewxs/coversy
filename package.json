@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "doc": "jsdoc -c ./jsdoc.json",
+        "install:base": "npm install",
         "install:server": "cd ./server && npm install",
         "install:client": "cd ./client && npm install",
         "i-all": "run-p install:*",
