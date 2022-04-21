@@ -9,7 +9,7 @@
         "install:server": "cd ./server && npm install",
         "install:client": "cd ./client && npm install",
         "i-all": "run-p install:*",
-        "start:server": "npm --prefix ./server run dev",
+        "start:server": "npm --prefix ./server start",
         "start:client": "npm --prefix ./client start",
         "s-all": "run-p start:*",
         "changelog": "changelog generate -a"
