@@ -31,7 +31,7 @@
 
 
     <title>
-      auth_controller
+      client/src/redux/slice/adminSlice.js
     </title>
 
     <!--[if lt IE 9]>
@@ -98,7 +98,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        auth_controller
+        client/src/redux/slice/adminSlice.js
       </h1>
       
 
@@ -106,1202 +106,138 @@
 
 
 
-
-<section>
-
-
-<header>
-    
-        
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".confirmUser">
-        <a href="#.confirmUser">#</a>
-        <span class="type-signature">(async, static) </span>confirmUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {String}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint verifies a user account</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line201">line 201</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Message confirming verification</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".forgotPassword">
-        <a href="#.forgotPassword">#</a>
-        <span class="type-signature">(async, static) </span>forgotPassword<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {String}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint sends a password reset verification code to an email</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line228">line 228</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Password verification code</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".login">
-        <a href="#.login">#</a>
-        <span class="type-signature">(async, static) </span>login<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {String}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint logins a user</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line29">line 29</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Login message</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".registerSite">
-        <a href="#.registerSite">#</a>
-        <span class="type-signature">(async, static) </span>registerSite<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint registers a site</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line131">line 131</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Registered site</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".registerUser">
-        <a href="#.registerUser">#</a>
-        <span class="type-signature">(async, static) </span>registerUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Object}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint registers a user</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line68">line 68</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Registered user</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".resetPassword">
-        <a href="#.resetPassword">#</a>
-        <span class="type-signature">(async, static) </span>resetPassword<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {String}</span>
-    </h4>
-
-    
-
-
-
-    <div class="description">
-        <p>This endpoint resets a user password</p>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
-        <strong>Parameters:</strong>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class="details-item-container">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source"><ul class="dummy"><li>
-                <a href="server_controllers_auth.controller.js.html">server/controllers/auth.controller.js</a>, <a href="server_controllers_auth.controller.js.html#line265">line 265</a>
-            </li></ul></dd>
-        </div>
-    
-
-    
-
     
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="method-member-container mt-20">
-    <strong>Returns:</strong>
-        
-            
-<div class="param-desc">
-    <ul>
-<li>Message confirming password reset</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-            
-    </div>
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit';
+
+/**
+ * Admin Redux slice. Contains initial state and reducers for admin.
+ *
+ * @global
+ */
+export const adminSlice = createSlice({
+    name: 'admin',
+    initialState: {
+        users: [],
+        loadingUsers: true,
+        errors: null,
+        openEditUser: false,
+        openShiftUpload: false,
+        openEditShift: false,
+        shiftCount: 0,
+        shiftErrorCount: 0,
+    },
+    reducers: {
+        setUsers: (state, action) => {
+            return {
+                ...state,
+                users: action.payload,
+                loadingUsers: false,
+            };
+        },
+        activateUser: (state, action) => {
+            return {
+                ...state,
+                users: state.users.map((user) =>
+                    user._id === action.payload._id
+                        ? { ...user, ...action.payload }
+                        : user
+                ),
+            };
+        },
+        loadingUsers: (state) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+        updateUser: (state, action) => {
+            const index = state.users.findIndex(
+                (user) => user._id === action.payload._id
+            );
+            const newArr = [...state.users];
+            newArr[index] = action.payload;
+
+            return {
+                ...state,
+                users: [...newArr],
+            };
+        },
+        setErrors: (state, action) => {
+            return {
+                ...state,
+                errors: action.payload,
+            };
+        },
+        clearErrors: (state) => {
+            return {
+                ...state,
+                errors: null,
+            };
+        },
+        openEditUser: (state, action) => {
+            return {
+                ...state,
+                openEditUser: action.payload,
+                errors: null,
+            };
+        },
+        openEditShift: (state, action) => {
+            return {
+                ...state,
+                openEditShift: action.payload,
+                errors: null,
+            };
+        },
+        openShiftUpload: (state, action) => {
+            return {
+                ...state,
+                openShiftUpload: action.payload,
+                errors: null,
+            };
+        },
+        incrementShiftCount: (state) => {
+            return {
+                ...state,
+                shiftCount: state.shiftCount + 1,
+            };
+        },
+        incrementShiftErrorCount: (state) => {
+            return {
+                ...state,
+                shiftErrorCount: state.shiftErrorCount + 1,
+            };
+        },
+        clearShiftUpload: (state) => {
+            return {
+                ...state,
+                shiftCount: 0,
+                shiftErrorCount: 0,
+            };
+        },
+    },
+});
+
+export const {
+    setUsers,
+    activateUser,
+    loadingUsers,
+    updateUser,
+    setErrors,
+    clearErrors,
+    openEditUser,
+    openEditShift,
+    openShiftUpload,
+    incrementShiftCount,
+    incrementShiftErrorCount,
+    clearShiftUpload,
+} = adminSlice.actions;
+
+export default adminSlice.reducer;
+</code></pre>
+        </article>
+    </section>
 
 
 
