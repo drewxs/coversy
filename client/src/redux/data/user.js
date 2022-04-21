@@ -12,9 +12,10 @@ import {
     clearSuccess,
     setSites,
     setEditOpen,
+    setUnactivatedOpen,
     setEditErrors,
     clearEditErrors,
-} from 'redux/slices/userSlice';
+} from 'redux/slice/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -205,6 +206,16 @@ export const UpdateUser = async (updateQuery) => {
 export const SetEditOpen = (open) => {
     store.dispatch(setEditOpen(open));
     store.dispatch(clearEditErrors());
+};
+
+/**
+ * Sets the open/close state of the unactivated modal.
+ *
+ * @function
+ * @param {boolean} open - The open/close state of the modal.
+ */
+export const SetUnactivatedOpen = (open) => {
+    store.dispatch(setUnactivatedOpen(open));
 };
 
 /**

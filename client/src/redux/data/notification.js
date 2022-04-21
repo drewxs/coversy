@@ -3,7 +3,7 @@ import {
     readNotifications,
     removeNotification,
     loadingNotifications,
-} from 'redux/slices/notifSlice';
+} from 'redux/slice/notifSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

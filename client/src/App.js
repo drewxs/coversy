@@ -24,7 +24,7 @@ import {
     ForgotPassword,
     ResetPassword,
 } from 'pages';
-import { Nav } from 'components';
+import { Nav, UnactivatedModal } from 'components';
 import { LoadUser } from 'redux/data/user';
 
 export const App = () => {
@@ -38,6 +38,7 @@ export const App = () => {
     return (
         <>
             <Nav />
+            <UnactivatedModal />
             <Router>
                 <Routes>
                     {/* Authenticated routes */}

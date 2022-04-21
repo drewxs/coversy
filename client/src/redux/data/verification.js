@@ -1,4 +1,4 @@
-import { loading, setErrors, success } from 'redux/slices/verificationSlice';
+import { loading, setErrors, success } from 'redux/slice/verificationSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

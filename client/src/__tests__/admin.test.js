@@ -6,7 +6,7 @@ import reducer, {
     setErrors,
     clearErrors,
     openEditUser,
-} from '../redux/slices/adminSlice';
+} from '../redux/slice/adminSlice';
 
 const initialState = {
     users: [],

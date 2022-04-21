@@ -2,7 +2,7 @@ import reducer, {
     setPayrolls,
     setPayroll,
     loadingPayrolls,
-} from '../redux/slices/payrollSlice';
+} from '../redux/slice/payrollSlice';
 
 const initialState = {
     payrolls: [],

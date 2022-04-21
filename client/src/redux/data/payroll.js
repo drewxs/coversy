@@ -2,7 +2,7 @@ import {
     setPayrolls,
     setPayroll,
     loadingPayrolls,
-} from 'redux/slices/payrollSlice';
+} from 'redux/slice/payrollSlice';
 import axios from 'axios';
 import store from 'redux/store';
 

@@ -4,7 +4,7 @@ import reducer, {
     addShift,
     editShift,
     loadingShifts,
-} from '../redux/slices/shiftSlice';
+} from '../redux/slice/shiftSlice';
 
 const initialState = {
     shifts: [],

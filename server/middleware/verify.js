@@ -73,7 +73,7 @@ exports.verifyActivated = async (req, res, next) => {
         if (user.activated) next();
         else
             return res
-                .status(401)
+                .status(403)
                 .send('Access Denied: User is not activated.');
     } catch (err) {
         return res.status(400).send(err);

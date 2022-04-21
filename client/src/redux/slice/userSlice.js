@@ -18,6 +18,7 @@ export const userSlice = createSlice({
         updateErrors: null,
         editOpen: false,
         editErrors: null,
+        unactivatedOpen: false,
     },
     reducers: {
         loginUser: (state, action) => {
@@ -99,6 +100,12 @@ export const userSlice = createSlice({
                 editOpen: action.payload,
             };
         },
+        setUnactivatedOpen: (state, action) => {
+            return {
+                ...state,
+                unactivatedOpen: action.payload,
+            };
+        },
         setEditErrors: (state, action) => {
             return {
                 ...state,
@@ -142,6 +149,7 @@ export const {
     success,
     clearSuccess,
     setEditOpen,
+    setUnactivatedOpen,
     setEditErrors,
     clearEditErrors,
     setSites,

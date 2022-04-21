@@ -5,7 +5,7 @@ import reducer, {
     setResolved,
     loadingTickets,
     loadingResolvedTickets,
-} from '../redux/slices/ticketSlice';
+} from '../redux/slice/ticketSlice';
 
 const initialState = {
     tickets: [],

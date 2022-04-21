@@ -9,7 +9,8 @@ import {
     unpostShift,
     takeShift,
     returnShift,
-} from 'redux/slices/shiftSlice';
+} from 'redux/slice/shiftSlice';
+import { setUnactivatedOpen } from 'redux/slice/userSlice';
 import axios from 'axios';
 import store from 'redux/store';
 
@@ -128,7 +129,8 @@ export const PostShift = async (shiftId) => {
         });
         store.dispatch(postShift(shift.data));
     } catch (err) {
-        console.error(err);
+        if (err.response.status === 403)
+            store.dispatch(setUnactivatedOpen(true));
     }
 };
 
@@ -146,7 +148,8 @@ export const UnpostShift = async (shiftId) => {
         });
         store.dispatch(unpostShift(shift.data));
     } catch (err) {
-        console.error(err);
+        if (err.response.status === 403)
+            store.dispatch(setUnactivatedOpen(true));
     }
 };
 
@@ -164,7 +167,8 @@ export const TakeShift = async (shiftId) => {
         });
         store.dispatch(takeShift(shift.data));
     } catch (err) {
-        console.error(err);
+        if (err.response.status === 403)
+            store.dispatch(setUnactivatedOpen(true));
     }
 };
 
@@ -182,6 +186,7 @@ export const ReturnShift = async (shiftId) => {
         });
         store.dispatch(returnShift(shift.data));
     } catch (err) {
-        console.error(err);
+        if (err.response.status === 403)
+            store.dispatch(setUnactivatedOpen(true));
     }
 };
