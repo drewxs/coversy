@@ -8,7 +8,7 @@ import {
     DeleteNotification,
     GetNotifications,
     ReadNotifications,
-} from 'redux/data/notif';
+} from 'redux/data/notification';
 
 export const Notifications = () => {
     const notifications = useSelector(
@@ -35,9 +35,7 @@ export const Notifications = () => {
                 <IconButton
                     className='notif-icon'
                     color='white'
-                    onClick={() => {
-                        handleOpen();
-                    }}
+                    onClick={() => handleOpen()}
                 >
                     <NotificationsNone />
                 </IconButton>
@@ -45,7 +43,7 @@ export const Notifications = () => {
 
             {open && (
                 <div className='notif-dropdown card'>
-                    {notifications.map((notif, k) => (
+                    {notifications?.map((notif, k) => (
                         <div className='notif-item' key={k}>
                             <div className='notif-content'>
                                 {notif.type === 'Shift' && (
