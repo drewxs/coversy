@@ -32,7 +32,7 @@ export const Nav = () => {
                         </p>
                     )}
                 </div>
-                {tablet && <Notifications />}
+                {tablet && authenticated && <Notifications />}
                 <IconButton
                     className='hamburger-icon'
                     onClick={() => setOpenNav(!openNav)}
