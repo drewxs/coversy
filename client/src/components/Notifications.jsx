@@ -51,16 +51,16 @@ export const Notifications = () => {
                                         <p>
                                             {`${notif.sender.firstName} has taken your shift on `}
                                             {moment(
-                                                notif.shift.startTime
+                                                notif.shift?.startTime
                                             ).format(`MMM D`)}
                                             {`, `}
                                             {moment(
-                                                notif.shift.startTime
+                                                notif.shift?.startTime
                                             ).format(`h:mm`)}
                                             {'-'}
-                                            {moment(notif.shift.endTime).format(
-                                                `h:mm a`
-                                            )}
+                                            {moment(
+                                                notif.shift?.endTime
+                                            ).format(`h:mm a`)}
                                         </p>
                                         <small>
                                             {moment(notif.createdAt).format(
@@ -78,11 +78,11 @@ export const Notifications = () => {
                                         <p>
                                             {`${notif.sender.firstName} has returned your shift on `}
                                             {moment(
-                                                notif.shift.startTime
+                                                notif.shift?.startTime
                                             ).format(`MMM D`)}
                                             {` at `}
                                             {moment(
-                                                notif.shift.startTime
+                                                notif.shift?.startTime
                                             ).format(`h:mm`)}
                                         </p>
                                         <small>
