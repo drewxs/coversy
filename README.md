@@ -21,7 +21,13 @@ $ npm -v && node -v
 
 ## Installation
 
-Install all dependencies:
+Install CLI dependencies:
+
+```sh
+$ npm run i-cli
+```
+
+Install Base/Server/Client dependencies:
 
 ```sh
 $  npm run i-all
@@ -38,6 +44,12 @@ To run the server and client in parallel:
 
 ```sh
 $ npm run s-all
+```
+
+Alternate run script utilizing nodemon for server:
+
+```sh
+$ npm run d-all
 ```
 
 To start the server:

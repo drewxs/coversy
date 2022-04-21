@@ -4,7 +4,7 @@
     "description": "Instructor shift scheduling, shift exchange, and payroll management system.",
     "main": "index.js",
     "scripts": {
-        "install:cli": "npm i -g jsdoc npm-run-all nodemon sass",
+        "i-cli": "npm i -g jsdoc npm-run-all nodemon sass pm2",
         "install:base": "npm install",
         "install:server": "cd ./server && npm install",
         "install:client": "cd ./client && npm install",
