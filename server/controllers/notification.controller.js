@@ -1,11 +1,18 @@
 const Notification = require('../models/notification.model');
 const escape = require('escape-html');
 
+/** @module notification_controller */
+
 /**
  * This function creates a notification.
  *
- * @route GET /notification/
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} sender - Notification sender
+ * @param {Object} receiver - Notification receiver
+ * @param {String} type - Notification type
+ * @param {Object} ref - Reference object
+ * @returns {Object} - Created notification
  */
 exports.createNotification = async (sender, receiver, type, ref) => {
     const query = {
@@ -31,8 +38,11 @@ exports.createNotification = async (sender, receiver, type, ref) => {
  *
  * This function gets notifications for a user
  *
- * @route GET /notification/
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Notifications for a user
  */
 exports.getNotifications = async (req, res) => {
     try {
@@ -52,8 +62,11 @@ exports.getNotifications = async (req, res) => {
  *
  * This function reads notifications for a user
  *
- * @route PUT /notification/
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Read notifications
  */
 exports.readNotifications = async (req, res) => {
     try {
@@ -68,6 +81,14 @@ exports.readNotifications = async (req, res) => {
     }
 };
 
+/**
+ * This function deletes a notification
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.deleteNotification = async (req, res) => {
     const notifId = escape(req.params.notifId);
     try {

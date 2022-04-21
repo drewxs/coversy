@@ -4,11 +4,17 @@ const {
     createNotification,
 } = require('../controllers/notification.controller');
 
+/** @module ticket_controller */
+
 /**
  * This function creates a ticket.
  *
- * @route POST /ticket/
- * @access User
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Created ticket
  */
 exports.createTicket = async (req, res) => {
     const newTicket = {
@@ -30,8 +36,12 @@ exports.createTicket = async (req, res) => {
 /**
  * This function gets unresolved tickets.
  *
- * @route GET /ticket/unresolved
- * @access Admin
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Unresolved tickets
  */
 exports.getUnresolvedTickets = async (req, res) => {
     const site = req.user.site;
@@ -49,8 +59,12 @@ exports.getUnresolvedTickets = async (req, res) => {
 /**
  * This function gets resolved tickets.
  *
- * @route GET /ticket/resolved
- * @access Admin
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Resolved tickets
  */
 exports.getResolvedTickets = async (req, res) => {
     const site = req.user.site;
@@ -68,8 +82,12 @@ exports.getResolvedTickets = async (req, res) => {
 /**
  * This function resolves a ticket.
  *
- * @route PUT /ticket/:ticketId/resolve
- * @access Admin
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Ticket resolved
  */
 exports.resolveTicket = async (req, res) => {
     const ticketId = escape(req.params.ticketId);
@@ -96,8 +114,12 @@ exports.resolveTicket = async (req, res) => {
 /**
  * This function unresolves a ticket.
  *
- * @route PUT /ticket/:ticketId/unresolve
- * @access Admin
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Ticket unresolved
  */
 exports.unresolveTicket = async (req, res) => {
     const ticketId = escape(req.params.ticketId);

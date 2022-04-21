@@ -2,11 +2,16 @@ const Site = require('../models/site.model');
 const escape = require('escape-html');
 const { siteValidation } = require('../util/validation');
 
+/** @module site_controller */
+
 /**
  * This function returns all sites.
  *
- * @route GET /site/
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - All sites
  */
 exports.getAllSites = async (req, res) => {
     try {
@@ -20,8 +25,11 @@ exports.getAllSites = async (req, res) => {
 /**
  * This function updates a site.
  *
- * @route PUT /site/
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated site
  */
 exports.updateSite = async (req, res) => {
     const updateQuery = {
