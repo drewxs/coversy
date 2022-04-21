@@ -4,7 +4,6 @@
     "description": "Instructor shift scheduling, shift exchange, and payroll management system.",
     "main": "index.js",
     "scripts": {
-        "doc": "jsdoc -c ./jsdoc.json",
         "install:cli": "npm i -g jsdoc npm-run-all nodemon sass",
         "install:base": "npm install",
         "install:server": "cd ./server && npm install",
@@ -16,19 +15,20 @@
         "dev:server": "npm --prefix ./server run dev",
         "dev:client": "npm --prefix ./client start",
         "d-all": "run-p dev:*",
+        "doc": "jsdoc -c ./jsdoc.json",
         "changelog": "changelog generate -a"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/kito0/capstone.git"
+        "url": "git+https://github.com/kito0/coversy.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/kito0/capstone/issues"
+        "url": "https://github.com/kito0/coversy/issues"
     },
-    "homepage": "https://github.com/kito0/capstone#readme",
+    "homepage": "https://github.com/kito0/coversy#readme",
     "devDependencies": {
         "clean-jsdoc-theme": "^3.3.4",
         "generate-changelog": "^1.8.0",
