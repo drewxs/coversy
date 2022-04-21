@@ -2,6 +2,12 @@
 
 Instructor shift scheduling, shift exchange, and payroll management system.
 
+## Deployments
+
+-   [Application](https://coversy.vercel.app/)
+-   [API](https://coversy.herokuapp.com/)
+-   [Documentation](https://coversy-docs.vercel.app/)
+
 ## Prerequisites
 
 This project requires NodeJS (version 16 or later) and NPM.
