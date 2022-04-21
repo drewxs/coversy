@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Shift Redux slice. Contains initial state and reducers for shift.
+ *
+ * @global
  */
 export const shiftSlice = createSlice({
     name: 'shift',

@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Payroll Redux slice. Contains initial state and reducers for payroll.
+ *
+ * @global
  */
 export const payrollSlice = createSlice({
     name: 'payroll',

@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv').config();
 
+/** @module nodemailer */
+
 const transport = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -10,10 +12,12 @@ const transport = nodemailer.createTransport({
 });
 
 /**
- * Sends an email to the user with a link to confirm their email address
- * @param {*} name
- * @param {*} email
- * @param {*} confirmationCode
+ * Sends an email to the user with a link to confirm their email address.
+ *
+ * @function
+ * @param {String} name - Name of the user
+ * @param {String} email - Email of the user
+ * @param {String} confirmationCode - Confirmation code for the user
  */
 exports.sendConfirmationEmail = (name, email, confirmationCode) => {
     transport
@@ -32,10 +36,12 @@ exports.sendConfirmationEmail = (name, email, confirmationCode) => {
 };
 
 /**
- * Sends an email to the user with a link to reset their password
- * @param {*} name
- * @param {*} email
- * @param {*} forgotPasswordCode
+ * Sends an email to the user with a link to reset their password.
+ *
+ * @function
+ * @param {String} name - Name of the user
+ * @param {String} email - Email of the user
+ * @param {String} forgotPasswordCode - Password reset code for the user
  */
 exports.sendForgotEmail = (name, email, forgotPasswordCode) => {
     transport

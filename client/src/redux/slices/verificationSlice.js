@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Verification Redux slice. Contains initial state and reducers for verification.
+ *
+ * @global
  */
-export const verification = createSlice({
+export const verificationSlice = createSlice({
     name: 'verification',
     initialState: {
         loading: false,
@@ -37,6 +39,6 @@ export const verification = createSlice({
 });
 
 export const { loading, setErrors, clearErrors, success } =
-    verification.actions;
+    verificationSlice.actions;
 
-export default verification.reducer;
+export default verificationSlice.reducer;

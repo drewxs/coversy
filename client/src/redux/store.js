@@ -10,8 +10,10 @@ import verificationSlice from './slices/verificationSlice';
 
 /**
  * Redux store configuration.
+ *
+ * @global
  */
-export default configureStore({
+const store = configureStore({
     reducer: {
         admin: adminSlice,
         password: passwordSlice,
@@ -23,3 +25,5 @@ export default configureStore({
         verification: verificationSlice,
     },
 });
+
+export default store;

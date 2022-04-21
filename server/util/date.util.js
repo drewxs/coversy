@@ -1,6 +1,9 @@
+/** @module date_util */
+
 /**
  * Checks 2 dates for equality in terms of period.
  *
+ * @function
  * @param {Date} date1
  * @param {Date} date2
  * @returns True if the given dates are in the same period.
@@ -15,7 +18,8 @@ exports.checkSamePeriod = (date1, date2) => {
 /**
  * Checks if a ratelog contains a given period.
  *
- * @param {ratelog[Object]} ratelog
+ * @function
+ * @param {Object} ratelog
  * @param {Date} date
  * @returns True if the given ratelog contains the given date period.
  */

@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Ticket Redux slice. Contains initial state and reducers for ticket.
+ *
+ * @global
  */
 export const ticketSlice = createSlice({
     name: 'ticket',

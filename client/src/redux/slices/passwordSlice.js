@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Password Redux slice. Contains initial state and reducers for password.
+ *
+ * @global
  */
 export const password = createSlice({
     name: 'auth',

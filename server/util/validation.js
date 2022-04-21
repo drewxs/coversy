@@ -3,6 +3,15 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const alphanumericPattern = /^[a-zA-Z0-9 ]+$/;
 
+/** @module validation */
+
+/**
+ * Validation for registration.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.registerValidation = (data) => {
     const schema = Joi.object({
         firstName: Joi.string()
@@ -24,6 +33,13 @@ exports.registerValidation = (data) => {
     return schema.validate(data);
 };
 
+/**
+ * Validation for login.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.loginValidation = (data) => {
     const schema = Joi.object({
         email: Joi.string().email().required(),
@@ -32,6 +48,13 @@ exports.loginValidation = (data) => {
     return schema.validate(data);
 };
 
+/**
+ * Validation for user data update.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.updateValidation = (data) => {
     const schema = Joi.object({
         firstName: Joi.string()
@@ -50,6 +73,13 @@ exports.updateValidation = (data) => {
     return schema.validate(data);
 };
 
+/**
+ * Validation for user data update as admin.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.updateValidationAdmin = (data) => {
     const schema = Joi.object({
         firstName: Joi.string()
@@ -66,6 +96,13 @@ exports.updateValidationAdmin = (data) => {
     return schema.validate(data);
 };
 
+/**
+ * Validation for site registration.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.siteValidation = (data) => {
     const postalCodePattern = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
     const provincePattern = /^(AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT)$/;
@@ -96,6 +133,13 @@ exports.siteValidation = (data) => {
     return schema.validate(data);
 };
 
+/**
+ * Validation for password reset.
+ *
+ * @function
+ * @param {Object} data
+ * @returns Error if validation fails
+ */
 exports.passwordResetValidation = (data) => {
     const schema = Joi.object({
         password: Joi.string().min(8).max(128).required(),

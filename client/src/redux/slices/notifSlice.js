@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * Notifications Redux slice. Contains initial state and reducers for notifications.
+ *
+ * @global
  */
-export const notifSlice = createSlice({
+export const notificationSlice = createSlice({
     name: 'notification',
     initialState: {
         notifications: [],
@@ -52,6 +54,6 @@ export const {
     readNotifications,
     removeNotification,
     loadingNotifications,
-} = notifSlice.actions;
+} = notificationSlice.actions;
 
-export default notifSlice.reducer;
+export default notificationSlice.reducer;

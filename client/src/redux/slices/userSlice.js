@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
  * User Redux slice. Contains initial state and reducers for user.
+ *
+ * @global
  */
 export const userSlice = createSlice({
     name: 'user',
