@@ -80,7 +80,8 @@ export const Profile = () => {
                                 src={
                                     loading
                                         ? 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
-                                        : `${process.env.REACT_APP_API_URL}/${user.avatar}`
+                                        : user.avatar &&
+                                          `${process.env.REACT_APP_API_URL}/${user.avatar}`
                                 }
                                 alt={`${user.firstName} ${user.lastName}`}
                                 sx={{
