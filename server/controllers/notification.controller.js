@@ -11,15 +11,15 @@ const escape = require('escape-html');
  * @param {Object} sender - Notification sender
  * @param {Object} receiver - Notification receiver
  * @param {String} type - Notification type
- * @param {Object} ref - Reference object
+ * @param {Object} shift - Shift object
  * @returns {Object} - Created notification
  */
-exports.createNotification = async (sender, receiver, type, ref) => {
+exports.createNotification = async (sender, receiver, type, shift) => {
     const query = {
         sender: sender,
         receiver: receiver,
         type: type,
-        referenceObject: ref,
+        shift: shift,
         read: false,
     };
 
@@ -51,6 +51,7 @@ exports.getNotifications = async (req, res) => {
         })
             .populate('sender', 'firstName lastName email')
             .populate('receiver', 'firstName lastName email')
+            .populate('shift', 'startTime endTime')
             .lean();
         return res.status(200).json(notifications);
     } catch (err) {

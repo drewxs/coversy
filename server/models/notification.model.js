@@ -17,8 +17,9 @@ const NotificationSchema = new mongoose.Schema(
             enum: ['Shift', 'Shift_Return', 'Payroll', 'TimeOff'],
             required: true,
         },
-        referenceObject: {
+        shift: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'Shift',
             required: true,
         },
         read: {
