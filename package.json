@@ -1,10 +1,11 @@
 {
     "name": "coversy",
     "version": "1.0.0",
-    "description": "Instructor shift scheduling, shift exchange, and payroll management system. For internal use only.",
+    "description": "Instructor shift scheduling, shift exchange, and payroll management system.",
     "main": "index.js",
     "scripts": {
         "doc": "jsdoc -c ./jsdoc.json",
+        "install:cli": "npm i -g jsdoc npm-run-all nodemon sass",
         "install:base": "npm install",
         "install:server": "cd ./server && npm install",
         "install:client": "cd ./client && npm install",
@@ -12,6 +13,9 @@
         "start:server": "npm --prefix ./server start",
         "start:client": "npm --prefix ./client start",
         "s-all": "run-p start:*",
+        "dev:server": "npm --prefix ./server run dev",
+        "dev:client": "npm --prefix ./client start",
+        "d-all": "run-p dev:*",
         "changelog": "changelog generate -a"
     },
     "repository": {
