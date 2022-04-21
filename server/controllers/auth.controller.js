@@ -15,11 +15,16 @@ const {
     passwordResetValidation,
 } = require('../util/validation');
 
+/** @module auth_controller */
+
 /**
  * This endpoint logins a user
  *
- * @route POST /auth/login
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Login message
  */
 exports.login = async (req, res) => {
     const email = escape(req.body.email);
@@ -54,8 +59,11 @@ exports.login = async (req, res) => {
 /**
  * This endpoint registers a user
  *
- * @route POST /auth/register/user
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Registered user
  */
 exports.registerUser = async (req, res) => {
     const user = {
@@ -112,10 +120,13 @@ exports.registerUser = async (req, res) => {
 };
 
 /**
- * This endpoint registers a user
+ * This endpoint registers a site
  *
- * @route POST /auth/register/site
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Registered site
  */
 exports.registerSite = async (req, res) => {
     try {
@@ -179,10 +190,13 @@ exports.registerSite = async (req, res) => {
 };
 
 /**
- * This endpoint verifies a user acocunt
+ * This endpoint verifies a user account
  *
- * @route GET /auth/confirm/:confirmationCode
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Message confirming verification
  */
 exports.confirmUser = async (req, res) => {
     try {
@@ -205,8 +219,11 @@ exports.confirmUser = async (req, res) => {
 /**
  * This endpoint sends a password reset verification code to an email
  *
- * @route GET /auth/forgot
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Password verification code
  */
 exports.forgotPassword = async (req, res) => {
     const email = escape(req.body.email);
@@ -239,8 +256,11 @@ exports.forgotPassword = async (req, res) => {
 /**
  * This endpoint resets a user password
  *
- * @route PUT /auth/resetpassword/:code
- * @access Public
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Message confirming password reset
  */
 exports.resetPassword = async (req, res) => {
     const newPassword = escape(req.body.newPassword);

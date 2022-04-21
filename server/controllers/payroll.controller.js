@@ -3,11 +3,16 @@ const Rate = require('../models/rate.model');
 const escape = require('escape-html');
 const { checkRatelogHasPeriod, checkSamePeriod } = require('../util/date.util');
 
+/** @module payroll_controller */
+
 /**
  * This function generates all payrolls from a site.
  *
- * @route GET /payroll/site
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Site payroll report
  */
 exports.getSitePayrolls = async (req, res) => {
     const query = { site: req.user.site };
@@ -17,8 +22,11 @@ exports.getSitePayrolls = async (req, res) => {
 /**
  * This function generates all payrolls for a user.
  *
- * @route GET /payroll/user
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - User payroll report
  */
 exports.getUserPayrolls = async (req, res) => {
     const query = {
@@ -30,8 +38,11 @@ exports.getUserPayrolls = async (req, res) => {
 /**
  * This function generates a payroll for a given month (site-wide).
  *
- * @route GET /payroll/site/:date
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Site payroll report for a given month
  */
 exports.getSitePayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
@@ -48,8 +59,11 @@ exports.getSitePayroll = async (req, res) => {
 /**
  * This function generates a payroll for a given month.
  *
- * @route GET /payroll/user/:date
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - User payroll report for a given month
  */
 exports.getUserPayroll = async (req, res) => {
     const date = new Date(escape(req.params.date));
@@ -66,7 +80,11 @@ exports.getUserPayroll = async (req, res) => {
 /**
  * This function generates a payroll report based on a given query.
  *
- * @returns payrolls array
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Payrolls array
  */
 const generateReport = async (res, query) => {
     try {

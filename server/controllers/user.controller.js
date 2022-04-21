@@ -15,11 +15,16 @@ aws.config.update({
 });
 const s3 = new aws.S3();
 
+/** @module user_controller */
+
 /**
  * This function returns users by user id.
  *
- * @route GET /user/:userId
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - User corresponding to the id
  */
 exports.getUserById = async (req, res) => {
     const userId = escape(req.params.userId);
@@ -35,8 +40,11 @@ exports.getUserById = async (req, res) => {
 /**
  * This function returns users by site.
  *
- * @route GET /user/site/:siteid
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object[]} - Users corresponding to the site
  */
 exports.getUsersBySite = async (req, res) => {
     const siteId = escape(req.params.siteId);
@@ -52,8 +60,11 @@ exports.getUsersBySite = async (req, res) => {
 /**
  * This function updates users by id.
  *
- * @route PUT /user/:userId
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated user
  */
 exports.updateUserById = async (req, res) => {
     const updateQuery = {};
@@ -85,8 +96,11 @@ exports.updateUserById = async (req, res) => {
 /**
  * This function updates users by id as admin
  *
- * @route PUT /user/:userId/admin
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated user
  */
 exports.updateUserAsAdmin = async (req, res) => {
     const userId = escape(req.params.userId);
@@ -144,8 +158,11 @@ exports.updateUserAsAdmin = async (req, res) => {
 /**
  * This function activates/deactivates users by id.
  *
- * @route PUT /user/:userId/:siteId/activate
- * @access Admin
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - User activation toggled
  */
 exports.toggleUserActivatedById = async (req, res) => {
     const userId = escape(req.params.userId);
@@ -172,10 +189,13 @@ exports.toggleUserActivatedById = async (req, res) => {
 };
 
 /**
- * This function updates the users Profile Picture
+ * This function gets the users Profile Picture
  *
- * @route GET /user/images/:key
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - User profile picture
  */
 exports.getProfilePicture = (req, res) => {
     const fileKey = escape(req.params.key);
@@ -191,8 +211,11 @@ exports.getProfilePicture = (req, res) => {
 /**
  * This function checks if a password reset code exists
  *
- * @route GET /user/passwordreset/:code
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {String} - Password verification message
  */
 exports.findUserByPasswordResetCode = async (req, res) => {
     const passwordResetCode = escape(req.params.code);
@@ -215,8 +238,11 @@ exports.findUserByPasswordResetCode = async (req, res) => {
 /**
  * This function updates the users Profile Picture
  *
- * @route PUT /user/:userId/updatepicture
- * @access User
+ * @function
+ * @async
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Updated user profile picture
  */
 exports.updateProfilePicture = async (req, res) => {
     if (!req.file) return res.status(400).send('No image uploaded');
