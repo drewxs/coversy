@@ -7,10 +7,12 @@ import { Errors } from 'components';
 import { LoginUser } from 'redux/data/user';
 
 export const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const errors = useSelector((state) => state.user.errors);
     const success = useSelector((state) => state.user.success);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -25,7 +27,7 @@ export const Login = () => {
     return (
         <section className='register'>
             <div className='card'>
-                <Button href='/'>{`< Back`}</Button>
+                <Button onClick={() => navigate(-1)}>{`< Back`}</Button>
                 <div className='h-cont'>
                     <h1>Login</h1>
                 </div>

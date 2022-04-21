@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
     Button,
@@ -13,6 +14,9 @@ import { Errors } from 'components';
 import { RegisterSite } from 'redux/data/user';
 
 export const SiteRegister = () => {
+    const errors = useSelector((state) => state.user.errors);
+    const success = useSelector((state) => state.user.success);
+
     const [name, setName] = useState('');
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
@@ -21,8 +25,7 @@ export const SiteRegister = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const errors = useSelector((state) => state.user.errors);
-    const success = useSelector((state) => state.user.success);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -59,7 +62,7 @@ export const SiteRegister = () => {
     return (
         <section className='register'>
             <div className='card'>
-                <Button href='/'>{`< Back`}</Button>
+                <Button onClick={() => navigate(-1)}>{`< Back`}</Button>
                 <div className='h-cont'>
                     <h1>Site Registration</h1>
                 </div>
