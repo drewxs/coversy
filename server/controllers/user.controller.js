@@ -198,14 +198,18 @@ exports.toggleUserActivatedById = async (req, res) => {
  * @returns {Object} - User profile picture
  */
 exports.getProfilePicture = (req, res) => {
-    const fileKey = escape(req.params.key);
-    const downloadParams = {
-        Key: fileKey,
-        Bucket: process.env.S3_PROFILE_BUCKET,
-    };
+    try {
+        const fileKey = escape(req.params.key);
+        const downloadParams = {
+            Key: fileKey,
+            Bucket: process.env.S3_PROFILE_BUCKET,
+        };
 
-    const readStream = s3.getObject(downloadParams).createReadStream();
-    readStream.pipe(res);
+        const readStream = s3.getObject(downloadParams).createReadStream();
+        readStream.pipe(res);
+    } catch (err) {
+        return res.status(400).json(err.message);
+    }
 };
 
 /**
