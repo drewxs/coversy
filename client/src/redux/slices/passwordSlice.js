@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
  *
  * @global
  */
-export const password = createSlice({
+export const passwordSlice = createSlice({
     name: 'auth',
     initialState: {
         loading: false,
@@ -65,6 +65,6 @@ export const {
     success,
     setReset,
     setResetFalse,
-} = password.actions;
+} = passwordSlice.actions;
 
-export default password.reducer;
+export default passwordSlice.reducer;
