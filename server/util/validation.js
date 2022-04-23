@@ -68,7 +68,9 @@ exports.updateValidation = (data) => {
         middleInitial: Joi.string().min(1).max(1),
         phone: Joi.string()
             .length(10)
-            .pattern(/^[0-9]+$/),
+            .message('Invalid phone number.')
+            .regex(/^[0-9]+$/)
+            .message('Invalid phone number.'),
     });
     return schema.validate(data);
 };

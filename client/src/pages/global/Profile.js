@@ -31,8 +31,9 @@ export const Profile = () => {
     const [postalCode, setPostalCode] = useState(null);
     const [province, setProvince] = useState(null);
 
-    const [firstName, setFirstname] = useState(null);
-    const [lastName, setLastname] = useState(null);
+    const [firstName, setFirstname] = useState('');
+    const [lastName, setLastname] = useState('');
+    const [phone, setPhone] = useState('');
 
     const [image, setImage] = useState(null);
 
@@ -54,7 +55,7 @@ export const Profile = () => {
 
     const handleSubmitUser = (e) => {
         e.preventDefault();
-        UpdateUser({ firstName, lastName });
+        UpdateUser({ firstName, lastName, phone });
     };
 
     const handleSubmitAdmin = (e) => {
@@ -141,8 +142,9 @@ export const Profile = () => {
                                             },
                                         }}
                                         onClick={() => {
-                                            setFirstname(user.firstName);
-                                            setLastname(user.lastName);
+                                            setFirstname(user?.firstName);
+                                            setLastname(user?.lastName);
+                                            setPhone(user?.phone);
                                             SetEditOpen(true);
                                         }}
                                     >
@@ -161,7 +163,7 @@ export const Profile = () => {
                                 <br />
                                 {user?.site?.address?.city}
                                 {', '}
-                                {user?.site?.address.province}
+                                {user?.site?.address?.province}
                                 {', '}
                                 {user?.site?.address?.postalCode}
                             </div>
@@ -314,6 +316,14 @@ export const Profile = () => {
                                     fullWidth
                                     label='Last Name'
                                     placeholder='Last Name'
+                                />
+                                <TextField
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    sx={{ mb: '1rem' }}
+                                    fullWidth
+                                    label='Phone Number'
+                                    placeholder='Phone Number'
                                 />
                             </div>
                             <Errors errors={errors} />

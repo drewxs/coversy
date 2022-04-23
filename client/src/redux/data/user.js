@@ -193,7 +193,7 @@ export const UpdateUser = async (updateQuery) => {
         store.dispatch(setEditOpen(false));
         store.dispatch(editUser(res.data));
     } catch (err) {
-        store.dispatch(setEditErrors());
+        store.dispatch(setEditErrors(err.response.data));
     }
 };
 
