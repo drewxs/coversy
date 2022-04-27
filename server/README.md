@@ -4,9 +4,9 @@ REST API server for Coversy.
 
 ### Tools
 
--   [Express](https://www.npmjs.com/package/express)
--   [MongoDB](https://www.mongodb.com)
--   [AWS S3](https://aws.amazon.com/s3/)
+- [Express](https://www.npmjs.com/package/express)
+- [MongoDB](https://www.mongodb.com)
+- [AWS S3](https://aws.amazon.com/s3/)
 
 ### Prerequisites
 

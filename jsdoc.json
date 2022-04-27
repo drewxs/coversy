@@ -1,38 +1,38 @@
 {
-    "source": {
-        "include": ["./server", "./client/src"],
-        "includePattern": ".js$",
-        "exclude": [
-            "./server/node_modules",
-            "./client/node_modules",
-            "docs",
-            "coverage"
-        ]
-    },
-    "plugins": ["plugins/markdown"],
-    "templates": {
-        "cleverLinks": true,
-        "monospaceLinks": true
-    },
-    "opts": {
-        "encoding": "utf8",
-        "destination": "./docs",
-        "recurse": true,
-        "verbose": true,
-        "template": "node_modules/clean-jsdoc-theme",
-        "theme_opts": {
-            "theme": "dark",
-            "title": "Coversy Documentation",
-            "menu": [
-                {
-                    "title": "Application",
-                    "link": "https://coversy.vercel.app"
-                },
-                {
-                    "title": "GitHub",
-                    "link": "https://github.com/kito0/coversy"
-                }
-            ]
+  "source": {
+    "include": ["./server", "./client/src"],
+    "includePattern": ".js$",
+    "exclude": [
+      "./server/node_modules",
+      "./client/node_modules",
+      "docs",
+      "coverage"
+    ]
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "encoding": "utf8",
+    "destination": "./docs",
+    "recurse": true,
+    "verbose": true,
+    "template": "node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+      "theme": "dark",
+      "title": "Coversy Documentation",
+      "menu": [
+        {
+          "title": "Application",
+          "link": "https://coversy.vercel.app"
+        },
+        {
+          "title": "GitHub",
+          "link": "https://github.com/kito0/coversy"
         }
+      ]
     }
+  }
 }

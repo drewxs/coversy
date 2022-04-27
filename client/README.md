@@ -4,9 +4,9 @@ Client application for Coversy.
 
 ### Tools
 
--   [React](https://reactjs.org/)
--   [Sass](https://sass-lang.com/)
--   [Redux](https://redux.js.org/)
+- [React](https://reactjs.org/)
+- [Sass](https://sass-lang.com/)
+- [Redux](https://redux.js.org/)
 
 ### Requirements
 
