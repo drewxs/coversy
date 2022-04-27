@@ -19,7 +19,7 @@
     "dev": "lerna run dev",
     "install": "lerna bootstrap",
     "new-version": "lerna version --conventional-commits --yes",
-    "test": "lerna test",
+    "test": "lerna run test",
     "diff": "lerna diff",
     "pretty": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "doc": "jsdoc -c ./jsdoc.json",
