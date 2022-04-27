@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Button, IconButton, useMediaQuery } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
-import { Notifications } from 'components/Notifications';
+import { NavLink, Notifications } from 'components';
 import logo from 'assets/logo.svg';
 import breakpoints from 'scss/abstract/_breakpoints.scss';
 import { LogoutUser } from 'redux/data/user';
@@ -39,106 +39,29 @@ export const Nav = () => {
           {/* Unauthenticated links */}
           {!authenticated && (
             <>
-              <Button
-                href='/register'
-                className={`button ${
-                  window.location.pathname === '/register' ? 'active' : ''
-                }`}
-              >
-                User Registration
-              </Button>
-              <Button
-                href='/login'
-                className={`button ${
-                  window.location.pathname === '/login' ? 'active' : ''
-                }`}
-              >
-                Login
-              </Button>
+              <NavLink text='User Registration' link='/register' />
+              <NavLink text='Site Registration' link='/register/site' />
+              <NavLink text='Login' link='login' />
             </>
           )}
 
           {/* Admin links */}
           {authenticated && user.type === 1 && (
             <>
-              <Button
-                href='/dashboard/shifts'
-                className={`button ${
-                  window.location.pathname === '/dashboard/shifts'
-                    ? 'active'
-                    : ''
-                }`}
-              >
-                Shifts
-              </Button>
-              <Button
-                href='/dashboard/payroll'
-                className={`button ${
-                  window.location.pathname === '/dashboard/payroll'
-                    ? 'active'
-                    : ''
-                }`}
-              >
-                Payroll
-              </Button>
-              <Button
-                href='/dashboard/users'
-                className={`button ${
-                  window.location.pathname === '/dashboard/users'
-                    ? 'active'
-                    : ''
-                }`}
-              >
-                Users
-              </Button>
-              <Button
-                href='/dashboard/tickets'
-                className={`button ${
-                  window.location.pathname === '/dashboard/tickets'
-                    ? 'active'
-                    : ''
-                }`}
-              >
-                Tickets
-              </Button>
-              <Button
-                href='/profile'
-                className={`button ${
-                  window.location.pathname === '/profile' ? 'active' : ''
-                }`}
-              >
-                Profile
-              </Button>
+              <NavLink text='Shifts' link='/dashboard/shifts' />
+              <NavLink text='Payroll' link='/dashboard/payroll' />
+              <NavLink text='Users' link='/dashboard/users' />
+              <NavLink text='Tickets' link='/dashboard/tickets' />
+              <NavLink text='Profile' link='/profile' />
             </>
           )}
 
           {/* User links */}
           {authenticated && user.type === 2 && (
             <>
-              <Button
-                href='/shifts'
-                className={`button ${
-                  window.location.pathname === '/shifts' ? 'active' : ''
-                }`}
-              >
-                Shifts
-              </Button>
-              <Button
-                href='/payroll'
-                className={`button ${
-                  window.location.pathname === '/payroll' ? 'active' : ''
-                }`}
-              >
-                Payroll
-              </Button>
-              <Button
-                href='/profile'
-                className={`button ${
-                  window.location.pathname === '/profile' ? 'active' : ''
-                }`}
-              >
-                Profile
-              </Button>
+              <NavLink text='Shifts' link='/shifts' />
+              <NavLink text='Payroll' link='/payroll' />
+              <NavLink text='Profile' link='/profile' />
             </>
           )}
 
