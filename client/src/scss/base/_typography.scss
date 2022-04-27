@@ -1,33 +1,33 @@
 @use '../abstract' as *;
 
 html {
-    font-family: $fontBody, $fontBodyFallback;
-    color: $black;
-    font-smooth: always;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: $fontBody, $fontBodyFallback;
+  color: $black;
+  font-smooth: always;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-    @include fluid-type($min_width, $max_width, $min_font, $max_font);
-    @include respond-to('desktop') {
-        font-size: $pref_font;
-    }
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
+  @include respond-to('desktop') {
+    font-size: $pref_font;
+  }
 }
 
 @include headings {
-    font-family: $fontHeading, $fontBodyFallback;
-    font-weight: 500;
-    margin-bottom: 0.2rem;
+  font-family: $fontHeading, $fontBodyFallback;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
 }
 
 h1,
 .h1 {
-    font-size: 3em;
+  font-size: 3em;
 }
 
 h2,
 .h2 {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 h3,
@@ -38,26 +38,26 @@ h5,
 .h5,
 h6,
 .h6 {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 a {
-    color: $primary;
-    text-decoration: none;
+  color: $primary;
+  text-decoration: none;
 
-    &:hover,
-    &:focus {
-        color: rgba($color: $primary, $alpha: 0.5);
-    }
+  &:hover,
+  &:focus {
+    color: rgba($color: $primary, $alpha: 0.5);
+  }
 }
 
 p:not([class]),
 ul:not([class]),
 li:not([class]) {
-    max-width: 60ch;
+  max-width: 60ch;
 }
 
 .error {
-    color: $error;
-    margin-bottom: 1rem;
+  color: $error;
+  margin-bottom: 1rem;
 }

@@ -1,58 +1,58 @@
 @use '../abstract' as *;
 
 .notifications {
-    display: relative;
+  display: relative;
 }
 
 .notif-btn {
-    padding: 0;
-    margin-left: 0.5em;
-    border-bottom: 0px;
+  padding: 0;
+  margin-left: 0.5em;
+  border-bottom: 0px;
 }
 
 .notif-icon {
-    padding-bottom: 10% !important;
-    justify-content: end !important;
+  padding-bottom: 10% !important;
+  justify-content: end !important;
 }
 
 .notif-dropdown {
-    background-color: rgba($color: $black, $alpha: 0.8);
-    position: absolute;
+  background-color: rgba($color: $black, $alpha: 0.8);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  top: 3.5rem;
+  right: 0;
+  z-index: 101;
+
+  .notif-item {
+    color: $white;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    top: 3.5rem;
-    right: 0;
-    z-index: 101;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.75em 1em;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
 
-    .notif-item {
-        color: $white;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 0.75em 1em;
-        margin-bottom: 1em;
-        border-radius: 0.5em;
-
-        .notif-info {
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-        }
-
-        h3 {
-            font-size: 0.8em;
-        }
+    .notif-info {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
     }
 
-    .notif-content {
-        padding-right: 1em;
+    h3 {
+      font-size: 0.8em;
     }
+  }
+
+  .notif-content {
+    padding-right: 1em;
+  }
 }
 
 @include respond-to('tablet') {
-    .notifications {
-        margin-left: auto;
-    }
+  .notifications {
+    margin-left: auto;
+  }
 }

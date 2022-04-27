@@ -21,7 +21,7 @@
     "new-version": "lerna version --conventional-commits --yes",
     "test": "lerna run test",
     "diff": "lerna diff",
-    "pretty": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "pretty": "prettier --write \"**/*.{js,jsx,json,md,scss}\"",
     "doc": "jsdoc -c ./jsdoc.json",
     "changelog": "changelog generate -a"
   },

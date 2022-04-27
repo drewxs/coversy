@@ -2,69 +2,63 @@
 @use 'variables' as *;
 
 @mixin respond-to($key) {
-    $size: map-get($breakpoints, $key);
+  $size: map-get($breakpoints, $key);
 
-    @if ($key == desktop) {
-        @media only screen and (min-width: $size) {
-            @content;
-        }
-    } @else {
-        @media only screen and (max-width: $size) {
-            @content;
-        }
+  @if ($key == desktop) {
+    @media only screen and (min-width: $size) {
+      @content;
     }
+  } @else {
+    @media only screen and (max-width: $size) {
+      @content;
+    }
+  }
 }
 
 @mixin text-overflow {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @mixin headings {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @content;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @content;
+  }
 }
 
 @mixin bg {
-    background: linear-gradient(
-        180deg,
-        transparent 60%,
-        rgba($color: $black, $alpha: 0.9) 40%
-    );
-    background-attachment: fixed;
+  background: linear-gradient(
+    180deg,
+    transparent 60%,
+    rgba($color: $black, $alpha: 0.9) 40%
+  );
+  background-attachment: fixed;
 }
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
-    $u1: unit($min-vw);
-    $u2: unit($max-vw);
-    $u3: unit($min-font-size);
-    $u4: unit($max-font-size);
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
 
-    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
-        & {
-            font-size: $min-font-size;
-            @media screen and (min-width: $min-vw) {
-                font-size: calc(
-                    #{$min-font-size} + #{strip-unit(
-                            $max-font-size - $min-font-size
-                        )} *
-                        (
-                            (100vw - #{$min-vw}) / #{strip-unit(
-                                    $max-vw - $min-vw
-                                )}
-                        )
-                );
-            }
-            @media screen and (min-width: $max-vw) {
-                font-size: $max-font-size;
-            }
-        }
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(
+          #{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+            ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+        );
+      }
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
     }
+  }
 }

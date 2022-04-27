@@ -1,108 +1,107 @@
 @use '../abstract' as *;
 
 .shifts {
-    height: 100vh;
+  height: 100vh;
 
-    .container {
-        height: 100%;
-        flex-direction: row;
+  .container {
+    height: 100%;
+    flex-direction: row;
 
-        .shift-col {
-            width: 30%;
-            height: 100%;
-            margin-right: 4%;
-            overflow-y: scroll;
-            background-color: $white;
-        }
-
-        .calendar {
-            height: 100%;
-            display: flex;
-            flex: 1;
-            padding: 3rem 1rem;
-            background-color: $white;
-        }
-
-        .tab-header {
-            background-color: $white;
-            box-shadow: 0 4px 4px -2px rgba($color: $black, $alpha: 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        // Data for My Shift Data Tab
-        .shift-container {
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-
-            .shift-data {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: stretch;
-                padding: 0.75em 1em;
-                margin-bottom: 1em;
-                border-radius: 0.5em;
-
-                .shift-info {
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 100%;
-                }
-
-                h3 {
-                    font-size: 1.3em;
-                }
-                p {
-                    font-size: 0.8em;
-                }
-            }
-        }
-
-        // Data for Posted Data Tab
-        .posted-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .posted-data {
-                width: 90%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.5em;
-                margin-bottom: 1em;
-            }
-        }
+    .shift-col {
+      width: 30%;
+      height: 100%;
+      margin-right: 4%;
+      overflow-y: scroll;
+      background-color: $white;
     }
 
-    .view-button {
+    .calendar {
+      height: 100%;
+      display: flex;
+      flex: 1;
+      padding: 3rem 1rem;
+      background-color: $white;
+    }
+
+    .tab-header {
+      background-color: $white;
+      box-shadow: 0 4px 4px -2px rgba($color: $black, $alpha: 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    // Data for My Shift Data Tab
+    .shift-container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      .shift-data {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-    }
-    @include respond-to('tablet') {
-        height: auto;
-            .container {
-               height: 120vh;
-                display: flex;
-                flex-direction: column;
-             
-                .shift-col {
-                    width: 100%;
-                    height: 50vh;
-                }
-    
-                .calendar {
-                    margin-top: 5em;
-                    height: 80vh;
-                    width: 100%;
-                    display: flex;
-                    flex: 1;
-                    
-                }
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 0.75em 1em;
+        margin-bottom: 1em;
+        border-radius: 0.5em;
+
+        .shift-info {
+          display: flex;
+          flex-direction: column;
+          min-height: 100%;
         }
+
+        h3 {
+          font-size: 1.3em;
+        }
+        p {
+          font-size: 0.8em;
+        }
+      }
     }
+
+    // Data for Posted Data Tab
+    .posted-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .posted-data {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5em;
+        margin-bottom: 1em;
+      }
+    }
+  }
+
+  .view-button {
+    display: flex;
+    flex-direction: column;
+  }
+  @include respond-to('tablet') {
+    height: auto;
+    .container {
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+
+      .shift-col {
+        width: 100%;
+        height: 50vh;
+      }
+
+      .calendar {
+        margin-top: 5em;
+        height: 80vh;
+        width: 100%;
+        display: flex;
+        flex: 1;
+      }
+    }
+  }
 }

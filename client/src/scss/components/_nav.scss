@@ -1,94 +1,99 @@
 @use '../abstract' as *;
 
 .nav {
-    background-color: rgba($color: $black, $alpha: 0.9);
-    color: #fff;
-    height: 15vh;
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
+  background-color: rgba($color: $black, $alpha: 0.9);
+  color: #fff;
+  height: 15vh;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  box-shadow: rgba($color: $black, $alpha: 0.1) 0px 8px 24px;
 
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hamburger-icon {
+    display: none;
+  }
+  .logo-cont {
+    display: flex;
+    align-items: center;
+  }
+  .hello {
+    margin-top: 0.1em;
+    margin-left: 2em;
+  }
+  .nav-links {
+    display: flex;
+  }
+  .logo {
+    width: auto;
+    max-height: 4em;
+    transition: opacity 400ms ease;
+
+    &:hover {
+      opacity: 0.7;
     }
+  }
+  .button {
+    color: $white;
+    margin-left: 1em;
+    padding-bottom: 0.25em;
+    border-bottom: 2px solid transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: color 800ms ease, border-color 800ms ease;
+
+    &:hover {
+      color: lighten($primary, 15%);
+      background-color: transparent;
+      border-color: lighten($primary, 15%);
+      transition: color 400ms ease, border-color 400ms ease;
+    }
+    &.active {
+      color: lighten($primary, 15%);
+      border-color: lighten($primary, 15%);
+    }
+  }
+  .logout-btn {
+    color: rgba($color: $white, $alpha: 0.5);
+  }
+
+  @media print {
+    display: none;
+  }
+
+  @include respond-to('tablet') {
     .hamburger-icon {
-        display: none;
+      display: flex;
     }
-    .logo-cont {
-        display: flex;
-        align-items: center;
-    }
-    .hello {
-        margin-top: 0.1em;
-        margin-left: 2em;
-    }
+
     .nav-links {
+      border-radius: 0.5em;
+      position: fixed;
+      top: 10%;
+      right: 10%;
+      background-color: rgba($color: $black, $alpha: 0.8);
+      display: flex;
+      flex-direction: column;
+      max-height: 30em;
+      opacity: 1;
+      transition: max-height 400ms ease, opacity 400ms ease;
+
+      .button {
         display: flex;
-    }
-    .logo {
-        width: auto;
-        max-height: 4em;
-    }
-    .button {
-        color: $white;
-        margin-left: 1em;
-        padding-bottom: 0.25em;
-        border-bottom: 2px solid transparent;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        transition: color 800ms ease, border-color 800ms ease;
+        margin: 0;
+        padding: 1rem 3rem;
+        justify-content: center;
+        align-items: center;
+      }
 
-        &:hover {
-            color: lighten($primary, 15%);
-            background-color: transparent;
-            border-color: lighten($primary, 15%);
-            transition: color 400ms ease, border-color 400ms ease;
-        }
-        &.active {
-            color: lighten($primary, 15%);
-            border-color: lighten($primary, 15%);
-        }
+      &.closed {
+        max-height: 0em;
+        opacity: 0;
+      }
     }
-    .logout-btn {
-        color: rgba($color: $white, $alpha: 0.5);
-    }
-
-    @media print {
-        display: none;
-    }
-
-    @include respond-to('tablet') {
-        .hamburger-icon {
-            display: flex;
-        }
-
-        .nav-links {
-            border-radius: 0.5em;
-            position: fixed;
-            top: 10%;
-            right: 10%;
-            background-color: rgba($color: $black, $alpha: 0.8);
-            display: flex;
-            flex-direction: column;
-            max-height: 30em;
-            opacity: 1;
-            transition: max-height 400ms ease, opacity 400ms ease;
-
-            .button {
-                display: flex;
-                margin: 0;
-                padding: 1rem 3rem;
-                justify-content: center;
-                align-items: center;
-            }
-
-            &.closed {
-                max-height: 0em;
-                opacity: 0;
-            }
-        }
-    }
+  }
 }

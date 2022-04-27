@@ -1,61 +1,61 @@
 @use '../abstract' as *;
 
 .bold {
-    display: inline;
-    font-weight: bold;
+  display: inline;
+  font-weight: bold;
 }
 
 .amount {
-    float: right;
+  float: right;
 }
 
 .amount-header {
-    float: right;
-    font-weight: bold;
+  float: right;
+  font-weight: bold;
 }
 
 .top-info {
-    margin-top: 100px;
-    margin-bottom: 260px;
+  margin-top: 100px;
+  margin-bottom: 260px;
 
-    .titles {
-        float: left;
-        width: 30%;
-        padding: 5px;
-    }
+  .titles {
+    float: left;
+    width: 30%;
+    padding: 5px;
+  }
 
-    .pay-info {
-        float: right;
-        display: block;
-        padding: 5px;
-        width: 20%;
-    }
+  .pay-info {
+    float: right;
+    display: block;
+    padding: 5px;
+    width: 20%;
+  }
 
-    .site {
-        float: right;
-        display: block;
-        padding: 5px;
-        width: 15%;
-    }
+  .site {
+    float: right;
+    display: block;
+    padding: 5px;
+    width: 15%;
+  }
 }
 
 .earnings,
 .deductions {
-    width: 50%;
-    padding: 5px;
-    margin-bottom: 60px;
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 60px;
 
-    p {
-        display: inline;
-    }
+  p {
+    display: inline;
+  }
 }
 
 .payout {
-    width: 50%;
-    padding: 5px;
-    margin-top: 60px;
+  width: 50%;
+  padding: 5px;
+  margin-top: 60px;
 
-    p {
-        display: inline;
-    }
+  p {
+    display: inline;
+  }
 }

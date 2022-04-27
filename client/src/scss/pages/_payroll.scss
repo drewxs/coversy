@@ -1,29 +1,29 @@
 @use '../abstract' as *;
 
 .main-container {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    .payroll {
-        padding-left: 5%;
-        padding-top: 11%;
-        height: 100%;
+  .payroll {
+    padding-left: 5%;
+    padding-top: 11%;
+    height: 100%;
 
-        .payroll-info {
-            width: 25%;
-            height: 100%;
-            padding-left: 3em;
-        }
-
-        .payroll-table {
-            width: 70%;
-            height: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
+    .payroll-info {
+      width: 25%;
+      height: 100%;
+      padding-left: 3em;
     }
+
+    .payroll-table {
+      width: 70%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
 }

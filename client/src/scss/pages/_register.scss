@@ -1,46 +1,46 @@
 @use '../abstract' as *;
 
 .register {
-    min-height: 100vh;
-    padding-top: 17vh;
+  min-height: 100vh;
+  padding-top: 17vh;
 
-    @include bg;
+  @include bg;
 
-    .card {
-        width: 60%;
-        max-width: 720px;
-        padding: 4em 6em;
-        background-color: $white;
+  .card {
+    width: 60%;
+    max-width: 720px;
+    padding: 4em 6em;
+    background-color: $white;
 
-        .h-cont {
-            border-bottom: 4px solid $primary;
-            padding-bottom: 0.5em;
-            margin-bottom: 1.5em;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .input {
-                margin-bottom: 1.5em;
-            }
-
-            .submit-btn {
-                min-width: 50%;
-                border-radius: 25px;
-                margin-bottom: 2em;
-            }
-        }
+    .h-cont {
+      border-bottom: 4px solid $primary;
+      padding-bottom: 0.5em;
+      margin-bottom: 1.5em;
     }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .input {
+        margin-bottom: 1.5em;
+      }
+
+      .submit-btn {
+        min-width: 50%;
+        border-radius: 25px;
+        margin-bottom: 2em;
+      }
+    }
+  }
 }
 
 @include respond-to('tablet') {
-    .register {
-        .card {
-            width: 90%;
-            padding: 2em 4em;
-        }
+  .register {
+    .card {
+      width: 90%;
+      padding: 2em 4em;
     }
+  }
 }

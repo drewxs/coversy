@@ -1,19 +1,19 @@
 @use '../abstract' as *;
 
 .dashboard {
-    min-height: 100vh;
-    padding-top: 18vh;
+  min-height: 100vh;
+  padding-top: 18vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+
+  @include bg;
+
+  .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: stretch;
-
-    @include bg;
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        height: 100%;
-    }
+    align-items: flex-start;
+    height: 100%;
+  }
 }

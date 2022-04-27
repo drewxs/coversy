@@ -2,13 +2,13 @@
 @use 'react-big-calendar/lib/sass/styles';
 
 .rbc-toolbar {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 .rbc-event {
-    background-color: $primary;
+  background-color: $primary;
 
-    &.rbc-selected {
-        background-color: rgba($color: $primary, $alpha: 0.8);
-    }
+  &.rbc-selected {
+    background-color: rgba($color: $primary, $alpha: 0.8);
+  }
 }
