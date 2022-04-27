@@ -5,8 +5,8 @@
     "exclude": [
       "./server/node_modules",
       "./client/node_modules",
-      "docs",
-      "coverage"
+      "./client/coverage",
+      "docs"
     ]
   },
   "plugins": ["plugins/markdown"],
