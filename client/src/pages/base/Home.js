@@ -4,17 +4,13 @@ import HeroImg from 'assets/hero.jpg';
 export const Home = () => {
   return (
     <section className='home'>
-      <img src={HeroImg} alt='Floating book.' className='bg-img' />
+      <img src={HeroImg} alt='' className='bg-img' />
       <div className='container'>
-        <Button
-          className='button'
-          variant='contained'
-          color='primary'
-          href='/register/site'
-          size='large'
-        >
-          Site Registration
-        </Button>
+        <h2>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem eos
+          facere, debitis voluptatum illum ipsum enim necessitatibus commodi
+          obcaecati sequi.
+        </h2>
       </div>
     </section>
   );
