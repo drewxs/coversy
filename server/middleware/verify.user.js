@@ -15,18 +15,18 @@ const escape = require('escape-html');
  * @param {function} next - Express next function.
  */
 exports.verifyUser = async (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token)
-        return res.status(401).send('Unauthenticated. Must be logged in.');
+  const token = req.header('auth-token');
+  if (!token)
+    return res.status(401).send('Unauthenticated. Must be logged in.');
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = decoded;
 
-        if (req.user && req.user._id === req.params.userId) next();
-        else if (req.user.type === 1) next();
-        else return res.status(401).send('Access Denied');
-    } catch (err) {
-        return res.status(401).send(err);
-    }
+    if (req.user && req.user._id === req.params.userId) next();
+    else if (req.user.type === 1) next();
+    else return res.status(401).send('Access Denied');
+  } catch (err) {
+    return res.status(401).send(err);
+  }
 };

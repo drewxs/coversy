@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const {
-    registerUser,
-    login,
-    registerSite,
-    confirmUser,
-    forgotPassword,
-    resetPassword,
+  registerUser,
+  login,
+  registerSite,
+  confirmUser,
+  forgotPassword,
+  resetPassword,
 } = require('../controllers/auth.controller');
 
 router.post('/login', login);

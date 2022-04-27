@@ -14,11 +14,11 @@ const api = process.env.REACT_APP_API_URL;
  * @param {string} code - The code sent to the user's email address.
  */
 export const ConfirmUser = async (code) => {
-    store.dispatch(loading());
-    try {
-        await axios.get(`${api}/auth/confirm/${code}`);
-        store.dispatch(success());
-    } catch (err) {
-        store.dispatch(setErrors(err.response.data));
-    }
+  store.dispatch(loading());
+  try {
+    await axios.get(`${api}/auth/confirm/${code}`);
+    store.dispatch(success());
+  } catch (err) {
+    store.dispatch(setErrors(err.response.data));
+  }
 };

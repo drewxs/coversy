@@ -15,23 +15,23 @@ const escape = require('escape-html');
  * @returns {Object} - Created notification
  */
 exports.createNotification = async (sender, receiver, type, shift) => {
-    const query = {
-        sender: sender,
-        receiver: receiver,
-        type: type,
-        shift: shift,
-        read: false,
-    };
+  const query = {
+    sender: sender,
+    receiver: receiver,
+    type: type,
+    shift: shift,
+    read: false,
+  };
 
-    try {
-        const total = await Notification.find({ receiver: receiver._id })
-            .lean()
-            .sort('-date');
-        if (total.length > 10) {
-            await Notification.findByIdAndDelete(total[total.length - 1]._id);
-        }
-        await Notification.create(query);
-    } catch (err) {}
+  try {
+    const total = await Notification.find({ receiver: receiver._id })
+      .lean()
+      .sort('-date');
+    if (total.length > 10) {
+      await Notification.findByIdAndDelete(total[total.length - 1]._id);
+    }
+    await Notification.create(query);
+  } catch (err) {}
 };
 
 /**
@@ -45,18 +45,18 @@ exports.createNotification = async (sender, receiver, type, shift) => {
  * @returns {Object[]} - Notifications for a user
  */
 exports.getNotifications = async (req, res) => {
-    try {
-        const notifications = await Notification.find({
-            receiver: req.user._id,
-        })
-            .populate('sender', 'firstName lastName email')
-            .populate('receiver', 'firstName lastName email')
-            .populate('shift', 'startTime endTime')
-            .lean();
-        return res.status(200).json(notifications);
-    } catch (err) {
-        return res.status(400).json(err.message);
-    }
+  try {
+    const notifications = await Notification.find({
+      receiver: req.user._id,
+    })
+      .populate('sender', 'firstName lastName email')
+      .populate('receiver', 'firstName lastName email')
+      .populate('shift', 'startTime endTime')
+      .lean();
+    return res.status(200).json(notifications);
+  } catch (err) {
+    return res.status(400).json(err.message);
+  }
 };
 
 /**
@@ -70,16 +70,16 @@ exports.getNotifications = async (req, res) => {
  * @returns {Object[]} - Read notifications
  */
 exports.readNotifications = async (req, res) => {
-    try {
-        await Notification.updateMany(
-            { receiver: req.user },
-            { read: true },
-            { new: true }
-        );
-        return res.status(200).json('Sucessfully read notifications.');
-    } catch (err) {
-        return res.status(400).json(err.message);
-    }
+  try {
+    await Notification.updateMany(
+      { receiver: req.user },
+      { read: true },
+      { new: true }
+    );
+    return res.status(200).json('Sucessfully read notifications.');
+  } catch (err) {
+    return res.status(400).json(err.message);
+  }
 };
 
 /**
@@ -91,11 +91,11 @@ exports.readNotifications = async (req, res) => {
  * @param {Object} res - Express response object
  */
 exports.deleteNotification = async (req, res) => {
-    const notifId = escape(req.params.notifId);
-    try {
-        const notifications = await Notification.findByIdAndRemove(notifId);
-        return res.status(200).json(notifications);
-    } catch (err) {
-        return res.status(400).json(err.message);
-    }
+  const notifId = escape(req.params.notifId);
+  try {
+    const notifications = await Notification.findByIdAndRemove(notifId);
+    return res.status(200).json(notifications);
+  } catch (err) {
+    return res.status(400).json(err.message);
+  }
 };

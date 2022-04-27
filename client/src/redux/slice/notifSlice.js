@@ -6,54 +6,54 @@ import { createSlice } from '@reduxjs/toolkit';
  * @global
  */
 export const notificationSlice = createSlice({
-    name: 'notification',
-    initialState: {
-        notifications: [],
+  name: 'notification',
+  initialState: {
+    notifications: [],
+    loading: false,
+  },
+  reducers: {
+    setNotifications: (state, action) => {
+      return {
+        ...state,
+        notifications: [...action.payload],
         loading: false,
+      };
     },
-    reducers: {
-        setNotifications: (state, action) => {
-            return {
-                ...state,
-                notifications: [...action.payload],
-                loading: false,
-            };
-        },
-        readNotifications: (state) => {
-            return {
-                ...state,
-                notifications: state.notifications.map((notification) => ({
-                    ...notification,
-                    read: true,
-                })),
-                loading: false,
-            };
-        },
-        removeNotification: (state, action) => {
-            return {
-                ...state,
-                notifications: [
-                    ...state.notifications.filter(
-                        (notificaion) => notificaion._id !== action.payload._id
-                    ),
-                ],
-                loading: false,
-            };
-        },
-        loadingNotifications: (state) => {
-            return {
-                ...state,
-                loading: true,
-            };
-        },
+    readNotifications: (state) => {
+      return {
+        ...state,
+        notifications: state.notifications.map((notification) => ({
+          ...notification,
+          read: true,
+        })),
+        loading: false,
+      };
     },
+    removeNotification: (state, action) => {
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications.filter(
+            (notificaion) => notificaion._id !== action.payload._id
+          ),
+        ],
+        loading: false,
+      };
+    },
+    loadingNotifications: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+  },
 });
 
 export const {
-    setNotifications,
-    readNotifications,
-    removeNotification,
-    loadingNotifications,
+  setNotifications,
+  readNotifications,
+  removeNotification,
+  loadingNotifications,
 } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

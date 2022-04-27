@@ -26,7 +26,7 @@
     "dev:server": "npm --prefix ./server run dev",
     "dev:client": "npm --prefix ./client start",
     "d-all": "run-p dev:*",
-    "pretty": "prettier --write \"src/**/*.js\"",
+    "pretty": "prettier --write \"**/*.{js,jsx}\"",
     "doc": "jsdoc -c ./jsdoc.json",
     "changelog": "changelog generate -a"
   },

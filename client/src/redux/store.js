@@ -14,16 +14,16 @@ import verificationSlice from './slice/verificationSlice';
  * @global
  */
 const store = configureStore({
-    reducer: {
-        admin: adminSlice,
-        password: passwordSlice,
-        payroll: payrollSlice,
-        shift: shiftSlice,
-        ticket: ticketSlice,
-        notification: notifSlice,
-        user: userSlice,
-        verification: verificationSlice,
-    },
+  reducer: {
+    admin: adminSlice,
+    password: passwordSlice,
+    payroll: payrollSlice,
+    shift: shiftSlice,
+    ticket: ticketSlice,
+    notification: notifSlice,
+    user: userSlice,
+    verification: verificationSlice,
+  },
 });
 
 export default store;

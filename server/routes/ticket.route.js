@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const {
-    createTicket,
-    getUnresolvedTickets,
-    getResolvedTickets,
-    resolveTicket,
-    unresolveTicket,
+  createTicket,
+  getUnresolvedTickets,
+  getResolvedTickets,
+  resolveTicket,
+  unresolveTicket,
 } = require('../controllers/ticket.controller');
 const { verifyToken, verifyAdmin } = require('../middleware/verify');
 

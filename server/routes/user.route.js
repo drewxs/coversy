@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const {
-    getUserById,
-    getUsersBySite,
-    findUserByPasswordResetCode,
-    updateUserById,
-    updateUserAsAdmin,
-    toggleUserActivatedById,
-    getProfilePicture,
-    updateProfilePicture,
+  getUserById,
+  getUsersBySite,
+  findUserByPasswordResetCode,
+  updateUserById,
+  updateUserAsAdmin,
+  toggleUserActivatedById,
+  getProfilePicture,
+  updateProfilePicture,
 } = require('../controllers/user.controller');
 const { uploadProfile } = require('../middleware/s3.uploader');
 const { verifyAdmin } = require('../middleware/verify');
@@ -22,9 +22,9 @@ router.put('/:userId', verifyUser, updateUserById);
 router.put('/:userId/admin', verifyAdmin, updateUserAsAdmin);
 router.put('/:userId/activate', verifyAdmin, toggleUserActivatedById);
 router.put(
-    '/:userId/updatepicture',
-    uploadProfile.single('avatar'),
-    updateProfilePicture
+  '/:userId/updatepicture',
+  uploadProfile.single('avatar'),
+  updateProfilePicture
 );
 
 module.exports = router;

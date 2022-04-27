@@ -9,10 +9,10 @@
  * @returns True if the given dates are in the same period.
  */
 exports.checkSamePeriod = (date1, date2) => {
-    return (
-        new Date(date1).getMonth() >= new Date(date2).getMonth() &&
-        new Date(date1).getFullYear() >= new Date(date2).getFullYear()
-    );
+  return (
+    new Date(date1).getMonth() >= new Date(date2).getMonth() &&
+    new Date(date1).getFullYear() >= new Date(date2).getFullYear()
+  );
 };
 
 /**
@@ -24,5 +24,5 @@ exports.checkSamePeriod = (date1, date2) => {
  * @returns True if the given ratelog contains the given date period.
  */
 exports.checkRatelogHasPeriod = (ratelog, date) => {
-    return ratelog.some((log) => this.checkSamePeriod(log.date, date));
+  return ratelog.some((log) => this.checkSamePeriod(log.date, date));
 };

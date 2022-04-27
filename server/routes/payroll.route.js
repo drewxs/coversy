@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const {
-    getSitePayrolls,
-    getUserPayrolls,
-    getSitePayroll,
-    getUserPayroll,
+  getSitePayrolls,
+  getUserPayrolls,
+  getSitePayroll,
+  getUserPayroll,
 } = require('../controllers/payroll.controller');
 const { verifyToken, verifyAdmin } = require('../middleware/verify');
 

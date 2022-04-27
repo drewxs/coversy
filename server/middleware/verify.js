@@ -13,22 +13,20 @@ const User = require('../models/user.model');
  * @param {function} next - Express next function.
  */
 exports.verifyToken = async (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token)
-        return res.status(401).send('Unauthenticated. Must be logged in.');
+  const token = req.header('auth-token');
+  if (!token)
+    return res.status(401).send('Unauthenticated. Must be logged in.');
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = decoded;
 
-        if (req.user) next();
-        else
-            return res
-                .status(401)
-                .send('Access Denied: User is not authenticated.');
-    } catch (err) {
-        return res.status(400).send(err);
-    }
+    if (req.user) next();
+    else
+      return res.status(401).send('Access Denied: User is not authenticated.');
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };
 
 /**
@@ -41,20 +39,19 @@ exports.verifyToken = async (req, res, next) => {
  * @param {function} next - Express next function.
  */
 exports.verifyAdmin = async (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token)
-        return res.status(401).send('Unauthenticated. Must be logged in.');
+  const token = req.header('auth-token');
+  if (!token)
+    return res.status(401).send('Unauthenticated. Must be logged in.');
 
-    try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = decoded;
 
-        if (req.user && req.user.type === 1) next();
-        else
-            return res.status(401).send('Access Denied: User is not an admin.');
-    } catch (err) {
-        return res.status(400).send(err);
-    }
+    if (req.user && req.user.type === 1) next();
+    else return res.status(401).send('Access Denied: User is not an admin.');
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };
 
 /**
@@ -67,15 +64,12 @@ exports.verifyAdmin = async (req, res, next) => {
  * @param {function} next - Express next function.
  */
 exports.verifyActivated = async (req, res, next) => {
-    try {
-        const user = await User.findById(req.user._id).lean();
+  try {
+    const user = await User.findById(req.user._id).lean();
 
-        if (user.activated) next();
-        else
-            return res
-                .status(403)
-                .send('Access Denied: User is not activated.');
-    } catch (err) {
-        return res.status(400).send(err);
-    }
+    if (user.activated) next();
+    else return res.status(403).send('Access Denied: User is not activated.');
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };

@@ -6,154 +6,154 @@ import { createSlice } from '@reduxjs/toolkit';
  * @global
  */
 export const userSlice = createSlice({
-    name: 'user',
-    initialState: {
-        user: {},
-        sites: [],
-        token: localStorage.getItem('auth-token'),
-        authenticated: localStorage.getItem('auth-token') ? true : false,
-        loading: true,
-        success: false,
+  name: 'user',
+  initialState: {
+    user: {},
+    sites: [],
+    token: localStorage.getItem('auth-token'),
+    authenticated: localStorage.getItem('auth-token') ? true : false,
+    loading: true,
+    success: false,
+    errors: null,
+    updateErrors: null,
+    editOpen: false,
+    editErrors: null,
+    unactivatedOpen: false,
+  },
+  reducers: {
+    loginUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.token,
         errors: null,
-        updateErrors: null,
-        editOpen: false,
+        authenticated: true,
+      };
+    },
+    registerUser: (state) => {
+      return {
+        ...state,
+        errors: null,
+      };
+    },
+    registerSite: (state) => {
+      return {
+        ...state,
+        errors: null,
+      };
+    },
+    setUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+      };
+    },
+    editUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    },
+    loadingUser: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    logoutUser: (state) => {
+      return {
+        ...state,
+        user: {},
+        token: '',
+        authenticated: false,
+        success: false,
+      };
+    },
+    setErrors: (state, action) => {
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    },
+    clearErrors: (state) => {
+      return {
+        ...state,
+        errors: null,
+      };
+    },
+    success: (state) => {
+      return {
+        ...state,
+        success: true,
+      };
+    },
+    clearSuccess: (state) => {
+      return {
+        ...state,
+        success: false,
+      };
+    },
+    setEditOpen: (state, action) => {
+      return {
+        ...state,
+        editOpen: action.payload,
+      };
+    },
+    setUnactivatedOpen: (state, action) => {
+      return {
+        ...state,
+        unactivatedOpen: action.payload,
+      };
+    },
+    setEditErrors: (state, action) => {
+      return {
+        ...state,
+        editErrors: action.payload,
+      };
+    },
+    clearEditErrors: (state) => {
+      return {
+        ...state,
         editErrors: null,
-        unactivatedOpen: false,
+      };
     },
-    reducers: {
-        loginUser: (state, action) => {
-            return {
-                ...state,
-                user: action.payload.user,
-                token: action.payload.token,
-                errors: null,
-                authenticated: true,
-            };
-        },
-        registerUser: (state) => {
-            return {
-                ...state,
-                errors: null,
-            };
-        },
-        registerSite: (state) => {
-            return {
-                ...state,
-                errors: null,
-            };
-        },
-        setUser: (state, action) => {
-            return {
-                ...state,
-                user: action.payload,
-                loading: false,
-            };
-        },
-        editUser: (state, action) => {
-            return {
-                ...state,
-                user: action.payload,
-            };
-        },
-        loadingUser: (state) => {
-            return {
-                ...state,
-                loading: true,
-            };
-        },
-        logoutUser: (state) => {
-            return {
-                ...state,
-                user: {},
-                token: '',
-                authenticated: false,
-                success: false,
-            };
-        },
-        setErrors: (state, action) => {
-            return {
-                ...state,
-                errors: action.payload,
-            };
-        },
-        clearErrors: (state) => {
-            return {
-                ...state,
-                errors: null,
-            };
-        },
-        success: (state) => {
-            return {
-                ...state,
-                success: true,
-            };
-        },
-        clearSuccess: (state) => {
-            return {
-                ...state,
-                success: false,
-            };
-        },
-        setEditOpen: (state, action) => {
-            return {
-                ...state,
-                editOpen: action.payload,
-            };
-        },
-        setUnactivatedOpen: (state, action) => {
-            return {
-                ...state,
-                unactivatedOpen: action.payload,
-            };
-        },
-        setEditErrors: (state, action) => {
-            return {
-                ...state,
-                editErrors: action.payload,
-            };
-        },
-        clearEditErrors: (state) => {
-            return {
-                ...state,
-                editErrors: null,
-            };
-        },
-        setSites: (state, action) => {
-            return {
-                ...state,
-                sites: action.payload,
-            };
-        },
-        editSite: (state, action) => {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    site: action.payload,
-                },
-            };
-        },
+    setSites: (state, action) => {
+      return {
+        ...state,
+        sites: action.payload,
+      };
     },
+    editSite: (state, action) => {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          site: action.payload,
+        },
+      };
+    },
+  },
 });
 
 export const {
-    loginUser,
-    registerUser,
-    registerSite,
-    setUser,
-    editUser,
-    loadingUser,
-    logoutUser,
-    setErrors,
-    clearErrors,
-    success,
-    clearSuccess,
-    setEditOpen,
-    setUnactivatedOpen,
-    setEditErrors,
-    clearEditErrors,
-    setSites,
-    editSite,
+  loginUser,
+  registerUser,
+  registerSite,
+  setUser,
+  editUser,
+  loadingUser,
+  logoutUser,
+  setErrors,
+  clearErrors,
+  success,
+  clearSuccess,
+  setEditOpen,
+  setUnactivatedOpen,
+  setEditErrors,
+  clearEditErrors,
+  setSites,
+  editSite,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -6,32 +6,32 @@ import { Errors } from 'components';
 import { ConfirmUser } from 'redux/data/verification';
 
 export const Welcome = () => {
-    const success = useSelector((state) => state.verification.success);
-    const errors = useSelector((state) => state.verification.errors);
+  const success = useSelector((state) => state.verification.success);
+  const errors = useSelector((state) => state.verification.errors);
 
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-    useEffect(() => {
-        ConfirmUser(searchParams.get('code'));
-    }, [searchParams]);
+  useEffect(() => {
+    ConfirmUser(searchParams.get('code'));
+  }, [searchParams]);
 
-    return (
-        <section className='dashboard'>
-            <div className='container'>
-                {success ? (
-                    <>
-                        <h1>Account Verified!</h1>
-                        <Link to={'/login'}>Please Login</Link>
-                    </>
-                ) : (
-                    <>
-                        <h1>Error</h1>
-                        <Errors errors={errors} />
-                        <br />
-                        <Link to={'/login'}>Please Login</Link>
-                    </>
-                )}
-            </div>
-        </section>
-    );
+  return (
+    <section className='dashboard'>
+      <div className='container'>
+        {success ? (
+          <>
+            <h1>Account Verified!</h1>
+            <Link to={'/login'}>Please Login</Link>
+          </>
+        ) : (
+          <>
+            <h1>Error</h1>
+            <Errors errors={errors} />
+            <br />
+            <Link to={'/login'}>Please Login</Link>
+          </>
+        )}
+      </div>
+    </section>
+  );
 };

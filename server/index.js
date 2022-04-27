@@ -7,16 +7,16 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CONNECTION_URL =
-    process.env.NODE_ENV === 'production'
-        ? process.env.CONNECTION_URL
-        : process.env.TEST_CONNECTION_URL;
+  process.env.NODE_ENV === 'production'
+    ? process.env.CONNECTION_URL
+    : process.env.TEST_CONNECTION_URL;
 
 mongoose
-    .connect(CONNECTION_URL, { useNewUrlParser: true })
-    .then(() =>
-        app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
-    )
-    .catch((err) => console.log(err.message));
+  .connect(CONNECTION_URL, { useNewUrlParser: true })
+  .then(() =>
+    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+  )
+  .catch((err) => console.log(err.message));
 
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, optionsSuccessStatus: 200 }));

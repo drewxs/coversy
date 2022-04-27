@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const {
-    getNotifications,
-    readNotifications,
-    deleteNotification,
+  getNotifications,
+  readNotifications,
+  deleteNotification,
 } = require('../controllers/notification.controller');
 const { verifyToken } = require('../middleware/verify');
 

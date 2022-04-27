@@ -14,15 +14,15 @@ const Shift = require('../models/shift.model');
  * @param {function} next - Express next function.
  */
 exports.verifyShift = async (req, res, next) => {
-    try {
-        const shift = await Shift.findById(req.params.shiftId).lean();
+  try {
+    const shift = await Shift.findById(req.params.shiftId).lean();
 
-        if (req.user && req.user._id == shift.teacher) next();
-        else if (req.user.type === 1 && req.user.site == shift.site) next();
-        else return res.status(401).send('Access Denied');
-    } catch (err) {
-        return res.status(401).send(err);
-    }
+    if (req.user && req.user._id == shift.teacher) next();
+    else if (req.user.type === 1 && req.user.site == shift.site) next();
+    else return res.status(401).send('Access Denied');
+  } catch (err) {
+    return res.status(401).send(err);
+  }
 };
 
 /**
@@ -36,13 +36,13 @@ exports.verifyShift = async (req, res, next) => {
  * @param {function} next - Express next function.
  */
 exports.verifyShiftSub = async (req, res, next) => {
-    try {
-        const shift = await Shift.findById(req.params.shiftId).lean();
+  try {
+    const shift = await Shift.findById(req.params.shiftId).lean();
 
-        if (req.user && req.user._id == shift.sub) next();
-        else if (req.user.type === 1 && req.user.site == shift.site) next();
-        else return res.status(401).send('Access Denied');
-    } catch (err) {
-        return res.status(401).send(err);
-    }
+    if (req.user && req.user._id == shift.sub) next();
+    else if (req.user.type === 1 && req.user.site == shift.site) next();
+    else return res.status(401).send('Access Denied');
+  } catch (err) {
+    return res.status(401).send(err);
+  }
 };

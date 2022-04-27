@@ -1,26 +1,26 @@
 const router = require('express').Router();
 const {
-    createShift,
-    getShiftById,
-    getShiftsBySite,
-    getShiftsByUser,
-    getPostedShiftsBySite,
-    getShiftMaterials,
-    updateShiftById,
-    postShift,
-    unpostShift,
-    takeShift,
-    returnShift,
-    updateShiftMaterials,
-    deleteShiftsBySite,
-    deleteShiftMaterial,
+  createShift,
+  getShiftById,
+  getShiftsBySite,
+  getShiftsByUser,
+  getPostedShiftsBySite,
+  getShiftMaterials,
+  updateShiftById,
+  postShift,
+  unpostShift,
+  takeShift,
+  returnShift,
+  updateShiftMaterials,
+  deleteShiftsBySite,
+  deleteShiftMaterial,
 } = require('../controllers/shift.controller');
 const { verifyShift, verifyShiftSub } = require('../middleware/verify.shift');
 const { uploadMaterials } = require('../middleware/s3.uploader');
 const {
-    verifyToken,
-    verifyAdmin,
-    verifyActivated,
+  verifyToken,
+  verifyAdmin,
+  verifyActivated,
 } = require('../middleware/verify');
 
 // CREATE
@@ -32,50 +32,50 @@ router.get('/', verifyToken, getShiftsBySite);
 router.get('/user', verifyToken, getShiftsByUser);
 router.get('/posted', verifyToken, getPostedShiftsBySite);
 router.get(
-    '/:shiftId/files/:fileKey',
-    verifyToken,
-    verifyShift,
-    getShiftMaterials
+  '/:shiftId/files/:fileKey',
+  verifyToken,
+  verifyShift,
+  getShiftMaterials
 );
 
 // UPDATE
 router.put('/:shiftId', verifyToken, verifyShift, updateShiftById);
 router.put(
-    '/:shiftId/post',
-    verifyToken,
-    verifyActivated,
-    verifyShift,
-    postShift
+  '/:shiftId/post',
+  verifyToken,
+  verifyActivated,
+  verifyShift,
+  postShift
 );
 router.put(
-    '/:shiftId/unpost',
-    verifyToken,
-    verifyActivated,
-    verifyShift,
-    unpostShift
+  '/:shiftId/unpost',
+  verifyToken,
+  verifyActivated,
+  verifyShift,
+  unpostShift
 );
 router.put('/:shiftId/take', verifyToken, verifyActivated, takeShift);
 router.put(
-    '/:shiftId/return',
-    verifyToken,
-    verifyActivated,
-    verifyShiftSub,
-    returnShift
+  '/:shiftId/return',
+  verifyToken,
+  verifyActivated,
+  verifyShiftSub,
+  returnShift
 );
 router.put(
-    '/:shiftId/files/upload',
-    verifyToken,
-    uploadMaterials.array('materials', 10),
-    updateShiftMaterials
+  '/:shiftId/files/upload',
+  verifyToken,
+  uploadMaterials.array('materials', 10),
+  updateShiftMaterials
 );
 
 // DELETE
 router.delete('/', verifyAdmin, deleteShiftsBySite);
 router.delete(
-    '/:shiftId/files/:fileKey',
-    verifyToken,
-    verifyShift,
-    deleteShiftMaterial
+  '/:shiftId/files/:fileKey',
+  verifyToken,
+  verifyShift,
+  deleteShiftMaterial
 );
 
 module.exports = router;

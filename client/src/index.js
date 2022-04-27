@@ -9,10 +9,10 @@ import { theme } from 'config/theme';
 import store from 'redux/store';
 
 ReactDOM.render(
-	<Provider store={store}>
-		<ThemeProvider theme={theme}>
-			<App />
-		</ThemeProvider>
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </Provider>,
+  document.getElementById('root')
 );

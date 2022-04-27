@@ -1,14 +1,14 @@
 import {
-    setShifts,
-    setMyShifts,
-    setMyPostedShifts,
-    editMyShift,
-    editMyPostedShift,
-    loadingShifts,
-    postShift,
-    unpostShift,
-    takeShift,
-    returnShift,
+  setShifts,
+  setMyShifts,
+  setMyPostedShifts,
+  editMyShift,
+  editMyPostedShift,
+  loadingShifts,
+  postShift,
+  unpostShift,
+  takeShift,
+  returnShift,
 } from 'redux/slice/shiftSlice';
 import { setUnactivatedOpen } from 'redux/slice/userSlice';
 import axios from 'axios';
@@ -24,13 +24,13 @@ const api = process.env.REACT_APP_API_URL;
  * @function
  */
 export const GetShifts = () => {
-    store.dispatch(loadingShifts());
-    axios
-        .get(`${api}/shift`, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => store.dispatch(setShifts(res.data)))
-        .catch((err) => console.error(err));
+  store.dispatch(loadingShifts());
+  axios
+    .get(`${api}/shift`, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    })
+    .then((res) => store.dispatch(setShifts(res.data)))
+    .catch((err) => console.error(err));
 };
 
 /**
@@ -39,13 +39,13 @@ export const GetShifts = () => {
  * @function
  */
 export const GetPostedShifts = () => {
-    store.dispatch(loadingShifts());
-    axios
-        .get(`${api}/shift/posted`, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => store.dispatch(setShifts(res.data)))
-        .catch((err) => console.error(err));
+  store.dispatch(loadingShifts());
+  axios
+    .get(`${api}/shift/posted`, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    })
+    .then((res) => store.dispatch(setShifts(res.data)))
+    .catch((err) => console.error(err));
 };
 
 /**
@@ -54,20 +54,18 @@ export const GetPostedShifts = () => {
  * @function
  */
 export const GetMyShifts = () => {
-    store.dispatch(loadingShifts());
-    axios
-        .get(`${api}/shift/user`, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => {
-            store.dispatch(
-                setMyShifts(res.data.filter((shift) => !shift.posted))
-            );
-            store.dispatch(
-                setMyPostedShifts(res.data.filter((shift) => shift.posted))
-            );
-        })
-        .catch((err) => console.error(err));
+  store.dispatch(loadingShifts());
+  axios
+    .get(`${api}/shift/user`, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    })
+    .then((res) => {
+      store.dispatch(setMyShifts(res.data.filter((shift) => !shift.posted)));
+      store.dispatch(
+        setMyPostedShifts(res.data.filter((shift) => shift.posted))
+      );
+    })
+    .catch((err) => console.error(err));
 };
 
 /**
@@ -78,22 +76,22 @@ export const GetMyShifts = () => {
  * @param {string} file - The file to be uploaded.
  */
 export const UploadShiftMaterials = (shiftId, file) => {
-    const formData = new FormData();
-    formData.append('materials', file);
+  const formData = new FormData();
+  formData.append('materials', file);
 
-    axios
-        .put(`${api}/shift/${shiftId}/files/upload`, formData, {
-            headers: {
-                'content-type': 'multipart/form-data',
-                'auth-token': localStorage.getItem('auth-token'),
-            },
-        })
-        .then((res) => {
-            res.data.posted
-                ? store.dispatch(editMyPostedShift(res.data))
-                : store.dispatch(editMyShift(res.data));
-        })
-        .catch((err) => console.error(err));
+  axios
+    .put(`${api}/shift/${shiftId}/files/upload`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        'auth-token': localStorage.getItem('auth-token'),
+      },
+    })
+    .then((res) => {
+      res.data.posted
+        ? store.dispatch(editMyPostedShift(res.data))
+        : store.dispatch(editMyShift(res.data));
+    })
+    .catch((err) => console.error(err));
 };
 
 /**
@@ -104,16 +102,16 @@ export const UploadShiftMaterials = (shiftId, file) => {
  * @param {string} fileKey - The key of the file to be deleted.
  */
 export const DeleteShiftMaterials = (shiftId, fileKey) => {
-    axios
-        .delete(`${api}/shift/${shiftId}/files/${fileKey}`, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        })
-        .then((res) => {
-            res.data.posted
-                ? store.dispatch(editMyPostedShift(res.data))
-                : store.dispatch(editMyShift(res.data));
-        })
-        .catch((err) => console.error(err));
+  axios
+    .delete(`${api}/shift/${shiftId}/files/${fileKey}`, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    })
+    .then((res) => {
+      res.data.posted
+        ? store.dispatch(editMyPostedShift(res.data))
+        : store.dispatch(editMyShift(res.data));
+    })
+    .catch((err) => console.error(err));
 };
 
 /**
@@ -123,15 +121,14 @@ export const DeleteShiftMaterials = (shiftId, fileKey) => {
  * @param {string} shiftId - The object id of the shift.
  */
 export const PostShift = async (shiftId) => {
-    try {
-        const shift = await axios.put(`${api}/shift/${shiftId}/post`, null, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        });
-        store.dispatch(postShift(shift.data));
-    } catch (err) {
-        if (err.response.status === 403)
-            store.dispatch(setUnactivatedOpen(true));
-    }
+  try {
+    const shift = await axios.put(`${api}/shift/${shiftId}/post`, null, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    });
+    store.dispatch(postShift(shift.data));
+  } catch (err) {
+    if (err.response.status === 403) store.dispatch(setUnactivatedOpen(true));
+  }
 };
 
 /**
@@ -142,15 +139,14 @@ export const PostShift = async (shiftId) => {
  * @param {string} shiftId - The object id of the shift.
  */
 export const UnpostShift = async (shiftId) => {
-    try {
-        const shift = await axios.put(`${api}/shift/${shiftId}/unpost`, null, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        });
-        store.dispatch(unpostShift(shift.data));
-    } catch (err) {
-        if (err.response.status === 403)
-            store.dispatch(setUnactivatedOpen(true));
-    }
+  try {
+    const shift = await axios.put(`${api}/shift/${shiftId}/unpost`, null, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    });
+    store.dispatch(unpostShift(shift.data));
+  } catch (err) {
+    if (err.response.status === 403) store.dispatch(setUnactivatedOpen(true));
+  }
 };
 
 /**
@@ -161,15 +157,14 @@ export const UnpostShift = async (shiftId) => {
  * @param {string} shiftId - The object id of the shift.
  */
 export const TakeShift = async (shiftId) => {
-    try {
-        const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        });
-        store.dispatch(takeShift(shift.data));
-    } catch (err) {
-        if (err.response.status === 403)
-            store.dispatch(setUnactivatedOpen(true));
-    }
+  try {
+    const shift = await axios.put(`${api}/shift/${shiftId}/take`, null, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    });
+    store.dispatch(takeShift(shift.data));
+  } catch (err) {
+    if (err.response.status === 403) store.dispatch(setUnactivatedOpen(true));
+  }
 };
 
 /**
@@ -180,13 +175,12 @@ export const TakeShift = async (shiftId) => {
  * @param {string} shiftId - The object id of the shift.
  */
 export const ReturnShift = async (shiftId) => {
-    try {
-        const shift = await axios.put(`${api}/shift/${shiftId}/return`, null, {
-            headers: { 'auth-token': localStorage.getItem('auth-token') },
-        });
-        store.dispatch(returnShift(shift.data));
-    } catch (err) {
-        if (err.response.status === 403)
-            store.dispatch(setUnactivatedOpen(true));
-    }
+  try {
+    const shift = await axios.put(`${api}/shift/${shiftId}/return`, null, {
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
+    });
+    store.dispatch(returnShift(shift.data));
+  } catch (err) {
+    if (err.response.status === 403) store.dispatch(setUnactivatedOpen(true));
+  }
 };
