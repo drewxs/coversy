@@ -21,47 +21,23 @@ $ npm -v && node -v
 
 ## Installation
 
-Install CLI dependencies:
+Install dependencies:
 
 ```sh
-$ npm run i-cli
-```
-
-Install Base/Server/Client dependencies:
-
-```sh
-$  npm run i-all
+$ npm install
 ```
 
 ## Configuration
 
-Include the server .env file in /server. <br>
-Include the client .env file in /client.
+Create copies of the .env.example files (/server, /client) and rename them to '.env'.<br>
+Update the copies with your database credentials and other configuration options.
 
 ## Development
 
-To run the server and client in parallel:
+Run development client & server:
 
 ```sh
-$ npm run s-all
-```
-
-Alternate run script utilizing nodemon for server:
-
-```sh
-$ npm run d-all
-```
-
-To start the server:
-
-```sh
-$ npm run dev --prefix ./server
-```
-
-To start the client:
-
-```sh
-$ npm start --prefix ./client
+$ npm run dev
 ```
 
 ## Documentation
