@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import HeroImg from 'assets/hero.jpg';
 
 export const Home = () => {
