@@ -212,14 +212,19 @@ exports.getShiftMaterials = async (req, res) => {
 
   try {
     const shift = await Shift.findById(shiftId).lean();
-    shift.materials.forEach((material) => {
+    shift.materials.forEach(async (material) => {
       if (material.fileKey === fileKey) {
         const downloadParams = {
           Key: material.fileKey,
           Bucket: process.env.S3_SHIFT_BUCKET,
         };
-        const readStream = s3.getObject(downloadParams).createReadStream();
-        readStream.pipe(res.attachment(material.fileName));
+        const readStream = await s3.getObject(downloadParams);
+        readStream
+          .createReadStream()
+          .on('error', (err) => {
+            return res.status(err.statusCode).json(err.message);
+          })
+          .pipe(res.attachment(material.fileName));
       }
     });
   } catch (err) {
