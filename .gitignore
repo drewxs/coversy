@@ -9,6 +9,7 @@ coverage
 # production
 build
 .config
+.aws
 
 # misc
 .DS_Store
